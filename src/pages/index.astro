@@ -1,0 +1,105 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ModuleHeader from '../components/base/ModuleHeader.astro';
+import ScrollRow from '../components/base/ScrollRow.astro';
+import ThemeCard from '../components/base/ThemeCard.astro';
+
+const allModules = await getCollection('modules');
+const allThemes = await getCollection('themes');
+
+const modules = allModules.sort(
+  (a: CollectionEntry<'modules'>, b: CollectionEntry<'modules'>) =>
+    a.data.order - b.data.order
+);
+
+type ModuleItem = { module: CollectionEntry<'modules'>; themes: CollectionEntry<'themes'>[] };
+
+const moduleData: ModuleItem[] = modules.map((module: CollectionEntry<'modules'>) => ({
+  module,
+  themes: allThemes
+    .filter((t: CollectionEntry<'themes'>) => t.data.module === module.id)
+    .sort(
+      (a: CollectionEntry<'themes'>, b: CollectionEntry<'themes'>) =>
+        a.data.order - b.data.order
+    ),
+}));
+---
+
+<BaseLayout>
+  <section class="hero">
+    <p class="hero__label">— veertien manieren van kijken</p>
+    <h1 class="hero__title">
+      Wat maakt iets <em>mooi</em>, vreemd, of waard om naar te kijken?
+    </h1>
+    <p class="hero__lead">
+      Een cursus esthetica die niet in chronologische volgorde werkt, maar in
+      dwarsdoorsneden. Vier modules, veertien hoofdstukken.
+    </p>
+  </section>
+
+  {moduleData.map(({ module, themes }) => (
+    <section class="module-section">
+      <ModuleHeader module={module} themeCount={themes.length} />
+      <ScrollRow>
+        {themes.map((theme: CollectionEntry<'themes'>) => (
+          <ThemeCard theme={theme} />
+        ))}
+      </ScrollRow>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-xl) var(--space-2xl);
+    max-width: 720px;
+  }
+
+  .hero__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__title {
+    font-family: var(--font-serif);
+    font-size: var(--step-3);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__title em {
+    color: var(--color-accent);
+    font-style: italic;
+  }
+
+  .hero__lead {
+    font-family: var(--font-sans);
+    font-size: var(--step-1);
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    max-width: 55ch;
+  }
+
+  .module-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  @media (min-width: 640px) {
+    .hero__title {
+      font-size: var(--step-4);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero__title {
+      font-size: var(--step-5);
+    }
+  }
+</style>

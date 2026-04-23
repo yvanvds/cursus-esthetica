@@ -1,0 +1,46 @@
+:root {
+  /* Achtergrond */
+  --color-bg:            #1a1a1a;
+  --color-bg-elevated:   #232323;
+  --color-surface:       #2a2a2a;
+  --color-border:        #444444;
+  --color-border-subtle: #333333;
+
+  /* Tekst */
+  --color-text:          #f5f3ee;
+  --color-text-muted:    #c8c5bc;
+  --color-text-dim:      #a8a59c;
+  --color-text-quiet:    #888888;
+  --color-text-whisper:  #666666;
+
+  /* Accent */
+  --color-accent:        #ED4B9E;
+  --color-accent-soft:   rgba(237, 75, 158, 0.08);
+
+  /* Typografie */
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-sans:  'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:  'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* Type-schaal */
+  --step--1: 0.833rem;
+  --step-0:  1rem;
+  --step-1:  1.2rem;
+  --step-2:  1.44rem;
+  --step-3:  1.728rem;
+  --step-4:  2.488rem;
+  --step-5:  3.583rem;
+
+  /* Ruimte-schaal */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  /* Overig */
+  --radius:         4px;
+  --transition-color:   150ms ease;
+  --transition-opacity: 300ms ease;
+}

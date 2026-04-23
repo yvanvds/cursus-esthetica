@@ -1,0 +1,167 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  theme: CollectionEntry<'themes'>;
+}
+
+const { theme } = Astro.props;
+const id = theme.id;
+const { title, figure, shortDescription, image } = theme.data;
+---
+
+<article class="theme-card">
+  <a href={`/${id}`} class="theme-card__link" tabindex="-1" aria-hidden="true">
+    <div class="theme-card__image">
+      {image
+        ? <img src={image} alt={title} loading="lazy" />
+        : <div class="theme-card__placeholder" aria-hidden="true" />
+      }
+    </div>
+  </a>
+  <div class="theme-card__body">
+    <p class="theme-card__label">
+      <span class="theme-card__figure">{figure}</span>
+      <span>—</span>
+      <span>{title.split(' ')[0].toLowerCase()}</span>
+    </p>
+    <h3 class="theme-card__title">
+      <a href={`/${id}`}>{title}</a>
+    </h3>
+    <p class="theme-card__description">{shortDescription}</p>
+    <div class="theme-card__actions">
+      <a href={`/${id}`} class="theme-card__btn theme-card__btn--primary">cursus →</a>
+      <a href={`/slides/${id}/`} class="theme-card__btn theme-card__btn--secondary">slides →</a>
+    </div>
+  </div>
+</article>
+
+<style>
+  .theme-card {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .theme-card__image {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .theme-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .theme-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--color-surface);
+  }
+
+  .theme-card__body {
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  .theme-card__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+    display: flex;
+    gap: 0.4em;
+  }
+
+  .theme-card__figure {
+    color: var(--color-accent);
+  }
+
+  .theme-card__title {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .theme-card__title a {
+    color: var(--color-text);
+    transition: color var(--transition-color);
+  }
+
+  .theme-card__title a:hover {
+    color: var(--color-accent);
+  }
+
+  .theme-card__description {
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .theme-card__actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .theme-card__btn {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35em 0.75em;
+    border-radius: var(--radius);
+    transition: color var(--transition-color), border-color var(--transition-color);
+  }
+
+  .theme-card__btn--primary {
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .theme-card__btn--primary:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+
+  .theme-card__btn--secondary {
+    border: 1px solid var(--color-border);
+    color: var(--color-text-quiet);
+  }
+
+  .theme-card__btn--secondary:hover {
+    color: var(--color-text-muted);
+    border-color: var(--color-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .theme-card {
+      flex: 0 0 75%;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .theme-card {
+      flex: 0 0 280px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .theme-card {
+      flex: 0 0 240px;
+    }
+  }
+</style>

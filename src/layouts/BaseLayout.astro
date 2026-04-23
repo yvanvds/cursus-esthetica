@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/base/SiteHeader.astro';
+import SiteFooter from '../components/base/SiteFooter.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Cursus Esthetica',
+  description = 'Veertien manieren van kijken.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="preload"
+      href="/fonts/fraunces-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="page-content">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style>
+  .page-content {
+    padding: var(--space-sm);
+    max-width: 1080px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 640px) {
+    .page-content {
+      padding: var(--space-md);
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-content {
+      padding-inline: var(--space-lg);
+      max-width: 1080px;
+    }
+  }
+</style>
