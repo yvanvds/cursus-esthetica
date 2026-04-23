@@ -12,6 +12,8 @@ const {
   title = 'Cursus Esthetica',
   description = 'Veertien manieren van kijken.',
 } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -20,23 +22,53 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="icon" href={`${base}favicon.ico`} />
     <link
       rel="preload"
-      href="/fonts/fraunces-latin-wght-normal.woff2"
+      href={`${base}fonts/fraunces-latin-wght-normal.woff2`}
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/inter-latin-wght-normal.woff2"
+      href={`${base}fonts/inter-latin-wght-normal.woff2`}
       as="font"
       type="font/woff2"
       crossorigin
     />
     <title>{title}</title>
+    <style set:html={`
+      @font-face {
+        font-family: 'Fraunces';
+        src: url('${base}fonts/fraunces-latin-wght-normal.woff2') format('woff2-variations');
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Fraunces';
+        src: url('${base}fonts/fraunces-latin-wght-italic.woff2') format('woff2-variations');
+        font-weight: 100 900;
+        font-style: italic;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Inter';
+        src: url('${base}fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('${base}fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations');
+        font-weight: 100 800;
+        font-style: normal;
+        font-display: swap;
+      }
+    `} />
   </head>
   <body>
     <SiteHeader />
