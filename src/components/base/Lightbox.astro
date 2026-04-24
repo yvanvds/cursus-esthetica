@@ -20,6 +20,8 @@ import 'photoswipe/style.css';
     }
   }
 
+  const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
   let PhotoSwipeModule: typeof import('photoswipe').default | null = null;
 
   async function loadPhotoSwipe() {
@@ -53,7 +55,7 @@ import 'photoswipe/style.css';
             const el = new Image();
             const done = () =>
               resolve({
-                src: img.src,
+                src: img.src.startsWith('/') ? BASE + img.src : img.src,
                 width: el.naturalWidth || 1200,
                 height: el.naturalHeight || 800,
                 caption: img.caption,

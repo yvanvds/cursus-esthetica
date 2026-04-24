@@ -90,8 +90,8 @@ const videos = (theme.data as any).videos ?? null;
   {/* Override page-content constraints for three-column layout */}
   <style is:global>
     .page-content:has(.theme-grid) {
-      max-width: none;
-      padding: 0;
+      max-width: none !important;
+      padding: 0 !important;
     }
 
     @media (min-width: 1024px) {

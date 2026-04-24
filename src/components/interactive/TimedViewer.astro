@@ -10,7 +10,11 @@ interface Props {
   intro?: string;
 }
 
-const props = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const props = {
+  ...Astro.props,
+  src: Astro.props.src.startsWith('/') ? base + Astro.props.src : Astro.props.src,
+};
 ---
 
 <TimedViewerReact {...props} client:visible />
