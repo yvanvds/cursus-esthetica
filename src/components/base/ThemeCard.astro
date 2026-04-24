@@ -8,10 +8,11 @@ interface Props {
 const { theme } = Astro.props;
 const id = theme.id;
 const { title, figure, shortDescription, image } = theme.data;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <article class="theme-card">
-  <a href={`/${id}`} class="theme-card__link" tabindex="-1" aria-hidden="true">
+  <a href={`${base}/${id}`} class="theme-card__link" tabindex="-1" aria-hidden="true">
     <div class="theme-card__image">
       {image
         ? <img src={image} alt={title} loading="lazy" />
@@ -26,11 +27,11 @@ const { title, figure, shortDescription, image } = theme.data;
       <span>{title.split(' ')[0].toLowerCase()}</span>
     </p>
     <h3 class="theme-card__title">
-      <a href={`/${id}`}>{title}</a>
+      <a href={`${base}/${id}`}>{title}</a>
     </h3>
     <p class="theme-card__description">{shortDescription}</p>
     <div class="theme-card__actions">
-      <a href={`/${id}`} class="theme-card__btn theme-card__btn--primary">cursus →</a>
+      <a href={`${base}/${id}`} class="theme-card__btn theme-card__btn--primary">cursus →</a>
       <a href={`/slides/${id}/`} class="theme-card__btn theme-card__btn--secondary">slides →</a>
     </div>
   </div>

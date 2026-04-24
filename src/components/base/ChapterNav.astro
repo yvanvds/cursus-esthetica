@@ -1,0 +1,174 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+interface ChapterRef {
+  id: string;
+  title: string;
+  figure: string;
+}
+
+interface ModuleRef {
+  id: string;
+  title: string;
+}
+
+interface Props {
+  previous: ChapterRef | null;
+  next: ChapterRef | null;
+  module: ModuleRef;
+  isLastInModule: boolean;
+  nextModule: ModuleRef | null;
+}
+
+const { previous, next, isLastInModule, nextModule } = Astro.props;
+---
+
+<footer class="chapter-nav">
+  <div class="chapter-nav__marker" aria-hidden="true">
+    <span class="chapter-nav__glyph">§</span>
+  </div>
+
+  <div class="chapter-nav__links">
+    <div class="chapter-nav__slot chapter-nav__slot--prev">
+      {previous && (
+        <a href={`${base}/${previous.id}`} class="chapter-nav__link">
+          <span class="chapter-nav__label">← vorig hoofdstuk</span>
+          <span class="chapter-nav__title">{previous.title}</span>
+        </a>
+      )}
+    </div>
+
+    <div class="chapter-nav__slot chapter-nav__slot--next">
+      {next && (
+        <a href={`${base}/${next.id}`} class="chapter-nav__link chapter-nav__link--right">
+          <span class="chapter-nav__label">volgend hoofdstuk →</span>
+          <span class="chapter-nav__title">{next.title}</span>
+        </a>
+      )}
+    </div>
+  </div>
+
+  {isLastInModule && nextModule && (
+    <div class="chapter-nav__module-next">
+      {/* TODO: link naar module-overzichtspagina of eerste thema van volgende module */}
+      <a href="#" class="chapter-nav__module-link">
+        <span class="chapter-nav__label">volgende module →</span>
+        <span class="chapter-nav__module-title">{nextModule.title}</span>
+      </a>
+    </div>
+  )}
+
+  {isLastInModule && !nextModule && (
+    <div class="chapter-nav__home">
+      <a href={`${base}/`} class="chapter-nav__home-link">
+        <span class="chapter-nav__label">← terug naar overzicht</span>
+      </a>
+    </div>
+  )}
+</footer>
+
+<style>
+  .chapter-nav {
+    margin-top: var(--space-xl);
+  }
+
+  .chapter-nav__marker {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .chapter-nav__marker::before,
+  .chapter-nav__marker::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .chapter-nav__glyph {
+    font-family: var(--font-mono);
+    color: var(--color-text-quiet);
+    background: var(--color-bg);
+    padding-inline: var(--space-sm);
+  }
+
+  .chapter-nav__links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  @media (max-width: 639px) {
+    .chapter-nav__links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .chapter-nav__slot--next {
+    text-align: right;
+  }
+
+  @media (max-width: 639px) {
+    .chapter-nav__slot--next {
+      text-align: left;
+    }
+  }
+
+  .chapter-nav__link {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.3em;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    transition: color var(--transition-color);
+  }
+
+  .chapter-nav__link:hover {
+    color: var(--color-text);
+  }
+
+  .chapter-nav__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+  }
+
+  .chapter-nav__title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-0);
+    color: var(--color-text);
+  }
+
+  .chapter-nav__module-next,
+  .chapter-nav__home {
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .chapter-nav__module-link,
+  .chapter-nav__home-link {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.3em;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    transition: color var(--transition-color);
+  }
+
+  .chapter-nav__module-link:hover,
+  .chapter-nav__home-link:hover {
+    color: var(--color-text);
+  }
+
+  .chapter-nav__module-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-0);
+    color: var(--color-text);
+  }
+</style>

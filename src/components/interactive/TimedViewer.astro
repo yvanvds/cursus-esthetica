@@ -1,0 +1,16 @@
+---
+import TimedViewerReact from './TimedViewer.tsx';
+
+interface Props {
+  src: string;
+  alt: string;
+  credit: string;
+  duration?: number;
+  prompts?: string[];
+  intro?: string;
+}
+
+const props = Astro.props;
+---
+
+<TimedViewerReact {...props} client:visible />

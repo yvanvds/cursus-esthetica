@@ -1,0 +1,258 @@
+---
+---
+
+<div
+  id="video-overlay"
+  class="video-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Video bekijken"
+  hidden
+>
+  <div class="video-overlay__inner">
+    <div class="video-overlay__stage" id="video-overlay__stage">
+      <div class="video-overlay__player" id="video-overlay__player"></div>
+      <div class="video-overlay__caption" id="video-overlay__caption">
+        <span class="video-overlay__caption-text" id="video-overlay__caption-text"></span>
+        <span class="video-overlay__caption-source" id="video-overlay__caption-source"></span>
+      </div>
+    </div>
+    <button
+      id="video-overlay__close"
+      class="video-overlay__close"
+      type="button"
+      aria-label="Sluit video"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        width="20"
+        height="20"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  interface VideoEntry {
+    youtube: string;
+    title: string;
+    source: string;
+    start?: number;
+    end?: number;
+    aspectRatio?: string;
+  }
+
+  declare global {
+    interface Window {
+      __videos?: Record<string, VideoEntry>;
+    }
+  }
+
+  const overlay = document.getElementById('video-overlay') as HTMLDivElement;
+  const stage = document.getElementById('video-overlay__stage') as HTMLDivElement;
+  const player = document.getElementById('video-overlay__player') as HTMLDivElement;
+  const captionText = document.getElementById('video-overlay__caption-text') as HTMLSpanElement;
+  const captionSource = document.getElementById('video-overlay__caption-source') as HTMLSpanElement;
+  const closeBtn = document.getElementById('video-overlay__close') as HTMLButtonElement;
+
+  let triggerButton: HTMLButtonElement | null = null;
+
+  function formatTime(seconds: number): string {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${String(s).padStart(2, '0')}`;
+  }
+
+  function buildEmbedUrl(video: VideoEntry): string {
+    const params = new URLSearchParams({ rel: '0', modestbranding: '1' });
+    if (video.start != null) params.set('start', String(video.start));
+    if (video.end != null) params.set('end', String(video.end));
+    return `https://www.youtube-nocookie.com/embed/${video.youtube}?${params}`;
+  }
+
+  function openVideo(id: string, trigger: HTMLButtonElement) {
+    const video = window.__videos?.[id];
+    if (!video) return;
+
+    triggerButton = trigger;
+
+    // Size the stage based on aspect ratio and viewport
+    const aspectRatio = video.aspectRatio ?? '16/9';
+    const [arW, arH] = aspectRatio.split('/').map(Number);
+    const ratioVal = arW / arH;
+    const captionH = 52;
+    const maxW = window.innerWidth * 0.9;
+    const maxH = window.innerHeight * 0.9 - captionH;
+    const stageW = Math.min(maxW, maxH * ratioVal);
+    stage.style.width = `${stageW}px`;
+    player.style.aspectRatio = aspectRatio;
+
+    // Build caption
+    let titleStr = video.title;
+    if (video.start != null && video.end != null) {
+      titleStr += ` — Fragment ${formatTime(video.start)} — ${formatTime(video.end)}`;
+    } else if (video.start != null) {
+      titleStr += ` — Vanaf ${formatTime(video.start)}`;
+    }
+    captionText.textContent = titleStr;
+    captionSource.textContent = video.source;
+
+    // Lazy iframe
+    const iframe = document.createElement('iframe');
+    iframe.src = buildEmbedUrl(video);
+    iframe.title = video.title;
+    iframe.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;';
+    player.appendChild(iframe);
+
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+
+    document.addEventListener('keydown', onKeyDown);
+  }
+
+  function closeVideo() {
+    overlay.hidden = true;
+    document.body.style.overflow = '';
+    // Destroy iframe to stop playback
+    player.innerHTML = '';
+    document.removeEventListener('keydown', onKeyDown);
+    triggerButton?.focus();
+    triggerButton = null;
+  }
+
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      closeVideo();
+      return;
+    }
+    // Focus trap: only close button and iframe are focusable
+    if (e.key === 'Tab') {
+      const iframe = player.querySelector('iframe');
+      const focusable = [closeBtn, ...(iframe ? [iframe] : [])];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          (last as HTMLElement).focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          (first as HTMLElement).focus();
+        }
+      }
+    }
+  }
+
+  // Click on backdrop closes
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay || (e.target as Element).classList.contains('video-overlay__inner') === false && !(e.target as Element).closest('.video-overlay__stage') && !(e.target as Element).closest('.video-overlay__close')) {
+      closeVideo();
+    }
+  });
+
+  closeBtn.addEventListener('click', closeVideo);
+
+  // Open on figure-link[data-figure-type="video"] clicks
+  document.addEventListener('click', e => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>('.figure-link');
+    if (!btn || btn.dataset.figureType !== 'video') return;
+    const id = btn.dataset.figureId;
+    if (id) openVideo(id, btn);
+  });
+</script>
+
+<style>
+  .video-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+  }
+
+  .video-overlay[hidden] {
+    display: none;
+  }
+
+  .video-overlay__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .video-overlay__stage {
+    position: relative;
+    max-width: 90vw;
+  }
+
+  .video-overlay__player {
+    width: 100%;
+    background: #000;
+  }
+
+  .video-overlay__caption {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.6rem 0 0;
+    min-height: 2rem;
+  }
+
+  .video-overlay__caption-text {
+    font-family: var(--font-sans, sans-serif);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+  }
+
+  .video-overlay__caption-source {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .video-overlay__close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 150ms ease, border-color 150ms ease;
+    line-height: 0;
+  }
+
+  .video-overlay__close:hover,
+  .video-overlay__close:focus-visible {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+    outline: none;
+  }
+</style>

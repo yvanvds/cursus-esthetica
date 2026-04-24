@@ -1,0 +1,145 @@
+---
+import 'photoswipe/style.css';
+---
+
+<script>
+  interface FigureImage {
+    src: string;
+    caption?: string;
+    source?: string;
+    alt?: string;
+  }
+
+  interface FigureEntry {
+    images: FigureImage[];
+  }
+
+  declare global {
+    interface Window {
+      __figures?: Record<string, FigureEntry>;
+    }
+  }
+
+  let PhotoSwipeModule: typeof import('photoswipe').default | null = null;
+
+  async function loadPhotoSwipe() {
+    if (!PhotoSwipeModule) {
+      const mod = await import('photoswipe');
+      PhotoSwipeModule = mod.default;
+    }
+    return PhotoSwipeModule;
+  }
+
+  async function openFigure(figureId: string) {
+    const figures = window.__figures;
+    if (!figures) return;
+    const entry = figures[figureId];
+    const images = entry?.images;
+    if (!images?.length) return;
+
+    const PhotoSwipe = await loadPhotoSwipe();
+
+    const dataSource = await Promise.all(
+      images.map(
+        (img: FigureImage) =>
+          new Promise<{
+            src: string;
+            width: number;
+            height: number;
+            caption?: string;
+            source?: string;
+            alt?: string;
+          }>(resolve => {
+            const el = new Image();
+            const done = () =>
+              resolve({
+                src: img.src,
+                width: el.naturalWidth || 1200,
+                height: el.naturalHeight || 800,
+                caption: img.caption,
+                source: img.source,
+                alt: img.alt,
+              });
+            el.onload = done;
+            el.onerror = done;
+            el.src = img.src;
+          })
+      )
+    );
+
+    const pswp = new PhotoSwipe({
+      dataSource,
+      showHideAnimationType: 'fade',
+      bgOpacity: 0.95,
+    });
+
+    pswp.on('uiRegister', () => {
+      pswp.ui?.registerElement({
+        name: 'custom-caption',
+        order: 9,
+        isButton: false,
+        appendTo: 'root',
+        html: '',
+        onInit(el, pswp) {
+          pswp.on('change', () => {
+            const data = pswp.currSlide?.data as any;
+            if (data?.caption || data?.source) {
+              el.innerHTML = `<div class="pswp-caption">${
+                data.caption
+                  ? `<span class="pswp-caption__text">${data.caption}</span>`
+                  : ''
+              }${
+                data.source
+                  ? `<span class="pswp-caption__source">${data.source}</span>`
+                  : ''
+              }</div>`;
+            } else {
+              el.innerHTML = '';
+            }
+          });
+        },
+      });
+    });
+
+    pswp.init();
+  }
+
+  document.addEventListener('click', e => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>('.figure-link');
+    if (!btn) return;
+    if (btn.dataset.figureType === 'video') return;
+    const id = btn.dataset.figureId;
+    if (id) openFigure(id);
+  });
+</script>
+
+<style is:global>
+  .pswp-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    pointer-events: none;
+  }
+
+  .pswp-caption__text {
+    font-family: var(--font-sans, sans-serif);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+  }
+
+  .pswp-caption__source {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.55);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+</style>

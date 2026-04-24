@@ -1,0 +1,21 @@
+---
+// src/components/themes/inleiding/WithMargin.astro
+---
+<div class="with-margin">
+  <slot />
+</div>
+
+<style>
+  .with-margin {
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .with-margin {
+      display: grid;
+      grid-template-columns: 1fr 18ch;
+      column-gap: var(--space-lg);
+      align-items: start;
+    }
+  }
+</style>

@@ -1,0 +1,644 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import ChapterSidebar from '../components/base/ChapterSidebar.astro';
+import PageTOC from '../components/base/PageTOC.astro';
+import ChapterNav from '../components/base/ChapterNav.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  theme: CollectionEntry<'themes'>;
+  headings: Heading[];
+  readingTime?: string;
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const { theme, headings, readingTime } = Astro.props;
+
+const themeStyles = import.meta.glob<{ default: string }>(
+  '/src/styles/themes/*.css',
+  { query: '?url', eager: true }
+);
+const customStylesUrl = theme.data.customStyles
+  ? themeStyles[`/src/styles/themes/${theme.data.customStyles}`]?.default
+  : null;
+if (theme.data.customStyles && !customStylesUrl) {
+  throw new Error(
+    `customStyles '${theme.data.customStyles}' not found at src/styles/themes/ for theme '${theme.id}'`
+  );
+}
+
+const allModules = await getCollection('modules');
+const allThemes = await getCollection('themes');
+
+const sortedModules = [...allModules].sort((a, b) => a.data.order - b.data.order);
+
+const currentModule = sortedModules.find(m => m.id === theme.data.module);
+if (!currentModule) throw new Error(`Module '${theme.data.module}' not found for theme '${theme.id}'`);
+
+const moduleThemes = allThemes
+  .filter(t => t.data.module === theme.data.module)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const currentIndex = moduleThemes.findIndex(t => t.id === theme.id);
+const previousTheme = currentIndex > 0 ? moduleThemes[currentIndex - 1] : null;
+const nextTheme = currentIndex < moduleThemes.length - 1 ? moduleThemes[currentIndex + 1] : null;
+const isLastInModule = currentIndex === moduleThemes.length - 1;
+
+const currentModuleIndex = sortedModules.findIndex(m => m.id === theme.data.module);
+const nextModuleEntry = currentModuleIndex < sortedModules.length - 1
+  ? sortedModules[currentModuleIndex + 1]
+  : null;
+
+const previous = previousTheme
+  ? { id: previousTheme.id, title: previousTheme.data.title, figure: previousTheme.data.figure }
+  : null;
+
+const next = nextTheme
+  ? { id: nextTheme.id, title: nextTheme.data.title, figure: nextTheme.data.figure }
+  : null;
+
+const nextModule = nextModuleEntry
+  ? { id: nextModuleEntry.id, title: nextModuleEntry.data.title }
+  : null;
+
+const totalInModule = moduleThemes.length;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const figures = (theme.data as any).figures ?? null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const videos = (theme.data as any).videos ?? null;
+---
+
+<BaseLayout
+  title={`${theme.data.title} — Cursus Esthetica`}
+  description={theme.data.shortDescription}
+>
+  {customStylesUrl && (
+    <link slot="head" rel="stylesheet" href={customStylesUrl} />
+  )}
+  <script is:inline define:vars={{ figures, videos }}>
+    if (figures) window.__figures = figures;
+    if (videos) window.__videos = videos;
+  </script>
+  {/* Override page-content constraints for three-column layout */}
+  <style is:global>
+    .page-content:has(.theme-grid) {
+      max-width: none;
+      padding: 0;
+    }
+
+    @media (min-width: 1024px) {
+      body:has(.theme-grid) {
+        display: flex;
+        flex-direction: column;
+        height: 100dvh;
+        overflow: hidden;
+      }
+
+      body:has(.theme-grid) .page-content {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+      }
+    }
+
+    /* TOC inside mobile dialog: override component's mobile display:none */
+    .toc-dialog__body .page-toc {
+      display: block;
+      position: static;
+      padding: 0;
+      max-width: none;
+      top: auto;
+    }
+
+    /* Footer margin creates a visible gap in the fixed-height desktop layout */
+    body:has(.theme-grid) .site-footer {
+      margin-top: 0;
+    }
+  </style>
+
+  <div
+    class="theme-grid"
+    style={theme.data.accentColor ? `--color-accent: ${theme.data.accentColor}` : undefined}
+  >
+    <aside class="theme-grid__sidebar">
+      <ChapterSidebar
+        currentThemeId={theme.id}
+        currentModuleId={theme.data.module}
+      />
+    </aside>
+
+    <article class="theme-grid__content">
+      <div class="mobile-nav-bar">
+        <button class="nav-toggle" aria-controls="chapter-nav" aria-expanded="false">
+          ☰ Hoofdstukken
+        </button>
+      </div>
+      <header class="theme-header">
+        <p class="theme-header__breadcrumb">
+          <a href={`${base}/#${currentModule.id}`}>{currentModule.data.title}</a>
+          <span aria-hidden="true">·</span>
+          <span>hoofdstuk {theme.data.order} van {totalInModule}</span>
+        </p>
+        {!theme.data.customHeader && (
+          <>
+            <p class="theme-header__figure">fig. {theme.data.figure}</p>
+            <h1 class="theme-header__title">{theme.data.title}</h1>
+            <p class="theme-header__lead">{theme.data.shortDescription}</p>
+          </>
+        )}
+        {readingTime && <p class="theme-header__reading-time">{readingTime}</p>}
+      </header>
+
+      <div class="theme-body">
+        <slot />
+      </div>
+
+      <ChapterNav
+        previous={previous}
+        next={next}
+        module={{ id: currentModule.id, title: currentModule.data.title }}
+        isLastInModule={isLastInModule}
+        nextModule={nextModule}
+      />
+    </article>
+
+    <aside class="theme-grid__toc">
+      <PageTOC headings={headings} />
+    </aside>
+  </div>
+
+  {headings.filter(h => h.depth === 2).length > 0 && (
+    <>
+      <button id="toc-toggle" aria-label="Op deze pagina" aria-controls="toc-dialog">
+        ↕ op deze pagina
+      </button>
+
+      <dialog id="toc-dialog" class="toc-dialog">
+        <div class="toc-dialog__header">
+          <p class="toc-dialog__title">Op deze pagina</p>
+          <button class="toc-dialog__close dialog-close" aria-label="Sluiten">✕</button>
+        </div>
+        <div class="toc-dialog__body">
+          <PageTOC headings={headings} />
+        </div>
+      </dialog>
+    </>
+  )}
+
+  <script>
+    // ---- Chapter nav dialog ----
+    const navDialog = document.getElementById('chapter-nav') as HTMLDialogElement | null;
+    const navToggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+
+    navToggle?.addEventListener('click', () => {
+      navDialog?.showModal();
+      navToggle.setAttribute('aria-expanded', 'true');
+    });
+
+    navDialog?.addEventListener('click', (e) => {
+      const rect = navDialog.getBoundingClientRect();
+      if (
+        e.clientX < rect.left || e.clientX > rect.right ||
+        e.clientY < rect.top  || e.clientY > rect.bottom
+      ) {
+        navDialog.close();
+      }
+    });
+
+    navDialog?.addEventListener('close', () => {
+      navToggle?.setAttribute('aria-expanded', 'false');
+    });
+
+    navDialog?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navDialog.close());
+    });
+
+    // ---- TOC dialog ----
+    const tocDialog = document.getElementById('toc-dialog') as HTMLDialogElement | null;
+    const tocToggle = document.getElementById('toc-toggle') as HTMLButtonElement | null;
+
+    tocToggle?.addEventListener('click', () => tocDialog?.showModal());
+
+    tocDialog?.addEventListener('click', (e) => {
+      const rect = tocDialog.getBoundingClientRect();
+      if (
+        e.clientX < rect.left || e.clientX > rect.right ||
+        e.clientY < rect.top  || e.clientY > rect.bottom
+      ) {
+        tocDialog.close();
+      }
+    });
+
+    tocDialog?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => tocDialog?.close());
+    });
+
+    // ---- Generic close buttons ----
+    document.querySelectorAll<HTMLButtonElement>('.dialog-close').forEach(btn => {
+      btn.addEventListener('click', () => btn.closest('dialog')?.close());
+    });
+
+    // ---- TOC toggle: show after 400 px scroll ----
+    if (tocToggle) {
+      let rafPending = false;
+      const syncVisibility = () => {
+        tocToggle.classList.toggle('toc-toggle--visible', window.scrollY > 400);
+        rafPending = false;
+      };
+      window.addEventListener('scroll', () => {
+        if (!rafPending) { rafPending = true; requestAnimationFrame(syncVisibility); }
+      }, { passive: true });
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  /* ---- Grid ---- */
+  .theme-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding: var(--space-sm);
+  }
+
+  @media (min-width: 640px) {
+    .theme-grid {
+      padding: var(--space-md);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .theme-grid {
+      grid-template-columns: 260px 1fr 220px;
+      grid-template-rows: 1fr;
+      gap: var(--space-lg);
+      padding-inline: var(--space-lg);
+      padding-block: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .theme-grid__sidebar {
+    /* No display:none — dialog inside handles its own visibility on mobile */
+  }
+
+  @media (min-width: 1024px) {
+    .theme-grid__sidebar {
+      display: block;
+      /* overflow handled by the dialog itself */
+    }
+  }
+
+  .theme-grid__content {
+    min-width: 0;
+    max-width: 68ch;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .theme-grid__content {
+      overflow-y: auto;
+      padding-block: var(--space-lg);
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-border-subtle) transparent;
+    }
+
+    .theme-grid__content::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .theme-grid__content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .theme-grid__content::-webkit-scrollbar-thumb {
+      background: var(--color-border-subtle);
+    }
+  }
+
+  .theme-grid__toc {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .theme-grid__toc {
+      display: block;
+      overflow-y: auto;
+      padding-block: var(--space-lg);
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-border-subtle) transparent;
+    }
+
+    .theme-grid__toc::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .theme-grid__toc::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .theme-grid__toc::-webkit-scrollbar-thumb {
+      background: var(--color-border-subtle);
+    }
+  }
+
+  /* ---- Header ---- */
+  .theme-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .theme-header__breadcrumb {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+    margin-bottom: var(--space-sm);
+    max-width: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+  }
+
+  .theme-header__breadcrumb a {
+    color: var(--color-text-quiet);
+    text-decoration: none;
+    transition: color var(--transition-color);
+  }
+
+  .theme-header__breadcrumb a:hover {
+    color: var(--color-text-muted);
+  }
+
+  .theme-header__figure {
+    font-family: var(--font-mono);
+    font-size: var(--step-4);
+    color: var(--color-accent);
+    line-height: 1;
+    margin-bottom: var(--space-sm);
+    max-width: none;
+  }
+
+  .theme-header__title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-4);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .theme-header__title {
+      font-size: var(--step-5);
+    }
+  }
+
+  .theme-header__lead {
+    font-family: var(--font-sans);
+    font-size: var(--step-1);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    max-width: 55ch;
+    margin-bottom: 0;
+  }
+
+  .theme-header__reading-time {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-whisper);
+    margin-top: var(--space-sm);
+    margin-bottom: 0;
+  }
+
+  /* ---- Prose ---- */
+  .theme-body :global(h2) {
+    font-family: var(--font-serif);
+    font-size: var(--step-3);
+    font-weight: 400;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    scroll-margin-top: var(--space-lg);
+  }
+
+  .theme-body :global(h3) {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-2);
+    font-weight: 400;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .theme-body :global(p) {
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    line-height: 1.7;
+    max-width: 68ch;
+    margin-bottom: var(--space-sm);
+  }
+
+  .theme-body :global(ul),
+  .theme-body :global(ol) {
+    margin-bottom: var(--space-sm);
+    padding-left: var(--space-md);
+  }
+
+  .theme-body :global(ul) {
+    list-style: disc;
+  }
+
+  .theme-body :global(ol) {
+    list-style: decimal;
+  }
+
+  .theme-body :global(blockquote) {
+    border-left: 3px solid var(--color-accent);
+    padding-left: var(--space-md);
+    margin-block: var(--space-md);
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .theme-body :global(img) {
+    margin-block: var(--space-md);
+    border-radius: var(--radius);
+  }
+
+  .theme-body :global(code) {
+    font-family: var(--font-mono);
+    background: var(--color-surface);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  .theme-body :global(pre) {
+    font-family: var(--font-mono);
+    background: var(--color-surface);
+    padding: var(--space-sm);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    margin-block: var(--space-md);
+  }
+
+  .theme-body :global(pre code) {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1em;
+  }
+
+  .theme-body :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ---- Mobile nav bar ---- */
+  .mobile-nav-bar {
+    display: flex;
+    padding-block: var(--space-sm);
+    border-bottom: 1px solid var(--color-border-subtle);
+    margin-bottom: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-nav-bar {
+      display: none;
+    }
+  }
+
+  /* ---- Shared button style ---- */
+  .nav-toggle,
+  #toc-toggle {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+    transition: color var(--transition-color), border-color var(--transition-color);
+  }
+
+  .nav-toggle:hover,
+  #toc-toggle:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
+  }
+
+  /* ---- TOC floating toggle ---- */
+  #toc-toggle {
+    position: fixed;
+    bottom: var(--space-md);
+    right: var(--space-md);
+    z-index: 10;
+    background: var(--color-bg-elevated);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  #toc-toggle.toc-toggle--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (min-width: 1024px) {
+    #toc-toggle {
+      display: none;
+    }
+  }
+
+  /* ---- TOC dialog (bottom sheet) ---- */
+  .toc-dialog {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    margin: 0;
+    width: 100%;
+    max-height: 60dvh;
+    border: none;
+    border-top: 1px solid var(--color-border);
+    border-radius: calc(var(--radius) * 3) calc(var(--radius) * 3) 0 0;
+    background: var(--color-bg-elevated);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .toc-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  @keyframes toc-slide-up {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .toc-dialog[open] {
+      animation: toc-slide-up 240ms ease-out;
+    }
+  }
+
+  .toc-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border-subtle);
+    flex-shrink: 0;
+  }
+
+  .toc-dialog__title {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+    margin: 0;
+  }
+
+  .toc-dialog__close {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.2em 0.5em;
+    cursor: pointer;
+    line-height: 1.5;
+    transition: color var(--transition-color);
+  }
+
+  .toc-dialog__close:hover {
+    color: var(--color-text);
+  }
+
+  .toc-dialog__body {
+    overflow-y: auto;
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+    max-height: calc(60dvh - 3.5rem);
+  }
+</style>

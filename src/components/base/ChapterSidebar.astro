@@ -1,0 +1,273 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentThemeId: string;
+  currentModuleId: string;
+}
+
+const { currentThemeId, currentModuleId } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const allModules = await getCollection('modules');
+const allThemes = await getCollection('themes');
+
+const sortedModules = [...allModules].sort((a, b) => a.data.order - b.data.order);
+
+function getModuleThemes(moduleId: string) {
+  return allThemes
+    .filter(t => t.data.module === moduleId)
+    .sort((a, b) => a.data.order - b.data.order);
+}
+---
+
+<dialog id="chapter-nav" class="chapter-sidebar">
+  <div class="chapter-sidebar__header">
+    <span class="chapter-sidebar__label">Hoofdstukken</span>
+    <button class="chapter-sidebar__close dialog-close" aria-label="Navigatie sluiten">✕</button>
+  </div>
+  <nav class="chapter-nav" aria-label="Cursusnavigatie">
+    {sortedModules.map(module => {
+      const themes = getModuleThemes(module.id);
+      const isCurrentModule = module.id === currentModuleId;
+
+      return (
+        <section class="sidebar-module">
+          {isCurrentModule ? (
+            <>
+              <p class="sidebar-module__title">
+                {/* TODO: link naar module-overzichtspagina (nog niet geïmplementeerd) */}
+                <a href="#" class="sidebar-module__link">{module.data.title}</a>
+              </p>
+              <ul class="sidebar-themes">
+                {themes.map(theme => {
+                  const isActive = theme.id === currentThemeId;
+                  return (
+                    <li class:list={['sidebar-theme', { 'sidebar-theme--active': isActive }]}>
+                      <a href={`${base}/${theme.id}`} class="sidebar-theme__link">
+                        <span class="sidebar-theme__figure">{theme.data.figure}</span>
+                        <span class="sidebar-theme__title">{theme.data.title}</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          ) : (
+            <details class="sidebar-module__details">
+              <summary class="sidebar-module__summary">
+                {/* TODO: link naar module-overzichtspagina (nog niet geïmplementeerd) */}
+                {module.data.title}
+                <span class="sidebar-module__count">({themes.length} hoofdstukken)</span>
+              </summary>
+              <ul class="sidebar-themes">
+                {themes.map(theme => (
+                  <li class="sidebar-theme">
+                    <a href={`${base}/${theme.id}`} class="sidebar-theme__link">
+                      <span class="sidebar-theme__figure">{theme.data.figure}</span>
+                      <span class="sidebar-theme__title">{theme.data.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+        </section>
+      );
+    })}
+  </nav>
+</dialog>
+
+<style>
+  /* ---- Dialog: mobile drawer ---- */
+  .chapter-sidebar[open] {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0 auto 0 0;
+    margin: 0;
+    width: min(80vw, 300px);
+    border: none;
+    border-right: 1px solid var(--color-border);
+    background: var(--color-bg-elevated);
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .chapter-sidebar::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  /* ---- Animation ---- */
+  @keyframes sidebar-slide-in {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(0); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (max-width: 1023px) {
+    .chapter-sidebar[open] {
+      animation: sidebar-slide-in 240ms ease-out;
+    }
+  }
+
+  /* ---- Dialog header (mobile only) ---- */
+  .chapter-sidebar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border-subtle);
+    flex-shrink: 0;
+  }
+
+  .chapter-sidebar__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+  }
+
+  .chapter-sidebar__close {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.2em 0.5em;
+    cursor: pointer;
+    line-height: 1.5;
+    transition: color var(--transition-color);
+  }
+
+  .chapter-sidebar__close:hover {
+    color: var(--color-text);
+  }
+
+  /* ---- Scrollable nav area ---- */
+  .chapter-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-md);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-subtle) transparent;
+  }
+
+  /* ---- Desktop: dialog acts as inline sidebar ---- */
+  @media (min-width: 1024px) {
+    /* Override UA dialog:not([open]) { display: none } */
+    .chapter-sidebar {
+      display: flex;
+      flex-direction: column;
+      position: static;
+      inset: auto;
+      border: none;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      color: inherit;
+      max-height: none;
+      max-width: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-right: 1px solid var(--color-border-subtle);
+    }
+
+    .chapter-sidebar::backdrop {
+      display: none;
+    }
+
+    .chapter-sidebar__header {
+      display: none;
+    }
+
+    .chapter-nav {
+      padding: var(--space-lg) var(--space-md) var(--space-lg) 0;
+    }
+  }
+
+  /* ---- Nav content ---- */
+  .sidebar-module {
+    margin-bottom: var(--space-md);
+  }
+
+  .sidebar-module__title {
+    margin: 0;
+    padding-block: var(--space-xs);
+  }
+
+  .sidebar-module__link {
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    font-weight: 400;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .sidebar-module__link:hover {
+    color: var(--color-text-muted);
+  }
+
+  .sidebar-module__summary {
+    list-style: none;
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    font-weight: 400;
+    color: var(--color-text);
+    padding-block: var(--space-xs);
+    cursor: pointer;
+  }
+
+  .sidebar-module__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .sidebar-module__count {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-quiet);
+    margin-left: 0.5em;
+  }
+
+  .sidebar-themes {
+    padding: 0;
+    margin: 0 0 0 var(--space-sm);
+  }
+
+  .sidebar-theme {
+    margin: 0;
+  }
+
+  .sidebar-theme__link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: var(--step--1);
+    padding-block: 0.4em;
+    transition: color var(--transition-color);
+  }
+
+  .sidebar-theme__link:hover {
+    color: var(--color-text);
+  }
+
+  .sidebar-theme--active .sidebar-theme__link {
+    color: var(--color-accent);
+  }
+
+  .sidebar-theme__figure {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .sidebar-theme__title {
+    font-family: var(--font-sans);
+  }
+</style>

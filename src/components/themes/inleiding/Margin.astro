@@ -1,0 +1,25 @@
+---
+// src/components/themes/inleiding/Margin.astro
+---
+<aside class="margin-note">
+  <slot />
+</aside>
+
+<style>
+  .margin-note {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-margin, var(--color-text-quiet));
+    line-height: 1.5;
+    max-width: 18ch;
+  }
+
+  @media (max-width: 1023px) {
+    .margin-note {
+      border-left: 2px solid var(--color-accent);
+      padding-left: var(--space-sm);
+      margin-block: var(--space-md);
+      max-width: 100%;
+    }
+  }
+</style>

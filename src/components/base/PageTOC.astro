@@ -1,0 +1,134 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const h2s = headings.filter(h => h.depth === 2);
+---
+
+{h2s.length > 0 && (
+  <nav class="page-toc" aria-label="Op deze pagina">
+    <p class="page-toc__label">Op deze pagina</p>
+    <ol class="page-toc__list">
+      {h2s.map(h => (
+        <li>
+          <a href={`#${h.slug}`} class="page-toc__link" data-toc-id={h.slug}>
+            {h.text}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('.page-toc__link');
+
+  if (links.length > 0) {
+    const slugToLinks = new Map<string, HTMLAnchorElement[]>();
+    links.forEach(link => {
+      const id = link.dataset.tocId;
+      if (!id) return;
+      const existing = slugToLinks.get(id);
+      if (existing) existing.push(link);
+      else slugToLinks.set(id, [link]);
+    });
+
+    const setActive = (id: string) => {
+      links.forEach(l => l.classList.remove('page-toc__link--active'));
+      const matches = slugToLinks.get(id);
+      if (matches) matches.forEach(l => l.classList.add('page-toc__link--active'));
+    };
+
+    const container = document.querySelector<HTMLElement>('.theme-grid__content');
+    const scrollRoot = container && getComputedStyle(container).overflowY === 'auto' ? container : null;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+            break;
+          }
+        }
+      },
+      { root: scrollRoot, rootMargin: '-20% 0px -70% 0px' }
+    );
+
+    document.querySelectorAll<HTMLHeadingElement>('article h2[id]').forEach(h => {
+      observer.observe(h);
+    });
+
+    // Smooth scroll respects prefers-reduced-motion via CSS
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const id = (e.currentTarget as HTMLAnchorElement).dataset.tocId;
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (!target) return;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth' });
+        e.preventDefault();
+      });
+    });
+  }
+</script>
+
+<style>
+  .page-toc {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .page-toc {
+      display: block;
+      position: sticky;
+      top: var(--space-md);
+      padding-left: var(--space-md);
+      max-width: 220px;
+    }
+  }
+
+  .page-toc__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+    margin: 0 0 var(--space-sm) 0;
+    max-width: none;
+  }
+
+  .page-toc__list {
+    padding: 0;
+    margin: 0;
+  }
+
+  .page-toc__link {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    padding-block: 0.4em;
+    padding-left: var(--space-sm);
+    border-left: 2px solid transparent;
+    transition: color var(--transition-color), border-color var(--transition-color);
+  }
+
+  .page-toc__link:hover {
+    color: var(--color-text);
+  }
+
+  .page-toc__link--active {
+    border-left-color: var(--color-accent);
+    color: var(--color-text);
+  }
+</style>

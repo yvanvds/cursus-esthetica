@@ -3,7 +3,12 @@
     "allow": [
       "Bash(npm install *)",
       "Bash(npm run *)",
-      "Bash(curl -s http://localhost:4321)"
+      "Bash(curl -s http://localhost:4321)",
+      "Bash(node -e \"require\\('mdast-util-to-string'\\); console.log\\('ok'\\)\")",
+      "Bash(npx astro *)",
+      "Bash(npm list *)",
+      "Bash(node -e \"const d = require\\('d:/cursus-esthetica/.astro/data-store.json'\\); const themes = d.themes || {}; const inl = themes['themes/inleiding.mdx'] || themes['inleiding'] || Object.values\\(themes\\).find\\(t => JSON.stringify\\(t\\).includes\\('cattelan'\\)\\); console.log\\(JSON.stringify\\(inl?.data || inl, null, 2\\).slice\\(0, 500\\)\\)\")",
+      "Bash(node -e \"const d = require\\('d:/cursus-esthetica/.astro/data-store.json'\\); console.log\\(JSON.stringify\\(Object.keys\\(d\\)\\).slice\\(0,200\\)\\); const first = Object.keys\\(d\\)[0]; console.log\\(JSON.stringify\\(Object.keys\\(d[first] || {}\\)\\).slice\\(0,200\\)\\)\")"
     ]
   }
 }

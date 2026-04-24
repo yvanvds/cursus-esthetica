@@ -1,0 +1,35 @@
+---
+// src/components/themes/inleiding/Ducttape.astro
+interface Props {
+  rotate?: number;  // graden, default 0
+  width?: string;   // default '200px'
+}
+const { rotate = -1.5, width = '200px' } = Astro.props;
+---
+
+<svg class="ducttape" viewBox="0 0 400 80" style={`--rotate: ${rotate}deg; --width: ${width}`}>
+  <defs>
+    <filter id="rough">
+      <feTurbulence baseFrequency="0.9" numOctaves="2" seed="3" />
+      <feDisplacementMap in="SourceGraphic" scale="4" />
+    </filter>
+  </defs>
+  <path
+    d="M 5,20 L 395,15 L 398,65 L 8,70 Z"
+    fill="#E8D547"
+    filter="url(#rough)"
+    opacity="0.92"
+  />
+  {/* Subtiele textuurstrepen */}
+  <path d="M 20,25 L 380,22" stroke="#D4C13F" stroke-width="0.5" opacity="0.4" />
+  <path d="M 20,60 L 380,58" stroke="#D4C13F" stroke-width="0.5" opacity="0.4" />
+</svg>
+
+<style>
+  .ducttape {
+    width: var(--width);
+    height: auto;
+    transform: rotate(var(--rotate));
+    display: block;
+  }
+</style>

@@ -1,0 +1,71 @@
+@media print {
+  @page {
+    margin: 2cm;
+  }
+
+  body {
+    background: white;
+    color: black;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: black;
+  }
+
+  h1 { font-size: 24pt; }
+  h2 { font-size: 16pt; }
+  h3 { font-size: 13pt; }
+
+  .theme-grid__sidebar,
+  .theme-grid__toc {
+    display: none;
+  }
+
+  .theme-grid {
+    display: block;
+    max-width: none;
+    height: auto;
+    overflow: visible;
+  }
+
+  .theme-grid__content {
+    overflow: visible;
+    height: auto;
+    max-width: none;
+    padding-block: 0;
+  }
+
+  .theme-header__figure,
+  a {
+    color: #000;
+  }
+
+  .theme-body h2 {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .theme-body h2:first-of-type {
+    break-before: avoid;
+    page-break-before: avoid;
+  }
+
+  p, blockquote, ul, ol {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .theme-body a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+  }
+
+  .site-header,
+  .site-footer,
+  .chapter-nav {
+    display: none;
+  }
+}

@@ -1,12 +1,195 @@
 ---
 id: inleiding
-title: Inleiding
+title: Maar is het kunst?
 module: kijken-en-luisteren
 order: 1
 figure: "01"
-shortDescription: Leren kijken en leren luisteren — een cursus als trage oefening in aandacht.
+accentColor: "#E8D547"
+customStyles: "inleiding.css"
+customHeader: true
+shortDescription: Een cursus begint met een vraag die geen antwoord heeft — en dat is precies het punt.
+figures:
+    cattelan-comedian:
+      images:
+        - src: /images/inleiding/cattelan-1.jpg
+          caption: Maurizio Cattelan, Comedian, 2019
+          source: https://artdependence.com/articles/it-s-not-art-it-s-bananas/
+          alt: $120,000, 0.14kg, edible, replaceable
+        - src: /images/inleiding/cattelan-2.jpg
+          caption: David Datuna eet het werk op
+          source: https://news.sky.com/
+    guernica:
+      images:
+        - src: /images/inleiding/picasso_guernica.jpg
+          caption: Pablo Picasso, Guernica, 1937
+          source: https://www.museoreinasofia.es/en/collections/artwork/guernica-0
+    vermeer:
+      images:
+        - src: /images/inleiding/Vermeer_Girl_with_a_Pearl_Earring.jpg
+          caption: Johannes Vermeer, Meisje met de parel, 1665
+          source: https://www.museoreinasofia.es/en/collections/artwork/guernica-0
+    icon:
+      images:
+        - src: /images/inleiding/medieval_icon.png
+          caption: Christ Pantocrator Icon, Svanetia, 13de eeuwen
+          source: https://americanassociationoficonographers.com/tag/anglican-icons/
+    monalisa:
+      images:
+        - src: /images/inleiding/monalisa.png
+          caption: Leonardo da Vinci, Mona Lisa, tussen 1503 en 1506
+          source: https://en.wikipedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg
+        - src: /images/inleiding/mondriaan.png
+          caption: Piet Mondriaan, Compositie met groot rood vlak, geel, zwart, grijs en blauw, 1921
+          source: https://commons.wikimedia.org/wiki/File:Piet_Mondriaan,_1921_-_Composition_en_rouge,_jaune,_bleu_et_noir.jpg
+    last-supper:
+      images:
+        - src: /images/inleiding/last-supper.png
+          caption: Leonardo da Vinci, The Last Supper, van 1495 tot 1498
+          source: https://americanassociationoficonographers.com/tag/anglican-icons/
+        - src: /images/inleiding/pollock.png
+          caption: Jackson Pollock, convergence, 1952
+          source: https://www.theartist.me/artwork/convergence/
+    athens:
+      images:
+        - src: /images/inleiding/school-of-athens.png
+          caption: Rafaël, De school van Athene, 1509 - 1511
+          source: https://www.singulart.com/blog/en/2023/10/24/raphael-paintings/?srsltid=AfmBOoos7DCDRqqVvyJ2oWLou-tKv80b9Ziit9gTp5HVILQ_ioj1f9i4
+videos:
+  beethoven:
+    youtube: a9UApyClFKA
+    title: Beethoven - Symphony No. 5 - Iván Fischer | Concertgebouworkest
+    source: Concertgebouworkest
+    start: 7
+    end: 26
+  stravinsky:
+    youtube: IGUZjBpeWT8
+    title: Angelin Preljocaj Rite of spring 2004
+    source: Dancing People
+    start: 2460
+    end: 2510
+  holiday:
+    youtube: Web007rzSOI
+    title: Billie Holiday-Strange fruit- HD
+    source: prokoman1
+    start: 19
+    end: 61
+  troy:
+    youtube: 0c4v7fp5GC8
+    title: Sinead O'Connor - Troy (Official Music Video)
+    source: Sinéad O'Connor
+    start: 0
 ---
 
-# Inleiding
+import DefinitionTest from '../../components/themes/inleiding/DefinitionTest.astro';
+import TimedViewer from '../../components/interactive/TimedViewer.astro';
+import Ducttape from '../../components/themes/inleiding/Ducttape.astro';
+import SpecSheet from '../../components/themes/inleiding/SpecSheet.astro';
+import Margin from '../../components/themes/inleiding/Margin.astro';
+import WithMargin from '../../components/themes/inleiding/WithMargin.astro';
 
-Placeholder-inhoud. Dit thema introduceert de cursus en haar methode: traag, aandachtig en zintuiglijk.
+<h1>Maar is het kunst<span class="drift">?</span></h1>
+
+<Ducttape rotate={-2} width="240px" />
+
+## Een banaan aan de muur
+
+In december 2019 plakte de Italiaanse kunstenaar Maurizio Cattelan een banaan met ducttape tegen een witte muur op Art Basel Miami. Hij noemde het [Comedian](fig:cattelan-comedian). Het werk werd verkocht voor 120.000 dollar. Een paar dagen later at een andere kunstenaar de banaan op. De galerie hing een nieuwe banaan op. Het kunstwerk bleef bestaan.
+
+<SpecSheet items={["$120,000", "0.14kg", "edible", "replaceable"]} /> 
+
+Misschien denk je: dit is oplichterij. Misschien denk je: dit is geniaal. Misschien denk je: waarom zou ik hier over nadenken? Houd die reactie vast. Wat je op dit moment voelt — ergernis, verwondering, scepsis, iets daartussenin — is precies het onderwerp van dit vak.
+
+<WithMargin>
+Want iemand moest beslissen dat dit kunst was. De galerie. De koper. De kunstenaar zelf. En ook jij beslist op dit moment iets. 
+
+<Margin>ook jij, nu, hier</Margin>
+</WithMargin>
+
+Je vormt een oordeel. Je zet het werk in een categorie: *serieus*, *grappig*, *bedrog*, *commentaar*. Die beslissing lijkt vanzelfsprekend, maar ze is het niet. Ze is aangeleerd, cultureel bepaald, en — interessanter nog — veranderbaar. Aan het einde van deze cursus kijk je anders naar die banaan. Niet omdat je het ermee eens moet zijn, maar omdat je meer woorden hebt om erover te spreken.
+
+## Geen definitie, wel een spel
+
+<WithMargin>
+Door de eeuwen heen hebben filosofen geprobeerd kunst in één zin te vangen. Plato dacht dat kunst een imitatie was van de werkelijkheid — en eigenlijk een slechte imitatie. 
+
+<Margin>plato verbande kunstenaars uit zijn ideale staat</Margin>
+</WithMargin>
+
+Kant zag kunst als dat wat *belangeloos behaagt*: je geniet ervan zonder het te willen bezitten of gebruiken. Tolstoj vond dat kunst emotie moest overdragen van de ene mens op de andere. De Amerikaanse filosoof Arthur Danto beweerde dat iets pas kunst wordt wanneer de *kunstwereld* — critici, musea, verzamelaars — beslist dat het kunst is.
+
+Elk van deze definities klopt voor sommige kunstwerken en faalt bij andere. Plato's imitatie-idee werkt niet voor abstracte kunst. Kants belangeloze plezier verklaart niet waarom [Guernica](fig:guernica) ons ontwricht. Tolstojs emotie-overdracht zegt weinig over conceptuele kunst. En Danto's kunstwereld-theorie voelt cynisch als je voor een [Vermeer](fig:vermeer) staat en gewoon *weet* dat dit iets is.
+
+<SpecSheet items={["Guernica", "349×776cm", "oil on canvas", "1 bombing"]} /> 
+
+Dat is geen probleem. Dat is het onderwerp.
+
+<DefinitionTest />
+
+Je zal merken dat je antwoorden niet één coherente theorie opleveren. Dat is geen gebrek aan logica. Het betekent dat je al nadenkt zoals iemand die met esthetica bezig is: contextgevoelig, genuanceerd, bereid om tegenstrijdigheden te dragen.
+
+## Kijken kost moeite
+
+Je leeft in een beeldcultuur die niets zo zeer cultiveert als *snel kijken*. Een Instagram-post krijgt gemiddeld anderhalve seconde aandacht. Een TikTok nog minder. Je hersenen zijn getraind om razendsnel te scannen, te categoriseren, en door te scrollen. Dat is een kracht — je verwerkt meer visuele informatie per dag dan een middeleeuwer in een heel jaar — maar het is ook een armoede. Want kunst werkt in een ander tempo.
+
+Probeer dit eens. Kies een schilderij dat je vaag kent. *De Sterrennacht*, zeg. Stel een timer in op drie minuten. Kijk. Niet lezen wat anderen erover schreven, niet de titel analyseren, niet denken aan Van Gogh's oor. Alleen kijken. Binnen dertig seconden wil je wegkijken. Dat is normaal. Blijf. Na een minuut begin je dingen te zien die je nooit eerder opmerkte.
+
+<TimedViewer
+  src="/images/inleiding/van_gogh_starry_night.jpg"
+  alt="Vincent van Gogh, De Sterrennacht (1889)"
+  credit="Vincent van Gogh, De Sterrennacht (1889) — Museum of Modern Art, New York"
+  intro="Kijk. Alleen kijken. Niet lezen, niet analyseren, niet wegklikken. Drie minuten."
+/>
+
+Zag je het dorpje beneden bijna in het donker, terwijl de hemel brandt? De kerktoren die de lucht in wijst als een aanklacht? De cipres vooraan die is even groot als de bergen op de achtergrond — een onmogelijk perspectief? Na drie minuten heb je meer van het schilderij gezien dan je zou vermoeden.
+
+Dit is het verschil tussen *zien* en *kijken*. Tussen *horen* en *luisteren*. Het eerste overkomt je. Het tweede doe je.
+
+## Wat deze cursus niet is
+
+Dit is geen cursus kunstgeschiedenis. We lopen niet van grot naar gotiek naar Google. De volgorde waarin we kunst bekijken is niet chronologisch maar *thematisch*: perspectief, kleur, meerstemmigheid, graffiti, algoritmes, het lelijke, het alledaagse. Een [middeleeuws icoon](fig:icon) staat naast een TikTok-filter. Bach naast Aphex Twin. Dat is geen provocatie — het is de enige manier om te zien dat esthetiek geen museumvraag is maar een dagelijkse realiteit.
+
+Dit is ook geen cursus in smaak. Ik ga je niet zeggen wat mooi is. Wat ik wél ga doen, is je woorden geven om te beschrijven wat je ziet, kaders om te begrijpen waarom iets werkt, en vragen om mee te nemen naar kunstwerken, muziek, films en games die je nog niet kent. 
+
+<WithMargin>
+Je smaak blijft van jou. Ze zal alleen wat rijker zijn.
+
+<Margin>grotendeels</Margin>
+</WithMargin>
+
+## Een gereedschapskist
+
+Om te beginnen heb je woorden nodig. Niet omdat kunst zich laat reduceren tot een checklist, maar omdat je zonder vocabulaire vastloopt in *mooi* en *niet mooi*. Hieronder staat een eerste set begrippen. Ze zijn ruw, niet volledig, en je breidt ze dit hele jaar uit. Gebruik ze als een kompas, niet als een meetlint.
+
+### Voor beeld
+
+**Vorm** is de gedaante van wat je ziet. Realistisch of abstract, herkenbaar of onherkenbaar, geometrisch of organisch. Vergelijk de [Mona Lisa](fig:monalisa) met een compositie van Mondriaan. Beide zijn vormen — maar ze vragen een totaal andere blik.
+
+<SpecSheet items={["Mona Lisa", "77×53cm", "7m people/year", "bulletproof glass"]} /> 
+
+**Kleur** is nooit neutraal. Een rode jurk op een schilderij draagt andere betekenis dan dezelfde rode jurk in een reclame. Warm of koud, symbolisch of expressief, verzadigd of verwaterd — kleur stuurt je emotie voordat je beseft dat je iets voelt.
+
+**Compositie** is hoe de elementen in een beeld zich tot elkaar verhouden. Symmetrisch zoals in [Het Laatste Avondmaal](fig:last-supper), waar alle lijnen naar Jezus leiden. Of chaotisch zoals bij Pollock, waar het oog geen rustpunt vindt. Compositie bepaalt wat je eerst ziet en wat je nooit opmerkt.
+
+**Ruimte** is de illusie van diepte — of de bewuste afwezigheid daarvan. Een middeleeuwse icoon is plat omdat de makers geloofden dat het goddelijke niet in aards perspectief past. [Rafaël](fig:athens) bouwt diepte op alsof hij een theater construeert. Beide kloppen, in hun eigen logica.
+
+### Voor klank
+
+**Melodie** is de lijn die je kan meeneuriën. De eerste vier noten van Beethovens [Vijfde](video:beethoven) kent iedereen — dat is de kracht van een melodie die zich in je geheugen nestelt.
+
+**Ritme** is de organisatie van tijd. Herhaling, accent, stilte. Strawinsky's [Le Sacre du Printemps](video:stravinsky) brak in 1913 door omdat het ritme onvoorspelbaar werd — en het publiek stond op om te vechten.
+
+**Dynamiek** is het verschil tussen fluisteren en schreeuwen in klank. Muziek zonder dynamiek is vlak. Beethoven gebruikt plotse luide akkoorden als bliksem in een stille lucht.
+
+**Klankkleur** is waarom een viool anders klinkt dan een saxofoon, ook wanneer ze dezelfde noot spelen. Het is de huid van het geluid — wat een stem herkenbaar maakt als [Billie Holiday](video:holiday) of [Sinead O'Connor](video:troy).
+
+### Drie vragen om mee te beginnen
+
+Wanneer je voor een kunstwerk staat, of in een film zit, of een track opzet, en je weet niet waar te beginnen: stel jezelf deze drie vragen.
+
+*Wat valt me op?* Niet wat ik zou *moeten* opmerken — wat mijn oog of oor werkelijk naar zich toe trekt.
+
+*Wat roept het op?* Welk gevoel, welke herinnering, welke weerstand. Ook ongemak is informatie.
+
+*Waarom werkt het zo?* Welke keuzes in vorm, kleur, ritme of klank veroorzaken die reactie?
+
+Drie vragen. Meer heb je niet nodig om te beginnen. De rest van deze cursus verdiept elk van hen.

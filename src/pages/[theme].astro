@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import ThemeLayout from '../layouts/ThemeLayout.astro';
+
+export async function getStaticPaths() {
+  const themes = await getCollection('themes');
+  return themes.map(theme => ({
+    params: { theme: theme.id },
+    props: { theme },
+  }));
+}
+
+const { theme } = Astro.props;
+
+// TODO: custom layout per thema (BRIEFING.md §5) — later implementeren:
+// if (theme.data.customLayout) {
+//   const { default: Layout } = await import(`../layouts/themes/${theme.data.customLayout}.astro`);
+//   // gebruik Layout in plaats van ThemeLayout
+// }
+
+const { Content, headings, remarkPluginFrontmatter } = await render(theme);
+const readingTime: string | undefined = remarkPluginFrontmatter?.readingTime;
+---
+
+<ThemeLayout theme={theme} headings={headings} readingTime={readingTime}>
+  <Content />
+</ThemeLayout>
