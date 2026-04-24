@@ -52,10 +52,11 @@ import 'photoswipe/style.css';
             source?: string;
             alt?: string;
           }>(resolve => {
+            const resolvedSrc = img.src.startsWith('/') ? BASE + img.src : img.src;
             const el = new Image();
             const done = () =>
               resolve({
-                src: img.src.startsWith('/') ? BASE + img.src : img.src,
+                src: resolvedSrc,
                 width: el.naturalWidth || 1200,
                 height: el.naturalHeight || 800,
                 caption: img.caption,
@@ -64,7 +65,7 @@ import 'photoswipe/style.css';
               });
             el.onload = done;
             el.onerror = done;
-            el.src = img.src;
+            el.src = resolvedSrc;
           })
       )
     );

@@ -9,13 +9,14 @@ const { theme } = Astro.props;
 const id = theme.id;
 const { title, figure, shortDescription, image } = theme.data;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const imageSrc = image && image.startsWith('/') ? base + image : image;
 ---
 
 <article class="theme-card">
   <a href={`${base}/${id}`} class="theme-card__link" tabindex="-1" aria-hidden="true">
     <div class="theme-card__image">
-      {image
-        ? <img src={image} alt={title} loading="lazy" />
+      {imageSrc
+        ? <img src={imageSrc} alt={title} loading="lazy" />
         : <div class="theme-card__placeholder" aria-hidden="true" />
       }
     </div>
@@ -32,7 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <p class="theme-card__description">{shortDescription}</p>
     <div class="theme-card__actions">
       <a href={`${base}/${id}`} class="theme-card__btn theme-card__btn--primary">cursus →</a>
-      <a href={`/slides/${id}/`} class="theme-card__btn theme-card__btn--secondary">slides →</a>
+      <a href={`${base}/slides/${id}/`} class="theme-card__btn theme-card__btn--secondary">slides →</a>
     </div>
   </div>
 </article>
