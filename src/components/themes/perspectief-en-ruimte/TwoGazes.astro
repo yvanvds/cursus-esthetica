@@ -1,0 +1,13 @@
+---
+import Island from './TwoGazes.tsx';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const cimabueSrc = `${base}/images/perspectief/maesta.png`;
+const athensSrc = `${base}/images/inleiding/school-of-athens.png`;
+---
+
+<Island
+  client:visible
+  cimabueSrc={cimabueSrc}
+  athensSrc={athensSrc}
+/>

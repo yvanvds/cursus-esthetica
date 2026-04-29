@@ -1,0 +1,236 @@
+/* ── Container ─────────────────────────────────────────────────────────── */
+
+.root {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  padding-block: var(--space-lg);
+}
+
+/* ── Image grid ────────────────────────────────────────────────────────── */
+
+.images {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  align-items: start;
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 640px) {
+  .images {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+}
+
+.figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The wrap takes the image's natural aspect ratio so SVG/label coordinates
+   in percentages line up with the picture rather than empty letterboxing. */
+.imageWrap {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-elevated);
+  overflow: hidden;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.svgOverlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-quiet);
+  margin-top: var(--space-xs);
+  line-height: 1.5;
+}
+
+/* ── SVG marker styles ─────────────────────────────────────────────────── */
+
+.vpLine {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  opacity: 0.7;
+  vector-effect: non-scaling-stroke;
+  fill: none;
+}
+
+.vpDot {
+  fill: var(--color-accent);
+  opacity: 0.9;
+}
+
+.horizonLine {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  opacity: 0.75;
+  stroke-dasharray: 5 4;
+  vector-effect: non-scaling-stroke;
+  fill: none;
+}
+
+.bracket {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  opacity: 0.75;
+  stroke-dasharray: 3 2;
+  vector-effect: non-scaling-stroke;
+  fill: none;
+}
+
+.highlight {
+  fill: var(--color-accent);
+  opacity: 0.18;
+}
+
+/* ── Text labels overlaid on images ───────────────────────────────────── */
+
+.textLabel {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: var(--color-text);
+  background: rgba(0, 0, 0, 0.65);
+  padding: var(--space-xs) var(--space-sm);
+  pointer-events: none;
+  max-width: 90%;
+}
+
+/* Cimabue label positions */
+.labelCimabueVp {
+  left: 6%;
+  right: 6%;
+  bottom: 4%;
+}
+
+.labelCimabueHier {
+  left: 36%;
+  right: 4%;
+  top: 71%;
+}
+
+.labelCimabueBg {
+  left: 4%;
+  top: 3%;
+}
+
+.labelCimabueOog {
+  left: 6%;
+  right: 6%;
+  top: 46%;
+  text-align: center;
+}
+
+/* Athens label positions */
+.labelAthensHier {
+  left: 5%;
+  right: 5%;
+  bottom: 4%;
+}
+
+.labelAthensBg {
+  left: 4%;
+  top: 6%;
+}
+
+.labelAthensOog {
+  right: 4%;
+  top: 32%;
+}
+
+/* ── Fade-in animation ────────────────────────────────────────────────── */
+
+.fadeIn {
+  animation: twoGazesFadeIn 200ms ease-out;
+}
+
+@keyframes twoGazesFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fadeIn {
+    animation: none;
+  }
+}
+
+/* ── Marker buttons ───────────────────────────────────────────────────── */
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xs);
+}
+
+@media (min-width: 768px) {
+  .controls {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: left;
+  transition: color 150ms ease, background 150ms ease, border-color 150ms ease;
+}
+
+.button:hover {
+  border-color: var(--color-text-muted);
+}
+
+.buttonActive {
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.buttonActive:hover {
+  border-color: var(--color-accent);
+}
+
+.buttonNumber {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+}
+
+.buttonLabel {
+  font-size: var(--step--1);
+  line-height: 1.3;
+}

@@ -1,0 +1,9 @@
+---
+interface Props {
+  offset: 'left' | 'right';
+}
+const { offset } = Astro.props;
+---
+<div class={`shifted shifted--${offset}`}>
+  <slot />
+</div>

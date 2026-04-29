@@ -1,0 +1,132 @@
+/* src/styles/themes/perspectief-en-ruimte.css */
+
+:root {
+  --color-accent:      #3B4CCA;
+  --color-accent-soft: rgba(59, 76, 202, 0.1);
+  --color-bg:          #1a1a1a;
+}
+
+/* ---- Shared: regime wrapper ---- */
+.regime {
+  margin-block: var(--space-lg);
+}
+
+/* ---- Regime 1: renaissance ---- */
+
+/* Full-height vertical line on right edge of text column.
+   z-index: -1 inside an isolated stacking context keeps it
+   behind children but above the section background. */
+.regime--renaissance {
+  position: relative;
+  isolation: isolate;
+}
+
+.regime--renaissance::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border-subtle);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Centred dot as typographic pause between consecutive paragraphs */
+.regime--renaissance p + p::before {
+  content: '·';
+  display: block;
+  text-align: center;
+  color: var(--color-text-whisper);
+  line-height: 1;
+  margin-block: var(--space-xs);
+}
+
+/* ---- Regime 2: barok ---- */
+
+/* Same vertical line as renaissance */
+.regime--barok {
+  position: relative;
+  isolation: isolate;
+}
+
+.regime--barok::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border-subtle);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* LineBreak: cover the line for the Pozzo passages.
+   Background occludes the z-index: -1 pseudo-element. */
+.regime--barok .line-break-wrapper {
+  background: var(--color-bg);
+  padding-block: var(--space-md);
+  margin-block: var(--space-md);
+}
+
+/* ---- Regime 3: gebroken ---- */
+
+/* No vertical line. Shifted paragraphs only on desktop. */
+.regime--gebroken .shifted--left,
+.regime--gebroken .shifted--right {
+  transition: none;
+}
+
+@media (min-width: 640px) {
+  .regime--gebroken .shifted--left {
+    padding-inline-start: 3rem;
+  }
+
+  .regime--gebroken .shifted--right {
+    padding-inline-end: 6rem;
+    /* Narrow the column slightly — gives leftward-crowded feel */
+    max-width: calc(68ch - 6rem);
+  }
+}
+
+/* Braque fragment: small serif aside, ~30ch, indented */
+.regime--gebroken .regime-fragment {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--step--1);
+  color: var(--color-text-muted);
+  max-width: 30ch;
+  margin-block: var(--space-md);
+  margin-inline-start: var(--space-lg);
+  padding-inline-start: var(--space-sm);
+  border-left: 1px solid var(--color-border-subtle);
+}
+
+/* ---- Regime 4: skyspace ---- */
+
+.regime--skyspace {
+  max-width: 50ch;
+  padding-block: var(--space-2xl);
+}
+
+.regime--skyspace p {
+  line-height: 1.85;
+}
+
+/* Page background breathes while the reader is in the skyspace section.
+   JS (RegimeSection.astro) toggles .skyspace-active on <body>.
+   alternate direction: dark→warm→dark→… — never jumps back to start. */
+@keyframes skyspace-breathe {
+  0%   { background-color: #1a1a1a; }
+  33%  { background-color: #3d2b2b; }
+  66%  { background-color: #471c1c; }
+  100% { background-color: #6e2626; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body.skyspace-active {
+    animation: skyspace-breathe 75s ease-in-out alternate infinite;
+  }
+}

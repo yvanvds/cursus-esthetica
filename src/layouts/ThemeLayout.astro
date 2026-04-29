@@ -147,13 +147,6 @@ const videos = (theme.data as any).videos ?? null;
           <span aria-hidden="true">·</span>
           <span>hoofdstuk {theme.data.order} van {totalInModule}</span>
         </p>
-        {!theme.data.customHeader && (
-          <>
-            <p class="theme-header__figure">fig. {theme.data.figure}</p>
-            <h1 class="theme-header__title">{theme.data.title}</h1>
-            <p class="theme-header__lead">{theme.data.shortDescription}</p>
-          </>
-        )}
         {readingTime && <p class="theme-header__reading-time">{readingTime}</p>}
       </header>
 
@@ -382,39 +375,6 @@ const videos = (theme.data as any).videos ?? null;
     color: var(--color-text-muted);
   }
 
-  .theme-header__figure {
-    font-family: var(--font-mono);
-    font-size: var(--step-4);
-    color: var(--color-accent);
-    line-height: 1;
-    margin-bottom: var(--space-sm);
-    max-width: none;
-  }
-
-  .theme-header__title {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: var(--step-4);
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: var(--space-md);
-  }
-
-  @media (min-width: 1024px) {
-    .theme-header__title {
-      font-size: var(--step-5);
-    }
-  }
-
-  .theme-header__lead {
-    font-family: var(--font-sans);
-    font-size: var(--step-1);
-    color: var(--color-text-muted);
-    line-height: 1.5;
-    max-width: 55ch;
-    margin-bottom: 0;
-  }
-
   .theme-header__reading-time {
     font-family: var(--font-mono);
     font-size: var(--step--1);
@@ -426,6 +386,21 @@ const videos = (theme.data as any).videos ?? null;
   }
 
   /* ---- Prose ---- */
+  .theme-body :global(h1) {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--step-4);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+  }
+
+  @media (min-width: 1024px) {
+    .theme-body :global(h1) {
+      font-size: var(--step-5);
+    }
+  }
+
   .theme-body :global(h2) {
     font-family: var(--font-serif);
     font-size: var(--step-3);

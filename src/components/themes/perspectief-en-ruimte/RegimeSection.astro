@@ -1,0 +1,60 @@
+---
+interface Props {
+  regime: 'renaissance' | 'barok' | 'gebroken' | 'skyspace';
+}
+const { regime } = Astro.props;
+---
+<div class={`regime regime--${regime}`}>
+  <slot />
+</div>
+
+<script>
+  // Animate the whole-page background while the reader is in the skyspace section.
+  // On exit, manually transition the current colour back to the base dark so the
+  // return is smooth rather than a snap.
+  const skyspace = document.querySelector<HTMLElement>('.regime--skyspace');
+
+  if (skyspace) {
+    const BASE_BG = '#1a1a1a';
+    const EXIT_DURATION_MS = 8000;
+    let exitTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const container = document.querySelector<HTMLElement>('.theme-grid__content');
+    const scrollRoot =
+      container && getComputedStyle(container).overflowY === 'auto' ? container : null;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Cancel any in-progress exit transition and let the animation take over.
+          if (exitTimer !== null) {
+            clearTimeout(exitTimer);
+            exitTimer = null;
+          }
+          document.body.style.transition = '';
+          document.body.style.backgroundColor = '';
+          document.body.classList.add('skyspace-active');
+        } else {
+          // Pin the current computed colour, remove the animation class, then
+          // transition smoothly back to the base dark.
+          const current = getComputedStyle(document.body).backgroundColor;
+          document.body.classList.remove('skyspace-active');
+          document.body.style.backgroundColor = current;
+          // Force reflow so the browser registers the starting colour.
+          void document.body.offsetHeight;
+          document.body.style.transition = `background-color ${EXIT_DURATION_MS}ms ease`;
+          document.body.style.backgroundColor = BASE_BG;
+
+          exitTimer = setTimeout(() => {
+            document.body.style.transition = '';
+            document.body.style.backgroundColor = '';
+            exitTimer = null;
+          }, EXIT_DURATION_MS);
+        }
+      },
+      { root: scrollRoot, threshold: 0 },
+    );
+
+    obs.observe(skyspace);
+  }
+</script>
