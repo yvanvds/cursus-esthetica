@@ -8,7 +8,37 @@
       "Bash(npx astro *)",
       "Bash(npm list *)",
       "Bash(node -e \"const d = require\\('d:/cursus-esthetica/.astro/data-store.json'\\); const themes = d.themes || {}; const inl = themes['themes/inleiding.mdx'] || themes['inleiding'] || Object.values\\(themes\\).find\\(t => JSON.stringify\\(t\\).includes\\('cattelan'\\)\\); console.log\\(JSON.stringify\\(inl?.data || inl, null, 2\\).slice\\(0, 500\\)\\)\")",
-      "Bash(node -e \"const d = require\\('d:/cursus-esthetica/.astro/data-store.json'\\); console.log\\(JSON.stringify\\(Object.keys\\(d\\)\\).slice\\(0,200\\)\\); const first = Object.keys\\(d\\)[0]; console.log\\(JSON.stringify\\(Object.keys\\(d[first] || {}\\)\\).slice\\(0,200\\)\\)\")"
+      "Bash(node -e \"const d = require\\('d:/cursus-esthetica/.astro/data-store.json'\\); console.log\\(JSON.stringify\\(Object.keys\\(d\\)\\).slice\\(0,200\\)\\); const first = Object.keys\\(d\\)[0]; console.log\\(JSON.stringify\\(Object.keys\\(d[first] || {}\\)\\).slice\\(0,200\\)\\)\")",
+      "PowerShell($cmds = @\\('uv', 'python', 'uvx'\\); foreach \\($c in $cmds\\) { $found = Get-Command $c -ErrorAction SilentlyContinue; if \\($found\\) { Write-Output \"$c -> $\\($found.Source\\)\" } else { Write-Output \"$c -> NOT FOUND\" } }; uv --version 2>&1; python --version 2>&1)",
+      "PowerShell(powershell -ExecutionPolicy ByPass -c \"irm https://astral.sh/uv/install.ps1 | iex\" 2>&1 | Select-Object -Last 30)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; uv --version; uvx --version)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv sync 2>&1 | Select-Object -Last 40)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv sync 2>&1 | Select-Object -Last 30)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv run python scripts/smoke_test.py 2>&1)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv run python scripts/smoke_test.py 2>&1 | Select-Object -Last 50)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv run image-downloader-mcp --http 2>&1)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8765/mcp/ -X POST -H \"Content-Type: application/json\" -H \"Accept: application/json, text/event-stream\" -d '{}')",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv run python scripts/smoke_test_http.py 2>&1 | Select-Object -Last 30)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv run python scripts/smoke_test.py 2>&1 | Select-String -Pattern \"ALL SMOKE|error|FAIL\" -CaseSensitive:$false)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv sync 2>&1 | Select-Object -Last 10)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv pip list 2>&1 | Select-String -Pattern \"dotenv|^Package\")",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv lock 2>&1 | Select-Object -Last 5; uv sync 2>&1 | Select-Object -Last 10)",
+      "PowerShell($env:Path = \"$env:USERPROFILE\\\\.local\\\\bin;$env:Path\"; Set-Location \"D:\\\\mcp-servers\\\\image-downloader\"; uv run python -c \"import dotenv; print\\(dotenv.__version__\\)\")"
+    ],
+    "deny": [
+      "Read(node_modules/**)",
+      "Read(dist/**)",
+      "Read(.astro/**)",
+      "Read(.git/**)",
+      "Read(package-lock.json)",
+      "Glob(node_modules/**)",
+      "Glob(dist/**)",
+      "Glob(.astro/**)",
+      "Glob(.git/**)",
+      "Grep(node_modules/**)",
+      "Grep(dist/**)",
+      "Grep(.astro/**)",
+      "Grep(.git/**)"
     ]
   }
 }

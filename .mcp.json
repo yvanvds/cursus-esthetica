@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "image-downloader": {
+      "type": "stdio",
+      "command": "C:\\Users\\yvan\\.local\\bin\\uv.exe",
+      "args": [
+        "run",
+        "--directory",
+        "D:\\mcp-servers\\image-downloader",
+        "image-downloader-mcp"
+      ],
+      "env": {
+        "IMAGE_DOWNLOADER_PROJECT_ROOT": "D:\\cursus-esthetica"
+      }
+    }
+  }
+}

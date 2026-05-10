@@ -1,0 +1,97 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const bgUrl = `${base}/images/licht-en-schaduw/background.png`;
+---
+
+<div class="flashlight" aria-hidden="true">
+  <div class="flashlight__dim"></div>
+  <div class="flashlight__spot"></div>
+</div>
+
+<style is:global define:vars={{ bgUrl: `url("${bgUrl}")` }}>
+  /* Body transparent maken zodat de fixed flashlight (z-index: -1) zichtbaar is.
+     html krijgt de page-bg zodat scrollende randen niet wit oplichten. */
+  html {
+    background-color: var(--color-bg);
+  }
+  body {
+    background-color: transparent;
+  }
+
+  .flashlight {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background-color: #000;
+  }
+
+  .flashlight__dim,
+  .flashlight__spot {
+    position: absolute;
+    inset: 0;
+    background-image: var(--bgUrl);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  .flashlight__dim {
+    opacity: 0.07;
+  }
+
+  .flashlight__spot {
+    --x: 50vw;
+    --y: 50vh;
+    -webkit-mask-image:
+      radial-gradient(circle 150px at var(--x) var(--y),
+        #000 0%,
+        rgba(0, 0, 0, 0.85) 35%,
+        rgba(0, 0, 0, 0.35) 70%,
+        transparent 100%);
+    mask-image:
+      radial-gradient(circle 150px at var(--x) var(--y),
+        #000 0%,
+        rgba(0, 0, 0, 0.85) 35%,
+        rgba(0, 0, 0, 0.35) 70%,
+        transparent 100%);
+    will-change: mask-image;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flashlight__spot {
+      display: none;
+    }
+    .flashlight__dim {
+      opacity: 0.18;
+    }
+  }
+</style>
+
+<script>
+  const spot = document.querySelector<HTMLElement>('.flashlight__spot');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (spot && !reduceMotion) {
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let curX = targetX;
+    let curY = targetY;
+    const ease = 0.01;
+
+    window.addEventListener('pointermove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    }, { passive: true });
+
+    const tick = () => {
+      curX += (targetX - curX) * ease;
+      curY += (targetY - curY) * ease;
+      spot.style.setProperty('--x', `${curX}px`);
+      spot.style.setProperty('--y', `${curY}px`);
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+</script>

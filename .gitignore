@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Slidev caches
+slides/*/.slidev/
+slides/*/node_modules/
+
+.claude/
+.agents

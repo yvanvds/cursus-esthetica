@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "images": {
+    "caravaggio-1.jpg": {
+      "description": "Caravaggio, De Roeping van Mattheüs, 1599 tot 1600",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:The_Calling_of_Saint_Matthew-Caravaggo_(1599-1600).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/The_Calling_of_Saint_Matthew-Caravaggo_%281599-1600%29.jpg",
+      "downloaded": "2026-05-10T10:18:32Z"
+    },
+    "eliasson-1.jpg": {
+      "description": "Olafur Eliasson, The Weather Project, Tate Modern, 2003",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/Category:The_Weather_Project",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Waetherprojectpd.JPG",
+      "downloaded": "2026-05-10T10:18:38Z"
+    },
+    "flavin-1.png": {
+      "description": "Dan Flavin, Untitled (In Honor of Leo at the 30th Anniversary of his Gallery), 1987",
+      "page_url": "https://www.lacma.org/art/exhibition/dan-flavin-retrospective"
+    },
+    "flavin-2.png": {
+      "description": "Dan Flavin, Untitled, 1969. Installation view",
+      "page_url": "https://narmassociation.org/dan-flavin-works-from-the-dia-art-foundation-collection/"
+    },
+    "flavin-3.png": {
+      "description": "Dan Flavin, monument 1 for V. Tatlin, 1964",
+      "page_url": "https://www.davidzwirner.com/artists/dan-flavin/survey"
+    },
+    "hiroshige-1.jpg": {
+      "description": "Utagawa Hiroshige, Plotse stortbui boven de Shin-Ōhashi-brug en Atake, 1857",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Hiroshige,_Sudden_shower_over_Shin-Ohashi_bridge_and_Atake,_1857_expanded.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Hiroshige%2C_Sudden_shower_over_Shin-Ohashi_bridge_and_Atake%2C_1857_expanded.jpg",
+      "downloaded": "2026-05-10T10:18:37Z"
+    },
+    "hiroshige-2.png": {
+      "description": "Ishiyakushi, 1842-3, Utagawa Hiroshige",
+      "page_url": "https://www.britishmuseumshoponline.org/ishiyakushi-utagawa-hiroshige.html"
+    },
+    "hiroshige-3.png": {
+      "description": "Utagawa Hiroshige 歌川広重, Japanese Crane and Wave, Edo Period.",
+      "page_url": "https://risdmuseum.org/exhibitions-events/exhibitions/hiroshige"
+    },
+    "rembrandt-1.jpg": {
+      "description": "Rembrandt van Rijn, Zelfportret, 1660",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Rembrandt_-_Self-portrait,_1660.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Rembrandt_-_Self-portrait%2C_1660.JPG",
+      "downloaded": "2026-05-10T10:18:33Z"
+    },
+    "rembrandt-2.png": {
+      "description": "Rembrandt van Rijn, Belshazzar’s feast, 1636",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Belshazzar%E2%80%99s_feast,_by_Rembrandt.jpg"
+    },
+    "rembrandt-3.png": {
+      "description": "Rembrandt van Rijn, Belshazzar’s feast, 1636, detail beker",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Belshazzar%E2%80%99s_feast,_by_Rembrandt.jpg"
+    },
+    "rembrandt-4.png": {
+      "description": "Rembrandt van Rijn, Belshazzar’s feast, 1636, detail robe",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Belshazzar%E2%80%99s_feast,_by_Rembrandt.jpg"
+    },
+    "michelangelo-1.png": {
+      "description": "Michelangelo, Sistine Chapel",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://www.history.com/articles/7-things-you-may-not-know-about-the-sistine-chapel"
+    },
+    "richter-1.jpg": {
+      "description": "Gerhard Richter, Domfenster, Köln, 2007, lichtval en schaduwval op de vloer",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/Category:Richter_Window_in_the_Cologne_Cathedral",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/K%C3%B6lner_Dom_Richter_Fenster.jpg",
+      "downloaded": "2026-05-10T10:18:18Z"
+    },
+    "richter-2.jpg": {
+      "description": "Gerhard Richter, Domfenster Köln, frontaal, 2007",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/Category:Richter_Window_in_the_Cologne_Cathedral",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/WLM13_K_Richter_Fenster.jpg",
+      "downloaded": "2026-05-10T10:18:20Z"
+    },
+    "richter-3.png": {
+      "description": "Gerhard Richter, Domfenster Köln, frontaal, 2007, detail",
+      "page_url": "https://www.derix.com/portfolio-items/richterfenster-koelner-dom",
+      "downloaded": "2026-05-10T10:18:20Z"
+    },
+    "richter-4.png": {
+      "description": "Gerhard Richter, Domfenster Köln, frontaal, 2007, overzicht",
+      "page_url": "https://publicdelivery.org/gerhard-richter-cathedral/",
+      "downloaded": "2026-05-10T10:18:20Z"
+    },
+    "sainte-chapelle-1.jpg": {
+      "description": "Sainte-Chapelle, Parijs, interieur, ingewijd in 1248",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Interior_of_Sainte-Chapelle,_Paris_28_April_2018.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Interior_of_Sainte-Chapelle%2C_Paris_28_April_2018.jpg",
+      "downloaded": "2026-05-10T10:18:30Z"
+    },
+    "sainte-chapelle-2.png": {
+      "description": "Sainte-Chapelle, Parijs, buitenkant",
+      "source": "cities to travel",
+      "page_url": "https://www.citiestotravel.com/en/visiting-sainte-chapelle-in-paris/"
+    },
+    "sainte-chapelle-3.png": {
+      "description": "Sainte-Chapelle, Parijs, Roosvenster",
+      "page_url": "https://www.meisterdrucke.be/fijne-kunsten-afdruk/French-School/439925/Roosvenster-met-negentiende-eeuws-glas-naar-een-middeleeuws-ontwerp.html"
+    }
+  }
+}

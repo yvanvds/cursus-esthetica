@@ -7,7 +7,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build:site": "astro build",
+    "build:slides": "node slides/build-all.mjs",
+    "build": "npm run build:site && npm run build:slides",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -29,6 +31,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@slidev/cli": "^52.15.2",
+    "@slidev/theme-default": "^0.25.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "unist-util-visit": "^5.1.0"
   }

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { hasSlides } from '../../lib/has-slides';
 
 interface Props {
   theme: CollectionEntry<'themes'>;
@@ -10,6 +11,7 @@ const id = theme.id;
 const { title, figure, shortDescription, image } = theme.data;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const imageSrc = image && image.startsWith('/') ? base + image : image;
+const themeHasSlides = hasSlides(id);
 ---
 
 <article class="theme-card">
@@ -33,7 +35,9 @@ const imageSrc = image && image.startsWith('/') ? base + image : image;
     <p class="theme-card__description">{shortDescription}</p>
     <div class="theme-card__actions">
       <a href={`${base}/${id}`} class="theme-card__btn theme-card__btn--primary">cursus →</a>
-      <a href={`${base}/slides/${id}/`} class="theme-card__btn theme-card__btn--secondary">slides →</a>
+      {themeHasSlides && (
+        <a href={`${base}/slides/${id}/`} class="theme-card__btn theme-card__btn--secondary">slides →</a>
+      )}
     </div>
   </div>
 </article>

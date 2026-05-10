@@ -1,0 +1,10 @@
+{
+  "name": "slidev-theme-cursus-esthetica",
+  "version": "0.0.1",
+  "type": "module",
+  "private": true,
+  "keywords": ["slidev-theme", "slidev"],
+  "engines": {
+    "slidev": ">=0.40.0"
+  }
+}
