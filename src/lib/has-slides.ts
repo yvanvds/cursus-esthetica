@@ -1,9 +1,6 @@
 import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
-
-const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+import { resolve } from 'node:path';
 
 export function hasSlides(themeId: string): boolean {
-  return existsSync(resolve(projectRoot, 'slides', themeId, 'slides.md'));
+  return existsSync(resolve(process.cwd(), 'slides', themeId, 'slides.md'));
 }
