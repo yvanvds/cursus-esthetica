@@ -101,6 +101,12 @@ Een nieuw deck toevoegen:
 2. Schrijf interactief: `npx slidev slides/<theme-id>/slides.md`.
 3. Commit. De `slides →`-knop verschijnt bij de volgende build.
 
+> **Let op — `slides →` in lokale dev:** Astro's dev-server (`npm run dev`)
+> serveert geen build-output, dus de `slides →`-knop op de ThemeCard geeft
+> daar 404. Om de volledige site lokaal te testen (inclusief slides):
+> `npm run build && npm run preview`. Voor het bewerken van een deck zelf
+> gebruik je Slidev's eigen dev-server op port 3030.
+
 Zie [`slides/README.md`](slides/README.md) voor verdere details.
 
 ## Deployment

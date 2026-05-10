@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "images": {
+    "banksy-royal-courts.jpg": {
+      "description": "Banksy — Royal Courts of Justice mural (Londen, 8 september 2025)",
+      "source": "MyArtBroker",
+      "license": "In Copyright",
+      "page_url": "https://www.myartbroker.com/artist-banksy/articles/banksy-royal-courts-of-justice-mural",
+      "file_url": "https://cdn.sanity.io/images/dqllnil6/production/1705591876c6fb2b0430459d209511114e245575-1179x1009.jpg",
+      "downloaded": "2026-05-10T20:54:21Z"
+    },
+    "botticelli-geboorte-van-venus.jpg": {
+      "description": "Sandro Botticelli — Geboorte van Venus (Uffizi, ca. 1485)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg",
+      "downloaded": "2026-05-10T15:06:13Z"
+    },
+    "claesz-vanitas.jpg": {
+      "description": "Pieter Claesz — Vanitas-stilleven (Mauritshuis, 1630)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Pieter_Claesz_-_Vanitas_Still_Life_-_943_-_Mauritshuis.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pieter_Claesz_-_Vanitas_Still_Life_-_943_-_Mauritshuis.jpg",
+      "downloaded": "2026-05-10T15:06:40Z"
+    },
+    "courbet-steenbrekers.jpg": {
+      "description": "Gustave Courbet — Les Casseurs de pierres (1849, vernietigd 1945)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Gustave_Courbet_-_The_Stonebreakers_-_WGA05457.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Gustave_Courbet_-_The_Stonebreakers_-_WGA05457.jpg",
+      "downloaded": "2026-05-10T15:07:16Z"
+    },
+    "goya-3-mei.jpg": {
+      "description": "Francisco Goya — El 3 de mayo de 1808 en Madrid (Prado, 1814)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg",
+      "downloaded": "2026-05-10T15:07:15Z"
+    },
+    "kandinsky-compositie-viii.jpg": {
+      "description": "Vassily Kandinsky — Compositie VIII (Guggenheim, 1923)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Vassily_Kandinsky,_1923_-_Composition_8,_huile_sur_toile,_140_cm_x_201_cm,_Mus%C3%A9e_Guggenheim,_New_York.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Vassily_Kandinsky,_1923_-_Composition_8,_huile_sur_toile,_140_cm_x_201_cm,_Mus%C3%A9e_Guggenheim,_New_York.jpg",
+      "downloaded": "2026-05-10T15:07:17Z"
+    },
+    "malevich-zwart-vierkant.jpg": {
+      "description": "Kazimir Malevich — Zwart Vierkant (Tretjakov-galerij Moskou, 1915)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Kazimir_Malevich,_1915,_Black_Suprematic_Square,_oil_on_linen_canvas,_79.5_x_79.5_cm,_Tretyakov_Gallery,_Moscow.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Kazimir_Malevich,_1915,_Black_Suprematic_Square,_oil_on_linen_canvas,_79.5_x_79.5_cm,_Tretyakov_Gallery,_Moscow.jpg",
+      "downloaded": "2026-05-10T15:07:16Z"
+    },
+    "pantocrator-sinai.jpg": {
+      "description": "Christus Pantocrator (Sint-Catharinaklooster Sinaï, 6e eeuw)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:CHRIST_PANTOCRATOR-SINAI(6th_Century).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/CHRIST_PANTOCRATOR-SINAI(6th_Century).jpg",
+      "downloaded": "2026-05-10T15:05:21Z"
+    },
+    "raphael-castiglione.jpg": {
+      "description": "Rafaël — Portret van Baldassare Castiglione (Louvre, 1514-1515)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Baldassare_Castiglione,_by_Raffaello_Sanzio,_from_C2RMF_retouched.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/94/Baldassare_Castiglione,_by_Raffaello_Sanzio,_from_C2RMF_retouched.jpg",
+      "downloaded": "2026-05-10T15:06:29Z"
+    },
+    "rivera-controller-of-the-universe.jpg": {
+      "description": "Diego Rivera — Man, Controller of the Universe (Palacio de Bellas Artes Mexico-Stad, 1934)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Mexico_-_Bellas_Artes_-_Fresque_Riviera_%C2%AB_Man_at_the_Crossroads_%C2%BB.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Mexico_-_Bellas_Artes_-_Fresque_Riviera_%C2%AB_Man_at_the_Crossroads_%C2%BB.JPG",
+      "downloaded": "2026-05-10T15:33:11Z"
+    },
+    "rivera-crossroads-bloch.jpg": {
+      "description": "Lucienne Bloch — foto van Diego Rivera, Man at the Crossroads (Rockefeller Center New York, 1933)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://greg.org/archive/2010/12/17/lucienne-blochs-muralphotos.html",
+      "file_url": "https://greg.org/archive/rivera_crossrds_bloch.jpg",
+      "downloaded": "2026-05-10T20:46:43Z"
+    },
+    "ruisdael-haarlem.jpg": {
+      "description": "Jacob van Ruisdael — Gezicht op Haarlem met blekerijen (Mauritshuis, ca. 1670)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Jacob_van_Ruisdael_-_View_of_Haarlem_with_Bleaching_Grounds_-_155_-_Mauritshuis.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Jacob_van_Ruisdael_-_View_of_Haarlem_with_Bleaching_Grounds_-_155_-_Mauritshuis.jpg",
+      "downloaded": "2026-05-10T15:06:38Z"
+    },
+    "teamlab-borderless.jpg": {
+      "description": "teamLab — Borderless (Azabudai Hills Tokio, 2024)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:TeamLab_Borderless_Azabudai_Hills.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/TeamLab_Borderless_Azabudai_Hills.jpg",
+      "downloaded": "2026-05-10T15:33:13Z"
+    },
+    "vermeer-melkmeisje.jpg": {
+      "description": "Vermeer — Het Melkmeisje (Rijksmuseum, ca. 1658)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
+      "downloaded": "2026-05-10T15:06:31Z"
+    }
+  }
+}

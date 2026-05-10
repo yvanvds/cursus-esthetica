@@ -1,0 +1,140 @@
+/* ────────────────────────────────────────────────────────────────────
+   Salon — Cursus Esthetica
+   Confident editorial-brutalist. Cocoa-black · bone · vermillion.
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --color-bg:            #161310;
+  --color-bg-elevated:   #1f1b16;
+  --color-surface:       #1f1b16;
+  --color-text:          #ece4d2;
+  --color-text-muted:    #b8ad95;
+  --color-text-quiet:    #8a8170;
+  --color-text-dim:      #5e574a;
+  --color-border-subtle: #3a342c;
+  --color-accent:        #e8553e;
+  --color-accent-soft:   rgba(232, 85, 62, 0.12);
+
+  --font-serif: 'EB Garamond', Garamond, serif;
+  --font-sans:  'Archivo', -apple-system, system-ui, sans-serif;
+  --font-mono:  'Space Mono', ui-monospace, monospace;
+
+  --step--1: 0.85rem;
+  --step-0:  1.06rem;
+  --step-1:  1.33rem;
+  --step-2:  1.66rem;
+  --step-3:  2.07rem;
+  --step-4:  2.59rem;
+  --step-5:  3.24rem;
+  --step-6:  4.05rem;
+
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.4rem;
+  --space-lg: 2.4rem;
+  --space-xl: 3.5rem;
+
+  --radius: 0;
+
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-sans);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  padding: var(--space-xl);
+  font-feature-settings: "kern", "liga";
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: var(--font-serif);
+  font-weight: 400; font-style: italic;
+  color: var(--color-text);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+.slidev-layout h1 { font-size: var(--step-6); }
+.slidev-layout h2 { font-size: var(--step-5); margin-bottom: var(--space-md); }
+.slidev-layout h3 { font-size: var(--step-3); font-style: normal; font-weight: 500; }
+
+.slidev-layout p,
+.slidev-layout li {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+.slidev-layout strong { color: var(--color-text); font-weight: 600; }
+.slidev-layout em     { font-family: var(--font-serif); font-style: italic; color: var(--color-accent); }
+
+.slidev-layout a { color: var(--color-accent); text-decoration: none; }
+.slidev-layout a:hover { text-decoration: underline; }
+
+.slidev-layout code {
+  font-family: var(--font-mono); font-size: 0.86em;
+  background: var(--color-surface);
+  padding: 0.1em 0.4em; color: var(--color-accent);
+}
+.slidev-layout pre {
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-accent);
+  padding: var(--space-md);
+  font-size: var(--step-0);
+}
+
+.slidev-layout blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--step-4);
+  color: var(--color-text);
+  border-left: none; padding-left: 0;
+  position: relative; margin-left: 1.2em;
+}
+.slidev-layout blockquote::before {
+  content: '“'; position: absolute;
+  left: -1em; top: -0.4em;
+  font-size: 4em; color: var(--color-accent);
+  line-height: 1; font-style: italic;
+}
+
+/* SECTION — massive italic numeral, bone-on-cocoa */
+.slidev-layout.section { display: flex; align-items: center; padding: 0 var(--space-xl); }
+.slidev-layout.section h1 {
+  font-size: clamp(6rem, 18vw, 18rem);
+  font-style: italic; letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+.slidev-layout.section h1 em { color: var(--color-accent); }
+
+/* COVER */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: center;
+}
+.slidev-layout.cover h1 {
+  font-size: clamp(4rem, 11vw, 11rem);
+  font-style: italic; letter-spacing: -0.025em;
+}
+
+.slidev-layout.two-cols { gap: var(--space-xl); }
+
+.slidev-layout.quote { display: flex; align-items: center; justify-content: center; }
+.slidev-layout.quote blockquote { font-size: var(--step-5); max-width: 80%; }
+
+.slidev-layout.end h1 { color: var(--color-accent); font-style: italic; }
+
+.slidev-layout.image,
+.slidev-layout[class*="image-"] { padding: 0; }
+
+/* Mono caps utility for dates / chapter labels */
+.slidev-layout .meta {
+  font-family: var(--font-mono); font-size: var(--step--1);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--color-text-quiet);
+}

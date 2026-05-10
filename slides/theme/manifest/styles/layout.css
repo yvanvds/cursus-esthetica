@@ -1,0 +1,297 @@
+/* ────────────────────────────────────────────────────────────────────
+   Manifest — Cursus Esthetica
+   Avant-garde provocative. Bone paper default · INK on section dividers
+   (auto-invert via .section). Fluoro persimmon accent.
+   Big Shoulders Display + Spectral + Space Mono.
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --color-bg:            #ece5d3;
+  --color-bg-elevated:   #f1ead8;
+  --color-surface:       #dcd3bd;
+  --color-text:          #0a0a09;
+  --color-text-muted:    #4a4640;
+  --color-text-quiet:    #7a7468;
+  --color-text-dim:      #a39c8b;
+  --color-border-subtle: #c7bea7;
+  --color-rule:          #0a0a09;
+  --color-accent:        #ff5a1f;
+  --color-accent-soft:   rgba(255, 90, 31, 0.14);
+
+  --font-display: 'Big Shoulders Display', Impact, sans-serif;
+  --font-serif:   'Spectral', Georgia, serif;
+  --font-sans:    'Big Shoulders Display', Impact, sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, monospace;
+
+  --step--1: 0.85rem;
+  --step-0:  1.05rem;
+  --step-1:  1.32rem;
+  --step-2:  1.65rem;
+  --step-3:  2.06rem;
+  --step-4:  2.58rem;
+  --step-5:  3.22rem;
+  --step-6:  4.0rem;
+
+  --space-xs: 0.35rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.4rem;
+  --space-lg: 2.4rem;
+  --space-xl: 3rem;
+
+  --radius: 0;
+
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-serif);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  padding: var(--space-xl);
+  position: relative;
+}
+
+
+/* Headings — compressed display caps */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 0.92;
+  letter-spacing: -0.012em;
+}
+.slidev-layout h1 { font-size: clamp(3rem, 8vw, 7.5rem); }
+.slidev-layout h2 { font-size: clamp(2.4rem, 6vw, 5rem); margin-bottom: var(--space-md); }
+.slidev-layout h3 { font-size: var(--step-3); font-weight: 700; }
+
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.slidev-layout strong { color: var(--color-text); font-weight: 500; }
+.slidev-layout em {
+  font-family: var(--font-serif); font-style: italic;
+  color: var(--color-accent);
+}
+
+.slidev-layout a {
+  color: var(--color-accent); text-decoration: none;
+  background: var(--color-accent-soft); padding: 0.05em 0.25em;
+}
+.slidev-layout a:hover { background: var(--color-accent); color: var(--color-bg); }
+
+.slidev-layout code {
+  font-family: var(--font-mono); font-size: 0.85em;
+  background: var(--color-surface); color: var(--color-text);
+  padding: 0.1em 0.4em;
+}
+.slidev-layout pre {
+  background: var(--color-bg-elevated);
+  border: 1.5px solid var(--color-rule);
+  padding: var(--space-md);
+  font-size: var(--step-2);
+  line-height: 1.45;
+  margin-top: var(--space-md);
+  color: var(--color-text);
+}
+/* Shiki paints code text with inline styles — force ink for legibility on bone */
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout pre .line,
+.slidev-layout pre span { color: var(--color-text) !important; }
+/* Neutraliseer Shiki's lege/whitespace-only eerste regel die als leading spatie verschijnt */
+.slidev-layout pre code { display: block; text-indent: 0; padding-left: 0; }
+.slidev-layout pre code .line:first-child:empty { display: none; }
+
+.slidev-layout blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--step-4);
+  line-height: 1.25;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  margin: var(--space-lg) auto;
+  padding: 0.1em 0.9em;
+  position: relative;
+  max-width: max-content;
+}
+.slidev-layout blockquote::before,
+.slidev-layout blockquote::after {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: 4.5em;
+  line-height: 1;
+  color: var(--color-accent);
+  pointer-events: none;
+}
+.slidev-layout blockquote::before {
+  content: '“';
+  left: -0.35em;
+  top: -0.25em;
+}
+.slidev-layout blockquote::after {
+  content: '”';
+  right: -0.35em;
+  bottom: -0.55em;
+}
+
+/* ── SECTION DIVIDER — auto-invert to ink ─────────────────────────── */
+.slidev-layout.section {
+  background: var(--color-text);
+  color: var(--color-bg);
+  display: flex; align-items: center; justify-content: flex-end;
+  text-align: right;
+  padding: var(--space-xl) calc(var(--space-xl) * 1.5);
+}
+.slidev-layout.section::before { color: var(--color-bg); }
+.slidev-layout.section h1 {
+  font-size: clamp(4rem, 11vw, 11rem);
+  color: var(--color-bg);
+}
+.slidev-layout.section p,
+.slidev-layout.section li { color: var(--color-text-dim); }
+.slidev-layout.section em { color: var(--color-accent); }
+
+/* Stamped numeral on section: use first char of a [data-num] element if you set one */
+.slidev-layout.section h1::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -2vw; top: 50%;
+  transform: translateY(-50%) rotate(-6deg);
+  font-family: var(--font-display); font-weight: 900;
+  font-size: clamp(20rem, 40vw, 50rem);
+  color: var(--color-accent);
+  line-height: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+.slidev-layout.section > * { position: relative; z-index: 1; }
+
+/* COVER */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: center;
+}
+.slidev-layout.cover h1 {
+  font-size: clamp(5rem, 14vw, 14rem);
+  letter-spacing: -0.018em;
+}
+
+/* Hard rule below cover title */
+.slidev-layout.cover h1 + p,
+.slidev-layout.cover h1 + div {
+  border-top: 4px solid var(--color-rule);
+  padding-top: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.slidev-layout.two-cols { gap: var(--space-xl); }
+
+/* QUADRANTS — title bovenaan, 2×2 grid eronder */
+.slidev-layout.quadrants {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--space-lg);
+}
+.slidev-layout.quadrants .quadrants-header h2 {
+  margin-bottom: 0;
+}
+.slidev-layout.quadrants .quadrants-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--space-md);
+  min-height: 0;
+}
+.slidev-layout.quadrants .quadrant {
+  border: 1px solid var(--color-rule);
+  padding: var(--space-md);
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.quadrants .quadrant h3 {
+  margin-bottom: var(--space-sm);
+}
+/* Tweede paragraaf in een quadrant = meta-regel (jaar, voorbeeld, etc.) */
+.slidev-layout.quadrants .quadrant p + p {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-quiet);
+  margin-top: var(--space-sm);
+}
+
+/* COMPARE — twee afbeeldingen naast elkaar, zonder titel */
+.slidev-layout.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+}
+.slidev-layout.compare .compare-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* PAIRED-REVEAL — links tekst (v-clicks per bullet),
+   rechts één afbeelding die meeswitcht per klik */
+.slidev-layout.paired-reveal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+.slidev-layout.paired-reveal .paired-reveal-text { min-width: 0; }
+.slidev-layout.paired-reveal .paired-reveal-image {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  border: 1px solid var(--color-rule);
+}
+
+.slidev-layout.quote { display: flex; align-items: center; justify-content: center; }
+.slidev-layout.quote blockquote { font-size: var(--step-5); max-width: 80%; }
+
+.slidev-layout.end {
+  background: var(--color-text); color: var(--color-bg);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.slidev-layout.end::before { color: var(--color-bg); }
+.slidev-layout.end h1 { color: var(--color-bg); font-size: clamp(3rem, 8vw, 8rem); }
+.slidev-layout.end p { color: var(--color-text-dim); }
+
+.slidev-layout.image,
+.slidev-layout[class*="image-"] { padding: 0; }
+.slidev-layout.image::before,
+.slidev-layout[class*="image-"]::before { display: none; }
+
+/* Mono caps utility */
+.slidev-layout .meta {
+  font-family: var(--font-mono); font-size: var(--step--1);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--color-text-quiet);
+}

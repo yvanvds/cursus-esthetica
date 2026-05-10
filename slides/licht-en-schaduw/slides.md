@@ -1,5 +1,5 @@
 ---
-theme: ../theme
+theme: ../theme/manifest
 title: Licht en schaduw
 info: |
   Cursus Esthetica — hoofdstuk 03
