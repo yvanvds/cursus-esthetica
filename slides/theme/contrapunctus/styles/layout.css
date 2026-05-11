@@ -1,0 +1,361 @@
+/* ────────────────────────────────────────────────────────────────────
+   Contrapunctus — Cursus Esthetica
+   Historicist manuscript. Vellum · ink · rubric red.
+   Cormorant Garamond + Cormorant SC + JetBrains Mono.
+   Ornament: hairline staves, mono rubrics, drop-cap on section dividers.
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Palette — warm vellum + sepia ink + rubric red ────────────── */
+  --color-bg:            #ede2c6;   /* vellum */
+  --color-bg-elevated:   #e6d9b8;   /* gathered fold */
+  --color-surface:       #dfd0a8;   /* darker leaf */
+  --color-text:          #1e1408;   /* iron-gall ink */
+  --color-text-muted:    #4a3a26;
+  --color-text-quiet:    #7a6a4e;
+  --color-text-dim:      #a89875;
+  --color-border-subtle: #c8b893;
+  --color-rule:          #1e1408;   /* layouts-base picks this up */
+  --color-accent:        #a8281f;   /* rubric vermilion */
+  --color-accent-soft:   rgba(168, 40, 31, 0.10);
+
+  /* ── Type stacks ───────────────────────────────────────────────── */
+  --font-serif:    'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --font-display:  'Cormorant SC', 'Cormorant Garamond', Garamond, serif;
+  --font-sans:     'Cormorant Garamond', Garamond, serif;
+  --font-mono:     'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Modular scale (1.25) */
+  --step--1: 0.85rem;
+  --step-0:  1.06rem;
+  --step-1:  1.33rem;
+  --step-2:  1.66rem;
+  --step-3:  2.07rem;
+  --step-4:  2.59rem;
+  --step-5:  3.24rem;
+  --step-6:  4.05rem;
+
+  /* Spacing */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.4rem;
+  --space-lg: 2.4rem;
+  --space-xl: 3.5rem;
+
+  --radius: 0;
+
+  /* Slidev hooks */
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-serif);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+/* ── Base layout ─────────────────────────────────────────────────── */
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  padding: var(--space-xl);
+  position: relative;
+  font-feature-settings: "kern", "liga", "onum";
+}
+
+/* Hairline staff motif: five horizontal rules at the very top of every
+   slide. Subtle, fades into the margin — suggests a music staff. */
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--space-xl) * 0.45);
+  left: var(--space-xl);
+  right: var(--space-xl);
+  height: 14px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to bottom,
+      transparent 0, transparent 2px,
+      var(--color-border-subtle) 2px, var(--color-border-subtle) 3px,
+      transparent 3px, transparent 5px,
+      var(--color-border-subtle) 5px, var(--color-border-subtle) 6px,
+      transparent 6px, transparent 8px,
+      var(--color-border-subtle) 8px, var(--color-border-subtle) 9px,
+      transparent 9px, transparent 11px,
+      var(--color-border-subtle) 11px, var(--color-border-subtle) 12px,
+      transparent 12px, transparent 14px);
+  /* fade the staff towards the right so it doesn't crowd content */
+  -webkit-mask-image: linear-gradient(to right, black 0, black 38%, transparent 65%);
+          mask-image: linear-gradient(to right, black 0, black 38%, transparent 65%);
+}
+
+/* ── Headings ────────────────────────────────────────────────────── */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+}
+.slidev-layout h1 { font-size: var(--step-6); margin-bottom: var(--space-md); }
+.slidev-layout h2 {
+  font-size: var(--step-4);
+  margin-bottom: var(--space-md);
+  font-family: var(--font-display);   /* small caps for slide titles */
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;               /* SC face handles caps shape */
+}
+.slidev-layout h3 { font-size: var(--step-3); font-style: italic; font-weight: 500; margin-bottom: var(--space-sm); }
+.slidev-layout h4 { font-size: var(--step-2); font-style: italic; font-weight: 500; }
+
+/* Body type */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+.slidev-layout li + li { margin-top: 0.25em; }
+
+.slidev-layout strong { color: var(--color-text); font-weight: 600; }
+.slidev-layout em     { font-style: italic; color: var(--color-accent); }
+
+.slidev-layout a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent-soft);
+}
+.slidev-layout a:hover { border-bottom-color: var(--color-accent); }
+
+/* Inline code & blocks — neutral mono on vellum */
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--color-surface);
+  padding: 0.1em 0.4em;
+  color: var(--color-text);
+}
+.slidev-layout pre {
+  background: var(--color-bg-elevated);
+  border-left: 2px solid var(--color-accent);
+  padding: var(--space-md);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  margin-top: var(--space-md);
+  color: var(--color-text);
+}
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout pre .line,
+.slidev-layout pre span { color: var(--color-text) !important; }
+.slidev-layout pre code { display: block; text-indent: 0; padding-left: 0; }
+
+/* ── Blockquote — rubric-red opening mark, italic ──────────────── */
+.slidev-layout blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--step-3);
+  line-height: 1.35;
+  color: var(--color-text);
+  background: none;
+  border-left: none;
+  padding: 0 0 0 1.2em;
+  margin: var(--space-lg) 0;
+  position: relative;
+}
+.slidev-layout blockquote::before {
+  content: '“';
+  position: absolute;
+  left: -0.15em;
+  top: -0.35em;
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: 3.4em;
+  line-height: 1;
+  color: var(--color-accent);
+  pointer-events: none;
+}
+
+/* ── Lists — discreet rubric bullet ───────────────────────────── */
+.slidev-layout ul { list-style: none; padding-left: 0; }
+.slidev-layout ul > li {
+  position: relative;
+  padding-left: 1.4em;
+}
+.slidev-layout ul > li::before {
+  content: '•';
+  position: absolute;
+  left: 0.25em;
+  top: 0;
+  color: var(--color-accent);
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+.slidev-layout ol { padding-left: 1.6em; }
+.slidev-layout ol > li::marker {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+/* ── COVER — title, hairline staves above + below ──────────────── */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--space-xl) calc(var(--space-xl) * 1.5);
+}
+.slidev-layout.cover::before { display: none; }   /* override top staff */
+.slidev-layout.cover h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 9.5vw, 9rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 0.96;
+  letter-spacing: -0.022em;
+  margin-bottom: var(--space-md);
+}
+.slidev-layout.cover h1::first-line { font-style: italic; }
+.slidev-layout.cover h1 + p {
+  font-style: italic;
+  font-size: var(--step-2);
+  color: var(--color-text-muted);
+  max-width: 32em;
+}
+
+/* Full-width staff motif on the cover, top + bottom */
+.slidev-layout.cover::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--space-xl) * 1.5);
+  right: calc(var(--space-xl) * 1.5);
+  top: calc(var(--space-xl) * 1.2);
+  height: 14px;
+  background-image:
+    linear-gradient(to bottom,
+      transparent 0, transparent 2px,
+      var(--color-text) 2px, var(--color-text) 3px,
+      transparent 3px, transparent 5px,
+      var(--color-text) 5px, var(--color-text) 6px,
+      transparent 6px, transparent 8px,
+      var(--color-text) 8px, var(--color-text) 9px,
+      transparent 9px, transparent 11px,
+      var(--color-text) 11px, var(--color-text) 12px,
+      transparent 12px, transparent 14px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ── SECTION DIVIDER — illuminated drop cap ────────────────────── */
+.slidev-layout.section {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: calc(var(--space-xl) * 1.4);
+}
+.slidev-layout.section h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(4.5rem, 12vw, 12rem);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+  position: relative;
+  z-index: 1;
+}
+/* Decorated initial: rubric-red, oversize, slightly nudged */
+.slidev-layout.section h1::first-letter {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: 1.05em;
+  padding-right: 0.04em;
+}
+.slidev-layout.section p {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  margin-top: var(--space-md);
+}
+
+/* ── Two columns ────────────────────────────────────────────── */
+.slidev-layout.two-cols { gap: var(--space-xl); }
+
+/* ── Quote layout ───────────────────────────────────────────── */
+.slidev-layout.quote {
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--space-xl) calc(var(--space-xl) * 2);
+}
+.slidev-layout.quote blockquote {
+  font-size: var(--step-4);
+  max-width: 28em;
+  line-height: 1.3;
+}
+
+/* ── End ─────────────────────────────────────────────────────── */
+.slidev-layout.end {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: calc(var(--space-xl) * 1.4);
+}
+.slidev-layout.end h1 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.slidev-layout.end p { color: var(--color-text-muted); font-style: italic; }
+
+/* ── Image layouts — kill default padding ──────────────────── */
+.slidev-layout.image,
+.slidev-layout[class*="image-"] { padding: 0; }
+.slidev-layout.image::before,
+.slidev-layout[class*="image-"]::before { display: none; }
+
+/* Image-right / image-left keep some breathing room on the text side */
+.slidev-layout.image-right,
+.slidev-layout.image-left { padding: var(--space-xl); }
+.slidev-layout.image-right .my-cool-content-on-the-left,
+.slidev-layout.image-left  .my-cool-content-on-the-right { padding-right: var(--space-lg); }
+
+/* ── Mono caps utility — rubrics, dates, chapter labels ───── */
+.slidev-layout .meta,
+.slidev-layout .rubric {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.slidev-layout .meta-quiet {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+
+/* ── Centred layout (slidev built-in) ──────────────────────── */
+.slidev-layout.center { text-align: center; }
+.slidev-layout.center ul > li { display: inline-block; padding-left: 0; }
+.slidev-layout.center ul > li::before { display: none; }
+
+/* ── Layouts-base hooks ────────────────────────────────────────
+   compare / paired-reveal / quadrants are provided by the
+   layouts-base addon. We only need to expose --color-rule,
+   --color-text-quiet, --font-mono, --step--1, spacing — all done
+   above. A few small refinements: */
+.slidev-layout.quadrants .quadrant { background: var(--color-bg-elevated); }
+.slidev-layout.quadrants .quadrant h3 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-size: var(--step-2);
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+}
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  background: var(--color-bg-elevated);
+}

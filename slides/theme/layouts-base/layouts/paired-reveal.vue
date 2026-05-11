@@ -1,22 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useSlideContext } from '@slidev/client'
+import { resolveAsset } from '../utils'
 
 const props = defineProps<{
   images?: string[]
 }>()
 
 const { $clicks } = useSlideContext()
-
-function resolveAsset(path: string): string {
-  if (!path) return path
-  if (/^(https?:)?\/\//.test(path) || path.startsWith('data:')) return path
-  if (path.startsWith('/')) {
-    const base = import.meta.env.BASE_URL || '/'
-    return base.replace(/\/$/, '') + path
-  }
-  return path
-}
 
 const resolvedImages = computed(() => (props.images || []).map(resolveAsset))
 

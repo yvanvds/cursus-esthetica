@@ -2,6 +2,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { fixDoubledSiteBase } from './build-postprocess.mjs';
 
 const slidesDir = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(slidesDir, '..');
@@ -32,6 +33,10 @@ for (const id of decks) {
   if (result.status !== 0) {
     console.error(`Build failed for ${id} (exit ${result.status})`);
     process.exit(result.status ?? 1);
+  }
+  const fixed = fixDoubledSiteBase({ distDir: out, deckBase: base, siteBase: SITE_BASE });
+  if (fixed > 0) {
+    console.log(`Rewrote doubled site-base URLs in ${fixed} file(s) for ${id}`);
   }
 }
 

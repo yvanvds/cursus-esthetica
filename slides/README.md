@@ -120,3 +120,21 @@ serveert de `siteAssetsPlugin` uit `vite.config.ts` hetzelfde pad vanuit
 
 Cross-theme hergebruik werkt zonder kopiëren: het inleiding-deck verwijst
 bijvoorbeeld naar `/cursus-esthetica/images/licht-en-schaduw/flavin-1.png`.
+
+### Waarom dit werkt onder een afwijkende deck-base
+
+Slidev/Vite prefixen `BASE_URL` (= `/cursus-esthetica/slides/<id>/`) aan
+elk pad dat met `/` start. Voor paden die *al* absoluut zijn t.o.v. de
+site (`/cursus-esthetica/...`) zou dat een dubbele prefix opleveren. Twee
+mechanismen voorkomen dat:
+
+1. **Override-layouts in `theme/layouts-base/`.** `image.vue`,
+   `image-right.vue`, `image-left.vue`, `compare.vue`, `paired-reveal.vue`
+   gebruiken een lokale `resolveAsset` die paden onder `/cursus-esthetica/`
+   ongewijzigd doorlaat. Slidev's eigen `image`/`image-right`-layouts
+   worden zo automatisch overschreven door het addon.
+2. **Post-build rewrite in `build-postprocess.mjs`.** Slidev genereert ook
+   `<link rel="preload">`-tags in `index.html` via z'n interne resolver,
+   buiten de layouts om. `build-all.mjs` draait na elke deck-build een
+   tekstreplace die `/<deck-base>/cursus-esthetica/` terugzet naar
+   `/cursus-esthetica/`.

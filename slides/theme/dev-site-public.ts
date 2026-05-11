@@ -20,10 +20,22 @@ const MIME: Record<string, string> = {
   ogg: 'audio/ogg',
 };
 
+/**
+ * Dev-server plugin: serveert `/<siteBase>/...`-paden uit `public/` van de
+ * site, zodat decks naar bestaande site-assets kunnen wijzen zonder kopie
+ * onder `slides/<id>/public/`.
+ *
+ * Voor productie zie `fixDoubledSiteBase` in `build-postprocess.mjs`:
+ * Slidev/Vite prefixen `BASE_URL` aan elk `/`-pad in templates wat in
+ * production een dubbele prefix oplevert; die wordt na de slidev-build
+ * weggepatched.
+ */
 export function siteAssetsPlugin(siteBase = '/cursus-esthetica') {
-  const prefix = siteBase.replace(/\/$/, '') + '/';
+  const devPrefix = siteBase.replace(/\/$/, '') + '/';
+
   return {
     name: 'cursus-esthetica:serve-site-public',
+
     configureServer(server: {
       middlewares: {
         use: (
@@ -36,8 +48,8 @@ export function siteAssetsPlugin(siteBase = '/cursus-esthetica') {
       };
     }) {
       server.middlewares.use((req, res, next) => {
-        if (!req.url || !req.url.startsWith(prefix)) return next();
-        const rel = req.url.slice(prefix.length).split('?')[0];
+        if (!req.url?.startsWith(devPrefix)) return next();
+        const rel = req.url.slice(devPrefix.length).split('?')[0];
         const file = resolve(publicDir, rel);
         if (!file.startsWith(publicDir)) return next();
         try {
