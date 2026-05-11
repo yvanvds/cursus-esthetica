@@ -8,8 +8,20 @@ const props = defineProps<{
 
 const { $clicks } = useSlideContext()
 
+function resolveAsset(path: string): string {
+  if (!path) return path
+  if (/^(https?:)?\/\//.test(path) || path.startsWith('data:')) return path
+  if (path.startsWith('/')) {
+    const base = import.meta.env.BASE_URL || '/'
+    return base.replace(/\/$/, '') + path
+  }
+  return path
+}
+
+const resolvedImages = computed(() => (props.images || []).map(resolveAsset))
+
 const visibleIndex = computed(() => {
-  const n = props.images?.length ?? 0
+  const n = resolvedImages.value.length
   if (n === 0 || $clicks.value < 1) return -1
   return Math.min($clicks.value - 1, n - 1)
 })
@@ -26,7 +38,7 @@ const visibleIndex = computed(() => {
     </div>
     <div class="paired-reveal-image">
       <img
-        v-for="(src, i) in (images || [])"
+        v-for="(src, i) in resolvedImages"
         :key="i"
         :src="src"
         v-show="i === visibleIndex"
