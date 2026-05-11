@@ -30,7 +30,7 @@ en verwarrend.
 
 ---
 layout: image
-image: /img/cattelan-1.jpg
+image: /cursus-esthetica/images/inleiding/cattelan-1.jpg
 backgroundSize: contain
 ---
 
@@ -153,9 +153,9 @@ elk twee voorbeelden waar die definitie pijn doet.
 ---
 layout: paired-reveal
 images:
-  - /img/picasso_guernica.jpg
-  - /img/mondriaan.png
-  - /img/flavin-1.png
+  - /cursus-esthetica/images/inleiding/picasso_guernica.jpg
+  - /cursus-esthetica/images/inleiding/mondriaan.png
+  - /cursus-esthetica/images/licht-en-schaduw/flavin-1.png
 ---
 
 ## Plato faalt bij abstractie
@@ -185,7 +185,7 @@ codering. Plato had dit nooit kunst genoemd. Wij wel.
 
 ---
 layout: image-right
-image: /img/Vermeer_Girl_with_a_Pearl_Earring.jpg
+image: /cursus-esthetica/images/inleiding/Vermeer_Girl_with_a_Pearl_Earring.jpg
 ---
 
 ## Danto voelt cynisch hier
@@ -248,7 +248,7 @@ moeilijk. Slow looking is geen mystiek. Het is een spier.
 
 ---
 layout: image
-image: /img/van_gogh_starry_night.jpg
+image: /cursus-esthetica/images/inleiding/van_gogh_starry_night.jpg
 backgroundSize: contain
 ---
 
@@ -385,8 +385,8 @@ op tegenovergestelde manier inzetten.
 
 ---
 layout: compare
-left: /img/monalisa.png
-right: /img/mondriaan.png
+left: /cursus-esthetica/images/inleiding/monalisa.png
+right: /cursus-esthetica/images/inleiding/mondriaan.png
 ---
 
 <!--
@@ -398,8 +398,8 @@ vond Mondriaan precies de bevrijding van het portret.
 
 ---
 layout: compare
-left: /img/last-supper.png
-right: /img/pollock.png
+left: /cursus-esthetica/images/inleiding/last-supper.png
+right: /cursus-esthetica/images/inleiding/pollock.png
 ---
 
 <!--
@@ -416,8 +416,8 @@ juist niet.
 
 ---
 layout: compare
-left: /img/medieval_icon.png
-right: /img/school-of-athens.png
+left: /cursus-esthetica/images/inleiding/medieval_icon.png
+right: /cursus-esthetica/images/inleiding/school-of-athens.png
 ---
 
 <!--

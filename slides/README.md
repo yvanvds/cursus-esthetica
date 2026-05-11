@@ -88,6 +88,35 @@ npm run build:slides
    ```
    (de `addons:`-regel weglaten als je de extra layouts niet nodig hebt).
    Zie de noot hierboven over `../` (theme) vs `./` (addons).
-2. `npx slidev slides/<theme-id>/slides.md` om interactief te schrijven.
-3. Commit. De `slides →`-knop op de bijbehorende ThemeCard verschijnt
+2. Voeg `slides/<theme-id>/vite.config.ts` toe zodat het deck de
+   afbeeldingen uit `public/images/` van de site kan gebruiken zonder
+   duplicatie:
+   ```ts
+   import { defineConfig } from 'vite';
+   import { siteAssetsPlugin } from '../theme/dev-site-public';
+
+   export default defineConfig({
+     plugins: [siteAssetsPlugin()],
+   });
+   ```
+3. `npx slidev slides/<theme-id>/slides.md` om interactief te schrijven.
+4. Commit. De `slides →`-knop op de bijbehorende ThemeCard verschijnt
    automatisch bij de volgende build.
+
+## Afbeeldingen referencen
+
+Verwijs naar bestaande site-assets met hun volledige deploy-pad:
+
+```yaml
+layout: image
+image: /cursus-esthetica/images/<theme-id>/foo.jpg
+```
+
+In productie staan deck en site op dezelfde origin onder
+`/cursus-esthetica/`, dus die paden resolven naar de Astro-image. In dev
+serveert de `siteAssetsPlugin` uit `vite.config.ts` hetzelfde pad vanuit
+`public/` van de site. Resultaat: één set bytes op disk, in git, én in
+`dist/` — geen `slides/<id>/public/img/` meer nodig.
+
+Cross-theme hergebruik werkt zonder kopiëren: het inleiding-deck verwijst
+bijvoorbeeld naar `/cursus-esthetica/images/licht-en-schaduw/flavin-1.png`.
