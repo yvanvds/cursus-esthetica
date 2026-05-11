@@ -1,0 +1,84 @@
+/* ────────────────────────────────────────────────────────────────────
+   layouts-base — gedeelde structurele regels voor:
+     layout: compare        (twee beelden naast elkaar)
+     layout: paired-reveal  (tekst links, beeld dat per klik switcht)
+     layout: quadrants      (titel + 2×2 grid)
+
+   Geen kleuren of fonts hier — alleen layout. Het thema levert tokens:
+     --color-text, --color-text-quiet, --color-rule (optioneel),
+     --space-sm, --space-md, --space-lg, --space-xl,
+     --font-mono, --step--1
+   --color-rule valt terug op --color-text als het thema het niet definieert.
+   ──────────────────────────────────────────────────────────────────── */
+
+/* ── QUADRANTS — titel bovenaan, 2×2 grid eronder ─────────────────── */
+.slidev-layout.quadrants {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: var(--space-lg);
+}
+.slidev-layout.quadrants .quadrants-header h2 {
+  margin-bottom: 0;
+}
+.slidev-layout.quadrants .quadrants-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: var(--space-md);
+  min-height: 0;
+}
+.slidev-layout.quadrants .quadrant {
+  border: 1px solid var(--color-rule, var(--color-text));
+  padding: var(--space-md);
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.quadrants .quadrant h3 {
+  margin-bottom: var(--space-sm);
+}
+/* Tweede paragraaf in een quadrant = meta-regel (jaar, voorbeeld, etc.) */
+.slidev-layout.quadrants .quadrant p + p {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-quiet);
+  margin-top: var(--space-sm);
+}
+
+/* ── COMPARE — twee afbeeldingen naast elkaar, zonder titel ───────── */
+.slidev-layout.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+}
+.slidev-layout.compare .compare-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* ── PAIRED-REVEAL — links tekst (v-clicks per bullet),
+     rechts één afbeelding die meeswitcht per klik ─────────────────── */
+.slidev-layout.paired-reveal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+.slidev-layout.paired-reveal .paired-reveal-text { min-width: 0; }
+.slidev-layout.paired-reveal .paired-reveal-image {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  border: 1px solid var(--color-rule, var(--color-text));
+}

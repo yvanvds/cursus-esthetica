@@ -8,10 +8,48 @@ op dezelfde GitHub Pages-site als de cursus.
 
 ```
 slides/
-  theme/                    # gedeelde lokale Slidev-theme (mapt op tokens.css)
-  <theme-id>/slides.md      # één map per deck
-  build-all.mjs             # bouwt alle decks naar dist/slides/<id>/
+  theme/
+    manifest/  salon/  vitrine/   # Slidev-thema's (puur visueel)
+    layouts-base/                 # gedeeld addon met extra layouts
+  <theme-id>/slides.md            # één map per deck
+  build-all.mjs                   # bouwt alle decks naar dist/slides/<id>/
 ```
+
+## Thema's en de gedeelde layouts
+
+Elk deck kiest één visueel **thema** uit `theme/` en kan optioneel het
+**`layouts-base`-addon** binnentrekken voor de gedeelde extra layouts
+(`compare`, `paired-reveal`, `quadrants`):
+
+```yaml
+---
+theme: ../theme/manifest
+addons:
+  - ./theme/layouts-base
+---
+```
+
+> **Let op de paden.** `theme:` wordt door Slidev resolved t.o.v. de map
+> van `slides.md` zelf (vandaar `../`), maar `addons:` t.o.v. de parent
+> van die map — voor decks in `slides/<id>/` is dat dus `slides/`. Het
+> verschil in `../` vs `./` is opzettelijk.
+
+### Tokens-contract voor nieuwe thema's
+
+`layouts-base/styles/layouts.css` is bewust kleur- en font-loos en leest
+enkel tokens uit het actieve thema. Een nieuw thema moet minstens deze
+custom properties op `:root` definiëren wil het addon correct renderen:
+
+| Token | Gebruikt voor |
+|---|---|
+| `--color-text`, `--color-text-quiet` | meta-regel in quadrant |
+| `--color-rule` *(optioneel)* | randen rond quadrants en paired-reveal-beeld — valt terug op `--color-text` |
+| `--space-sm`, `--space-md`, `--space-lg`, `--space-xl` | gaps en padding |
+| `--font-mono`, `--step--1` | meta-regel in quadrant |
+
+Het basis-tokenset (`--color-bg`, `--color-text`, typografie-stapel,
+spacing-stapel, `--step-*`, `--slidev-*`-hooks) hoort sowieso in elk thema —
+zie `theme/manifest/styles/layout.css` als referentie-implementatie.
 
 Een deck bestaat zodra `slides/<theme-id>/slides.md` bestaat. De
 `slides →`-knop op de ThemeCard verschijnt automatisch zodra het bestand er
@@ -40,7 +78,16 @@ npm run build:slides
 
 ## Een nieuw deck toevoegen
 
-1. Maak `slides/<theme-id>/slides.md` aan met headmatter `theme: ../theme`.
+1. Maak `slides/<theme-id>/slides.md` aan met headmatter:
+   ```yaml
+   ---
+   theme: ../theme/<theme-name>
+   addons:
+     - ./theme/layouts-base
+   ---
+   ```
+   (de `addons:`-regel weglaten als je de extra layouts niet nodig hebt).
+   Zie de noot hierboven over `../` (theme) vs `./` (addons).
 2. `npx slidev slides/<theme-id>/slides.md` om interactief te schrijven.
 3. Commit. De `slides →`-knop op de bijbehorende ThemeCard verschijnt
    automatisch bij de volgende build.

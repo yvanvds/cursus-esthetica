@@ -1,5 +1,7 @@
 ---
 theme: ../theme/manifest
+addons:
+  - ./theme/layouts-base
 title: Maar is het kunst?
 ---
 
