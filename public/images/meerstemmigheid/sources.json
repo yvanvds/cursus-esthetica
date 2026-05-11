@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "images": {
+    "aka-1.jpg": {
+      "description": "Aka-zangers in de Centraal-Afrikaanse Republiek — vierstemmige polyfonie, mondeling doorgegeven",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://ich.unesco.org/en/RL/polyphonic-singing-of-the-aka-pygmies-of-central-africa-00082",
+      "file_url": "https://ich.unesco.org/img/photo/thumb/00159-BIG.jpg",
+      "downloaded": "2026-05-11T16:53:54Z"
+    },
+    "aka-2.jpg": {
+      "description": "Aka-gemeenschap in collectief gezang",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://ich.unesco.org/en/RL/polyphonic-singing-of-the-aka-pygmies-of-central-africa-00082",
+      "file_url": "https://ich.unesco.org/img/photo/thumb/00492-BIG.jpg",
+      "downloaded": "2026-05-11T16:53:56Z"
+    },
+    "bach-1.jpg": {
+      "description": "Johann Sebastian Bach, geschilderd door Elias Gottlob Haussmann, 1748",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Johann_Sebastian_Bach.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Johann_Sebastian_Bach.jpg",
+      "downloaded": "2026-05-11T16:34:41Z"
+    },
+    "bach-2.jpg": {
+      "description": "Autograaf-titelpagina van de Mass in B Minor — Bach's eigen handschrift, 1733",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:BWV_232_Titelblatt_Missa.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/BWV_232_Titelblatt_Missa.jpg",
+      "downloaded": "2026-05-11T16:34:44Z"
+    },
+    "erraji-1.jpg": {
+      "description": "Hassan Erraji, live in concert",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://bandonthewall.org/events/hassan-erraji/",
+      "file_url": "https://static.bandonthewall.org/app/uploads/old_images/events/2822/extra_large/hassan-photos-016-900x900.jpg",
+      "downloaded": "2026-05-11T16:53:49Z"
+    },
+    "erraji-2.jpg": {
+      "description": "Hassan Erraji — albumhoes",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": null,
+      "file_url": "https://cdn-images.dzcdn.net/images/cover/152d80a94a63553eaff225eb69f4b936/1900x1900-000000-80-0-0.jpg",
+      "downloaded": "2026-05-11T16:53:50Z"
+    },
+    "georgian-1.jpg": {
+      "description": "Georgisch driestemmig gezang, traditie uit Kakheti",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://georgiaabout.com/2014/08/06/georgian-polyphonic-singing/",
+      "file_url": "https://georgiaabout.com/wp-content/uploads/2014/08/in-khobi.jpg",
+      "downloaded": "2026-05-11T16:53:52Z"
+    },
+    "guido-1.jpg": {
+      "description": "De hand van Guido van Arezzo, mnemotechnisch hulpmiddel voor zangers",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Guidonian_hand.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Guidonian_hand.jpg",
+      "downloaded": "2026-05-11T16:34:36Z"
+    },
+    "hildegard-1.jpg": {
+      "description": "Hildegard von Bingen ontvangt een visioen, frontispice van Scivias, rond 1151",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Hildegard_von_Bingen.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Hildegard_von_Bingen.jpg",
+      "downloaded": "2026-05-11T16:34:30Z"
+    },
+    "josquin-1.jpg": {
+      "description": "Josquin des Prez, houtsnede uit Petrus Opmeers Opus chronographicum, 1611",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Josquin_woodcut.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Josquin_woodcut.jpg",
+      "downloaded": "2026-05-11T16:34:39Z"
+    },
+    "machaut-1.jpg": {
+      "description": "Guillaume de Machaut, miniatuur uit BnF Fr.1586, 14de eeuw",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Guillaume_de_Machaut_-_Po%C3%A9sies_-_Rem%C3%A8de_de_Fortune_(BnF,_Ms._Fr._1586,_f67).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Guillaume_de_Machaut_-_Po%C3%A9sies_-_Rem%C3%A8de_de_Fortune_(BnF,_Ms._Fr._1586,_f67).jpg",
+      "downloaded": "2026-05-11T16:34:38Z"
+    },
+    "magnus-liber-1.jpg": {
+      "description": "Folio uit het Magnus Liber Organi, 13de eeuw",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Magnus_Liber_Organi.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Magnus_Liber_Organi.jpg",
+      "downloaded": "2026-05-11T16:53:57Z"
+    },
+    "notre-dame-1.jpg": {
+      "description": "Interieur van Notre-Dame de Paris, vóór de brand van 2019",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Notre-Dame_de_Paris_-_Nave_HDR.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Notre-Dame_de_Paris_-_Nave_HDR.jpg",
+      "downloaded": "2026-05-11T16:34:29Z"
+    },
+    "oswald-1.jpg": {
+      "description": "Oswald von Wolkenstein in de Innsbrucker Liederhandschrift B, 1432",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Oswald_von_Wolkenstein.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Oswald_von_Wolkenstein.jpg",
+      "downloaded": "2026-05-11T16:34:30Z"
+    },
+    "purcell-1.jpg": {
+      "description": "Henry Purcell, geschilderd door John Closterman, rond 1695",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Henry_Purcell_Closterman.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Henry_Purcell_Closterman.jpg",
+      "downloaded": "2026-05-11T16:34:39Z"
+    },
+    "pythagoras-1.png": {
+      "description": "Pythagoras en de smid, houtsnede uit Franchino Gaffurio's Theorica Musicae, 1492",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Pythagoras.In.Der.Schmiede.De.musica.png",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Pythagoras.In.Der.Schmiede.De.musica.png",
+      "downloaded": "2026-05-11T16:34:31Z"
+    }
+  }
+}
