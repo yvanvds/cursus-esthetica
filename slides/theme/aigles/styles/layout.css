@@ -1,0 +1,606 @@
+/* ────────────────────────────────────────────────────────────────────
+   Aigles — Cursus Esthetica
+   "Département des Aigles" — État-belge dossier aesthetic.
+   Deep prussian-navy night, paper-cream text, postal-stamp red,
+   brass-gold seal. Big Shoulders Display (condensed, heavy) for
+   titles · Hanken Grotesk for body · Spectral italic for asides ·
+   Space Mono for dossier numbers and corner marks.
+
+   Counterpoint to "contrapunctus" (warm vellum manuscript): this
+   one is the bureaucratic envelope the state stamps it with.
+
+   ── Authoring vocabulary ─────────────────────────────────────────
+   Inside any slide markdown you can include:
+     <div class="numeral">II</div>           huge brass numeral
+                                             (use on .section dividers)
+     <div class="dossier">2.A</div>          top-right file number
+     <div class="strip">                     bilingual NL/FR strip
+       <span class="nl">…</span>
+       <span class="fr">…</span>
+     </div>
+     <span class="negation">…</span>         strikethrough red italic
+     <span class="tampon">archivé</span>     small rotated stamp
+     <div class="cachet">                    big rotated round stamp
+       <span class="top">…</span>            (use on cover, section)
+       <span class="big">N°1</span>
+       <span class="bot">…</span>
+     </div>
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Hanken+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&family=Spectral:ital,wght@1,300;1,400;1,500&display=swap');
+
+:root {
+  /* ── Palette — deep navy night + paper + cachet red + brass ────── */
+  --color-bg:            #0D1B2E;   /* prussian night */
+  --color-bg-elevated:   #142841;   /* dossier folder */
+  --color-surface:       #1C3553;   /* deeper card */
+  --color-text:          #ECE5D1;   /* paper-cream */
+  --color-text-muted:    #C0B89F;
+  --color-text-quiet:    #8A8170;
+  --color-text-dim:      #4D4836;
+  --color-border-subtle: #2B3A52;
+  --color-rule:          #ECE5D1;   /* layouts-base picks this up */
+  --color-accent:        #E63E2A;   /* postal cachet — vivid red */
+  --color-accent-soft:   rgba(230, 62, 42, 0.18);
+  --color-brass:         #C9A75A;   /* state-seal brass */
+  --color-brass-soft:    rgba(201, 167, 90, 0.20);
+
+  /* ── Type stacks ───────────────────────────────────────────────── */
+  --font-display:  'Big Shoulders Display', Impact, 'Arial Narrow Bold', sans-serif;
+  --font-sans:     'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --font-serif:    'Spectral', Georgia, serif;
+  --font-mono:     'Space Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Modular scale */
+  --step--1: 0.78em;
+  --step-0:  1.00em;
+  --step-1:  1.22em;
+  --step-2:  1.55em;
+  --step-3:  2.05em;
+  --step-4:  2.85em;
+  --step-5:  4.05em;
+  --step-6:  5.5em;
+
+  /* Spacing — use rem so they don't compound with font-size changes */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.4rem;
+  --space-lg: 2.4rem;
+  --space-xl: 3.5rem;
+
+  --radius: 0;
+
+  /* Slidev hooks */
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-sans);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+/* ── Base layout ─────────────────────────────────────────────────── */
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  padding: calc(var(--space-xl) * 1.1) var(--space-xl) var(--space-xl);
+  position: relative;
+  font-feature-settings: "kern", "liga", "tnum", "ss01";
+  overflow: hidden;
+}
+
+/* Faint registration rule across the top — anchors the dossier feel. */
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  left: var(--space-xl);
+  right: var(--space-xl);
+  top: 18px;
+  height: 1px;
+  background: var(--color-border-subtle);
+  pointer-events: none;
+}
+/* Top-left registration crosshair — printing-plate mark. */
+.slidev-layout::after {
+  content: '';
+  position: absolute;
+  top: 13px; left: 13px;
+  width: 9px; height: 9px;
+  background:
+    linear-gradient(to bottom, transparent 4px, var(--color-brass) 4px, var(--color-brass) 5px, transparent 5px),
+    linear-gradient(to right,  transparent 4px, var(--color-brass) 4px, var(--color-brass) 5px, transparent 5px);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Top-right dossier number — put <div class="dossier">2.A</div>
+   inside your slide markdown. The "DOSSIER" prefix is automatic. */
+.slidev-layout .dossier {
+  position: absolute;
+  top: 18px; right: var(--space-xl);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brass);
+  pointer-events: none;
+  z-index: 2;
+}
+.slidev-layout .dossier::before {
+  content: 'dossier  ';
+  color: var(--color-text-quiet);
+  font-weight: 400;
+}
+
+/* Bilingual strip — optional. Replaces the dossier number if used. */
+.slidev-layout .strip {
+  position: absolute;
+  top: 18px; left: calc(var(--space-xl) + 22px); right: var(--space-xl);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  pointer-events: none;
+  z-index: 2;
+}
+.slidev-layout .strip .nl { color: var(--color-text); }
+.slidev-layout .strip .fr { color: var(--color-brass); font-style: italic; font-family: var(--font-serif); font-weight: 300; letter-spacing: 0; text-transform: none; font-size: 1.1em; }
+
+/* ── Headings ────────────────────────────────────────────────────── */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+.slidev-layout h1 {
+  font-size: var(--step-6);
+  margin-bottom: var(--space-md);
+  font-weight: 900;
+}
+.slidev-layout h2 {
+  font-size: var(--step-4);
+  margin-bottom: var(--space-md);
+  font-weight: 800;
+}
+.slidev-layout h3 {
+  font-size: var(--step-2);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  color: var(--color-brass);
+  letter-spacing: 0.02em;
+}
+.slidev-layout h4 {
+  font-size: var(--step-0);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+}
+
+/* Body type — Hanken, comfortable reading */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-sans);
+  font-size: var(--step-1);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-wrap: pretty;
+}
+.slidev-layout li + li { margin-top: 0.35em; }
+
+.slidev-layout strong { color: var(--color-text); font-weight: 600; }
+.slidev-layout em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-accent);
+}
+
+.slidev-layout a {
+  color: var(--color-brass);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brass-soft);
+}
+.slidev-layout a:hover { border-bottom-color: var(--color-brass); }
+
+/* Inline code & blocks */
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  background: var(--color-bg-elevated);
+  padding: 0.1em 0.4em;
+  color: var(--color-text);
+}
+.slidev-layout pre {
+  background: var(--color-bg-elevated);
+  border-left: 2px solid var(--color-accent);
+  padding: var(--space-md);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  margin-top: var(--space-md);
+  color: var(--color-text);
+}
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout pre .line,
+.slidev-layout pre span { color: var(--color-text) !important; }
+.slidev-layout pre code { display: block; text-indent: 0; padding-left: 0; }
+
+/* ── Blockquote — Spectral italic, brass-gold stripe ──────────── */
+.slidev-layout blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--step-3);
+  line-height: 1.32;
+  color: var(--color-text);
+  background: none;
+  border-left: 3px solid var(--color-brass);
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+/* ── Lists ──────────────────────────────────────────────────────── */
+.slidev-layout ul { list-style: none; padding-left: 0; }
+.slidev-layout ul > li {
+  position: relative;
+  padding-left: 1.6em;
+}
+.slidev-layout ul > li::before {
+  content: '×';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 1em;
+  line-height: 1.55;
+}
+.slidev-layout ol { padding-left: 0; counter-reset: dossier-list; list-style: none; }
+.slidev-layout ol > li {
+  position: relative;
+  padding-left: 3em;
+  counter-increment: dossier-list;
+}
+.slidev-layout ol > li::before {
+  content: counter(dossier-list, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82em;
+  letter-spacing: 0.10em;
+  color: var(--color-brass);
+}
+
+/* ── COVER — large condensed wordmark, rotated cachet ─────────── */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: var(--space-xl) calc(var(--space-xl) * 1.3) calc(var(--space-xl) * 1.4);
+}
+.slidev-layout.cover::before {
+  /* full-width ministerial header line on the cover */
+  top: var(--space-xl);
+  left: calc(var(--space-xl) * 1.3);
+  right: calc(var(--space-xl) * 1.3);
+  background: var(--color-text);
+  height: 1px;
+  opacity: 1;
+}
+.slidev-layout.cover h1 {
+  font-family: var(--font-display);
+  font-size: 5.5em;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  color: var(--color-text);
+  max-width: 14ch;
+}
+.slidev-layout.cover h1 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  text-transform: none;
+  color: var(--color-brass);
+  letter-spacing: -0.005em;
+  font-size: 0.86em;
+}
+.slidev-layout.cover h1 + p {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: var(--step-1);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  max-width: 38em;
+  margin-bottom: var(--space-md);
+  line-height: 1.5;
+}
+
+/* Ministerial header — author this with <div class="ministerial">…</div> */
+.slidev-layout.cover .ministerial {
+  position: absolute;
+  top: calc(var(--space-xl) - 1.5em);
+  left: calc(var(--space-xl) * 1.3);
+  right: calc(var(--space-xl) * 1.3);
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/* ── SECTION DIVIDER — huge brass numeral + title in display ───── */
+.slidev-layout.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 8em;
+  padding-right: calc(var(--space-xl) * 1.2);
+}
+.slidev-layout.section h1 {
+  font-family: var(--font-display);
+  font-size: 3em;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: var(--color-text);
+  max-width: 14ch;
+  margin-bottom: 0;
+}
+.slidev-layout.section h1 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-accent);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.slidev-layout.section p {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  margin-top: var(--space-md);
+  display: flex; align-items: center; gap: 0.8em;
+}
+.slidev-layout.section p::before {
+  content: '';
+  display: inline-block;
+  width: 2.2em; height: 1px;
+  background: var(--color-accent);
+}
+
+/* The big brass numeral. Put <div class="numeral">II</div> directly
+   inside the section slide. Absolutely positioned on the left flank. */
+.slidev-layout.section .numeral {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--space-xl) * 0.9);
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 11em;
+  line-height: 0.82;
+  color: var(--color-brass);
+  letter-spacing: -0.02em;
+  pointer-events: none;
+}
+/* Hairline separator between numeral and title */
+.slidev-layout.section .numeral::after {
+  content: '';
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  right: -0.55em;
+  width: 1px;
+  background: var(--color-border-subtle);
+}
+
+/* ── Two columns ────────────────────────────────────────────── */
+.slidev-layout.two-cols { gap: var(--space-xl); }
+
+/* ── Quote layout ───────────────────────────────────────────── */
+.slidev-layout.quote {
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--space-xl) calc(var(--space-xl) * 1.8);
+}
+.slidev-layout.quote blockquote {
+  font-size: 2.6em;
+  max-width: 22em;
+  line-height: 1.28;
+  border-left-width: 4px;
+}
+
+/* ── End — closing card ────────────────────────────────────── */
+.slidev-layout.end {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: calc(var(--space-xl) * 1.2);
+}
+.slidev-layout.end h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 3.2em;
+  letter-spacing: -0.005em;
+  line-height: 0.95;
+  max-width: 18ch;
+  color: var(--color-text);
+}
+.slidev-layout.end h1 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-accent);
+  text-transform: none;
+}
+.slidev-layout.end p {
+  color: var(--color-text-muted);
+  max-width: 36em;
+}
+
+/* ── Image layouts ──────────────────────────────────────────── */
+.slidev-layout.image,
+.slidev-layout[class*="image-"] { padding: 0; }
+.slidev-layout.image::before,
+.slidev-layout[class*="image-"]::before { display: none; }
+.slidev-layout.image-right,
+.slidev-layout.image-left { padding: calc(var(--space-xl) * 1.1) var(--space-xl) var(--space-xl); }
+.slidev-layout.image-right .my-cool-content-on-the-left,
+.slidev-layout.image-left  .my-cool-content-on-the-right { padding-right: var(--space-lg); }
+
+/* ── Utility — meta, tampon, negation, cachet ──────────────── */
+.slidev-layout .meta,
+.slidev-layout .rubric {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.slidev-layout .meta-quiet {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+.slidev-layout .meta-brass {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brass);
+}
+
+/* "Ceci n'est pas …" negation — italic with strikethrough */
+.slidev-layout .negation {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1em;
+  color: var(--color-accent);
+  display: inline-block;
+  position: relative;
+}
+.slidev-layout .negation::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 54%;
+  height: 1.2px;
+  background: var(--color-accent);
+  transform: rotate(-2deg);
+}
+
+/* Inline tampon stamp — small rotated rectangle */
+.slidev-layout .tampon {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1.5px solid var(--color-accent);
+  padding: 0.12em 0.5em;
+  transform: rotate(-3deg);
+  vertical-align: middle;
+}
+
+/* Round cachet stamp — for cover and section dividers.
+   Markup:
+     <div class="cachet">
+       <span class="top">Document</span>
+       <span class="big">N°1</span>
+       <span class="bot">Bruxelles</span>
+     </div>
+*/
+.slidev-layout .cachet {
+  position: absolute;
+  top: 22%;
+  right: calc(var(--space-xl) * 1.1);
+  width: 9.5em;
+  height: 9.5em;
+  border: 2.5px solid var(--color-accent);
+  border-radius: 50%;
+  transform: rotate(-12deg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.0;
+  letter-spacing: 0.04em;
+  opacity: 0.92;
+  pointer-events: none;
+  z-index: 1;
+}
+.slidev-layout .cachet::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+}
+.slidev-layout .cachet .top {
+  font-size: 0.72em;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.2em;
+  font-weight: 700;
+}
+.slidev-layout .cachet .big {
+  font-size: 1.7em;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+.slidev-layout .cachet .bot {
+  font-size: 0.6em;
+  letter-spacing: 0.22em;
+  margin-top: 0.3em;
+  font-weight: 700;
+}
+
+/* ── Centred layout ────────────────────────────────────────── */
+.slidev-layout.center { text-align: center; }
+.slidev-layout.center ul > li {
+  display: inline-block;
+  padding-left: 1.4em;
+  margin: 0 var(--space-sm);
+}
+
+/* ── Layouts-base refinements ─────────────────────────────── */
+.slidev-layout.quadrants .quadrant {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  padding: var(--space-md);
+}
+.slidev-layout.quadrants .quadrant h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-3);
+  color: var(--color-brass);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  background: var(--color-bg-elevated);
+}
+.slidev-layout.compare .compare-image {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+}

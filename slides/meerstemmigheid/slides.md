@@ -9,7 +9,7 @@ info: |
 routerMode: hash
 ---
 
-# Wat hoor je tegelijk<span style="color: var(--color-accent); font-style: italic; display: inline-block; transform: translateY(-0.08em) rotate(4deg);">?</span>
+# Wat hoor je tegelijk<span style="color: var(--color-accent);">?</span>
 
 Hoe twee stemmen in een grote galm uiteindelijk een akkoord werden — duizend jaar geleerd luisteren.
 
