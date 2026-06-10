@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "images": {
+    "antheil-1.jpg": {
+      "description": "George Antheil aan de piano (Boston Globe-archief, ca. 1925)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Antheil_at_piano,_mid_1920s.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Antheil_at_piano%2C_mid_1920s.jpg",
+      "downloaded": "2026-06-10T13:05:57Z"
+    },
+    "carlos-1.jpg": {
+      "description": "Wendy Carlos — albumhoes Switched-On Bach (Columbia Masterworks, 1968)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://en.wikipedia.org/wiki/File:Switched-On_Bach_New.jpg",
+      "file_url": "https://en.wikipedia.org/wiki/Special:FilePath/Switched-On_Bach_New.jpg",
+      "downloaded": "2026-06-10T13:06:26Z"
+    },
+    "cristofori-1.jpg": {
+      "description": "Bartolomeo Cristofori — pianoforte (Metropolitan Museum of Art, 1720)",
+      "source": "Met Museum",
+      "license": "CC0",
+      "page_url": "https://www.metmuseum.org/art/collection/search/501788",
+      "file_url": "https://images.metmuseum.org/CRDImages/mi/original/DP300941.jpg",
+      "downloaded": "2026-06-10T13:05:44Z"
+    },
+    "cristofori-2.png": {
+      "description": "Cristofori's stootmechaniek met echappement (Encyclopædia Britannica, 1911)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Britannica_Pianoforte_Cristofori_Escapement_Action.png",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Britannica_Pianoforte_Cristofori_Escapement_Action.png",
+      "downloaded": "2026-06-10T13:05:46Z"
+    },
+    "disklavier-1.jpg": {
+      "description": "Yamaha Disklavier op de NAMM Show (2017)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Yamaha_Disklavier_30th_Anniversary_(2)_-_2017_NAMM_Show_(2017-01-22_18.07.42_by_Jim_J).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Yamaha_Disklavier_30th_Anniversary_%282%29_-_2017_NAMM_Show_%282017-01-22_18.07.42_by_Jim_J%29.jpg",
+      "downloaded": "2026-06-10T13:06:11Z"
+    },
+    "fryingpan-1.jpg": {
+      "description": "Rickenbacker — A-22 \"Frying Pan\", lapsteelgitaar (1934)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Rickenback_Frying_Pan_aluminum-cast_guitar_(1934).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rickenback_Frying_Pan_aluminum-cast_guitar_(1934).jpg",
+      "downloaded": "2026-06-10T13:05:30Z"
+    },
+    "fryingpan-2.png": {
+      "description": "George Beauchamp — patenttekening \"Electrical stringed musical instrument\" (US Patent Office, 1934)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:RickenbackerFryingpanPatentDiagram.png",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/RickenbackerFryingpanPatentDiagram.png",
+      "downloaded": "2026-06-10T13:05:32Z"
+    },
+    "hat-1.jpg": {
+      "description": "Godfried-Willem Raes / Logos — <HAT>, Hit Any Thing-robot (2009)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.logosfoundation.org/instrum_gwr/HAT.html",
+      "file_url": "https://www.logosfoundation.org/instrum_gwr/hat/hat_easter3.jpg",
+      "downloaded": "2026-06-10T13:06:28Z"
+    },
+    "hat-2.jpg": {
+      "description": "<HAT> met gemonteerde \"anythings\" (Logos Foundation, 2009)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.logosfoundation.org/instrum_gwr/HAT.html",
+      "file_url": "https://www.logosfoundation.org/instrum_gwr/hat/hat_any1.JPG",
+      "downloaded": "2026-06-10T13:06:30Z"
+    },
+    "hat-3.jpg": {
+      "description": "De \"vinger\"-kloppers van <HAT>, detail (Logos Foundation, 2009)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.logosfoundation.org/instrum_gwr/HAT.html",
+      "file_url": "https://www.logosfoundation.org/instrum_gwr/hat/hat_fingers1.jpg",
+      "downloaded": "2026-06-10T13:06:32Z"
+    },
+    "hat-4.jpg": {
+      "description": "Levering van <HAT> in Cornwall: Yvan Vander Sanden en Aphex Twin (december 2009)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.logosfoundation.org/instrum_gwr/HAT.html",
+      "file_url": "https://www.logosfoundation.org/instrum_gwr/hat/Hat_bij_Aphex_Twin_2009.jpg",
+      "downloaded": "2026-06-10T13:06:35Z"
+    },
+    "hendrix-1.jpg": {
+      "description": "Izabella — de witte Fender Stratocaster van Woodstock (MoPOP, Seattle)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Jimi_hendrix_woodstock.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Jimi_hendrix_woodstock.jpg",
+      "downloaded": "2026-06-10T13:05:39Z"
+    },
+    "klavecimbel-1.jpg": {
+      "description": "Jan Couchet — klavecimbel (Metropolitan Museum of Art, ca. 1650)",
+      "source": "Met Museum",
+      "license": "CC0",
+      "page_url": "https://www.metmuseum.org/art/collection/search/503614",
+      "file_url": "https://images.metmuseum.org/CRDImages/mi/original/DT684a.jpg",
+      "downloaded": "2026-06-10T13:05:40Z"
+    },
+    "logos-1.jpg": {
+      "description": "De Logos-tetraëder, Bomastraat, Gent (Logos Foundation, 1990)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.logosfoundation.org/architecture/architektuur.html",
+      "file_url": "https://www.logosfoundation.org/architecture/tetraeder1.jpg",
+      "downloaded": "2026-06-10T13:06:37Z"
+    },
+    "luit-1.jpg": {
+      "description": "Pietro Railich — luit (Metropolitan Museum of Art, 1669)",
+      "source": "Met Museum",
+      "license": "CC0",
+      "page_url": "https://www.metmuseum.org/art/collection/search/505741",
+      "file_url": "https://images.metmuseum.org/CRDImages/mi/original/DP168858.jpg",
+      "downloaded": "2026-06-10T13:05:13Z"
+    },
+    "luit-2.jpg": {
+      "description": "Johannes Vermeer — Vrouw met luit (Metropolitan Museum of Art, ca. 1662-1663)",
+      "source": "Met Museum",
+      "license": "CC0",
+      "page_url": "https://www.metmuseum.org/art/collection/search/437880",
+      "file_url": "https://images.metmuseum.org/CRDImages/ep/original/DP354965.jpg",
+      "downloaded": "2026-06-10T13:05:23Z"
+    },
+    "moog-1.jpg": {
+      "description": "Vroege Moog modulaire synthesizer (National Music Centre, Calgary)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Early_Moog_(28443801887).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Early_Moog_%2828443801887%29.jpg",
+      "downloaded": "2026-06-10T13:06:23Z"
+    },
+    "nancarrow-1.jpg": {
+      "description": "Conlon Nancarrow, persconferentie in Nederland (Anefo / Nationaal Archief, 1987)",
+      "source": "Wikimedia Commons",
+      "license": "CC0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Persconferntie_van_Amerikaanse_componist_Conlon_Nancarrow_voorafgaand_aan_concer,_Bestanddeelnr_934-0175.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Persconferntie_van_Amerikaanse_componist_Conlon_Nancarrow_voorafgaand_aan_concer%2C_Bestanddeelnr_934-0175.jpg",
+      "downloaded": "2026-06-10T13:06:08Z"
+    },
+    "pianola-1.jpg": {
+      "description": "Steinway-pianola (Bayernhof Museum, Pittsburgh)",
+      "source": "Wikimedia Commons",
+      "license": "CC0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Steinway_player_piano_-_Bayernhof_Museum_-_DSC06126.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Steinway_player_piano_-_Bayernhof_Museum_-_DSC06126.JPG",
+      "downloaded": "2026-06-10T13:05:56Z"
+    },
+    "rockmore-1.jpg": {
+      "description": "Clara Rockmore met theremin (ca. 1932)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Clara_Rockmore.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Clara_Rockmore.jpg",
+      "downloaded": "2026-06-10T13:06:18Z"
+    },
+    "tharpe-1.jpg": {
+      "description": "Sister Rosetta Tharpe — optreden in Helsinki (JOKA / Finnish Heritage Agency, 1964)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 4.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Sister_Rosetta_Tharpe_at_Helsinki_Jazz_Festival_1964_(JOKAOM14AiV_mkk03A-6).tif",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sister_Rosetta_Tharpe_at_Helsinki_Jazz_Festival_1964_(JOKAOM14AiV_mkk03A-6).tif?width=2000",
+      "downloaded": "2026-06-10T13:06:54Z"
+    },
+    "theremin-1.jpg": {
+      "description": "Léon Theremin demonstreert zijn instrument, Salle Gaveau, Parijs (Agence Rol / BnF, 1927)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:(6-12-27,_Salle_Gaveau)_M._Theremin,_inventeur_d%27un_appareil_radio_%C3%A9lectrique_qui_produit_des_sons_-_btv1b53193182w.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/%286-12-27%2C_Salle_Gaveau%29_M._Theremin%2C_inventeur_d%27un_appareil_radio_%C3%A9lectrique_qui_produit_des_sons_-_btv1b53193182w.jpg",
+      "downloaded": "2026-06-10T13:06:17Z"
+    },
+    "thething-1.jpg": {
+      "description": "Opengewerkte replica van het afgeluisterde Grootzegel (National Cryptologic Museum)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Bugged-great-seal-open.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Bugged-great-seal-open.jpg",
+      "downloaded": "2026-06-10T13:06:20Z"
+    },
+    "torres-1.jpg": {
+      "description": "Antonio de Torres — gitaar, ex-Miquel Llobet (Museu de la Música, Barcelona)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Guitarra_d%27Antonio_de_Torres,_MDMB_626,_al_Museu_de_la_M%C3%BAsica_de_Barcelona.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Guitarra_d%27Antonio_de_Torres%2C_MDMB_626%2C_al_Museu_de_la_M%C3%BAsica_de_Barcelona.jpg",
+      "downloaded": "2026-06-10T13:05:26Z"
+    },
+    "vleugel-1.jpg": {
+      "description": "Gietijzeren frame en snaren van een Steinway-concertvleugel",
+      "source": "Wikimedia Commons",
+      "license": "CC0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Steinway_grand_piano_interior.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Steinway_grand_piano_interior.JPG",
+      "downloaded": "2026-06-10T13:05:52Z"
+    }
+  }
+}
