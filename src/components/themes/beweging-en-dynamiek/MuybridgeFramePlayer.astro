@@ -1,0 +1,14 @@
+---
+import Island from './MuybridgeFramePlayer.tsx';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+// All twelve plates are offered; the student selects which belong in the loop
+// (frame 10 repeats frame 1, and 11–12 ease to a standstill — the discovery).
+const frames = Array.from(
+  { length: 12 },
+  (_, i) =>
+    `${base}/images/beweging-en-dynamiek/muybridge-frames/frame-${String(i + 1).padStart(2, '0')}.jpg`,
+);
+---
+
+<Island {frames} client:visible />

@@ -1,0 +1,8 @@
+---
+import Island from './HandscrollViewer.tsx';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const src = `${base}/images/beweging-en-dynamiek/huaisu-1.jpg`;
+---
+
+<Island {src} client:visible />

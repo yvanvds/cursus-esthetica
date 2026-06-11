@@ -1,0 +1,204 @@
+/* ── Container ─────────────────────────────────────────────────────────── */
+
+.root {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  padding-block: var(--space-lg);
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+
+.header {
+  margin-bottom: var(--space-md);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-quiet);
+  margin: 0 0 var(--space-xs);
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: var(--step-3);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0 0 var(--space-sm);
+}
+
+.accent {
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+.intro {
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* ── Viewport (the window onto the scroll) ─────────────────────────────── */
+
+.viewport {
+  position: relative;
+  overflow: hidden;
+  height: clamp(220px, 42vh, 420px);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius);
+  cursor: grab;
+  touch-action: pan-y; /* let vertical gestures scroll the page; we own horizontal */
+}
+
+.viewport:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.strip {
+  height: 100%;
+  width: max-content;
+  user-select: none;
+  opacity: 0;
+  transition: opacity var(--transition-opacity);
+}
+
+.stripReady {
+  opacity: 1;
+}
+
+.img {
+  display: block;
+  height: 100%;
+  width: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Soft edges that suggest the roll continues beyond the window. */
+.vignetteLeft,
+.vignetteRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--space-lg);
+  pointer-events: none;
+}
+
+.vignetteLeft {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg-elevated), transparent);
+}
+
+.vignetteRight {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg-elevated), transparent);
+}
+
+/* ── Controls ──────────────────────────────────────────────────────────── */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.play,
+.reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  font-size: var(--step-1);
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.play:hover,
+.reset:hover:not(:disabled) {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.reset:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+/* ── Progress (display only — the drag is the scrub) ───────────────────── */
+
+.progress {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.track {
+  position: relative;
+  height: 3px;
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+/* Fill grows from the right (the start) toward the left as you read. */
+.fill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+.ends {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-text-whisper);
+}
+
+/* ── Caption ───────────────────────────────────────────────────────────── */
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-dim);
+  line-height: 1.5;
+  margin: var(--space-sm) 0 0;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 460px) {
+  .viewport {
+    height: clamp(180px, 38vh, 320px);
+  }
+}

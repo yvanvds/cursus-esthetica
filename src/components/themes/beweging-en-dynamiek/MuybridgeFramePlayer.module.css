@@ -1,0 +1,321 @@
+/* ── Container ─────────────────────────────────────────────────────────── */
+
+.root {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  padding-block: var(--space-lg);
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+
+.header {
+  margin-bottom: var(--space-md);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-quiet);
+  margin: 0 0 var(--space-xs);
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: var(--step-3);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0 0 var(--space-sm);
+}
+
+.accent {
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+.intro {
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* ── Stage (the current frame) ─────────────────────────────────────────── */
+
+.stage {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 556 / 356;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  /* No transition: frames must swap crisply, even at 24 fps. */
+}
+
+.frameActive {
+  opacity: 1;
+}
+
+.counter {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  background: rgba(26, 26, 26, 0.7);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-dim);
+  text-align: center;
+}
+
+/* ── Transport ─────────────────────────────────────────────────────────── */
+
+.transport {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.ctrl,
+.play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  font-size: var(--step-2);
+  line-height: 1;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.ctrl:hover:not(:disabled),
+.play:hover:not(:disabled) {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.ctrl:disabled,
+.play:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+/* ── Sliders ───────────────────────────────────────────────────────────── */
+
+.slider {
+  flex: 1 1 160px;
+}
+
+.speed {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex: 0 0 auto;
+}
+
+.speedValue {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-dim);
+  white-space: nowrap;
+  min-width: 4ch;
+}
+
+.speedSlider {
+  width: 6rem;
+}
+
+.slider,
+.speedSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: var(--color-border);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.slider:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.slider:focus-visible,
+.speedSlider:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.slider::-webkit-slider-thumb,
+.speedSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb,
+.speedSlider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  cursor: pointer;
+}
+
+/* ── Filmstrip ─────────────────────────────────────────────────────────── */
+
+.stripLabel {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-quiet);
+  margin: var(--space-sm) 0 var(--space-xs);
+}
+
+.strip {
+  display: flex;
+  align-items: flex-start; /* don't stretch thumbs past their aspect-ratio */
+  gap: var(--space-xs);
+  padding-bottom: var(--space-xs);
+  overflow-x: auto;
+}
+
+.thumb {
+  position: relative;
+  flex: 0 0 auto;
+  width: 5.25rem;
+  aspect-ratio: 556 / 356;
+  padding: 0;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0.4;
+  filter: grayscale(0.7);
+  cursor: pointer;
+  transition: opacity 150ms ease, border-color 150ms ease, filter 150ms ease;
+}
+
+.thumb:hover {
+  opacity: 0.75;
+}
+
+/* Switched on = part of the animation. */
+.thumbOn {
+  opacity: 1;
+  filter: none;
+  border-color: var(--color-accent);
+}
+
+.thumbOn:hover {
+  opacity: 1;
+}
+
+/* The frame currently shown in the stage (playhead). */
+.thumbCurrent {
+  outline: 2px solid var(--color-text);
+  outline-offset: 1px;
+}
+
+.thumbImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbNum {
+  position: absolute;
+  bottom: 1px;
+  left: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--color-text);
+  background: rgba(26, 26, 26, 0.7);
+  padding: 0 0.25rem;
+  border-radius: 2px;
+}
+
+.thumbCheck {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.95rem;
+  height: 0.95rem;
+  font-size: 0.62rem;
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-radius: 50%;
+}
+
+/* ── Caption ───────────────────────────────────────────────────────────── */
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-dim);
+  line-height: 1.5;
+  margin: var(--space-sm) 0 0;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+
+@media (max-width: 460px) {
+  .thumb {
+    width: 4rem;
+  }
+  .slider {
+    flex-basis: 100%;
+    order: 5;
+  }
+}

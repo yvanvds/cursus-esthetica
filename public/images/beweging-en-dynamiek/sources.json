@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "images": {
+    "bernini-1.jpg": {
+      "description": "Gian Lorenzo Bernini — Apollo en Daphne (Galleria Borghese, 1622–1625)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Apollo_and_Daphne_(Bernini)_(cropped).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Apollo_and_Daphne_%28Bernini%29_%28cropped%29.jpg",
+      "downloaded": "2026-06-10T17:25:31Z"
+    },
+    "bernini-2.jpg": {
+      "description": "Bernini — Apollo en Daphne, detail (Galleria Borghese)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Museo_borghese,_stanza_dell'apollo_dafne,_g.l._bernini,_apollo_e_dafne,_1624,_05.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Museo_borghese%2C_stanza_dell%27apollo_dafne%2C_g.l._bernini%2C_apollo_e_dafne%2C_1624%2C_05.JPG",
+      "downloaded": "2026-06-10T17:25:38Z"
+    },
+    "bernini-3.jpg": {
+      "description": "Bernini — Apollo en Daphne, tweede gezichtspunt (Galleria Borghese)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Museo_borghese,_stanza_dell'apollo_dafne,_g.l._bernini,_apollo_e_dafne,_1624,_10.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Museo_borghese%2C_stanza_dell%27apollo_dafne%2C_g.l._bernini%2C_apollo_e_dafne%2C_1624%2C_10.JPG",
+      "downloaded": "2026-06-10T17:25:43Z"
+    },
+    "boccioni-1.jpg": {
+      "description": "Umberto Boccioni — Unieke vormen van continuïteit in de ruimte (Metropolitan Museum, 1913)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Met,_boccioni,_forme_uniche_nella_continuità_dello_spazio,_02.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Met%2C_boccioni%2C_forme_uniche_nella_continuit%C3%A0_dello_spazio%2C_02.JPG",
+      "downloaded": "2026-06-10T17:26:02Z"
+    },
+    "boccioni-2.jpg": {
+      "description": "Umberto Boccioni — Unieke vormen, tweede gezichtspunt (Metropolitan Museum, 1913)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Met,_boccioni,_forme_uniche_nella_continuità_dello_spazio,_03.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Met%2C_boccioni%2C_forme_uniche_nella_continuit%C3%A0_dello_spazio%2C_03.JPG",
+      "downloaded": "2026-06-10T17:26:07Z"
+    },
+    "calder-1.jpg": {
+      "description": "Alexander Calder — mobile",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": null,
+      "file_url": "https://medias.gazette-drouot.com/prod/medias/mediatheque/157938.jpg",
+      "downloaded": "2026-06-10T17:26:23Z"
+    },
+    "calder-2.jpg": {
+      "description": "Alexander Calder — mobile, tentoonstellingszicht",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": null,
+      "file_url": "https://www.thisiscolossal.com/wp-content/uploads/2025/10/calder-9.jpg",
+      "downloaded": "2026-06-10T17:26:27Z"
+    },
+    "calder-3.jpg": {
+      "description": "Alexander Calder — mobile (Tate)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": null,
+      "file_url": "https://media.tate.org.uk/art/images/work/T/T07/T07920_10.jpg",
+      "downloaded": "2026-06-10T17:26:32Z"
+    },
+    "diskobolos-1.jpg": {
+      "description": "Myron — Diskobolos, Romeinse marmerkopie (Palazzo Massimo, Rome, origineel rond 450 v.Chr.)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Discobolus_in_National_Roman_Museum_Palazzo_Massimo_alle_Terme.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Discobolus_in_National_Roman_Museum_Palazzo_Massimo_alle_Terme.JPG",
+      "downloaded": "2026-06-10T17:25:04Z"
+    },
+    "diskobolos-2.jpg": {
+      "description": "Myron — Diskobolos, detail van de rug (Palazzo Massimo, Rome)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Discobolus_in_National_Roman_Museum_Palazzo_Massimo_alle_Terme_-_Detail_of_the_back.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Discobolus_in_National_Roman_Museum_Palazzo_Massimo_alle_Terme_-_Detail_of_the_back.JPG",
+      "downloaded": "2026-06-10T17:25:23Z"
+    },
+    "duchamp-1.jpg": {
+      "description": "Marcel Duchamp — Nu descendant un escalier n° 2 (Philadelphia Museum of Art, 1912)",
+      "source": "directe URL",
+      "license": "Public Domain (US)",
+      "page_url": "https://en.wikipedia.org/wiki/File:Duchamp_-_Nude_Descending_a_Staircase.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/en/c/c0/Duchamp_-_Nude_Descending_a_Staircase.jpg",
+      "downloaded": "2026-06-10T17:25:56Z"
+    },
+    "huaisu-1.jpg": {
+      "description": "Huaisu — Autobiografie, handrol (National Palace Museum, Taipei, 777)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Huaisu_-_Autobiography.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Huaisu_-_Autobiography.jpg",
+      "downloaded": "2026-06-10T17:26:20Z"
+    },
+    "jansen-1.jpg": {
+      "description": "Theo Jansen — Strandbeest op het IJmuiderslag",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:2000_Strandbeesten_van_kunstenaar_Theo_Jansen_IJmuiderslag.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/da/2000_Strandbeesten_van_kunstenaar_Theo_Jansen_IJmuiderslag.jpg",
+      "downloaded": "2026-06-10T17:27:02Z"
+    },
+    "muybridge-1.jpg": {
+      "description": "Eadweard Muybridge — The Horse in Motion (1878)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/The_Horse_in_Motion_high_res.jpg",
+      "downloaded": "2026-06-10T17:25:50Z"
+    },
+    "teamlab-1.jpg": {
+      "description": "teamLab — Borderless (Azabudai Hills, Tokio)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.teamlab.art/e/tokyo/",
+      "file_url": "https://assets.team-lab.com/b5EBo9Uo-OK6SM09ZTkEZQ/Yt5eET5oZzm6FBicauQUSY/width=1200,format=jpeg",
+      "downloaded": "2026-06-10T17:27:08Z"
+    },
+    "tinguely-1.jpg": {
+      "description": "Jean Tinguely — Homage to New York (MoMA-beeldentuin, 17 maart 1960)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.moma.org/calendar/exhibitions/3369",
+      "file_url": "https://www.moma.org/d/c/installation_images/W1siZiIsIjM1NTIyNCJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA5MCAtcmVzaXplIDIwMDB4MjAwMFx1MDAzZSJdXQ.jpg?sha=759e83ce2e831ee2",
+      "downloaded": "2026-06-10T17:26:39Z"
+    },
+    "tinguely-2.jpg": {
+      "description": "Jean Tinguely — Homage to New York, de machine (1960)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.tinguely.ch",
+      "file_url": "https://www.tinguely.ch/dam/jcr:a3deb258-7cd8-46a0-8e2b-e9f021369af3/011356Baur.jpg",
+      "downloaded": "2026-06-10T17:26:45Z"
+    },
+    "tinguely-3.jpg": {
+      "description": "Jean Tinguely — Homage to New York, de zelfvernietiging (1960)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": null,
+      "file_url": "https://images.prismic.io/barnebys/abf31a74-b801-4708-8fe9-0833b2dc2a90_332L17025_9KRXM_restored.jpg",
+      "downloaded": "2026-06-10T17:26:50Z"
+    },
+    "tinguely-4.jpg": {
+      "description": "Jean Tinguely en Yves Klein — de machine als medekunstenaar",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.kunsthal.nl",
+      "file_url": "https://www.kunsthal.nl/media/filer_public/85/85/85856562-c258-4baa-b6f5-e5fae9f54063/1988_jean_tinguely_last_collaboration_yves_klein.jpg",
+      "downloaded": "2026-06-10T17:26:57Z"
+    }
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "images": {
+    "brusel-1.jpg": {
+      "description": "Schuiten & Peeters — Brüsel, binnenpagina (Casterman, 1992)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.altaplana.be/en/albums/bruesel",
+      "file_url": "https://www.altaplana.be/_media/albums/brusel/file0033.jpg",
+      "downloaded": "2026-06-10T23:34:23Z"
+    },
+    "chrysler-1.jpg": {
+      "description": "William Van Alen — Chrysler Building (New York, 1930)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Chrysler_Building_1_(4684845155).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Chrysler_Building_1_%284684845155%29.jpg",
+      "downloaded": "2026-06-10T23:32:20Z"
+    },
+    "chrysler-3.jpg": {
+      "description": "William Van Alen — Chrysler Building, adelaar op de 61e verdieping (New York, 1930)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Chrysler_Building_eagle_detail.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Chrysler_Building_eagle_detail.jpg",
+      "downloaded": "2026-06-10T23:32:32Z"
+    },
+    "chrysler-4.jpg": {
+      "description": "William Van Alen — Chrysler Building, lobby (New York, 1930)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Chrysler_Building_Lobby_2.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Chrysler_Building_Lobby_2.jpg",
+      "downloaded": "2026-06-10T23:32:38Z"
+    },
+    "difference-engine-1.jpg": {
+      "description": "Charles Babbage — Difference Engine No. 2 (Science Museum, Londen, 1991)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Babbage_Difference_Engine.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Babbage_Difference_Engine.jpg",
+      "downloaded": "2026-06-10T23:33:32Z"
+    },
+    "difference-engine-2.jpg": {
+      "description": "Charles Babbage — Difference Engine No. 2, tandwielkolommen (Computer History Museum)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Difference_engine.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Difference_engine.JPG",
+      "downloaded": "2026-06-10T23:33:38Z"
+    },
+    "ekco-1.jpg": {
+      "description": "Wells Coates — Ekco AD-65 bakelietradio (1934)",
+      "source": "Wikimedia Commons",
+      "license": "CC0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Radio,_Model_AD_65,_designed_by_Wells_Coates,_Ekco_USA,_1932,_Bakelite_case_-_Museum_für_Angewandte_Kunst_Köln_-_Cologne,_Germany_-_DSC09649.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Radio%2C_Model_AD_65%2C_designed_by_Wells_Coates%2C_Ekco_USA%2C_1932%2C_Bakelite_case_-_Museum_f%C3%BCr_Angewandte_Kunst_K%C3%B6ln_-_Cologne%2C_Germany_-_DSC09649.jpg",
+      "downloaded": "2026-06-10T23:33:27Z"
+    },
+    "empire-state-1.jpg": {
+      "description": "Shreve, Lamb & Harmon — Empire State Building (New York, 1931)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:NYC_Empire_State_Building.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/df/NYC_Empire_State_Building.jpg",
+      "downloaded": "2026-06-10T23:32:46Z"
+    },
+    "expo-1925-1.jpg": {
+      "description": "Antoine Bourdelle — Affiche Exposition internationale des arts décoratifs (Parijs, 1925)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Ministère_du_commerce_et_de_l'industrie._Exposition_internationale_des_arts_décoratifs_et_industriels_modernes_affiche,_Antoine_Bourdelle.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Minist%C3%A8re_du_commerce_et_de_l%27industrie._Exposition_internationale_des_arts_d%C3%A9coratifs_et_industriels_modernes_affiche%2C_Antoine_Bourdelle.jpg",
+      "downloaded": "2026-06-10T23:33:19Z"
+    },
+    "guimard-1.jpg": {
+      "description": "Hector Guimard — Métro-ingang Porte Dauphine (Parijs, 1900)",
+      "source": "Wikimedia Commons",
+      "license": "CC0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Paris_Metro_2_Porte_Dauphine_Libellule.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Paris_Metro_2_Porte_Dauphine_Libellule.JPG",
+      "downloaded": "2026-06-10T23:32:02Z"
+    },
+    "koekelberg-1.jpg": {
+      "description": "Albert Van huffel — Basiliek van Koekelberg, voorgevel (Brussel, 1926 tot 1970)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Koekelberg_Basilique_Nationale_Sacré-Coeur_Fassade_1.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Koekelberg_Basilique_Nationale_Sacr%C3%A9-Coeur_Fassade_1.jpg",
+      "downloaded": "2026-06-10T23:32:52Z"
+    },
+    "koekelberg-2.jpg": {
+      "description": "Albert Van huffel — Basiliek van Koekelberg, koepel (Brussel, 1926 tot 1970)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Koekelberg_Basilique_Nationale_Sacré-Coeur_Innen_Kuppel_7.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Koekelberg_Basilique_Nationale_Sacr%C3%A9-Coeur_Innen_Kuppel_7.jpg",
+      "downloaded": "2026-06-10T23:32:59Z"
+    },
+    "koekelberg-3.jpg": {
+      "description": "Albert Van huffel — Basiliek van Koekelberg, middenschip (Brussel, 1926 tot 1970)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Koekelberg_Basilique_Nationale_Sacré-Coeur_Innen_Langhausaltar_4.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Koekelberg_Basilique_Nationale_Sacr%C3%A9-Coeur_Innen_Langhausaltar_4.jpg",
+      "downloaded": "2026-06-10T23:33:05Z"
+    },
+    "lovelace-1.jpg": {
+      "description": "Alfred Edward Chalon — Ada Lovelace (ca. 1840)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Ada_Lovelace_portrait.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Ada_Lovelace_portrait.jpg",
+      "downloaded": "2026-06-10T23:33:50Z"
+    },
+    "lovelace-note-g-1.jpg": {
+      "description": "Ada Lovelace — Diagram voor de berekening van Bernoulligetallen, Note G (1843)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Diagram_for_the_computation_of_Bernoulli_numbers.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Diagram_for_the_computation_of_Bernoulli_numbers.jpg",
+      "downloaded": "2026-06-10T23:33:43Z"
+    },
+    "maison-du-peuple-1.jpg": {
+      "description": "Victor Horta — Maison du Peuple, gevel (Brussel, 1899; gesloopt 1965)",
+      "source": "Wikimedia Commons",
+      "license": "CC0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Maison_du_Peuple_of_the_P.O.B._(Belgian_Workers_Party)_(destroyed,_Brussels),_exterior_1.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Maison_du_Peuple_of_the_P.O.B._%28Belgian_Workers_Party%29_%28destroyed%2C_Brussels%29%2C_exterior_1.jpg",
+      "downloaded": "2026-06-10T23:32:08Z"
+    },
+    "maison-du-peuple-2.jpg": {
+      "description": "Victor Horta — Maison du Peuple, feestzaal (Brussel, 1899; gesloopt 1965)",
+      "source": "Wikimedia Commons",
+      "license": "CC0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Maison_du_Peuple_of_the_P.O.B._(Belgian_Workers_Party)_(destroyed,_Brussels),_theatre_hall.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Maison_du_Peuple_of_the_P.O.B._%28Belgian_Workers_Party%29_%28destroyed%2C_Brussels%29%2C_theatre_hall.jpg",
+      "downloaded": "2026-06-10T23:32:14Z"
+    },
+    "metropolis-1.jpg": {
+      "description": "Horst von Harbou — Metropolis-setfoto: de Maschinenmensch (1926)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Metropolis_Joh_Fredersen,_Rotwang_and_Maschinenmensch_by_Horst_von_Harbou.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Metropolis_Joh_Fredersen%2C_Rotwang_and_Maschinenmensch_by_Horst_von_Harbou.jpg",
+      "downloaded": "2026-06-10T23:33:55Z"
+    },
+    "metropolis-2.jpg": {
+      "description": "Horst von Harbou — Metropolis-setfoto: de Neue Turm Babel (1926)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Horst_von_Harbou_-_Metropolis_set_photograph_17.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Horst_von_Harbou_-_Metropolis_set_photograph_17.jpg",
+      "downloaded": "2026-06-10T23:34:00Z"
+    },
+    "metropolis-3.jpg": {
+      "description": "Horst von Harbou — Metropolis-setfoto: arbeiders in de Unterstadt (1926)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Arbeiter_in_der_Unterstadt_auf_dem_Set_von_Metropolis_(1926).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Arbeiter_in_der_Unterstadt_auf_dem_Set_von_Metropolis_%281926%29.jpg",
+      "downloaded": "2026-06-10T23:34:05Z"
+    },
+    "mucha-1.png": {
+      "description": "Alphonse Mucha — Gismonda, affiche voor Sarah Bernhardt (1894)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Alphonse_Mucha_-_Poster_for_Victorien_Sardou%27s_Gismonda_starring_Sarah_Bernhardt.png",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Alphonse_Mucha_-_Poster_for_Victorien_Sardou%27s_Gismonda_starring_Sarah_Bernhardt.png",
+      "downloaded": "2026-06-10T23:31:56Z"
+    },
+    "obrist-1.jpg": {
+      "description": "Hermann Obrist — Cyclamen, \"de zweepslag\" (Münchner Stadtmuseum, 1895)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:T-49-63_3_Obrist-H-Peitschenhieb-A4-ONLINE.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/7/70/T-49-63_3_Obrist-H-Peitschenhieb-A4-ONLINE.jpg",
+      "downloaded": "2026-06-10T23:31:48Z"
+    },
+    "old-england-1.jpg": {
+      "description": "Paul Saintenoy — Old England-warenhuis, nu MIM (Brussel, 1899)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Old_England_House.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Old_England_House.jpg",
+      "downloaded": "2026-06-10T23:31:31Z"
+    },
+    "saint-cyr-1.jpg": {
+      "description": "Gustave Strauven — Maison Saint-Cyr (Brussel, 1901 tot 1903)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 4.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Maison_Saint-Cyr_(DSCF7558).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Maison_Saint-Cyr_%28DSCF7558%29.jpg",
+      "downloaded": "2026-06-10T23:31:38Z"
+    },
+    "schuiten-1.jpg": {
+      "description": "François Schuiten — Le Passage inconnu, metrostation Hallepoort, detail (Brussel, 1993)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Port_de_Hal_metro.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Port_de_Hal_metro.JPG",
+      "downloaded": "2026-06-10T23:34:14Z"
+    },
+    "schuiten-2.jpg": {
+      "description": "François Schuiten — Le Passage inconnu, metrostation Hallepoort (Brussel, 1993)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Le_Passage_inconnu_-_François_Schuiten.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Le_Passage_inconnu_-_Fran%C3%A7ois_Schuiten.jpg",
+      "downloaded": "2026-06-10T23:34:19Z"
+    },
+    "tassel-1.jpg": {
+      "description": "Victor Horta — Hôtel Tassel, traphal (Brussel, 1893)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Tassel_House_stairway.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Tassel_House_stairway.JPG",
+      "downloaded": "2026-06-10T23:31:04Z"
+    },
+    "tassel-2.jpg": {
+      "description": "Victor Horta — Hôtel Tassel, gevel (Brussel, 1893)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Victor_Horta_Hotel_Tassel.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/34/Victor_Horta_Hotel_Tassel.JPG",
+      "downloaded": "2026-06-10T23:31:19Z"
+    },
+    "tassel-3.jpg": {
+      "description": "Victor Horta — Hôtel Tassel, mozaïekvloer (Brussel, 1893)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Tassel_House_ground_floor.JPG",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Tassel_House_ground_floor.JPG",
+      "downloaded": "2026-06-10T23:31:25Z"
+    }
+  }
+}

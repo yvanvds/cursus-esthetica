@@ -1,0 +1,501 @@
+{
+  "version": 1,
+  "images": {
+    "bilbao-atrium-2.jpg": {
+      "description": "Guggenheim Bilbao — atrium, glas en kalksteen",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Abando,_Bilbo,_Bizkaia,_Spain_-_panoramio_-_Santi_Garcia_(2).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Abando,_Bilbo,_Bizkaia,_Spain_-_panoramio_-_Santi_Garcia_(2).jpg",
+      "downloaded": "2026-06-10T21:36:25Z"
+    },
+    "bilbao-atrium.jpg": {
+      "description": "Guggenheim Bilbao — atrium (foto Santi García)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Abando,_Bilbo,_Bizkaia,_Spain_-_panoramio_-_Santi_Garcia_(3).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Abando,_Bilbo,_Bizkaia,_Spain_-_panoramio_-_Santi_Garcia_(3).jpg",
+      "downloaded": "2026-06-10T20:45:37Z"
+    },
+    "bilbao-dag.jpg": {
+      "description": "Frank Gehry — Guggenheim Museum Bilbao (1997)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Guggenheim_museum_Bilbao_HDR-image.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Guggenheim_museum_Bilbao_HDR-image.jpg",
+      "downloaded": "2026-06-10T20:45:26Z"
+    },
+    "bilbao-kapoor.jpg": {
+      "description": "Anish Kapoor — Tall Tree and the Eye, bij het Guggenheim Bilbao",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:-Tall_Tree_and_the_Eye-_by_Anish_Kapoor,_Guggenheim_Museum,_Bilbao,_Spain_(PPL3-Altered)_julesvernex2.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/-Tall_Tree_and_the_Eye-_by_Anish_Kapoor,_Guggenheim_Museum,_Bilbao,_Spain_(PPL3-Altered)_julesvernex2.jpg",
+      "downloaded": "2026-06-10T21:36:32Z"
+    },
+    "bilbao-nacht-2.jpg": {
+      "description": "Guggenheim Bilbao bij nacht, verticaal",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Guggenheim_night_3_(3803989599).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Guggenheim_night_3_(3803989599).jpg",
+      "downloaded": "2026-06-10T21:36:23Z"
+    },
+    "bilbao-nacht.jpg": {
+      "description": "Guggenheim Bilbao bij nacht, aan de Nervión",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Guggenheim_Bilbao_(23518389799).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Guggenheim_Bilbao_(23518389799).jpg",
+      "downloaded": "2026-06-10T20:45:35Z"
+    },
+    "bilbao-puppy.jpg": {
+      "description": "Jeff Koons — Puppy, voor het Guggenheim Bilbao",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:-Puppy-,_by_Jeff_Koons,_Guggenheim_Museum,_Bilbao,_Spain_(PPL1-Corrected)_julesvernex2.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/-Puppy-,_by_Jeff_Koons,_Guggenheim_Museum,_Bilbao,_Spain_(PPL1-Corrected)_julesvernex2.jpg",
+      "downloaded": "2026-06-10T21:36:29Z"
+    },
+    "bilbao-titanium.jpg": {
+      "description": "Guggenheim Bilbao — titaniumgevel",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Abando,_Bilbao,_Bizkaia,_Spain_-_panoramio.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Abando,_Bilbao,_Bizkaia,_Spain_-_panoramio.jpg",
+      "downloaded": "2026-06-10T20:45:40Z"
+    },
+    "dancing-house-dag-2.jpg": {
+      "description": "Dancing House vanaf de overkant",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:20090808_Prague_04.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090808_Prague_04.jpg",
+      "downloaded": "2026-06-10T21:36:11Z"
+    },
+    "dancing-house-dag-3.jpg": {
+      "description": "Dancing House in de straatwand",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:20090808_Prague_06.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20090808_Prague_06.jpg",
+      "downloaded": "2026-06-10T21:36:13Z"
+    },
+    "dancing-house-dag.jpg": {
+      "description": "Dancing House overdag, tussen de negentiende-eeuwse buren",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:2008-03-30_09_59_32_Casa_dansant,_Praga.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/2008-03-30_09_59_32_Casa_dansant,_Praga.jpg",
+      "downloaded": "2026-06-10T20:45:24Z"
+    },
+    "dancing-house-nacht-2.jpg": {
+      "description": "Dancing House bij nacht, met verkeer",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Praha,_Tan%C4%8D%C3%ADc%C3%AD_d%C5%AFm_v_noci_(1).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Praha,_Tan%C4%8D%C3%ADc%C3%AD_d%C5%AFm_v_noci_(1).jpg",
+      "downloaded": "2026-06-10T21:36:16Z"
+    },
+    "dancing-house-nacht.jpg": {
+      "description": "Frank Gehry & Vlado Milunić — Dancing House bij nacht (Praag, 1996; foto Diego Delso)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Casa_Danzante,_Praga,_Rep%C3%BAblica_Checa,_2022-07-01,_DD_01.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Danzante,_Praga,_Rep%C3%BAblica_Checa,_2022-07-01,_DD_01.jpg",
+      "downloaded": "2026-06-10T20:45:23Z"
+    },
+    "dancing-house-signal.jpg": {
+      "description": "Dancing House tijdens het Signal Festival — projection mapping",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Signal_festival,_Tan%C4%8D%C3%ADc%C3%AD_d%C5%AFm_(4).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Signal_festival,_Tan%C4%8D%C3%ADc%C3%AD_d%C5%AFm_(4).jpg",
+      "downloaded": "2026-06-10T21:36:19Z"
+    },
+    "fallingwater-bos.jpg": {
+      "description": "Fallingwater tussen de bomen",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Casa_sulla_cascata,_di_frank_lloyd_wright_03.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Casa_sulla_cascata,_di_frank_lloyd_wright_03.jpg",
+      "downloaded": "2026-06-10T21:35:39Z"
+    },
+    "fallingwater-cantilever.jpg": {
+      "description": "Fallingwater — de cantilevers van dichtbij",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Casa_sulla_cascata,_di_frank_lloyd_wright_05.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Casa_sulla_cascata,_di_frank_lloyd_wright_05.jpg",
+      "downloaded": "2026-06-10T20:44:48Z"
+    },
+    "fallingwater-interieur-2.png": {
+      "description": "Fallingwater — woonkamer richting de terrassen",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Fallingwater_-_ob%C3%BDvac%C3%AD_pokoj_5.png",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fallingwater_-_ob%C3%BDvac%C3%AD_pokoj_5.png",
+      "downloaded": "2026-06-10T21:35:47Z"
+    },
+    "fallingwater-interieur-3.jpg": {
+      "description": "Fallingwater — interieurdetail",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Fallingwater_20200718_3.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fallingwater_20200718_3.jpg",
+      "downloaded": "2026-06-10T21:35:49Z"
+    },
+    "fallingwater-interieur.png": {
+      "description": "Fallingwater — woonkamer, met de rots van de site als haard",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Fallingwater_-_ob%C3%BDvac%C3%AD_pokoj_7.png",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fallingwater_-_ob%C3%BDvac%C3%AD_pokoj_7.png",
+      "downloaded": "2026-06-10T20:45:03Z"
+    },
+    "fallingwater-klassiek-2.jpg": {
+      "description": "Fallingwater — klassiek zicht op de waterval",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Classic_View_of_Fallingwater_National_Historic_Landmark.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Classic_View_of_Fallingwater_National_Historic_Landmark.jpg",
+      "downloaded": "2026-06-10T20:44:44Z"
+    },
+    "fallingwater-klassiek.jpg": {
+      "description": "Frank Lloyd Wright — Fallingwater (Mill Run, Pennsylvania, 1935; foto Carol M. Highsmith)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Fallingwater,_also_known_as_the_Edgar_J._Kaufmann,_Sr.,_residence,_Pennsylvania,_by_Carol_M._Highsmith.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Fallingwater,_also_known_as_the_Edgar_J._Kaufmann,_Sr.,_residence,_Pennsylvania,_by_Carol_M._Highsmith.jpg",
+      "downloaded": "2026-06-10T20:44:41Z"
+    },
+    "fallingwater-wijd.jpg": {
+      "description": "Fallingwater vanaf de beek",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Falling_water_-_panoramio_(1).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Falling_water_-_panoramio_(1).jpg",
+      "downloaded": "2026-06-10T21:35:37Z"
+    },
+    "fallingwater-winter-2.jpg": {
+      "description": "Fallingwater in de winter, van dichterbij",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:STA60224.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/STA60224.JPG",
+      "downloaded": "2026-06-10T21:35:41Z"
+    },
+    "fallingwater-winter.jpg": {
+      "description": "Fallingwater in de winter",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:STA60216.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/STA60216.JPG",
+      "downloaded": "2026-06-10T20:45:05Z"
+    },
+    "gaudi-kettingmodel-1.jpg": {
+      "description": "Antoni Gaudí — polyfuniculair kettingmodel, reproductie (Sagrada Família-museum)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Maqueta_funicular_de_la_iglesia_de_la_colonia_G%C3%BCell_usada_por_Gaud%C3%AD.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Maqueta_funicular_de_la_iglesia_de_la_colonia_G%C3%BCell_usada_por_Gaud%C3%AD.jpg",
+      "downloaded": "2026-06-10T20:43:45Z"
+    },
+    "gaudi-kettingmodel-2.jpg": {
+      "description": "Gaudí's kettingmodel — kettingen en gewichten, detail",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Maqueta_funicular.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Maqueta_funicular.jpg",
+      "downloaded": "2026-06-10T20:43:47Z"
+    },
+    "gaudi-kettingmodel-3.jpg": {
+      "description": "Het kettingmodel voor de kerk van Colònia Güell, historische foto",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Maqueta_polifunicular.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Maqueta_polifunicular.jpg",
+      "downloaded": "2026-06-10T20:43:48Z"
+    },
+    "horyuji-dakdetail.jpg": {
+      "description": "Hōryū-ji — dakconstructie met houten verbindingen, detail",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Horyu-ji_National_Treasure_World_heritage_%E5%9B%BD%E5%AE%9D%E3%83%BB%E4%B8%96%E7%95%8C%E9%81%BA%E7%94%A3%E6%B3%95%E9%9A%86%E5%AF%BA66.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Horyu-ji_National_Treasure_World_heritage_%E5%9B%BD%E5%AE%9D%E3%83%BB%E4%B8%96%E7%95%8C%E9%81%BA%E7%94%A3%E6%B3%95%E9%9A%86%E5%AF%BA66.JPG",
+      "downloaded": "2026-06-10T21:02:44Z"
+    },
+    "horyuji-pagode-2.jpg": {
+      "description": "Hōryū-ji-pagode, verticaal",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:202505_H%C5%8Dry%C5%AB-ji_06.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/202505_H%C5%8Dry%C5%AB-ji_06.jpg",
+      "downloaded": "2026-06-10T21:37:05Z"
+    },
+    "horyuji-pagode-3.jpg": {
+      "description": "Hōryū-ji-pagode tegen de avondlucht",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Five-storied_Pagoda_-_H%C5%8Dry%C5%AB-ji_-_Ikaruga,_Nara,_Japan_-_DSC07559.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Five-storied_Pagoda_-_H%C5%8Dry%C5%AB-ji_-_Ikaruga,_Nara,_Japan_-_DSC07559.jpg",
+      "downloaded": "2026-06-10T21:37:08Z"
+    },
+    "horyuji-pagode.jpg": {
+      "description": "Vijfverdiepingenpagode van Hōryū-ji (Ikaruga, Japan, 7de eeuw)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Horyu-ji_National_Treasure_World_heritage_%E5%9B%BD%E5%AE%9D%E3%83%BB%E4%B8%96%E7%95%8C%E9%81%BA%E7%94%A3%E6%B3%95%E9%9A%86%E5%AF%BA27.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Horyu-ji_National_Treasure_World_heritage_%E5%9B%BD%E5%AE%9D%E3%83%BB%E4%B8%96%E7%95%8C%E9%81%BA%E7%94%A3%E6%B3%95%E9%9A%86%E5%AF%BA27.JPG",
+      "downloaded": "2026-06-10T21:02:41Z"
+    },
+    "horyuji-tempelhof.jpg": {
+      "description": "Hōryū-ji — de pagode in het tempelcomplex",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Horyu-ji_National_Treasure_World_heritage_%E5%9B%BD%E5%AE%9D%E3%83%BB%E4%B8%96%E7%95%8C%E9%81%BA%E7%94%A3%E6%B3%95%E9%9A%86%E5%AF%BA74.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Horyu-ji_National_Treasure_World_heritage_%E5%9B%BD%E5%AE%9D%E3%83%BB%E4%B8%96%E7%95%8C%E9%81%BA%E7%94%A3%E6%B3%95%E9%9A%86%E5%AF%BA74.JPG",
+      "downloaded": "2026-06-10T21:37:45Z"
+    },
+    "meixihu-exterieur-2.jpg": {
+      "description": "ZHA — Meixihu, vloeiende volumes vanaf het plein (foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d3a2/3312/fd6e/0a00/0072/large_jpg/01_ZHA_Changsha_%C2%A9VirgileSimonBertrand.jpg?1575474072",
+      "downloaded": "2026-06-10T21:36:35Z"
+    },
+    "meixihu-exterieur-3.jpg": {
+      "description": "ZHA — Meixihu, exterieur (foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d345/3312/fd6e/0a00/006f/large_jpg/05_ZHA_Changsha_%C2%A9VirgileSimonBertrand.jpg?1575473980",
+      "downloaded": "2026-06-10T21:36:42Z"
+    },
+    "meixihu-exterieur-4.jpg": {
+      "description": "ZHA — Meixihu, exterieur bij avond (foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d374/3312/fd6e/0a00/0071/large_jpg/04_ZHA_Changsha_%C2%A9VirgileSimonBertrand.jpg?1575474026",
+      "downloaded": "2026-06-10T21:36:45Z"
+    },
+    "meixihu-exterieur.jpg": {
+      "description": "Zaha Hadid Architects — Meixihu International Culture and Arts Centre (Changsha, 2019; foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d393/3312/fdcf/5500/01e2/large_jpg/02_ZHA_Changsha_%C2%A9VirgileSimonBertrand.jpg?1575474057",
+      "downloaded": "2026-06-10T20:45:42Z"
+    },
+    "meixihu-interieur-2.jpg": {
+      "description": "ZHA — Grand Theatre Meixihu, foyer (foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d21a/3312/fdcf/5500/01d5/large_jpg/17_ZHA_Changsha_GrandTheatre_%C2%A9VirgileSimonBertrand.jpg?1575473680",
+      "downloaded": "2026-06-10T21:36:49Z"
+    },
+    "meixihu-interieur-3.jpg": {
+      "description": "ZHA — Grand Theatre Meixihu, circulatie (foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d1b9/3312/fdcf/5500/01d1/large_jpg/23_ZHA_Changsha_GrandTheatre_%C2%A9VirgileSimonBertrand.jpg?1575473582",
+      "downloaded": "2026-06-10T21:36:51Z"
+    },
+    "meixihu-interieur.jpg": {
+      "description": "Zaha Hadid Architects — Grand Theatre Meixihu, interieur (foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d1d9/3312/fdcf/5500/01d2/large_jpg/21_ZHA_Changsha_GrandTheatre_%C2%A9VirgileSimonBertrand.jpg?1575473613",
+      "downloaded": "2026-06-10T20:45:49Z"
+    },
+    "meixihu-mica.jpg": {
+      "description": "Zaha Hadid Architects — MICA-museum, Meixihu (foto Virgile Simon Bertrand)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.archdaily.com/929645/changsha-meixihu-international-culture-and-art-centre-zaha-hadid-design",
+      "file_url": "https://images.adsttc.com/media/images/5de7/d258/3312/fdcf/5500/01d7/large_jpg/13_ZHA_Changsha_MICA_%C2%A9VirgileSimonBertrand.jpg?1575473742",
+      "downloaded": "2026-06-10T20:45:46Z"
+    },
+    "mjostarnet-bouw.jpg": {
+      "description": "Mjøstårnet in aanbouw — het houtskelet zichtbaar",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Mj%C3%B8st%C3%A5rnet1.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mj%C3%B8st%C3%A5rnet1.jpg",
+      "downloaded": "2026-06-10T20:45:55Z"
+    },
+    "mjostarnet-meer-2.jpg": {
+      "description": "Mjøstårnet vanaf de overkant van het meer",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Narsot%C3%A5rnet_ved_Mj%C3%B8sa_02.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Narsot%C3%A5rnet_ved_Mj%C3%B8sa_02.jpg",
+      "downloaded": "2026-06-10T21:36:56Z"
+    },
+    "mjostarnet-meer.jpg": {
+      "description": "Voll Arkitekter — Mjøstårnet aan het Mjøsa-meer (Brumunddal, 2019)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Narsot%C3%A5rnet_ved_Mj%C3%B8sa_01.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Narsot%C3%A5rnet_ved_Mj%C3%B8sa_01.jpg",
+      "downloaded": "2026-06-10T20:45:53Z"
+    },
+    "mjostarnet-portret.jpg": {
+      "description": "Mjøstårnet — de houten gevel van dichtbij",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Mj%C3%B8st%C3%A5rnet.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mj%C3%B8st%C3%A5rnet.jpg",
+      "downloaded": "2026-06-10T21:37:02Z"
+    },
+    "mjostarnet-toren.jpg": {
+      "description": "Mjøstårnet in zijn omgeving",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Narsot%C3%A5rnet_IV.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Narsot%C3%A5rnet_IV.jpg",
+      "downloaded": "2026-06-10T21:37:00Z"
+    },
+    "sagrada-geboortegevel-detail.jpg": {
+      "description": "Sagrada Família — Geboortegevel, detail beeldhouwwerk (foto Jorge Láscar)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Lascar_Detail_of_the_intricated_nativity_fa%C3%A7ade_-_Sagrada_Familia_(4469071499).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Lascar_Detail_of_the_intricated_nativity_fa%C3%A7ade_-_Sagrada_Familia_%284469071499%29.jpg",
+      "downloaded": "2026-06-10T21:37:48Z"
+    },
+    "sagrada-gevel-1.jpg": {
+      "description": "Sagrada Família — gevel-detail",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Barcelona_-_Temple_Expiatori_de_la_Sagrada_Fam%C3%ADlia_(5).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona_-_Temple_Expiatori_de_la_Sagrada_Fam%C3%ADlia_(5).jpg",
+      "downloaded": "2026-06-10T21:35:29Z"
+    },
+    "sagrada-gevel-2.jpg": {
+      "description": "Sagrada Família — gevel-detail",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Barcelona_-_Temple_Expiatori_de_la_Sagrada_Fam%C3%ADlia_(6).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona_-_Temple_Expiatori_de_la_Sagrada_Fam%C3%ADlia_(6).jpg",
+      "downloaded": "2026-06-10T21:35:32Z"
+    },
+    "sagrada-glasramen.jpg": {
+      "description": "Sagrada Família — glasramen in het schip (foto Pierre Selim Huard)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 3.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Stained_Glass_Of_Sagrada_Familia_(259513261).jpeg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Stained_Glass_Of_Sagrada_Familia_(259513261).jpeg",
+      "downloaded": "2026-06-10T20:44:01Z"
+    },
+    "sagrada-interieur.jpg": {
+      "description": "Sagrada Família — middenschip met boomkolommen (foto Jorge Láscar)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Lascar_Central_Nave_-_Sagrada_Familia_(4470102976).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lascar_Central_Nave_-_Sagrada_Familia_(4470102976).jpg",
+      "downloaded": "2026-06-10T20:43:59Z"
+    },
+    "sagrada-nacht-2.jpg": {
+      "description": "De Geboortegevel van de Sagrada Família bij nacht",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Barcelona_1098_03.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona_1098_03.jpg",
+      "downloaded": "2026-06-10T21:35:25Z"
+    },
+    "sagrada-nacht.jpg": {
+      "description": "Sagrada Família bij nacht, met bouwkranen (foto Ank Kumar)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Antoni_Gaudi%27s_Sagrada_Familia,_Barcelona_(Ank_Kumar)_06.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Antoni_Gaudi%27s_Sagrada_Familia%2C_Barcelona_%28Ank_Kumar%29_06.jpg",
+      "downloaded": "2026-06-10T21:02:37Z"
+    },
+    "sagrada-torens.jpg": {
+      "description": "Antoni Gaudí — Sagrada Família, torens (Barcelona, foto 2019)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Barcelona_Sagrada_Familia_2019_11.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Barcelona_Sagrada_Familia_2019_11.jpg",
+      "downloaded": "2026-06-10T20:43:53Z"
+    },
+    "sydney-haven.jpg": {
+      "description": "Jørn Utzon — Sydney Opera House aan de haven (1973)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Sydney_Australia._(21339175489).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sydney_Australia._(21339175489).jpg",
+      "downloaded": "2026-06-10T20:45:07Z"
+    },
+    "sydney-nacht-2.jpg": {
+      "description": "Sydney Opera House bij volle maan",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:(1)Sydney_Opera_House.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/(1)Sydney_Opera_House.jpg",
+      "downloaded": "2026-06-10T21:35:53Z"
+    },
+    "sydney-nacht-3.jpg": {
+      "description": "Sydney Opera House — de schalen weerspiegeld in de haven",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Australia_sidney.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Australia_sidney.jpg",
+      "downloaded": "2026-06-10T21:35:56Z"
+    },
+    "sydney-nacht.jpg": {
+      "description": "Sydney Opera House bij nacht",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:A_View_of_the_Sydney_Opera_House_in_Australia_(48453308656).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/A_View_of_the_Sydney_Opera_House_in_Australia_(48453308656).jpg",
+      "downloaded": "2026-06-10T20:45:15Z"
+    },
+    "sydney-ribben.jpg": {
+      "description": "Sydney Opera House — prefab betonribben onder de schil",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:AUS_Sydney,_Central_Business_District,_Sydney_Opera_House_014.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AUS_Sydney,_Central_Business_District,_Sydney_Opera_House_014.jpg",
+      "downloaded": "2026-06-10T21:36:09Z"
+    },
+    "sydney-schaalpunt.jpg": {
+      "description": "Sydney Opera House — schaalpunt met tegels en glaslouvres (foto Dietmar Rabich)",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Sydney_(AU),_Opera_House_--_2019_--_3054.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sydney_(AU),_Opera_House_--_2019_--_3054.jpg",
+      "downloaded": "2026-06-10T20:45:19Z"
+    },
+    "sydney-schalen-onder.jpg": {
+      "description": "Sydney Opera House — de schalen recht van onderen",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Australia-12_(32640265827).jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Australia-12_(32640265827).jpg",
+      "downloaded": "2026-06-10T21:36:08Z"
+    },
+    "sydney-schemering.jpg": {
+      "description": "Sydney Opera House en Harbour Bridge in de schemering",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA 4.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Sydney_Opera_House_and_Harbour_Bridge_Dusk_2019-06-21.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sydney_Opera_House_and_Harbour_Bridge_Dusk_2019-06-21.jpg",
+      "downloaded": "2026-06-10T20:45:08Z"
+    },
+    "sydney-tegels.jpg": {
+      "description": "Sydney Opera House — het tegeloppervlak van onderen",
+      "source": "Wikimedia Commons",
+      "license": "Fair use (cursus)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:AUS_Sydney,_Central_Business_District,_Sydney_Opera_House_020.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/AUS_Sydney,_Central_Business_District,_Sydney_Opera_House_020.jpg",
+      "downloaded": "2026-06-10T20:45:20Z"
+    }
+  }
+}
