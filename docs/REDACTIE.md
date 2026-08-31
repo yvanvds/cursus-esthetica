@@ -39,6 +39,12 @@ skill verwijst hiernaar).
 - **Niet hoogdravend.** Courant Nederlands, hooguit één aforisme per
   sectie, geen decoratieve metaforen. (Uitgewerkt in het Register-blok
   van de `draft-theme-chapter` skill.)
+- **Landen krijgen "haar", niet "zijn".** Bewuste keuze van de auteur:
+  geen mannelijke voornaamwoorden voor landen. Dat botst met de
+  schoolregel dat *land* een het-woord is, en dus met wat een
+  spellingcontrole of een proefleesronde eruit wil halen. Het is geen
+  slordigheid — laat staan. (Vastgelegd aug 2026, nadat de leespas van
+  #17 "op haar wapenschild" ten onrechte had rechtgezet.)
 - **Courante Engelse leenwoorden blijven staan.** Zegt het vakgebied
   *piece*, *tag*, *still*, *sample* of *frame*, dan schrijven wij dat
   ook. Geen zelfgemaakte Nederlandse samenstellingen om een leenwoord te
