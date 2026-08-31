@@ -113,9 +113,9 @@ Bij een gecombineerd issue (hoofdstuk *en* de component erin): neem de stops van
 het zwaarste type over. Overweeg om het te splitsen in twee issues als het werk
 in twee losse PR's beter te beoordelen is.
 
-Lees vóór elk inhoudelijk issue `docs/REDACTIE.md`. Daar staan afspraken (geen
-Arcane, Banksy hoort bij street art, citaatrecht als uitgangspunt, kritiek is
-geen default-essentie) die je niet uit de bestanden kan afleiden.
+Lees vóór elk inhoudelijk issue `docs/REDACTIE.md`. Daar staan afspraken (Banksy
+hoort bij street art, citaatrecht als uitgangspunt, landen krijgen "haar",
+kritiek is geen default-essentie) die je niet uit de bestanden kan afleiden.
 
 ## Stap 3 — Per issue
 

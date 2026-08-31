@@ -7,17 +7,6 @@ skill verwijst hiernaar).
 
 ## Voorbeelden en verwijzingen
 
-- **Arcane niet binnenhalen in nieuw materiaal.** Bewuste didactische
-  conclusie na een jaar proberen (aansluiting leefwereld leerlingen
-  werkte niet). Bij het omzetten van oud materiaal Arcane-beats
-  schrappen zonder ze opnieuw voor te stellen; Arcane-materiaal in oude
-  powerpoints niet overnemen.
-  **Uitzondering: `art-nouveau-en-deco`.** Dat hoofdstuk is bewust rond
-  Arcane opgebouwd — de serie is er niet de leefwereld-aanhaking maar
-  het bewijsstuk: Piltover in art deco, Zaun in art nouveau, precies de
-  klassentegenstelling die het hoofdstuk uitlegt. Die opzet blijft. De
-  regel hierboven gaat over Arcane erbij halen, niet over dit hoofdstuk.
-  (Vastgesteld aug 2026, bij de leespas van #17.)
 - **SMOLE** (graffiti-schrijver, actief in Frankrijk/België, cartooneske
   kippen, treinen): onverifieerbaar via bronnen, dus niet in cursustekst.
   Wel bruikbaar als beeldmateriaal in powerpoints tijdens de les.
