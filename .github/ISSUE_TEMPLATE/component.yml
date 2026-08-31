@@ -1,0 +1,29 @@
+name: Interactieve component
+description: Een widget bouwen of aanpassen — quiz, viewer, comparator, annotator
+labels: ["component"]
+body:
+  - type: input
+    id: theme-id
+    attributes:
+      label: Theme-id
+      description: In welk hoofdstuk komt de component
+      placeholder: beweging-en-dynamiek
+    validations:
+      required: true
+  - type: textarea
+    id: doel
+    attributes:
+      label: Wat moet de lezer doen, en wat leert die eruit
+      description: Het didactische doel, niet de implementatie. Waarom werkt een statisch beeld hier niet.
+    validations:
+      required: true
+  - type: textarea
+    id: interactie
+    attributes:
+      label: Interactie zoals je die voor je ziet
+      description: Optioneel. Bestaande prototype of schets mag hier ook.
+  - type: textarea
+    id: materiaal
+    attributes:
+      label: Benodigd materiaal
+      description: Beelden, frames, geluid, data die de component nodig heeft, en of dat er al is.

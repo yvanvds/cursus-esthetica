@@ -1,0 +1,35 @@
+name: Hoofdstuk
+description: Een nieuw themahoofdstuk schrijven of een bestaand hoofdstuk grondig herzien
+labels: ["hoofdstuk"]
+body:
+  - type: input
+    id: theme-id
+    attributes:
+      label: Theme-id
+      description: Bestandsnaam onder `src/content/themes/`, zonder `.mdx`
+      placeholder: fotografie-en-film
+    validations:
+      required: true
+  - type: textarea
+    id: doel
+    attributes:
+      label: Wat moet dit hoofdstuk doen
+      description: De rode draad, of de vraag die het hoofdstuk beantwoordt. Bij een herziening — wat er nu niet klopt.
+    validations:
+      required: true
+  - type: input
+    id: leestijd
+    attributes:
+      label: Doel-leestijd in minuten
+      description: Woordbudget = leestijd × 190. Leeglaten betekent — beslissen bij het skelet.
+      placeholder: "15"
+  - type: textarea
+    id: materiaal
+    attributes:
+      label: Bronmateriaal
+      description: Pad naar oude cursustekst, pptx of pdf. Of "geen".
+  - type: textarea
+    id: vaste-keuzes
+    attributes:
+      label: Vaste keuzes
+      description: Voorbeelden die er zeker in of zeker uit moeten, register, gevoeligheden. Wat blijvend is, verhuist bij akkoord naar `docs/REDACTIE.md`.

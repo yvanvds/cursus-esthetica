@@ -1,0 +1,23 @@
+name: Redactie
+description: Tekstcorrectie, herformulering, register of feitencheck in bestaande tekst
+labels: ["redactie"]
+body:
+  - type: textarea
+    id: waar
+    attributes:
+      label: Waar
+      description: Bestand en sectie, of citeer de passage.
+    validations:
+      required: true
+  - type: textarea
+    id: wat
+    attributes:
+      label: Wat er mis is
+      description: Fout, te hoogdravend, onduidelijk, feitelijk verkeerd, te lang. Zo concreet mogelijk.
+    validations:
+      required: true
+  - type: textarea
+    id: richting
+    attributes:
+      label: Gewenste richting
+      description: Optioneel. Laat leeg als de oplossing openligt.

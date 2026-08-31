@@ -27,5 +27,10 @@ pnpm-debug.log*
 slides/*/.slidev/
 slides/*/node_modules/
 
-.claude/
+# Claude Code: de zelfgeschreven projectskills leggen werkafspraken vast en
+# horen dus in git. Lokale settings niet, en de gevendorde slidev-skill niet
+# (dat is een symlink naar .agents/, herstelbaar via skills-lock.json).
+.claude/*
+!.claude/skills/
+.claude/skills/slidev
 .agents

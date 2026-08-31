@@ -6,7 +6,7 @@ export function remarkFigureLinks() {
   return function (tree: Root, file: { path?: string; history?: string[] }) {
     let hasLinks = false;
 
-    visit(tree, 'link', (node: Link, index: number | null, parent: any) => {
+    visit(tree, 'link', (node: Link, index: number | undefined, parent: any) => {
       const isVideo = node.url.startsWith('video:');
       const isFigure = node.url.startsWith('fig:');
       if ((!isVideo && !isFigure) || index == null || !parent) return;
