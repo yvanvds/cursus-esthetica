@@ -171,7 +171,6 @@ Each chapter's `.mdx` file imports and uses the component directly. Goal: the MD
 
 ```mdx
 ---
-id: wat-is-kunst
 title: Wat is kunst?
 module: waarnemen
 order: 0

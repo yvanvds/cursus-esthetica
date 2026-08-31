@@ -16,7 +16,7 @@ Do NOT use `smaak-klasse-macht.mdx` as a length reference — it overshoots. Use
  
 ### Werkplek
  
-De skill draait in de repo-root. Schrijf alle prose — initiële MDX, snoei, latere revisies — rechtstreeks naar `src/content/themes/<slug>.mdx`. Beelden landen onder `public/images/<theme-id>/`.
+De skill draait in de repo-root. Schrijf alle prose — initiële MDX, snoei, latere revisies — rechtstreeks naar `src/content/themes/<theme-id>.mdx`. Beelden landen onder `public/images/<theme-id>/`. `<theme-id>` is één en dezelfde waarde overal: de bestandsnaam zonder extensie. Die bepaalt ook de URL — er is geen apart `id:`-veld in de frontmatter (zie Phase 3).
  
 ## What the voice is doing (and what to imitate)
  
@@ -108,7 +108,9 @@ Input: the signed-off skeleton (Phase 1) and signed-off asset list (Phase 2).
  
 #### Frontmatter
  
-Match the existing schema exactly. Mandatory fields: `id`, `title`, `module`, `order`, `figure`, `shortDescription`. Optional: `accentColor`, `image` (header image).
+Match the existing schema exactly (`src/content.config.ts`). Mandatory fields: `title`, `module`, `order`, `figure`, `shortDescription`. Optional: `accentColor`, `image` (header image).
+
+**There is no `id` field.** The filename without extension *is* the chapter id: it produces the URL (`[theme].astro` routes on the glob-loader id), and it is the `<theme-id>` in `public/images/<theme-id>/` and `slides/<theme-id>/`. Choose the filename deliberately — renaming later means moving those directories too. Never add `id:` to the frontmatter: the schema does not declare it, zod strips it silently, and a value that drifts from the filename makes the URL look like something it is not.
  
 **Do not set `customStyles`, `customLayout`, or `customHeader`.** These are visual customisations the user adds later if needed. The skill produces the chapter content; styling is a separate decision the user owns.
  
