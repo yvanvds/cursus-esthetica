@@ -228,7 +228,7 @@ Movement-level checklist. Read your draft against it. Do not check by comparing 
 - **Reusing the same image across chapters without checking.** Inleiding and perspectief both use `monalisa.png`, `school-of-athens.png` — that's intentional cross-referencing. New chapters should reuse where it amplifies, never out of laziness.
 - **Auto-generating "drie vragen" or any other closer that exists in another chapter.** Each chapter's ending must come from its own argument.
 - **Forcing a cross-cultural pivot when the subject doesn't invite one.** A chapter on perspective in Western painting can carry a Tanizaki/Hiroshige beat well; a chapter on the Belgian art-school system probably can't. Use research to surface counterweights — don't manufacture them.
-- **Negeren van `docs/REDACTIE.md`.** Daar staan inhoudelijke afspraken (geen Arcane, SMOLE alleen als lesbeeld, Banksy ≠ graffiti, ...) die je niet uit de tekstbestanden kan afleiden. Lees het vóór het skelet.
+- **Negeren van `docs/REDACTIE.md`.** Daar staan inhoudelijke afspraken (SMOLE alleen als lesbeeld, Banksy ≠ graffiti, ...) die je niet uit de tekstbestanden kan afleiden. Lees het vóór het skelet.
 ## Canonical references
  
 When in doubt about voice, read `inleiding.mdx`. When in doubt about how a chapter handles multiple cultural registers within one argument, read the first half of `smaak-klasse-macht.mdx`. When in doubt about how a single concept (perspectief) carries an entire chapter through structural shifts, read `perspectief-en-ruimte.mdx`. When in doubt about how a finished chapter integrates Phase 1b research, end-of-chapter `## Bronnen`, and pure-markdown body, read `licht-en-schaduw.mdx`.
