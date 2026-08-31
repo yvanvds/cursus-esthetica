@@ -1,6 +1,14 @@
 {
   "version": 1,
   "images": {
+    "arbus-1.jpg": {
+      "description": "Diane Arbus — Tattooed Man at a Carnival, Md. (1970)",
+      "source": "artblart",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://artblart.com/tag/diane-arbus/",
+      "file_url": "https://artblart.com/wp-content/uploads/2009/05/diane-arbus-tattooed-man-at-a-carnival-md-web.jpg",
+      "downloaded": "2026-08-31T18:03:33Z"
+    },
     "daguerre-1.jpg": {
       "description": "Louis Daguerre — Boulevard du Temple (1838), gangbare (gespiegelde) reproductie",
       "source": "Wikimedia Commons",
@@ -9,13 +17,21 @@
       "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Boulevard_du_Temple_by_Daguerre.jpg",
       "downloaded": "2026-08-31T17:36:49Z"
     },
-    "daumier-1.jpg": {
-      "description": "Honoré Daumier — Nadar élevant la photographie à la hauteur de l'art (Brooklyn Museum, 1862)",
+    "daguerre-3.jpg": {
+      "description": "Daguerreotypiecamera uit 1839, bewaard in Barcelona",
       "source": "Wikimedia Commons",
       "license": "Public domain",
-      "page_url": "https://commons.wikimedia.org/wiki/File:Brooklyn_Museum_-_Nadar_Élevant_la_Photographie_à_la_Hauteur_de_l'Art_-_Honoré_Daumier.jpg",
-      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Brooklyn_Museum_-_Nadar_%C3%89levant_la_Photographie_%C3%A0_la_Hauteur_de_l%27Art_-_Honor%C3%A9_Daumier.jpg",
-      "downloaded": "2026-07-27T10:47:50Z"
+      "page_url": "https://commons.wikimedia.org/wiki/File:C%C3%A1mara_para_obtener_vistas_al_daguerrotipo,_original_del_a%C3%B1o_1839,_conservada_en_Barcelona,_Espa%C3%B1a,_Spain.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/C%C3%A1mara_para_obtener_vistas_al_daguerrotipo%2C_original_del_a%C3%B1o_1839%2C_conservada_en_Barcelona%2C_Espa%C3%B1a%2C_Spain.jpg",
+      "downloaded": "2026-08-31T18:02:32Z"
+    },
+    "daumier-1.jpg": {
+      "description": "Honoré Daumier — Nadar élevant la Photographie à la hauteur de l'Art (1862), National Gallery of Art",
+      "source": "Wikimedia Commons (NGA)",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Honor%C3%A9_Daumier,_Nadar_%C3%A9levant_la_Photographie_%C3%A0_la_hauteur_de_l%27Art,_1862,_NGA_42966.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Honor%C3%A9_Daumier%2C_Nadar_%C3%A9levant_la_Photographie_%C3%A0_la_hauteur_de_l%27Art%2C_1862%2C_NGA_42966.jpg",
+      "downloaded": "2026-08-31T18:02:24Z"
     },
     "gursky-1.jpg": {
       "description": "Andreas Gursky — Rhein II (1999)",
@@ -33,6 +49,14 @@
       "file_url": "https://upload.wikimedia.org/wikipedia/en/9/93/Le_Violon_d%27Ingres.png",
       "downloaded": "2026-08-31T17:30:25Z"
     },
+    "mapplethorpe-1.jpg": {
+      "description": "Robert Mapplethorpe — Andy Warhol (1986), National Gallery of Australia",
+      "source": "artblart",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://artblart.com/tag/robert-mapplethorpe/",
+      "file_url": "https://artblart.com/wp-content/uploads/2023/05/ex-wr_lawj2-18_96602_apm-super-hi-res-unclipped-adobe-rgb-4000px.jpg",
+      "downloaded": "2026-08-31T18:03:36Z"
+    },
     "marey-1.jpg": {
       "description": "Étienne-Jules Marey — Movements in Pole Vaulting (rond 1890)",
       "source": "Wikimedia Commons",
@@ -40,6 +64,22 @@
       "page_url": "https://commons.wikimedia.org/wiki/File:Étienne-Jules_Marey_-_Movements_in_Pole_Vaulting_-_Google_Art_Project.jpg",
       "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/%C3%89tienne-Jules_Marey_-_Movements_in_Pole_Vaulting_-_Google_Art_Project.jpg",
       "downloaded": "2026-07-27T10:48:02Z"
+    },
+    "marey-2.jpg": {
+      "description": "Étienne-Jules Marey — Bird in Flight (1886), chronofotografie",
+      "source": "The Metropolitan Museum of Art",
+      "license": "Public domain",
+      "page_url": "https://www.metmuseum.org/art/collection/search/286544",
+      "file_url": "https://images.metmuseum.org/CRDImages/ph/original/DP163285.jpg",
+      "downloaded": "2026-08-31T18:03:54Z"
+    },
+    "marey-3.jpg": {
+      "description": "Marey's fusil photographique, het fototoestel in geweervorm",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Fusil_photographique_Marey2.png",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Fusil_photographique_Marey2.png",
+      "downloaded": "2026-08-31T18:03:01Z"
     },
     "muholi-1.jpg": {
       "description": "Zanele Muholi — Bester I, Mayotte (2015), uit Somnyama Ngonyama",
@@ -49,6 +89,14 @@
       "file_url": "https://media.tate.org.uk/aztate-prd-ew-dg-wgtail-st1-ctr-data/images/bester_i_mayotte_2015_-_0093op.width-1200.format-jpeg.jpg",
       "downloaded": "2026-08-31T17:43:59Z"
     },
+    "muholi-2.jpg": {
+      "description": "Zanele Muholi — Ntozakhe II, Parktown (2016), uit Somnyama Ngonyama",
+      "source": "artblart",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://artblart.com/tag/zanele-muholi/",
+      "file_url": "https://artblart.com/wp-content/uploads/2021/05/zanele-muholi_ntozakhe-ii.jpg",
+      "downloaded": "2026-08-31T18:04:50Z"
+    },
     "muybridge-1.jpg": {
       "description": "Eadweard Muybridge — The Horse in Motion, Sallie Gardner (Library of Congress, 1878)",
       "source": "Wikimedia Commons",
@@ -56,6 +104,30 @@
       "page_url": "https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg",
       "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/The_Horse_in_Motion_high_res.jpg",
       "downloaded": "2026-07-27T10:48:01Z"
+    },
+    "muybridge-2.jpg": {
+      "description": "Eadweard Muybridge — Animal Locomotion, Plate 712 (1887)",
+      "source": "Wikimedia Commons (Google Art Project)",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Eadweard_Muybridge_-_Animal_Locomotion,_Plate_712_-_Google_Art_Project.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Eadweard_Muybridge_-_Animal_Locomotion%2C_Plate_712_-_Google_Art_Project.jpg",
+      "downloaded": "2026-08-31T18:03:39Z"
+    },
+    "nadar-1.jpg": {
+      "description": "Nadar — Sarah Bernhardt (1864)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Sarah_Bernhardt_1864_Nadar.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Sarah_Bernhardt_1864_Nadar.jpg",
+      "downloaded": "2026-08-31T18:02:26Z"
+    },
+    "nadar-2.jpg": {
+      "description": "Nadar — Sarah Bernhardt (1864), gezichtsdetail",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Face_detail,_Sarah_Bernhardt_1864_Nadar_(cropped).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Face_detail%2C_Sarah_Bernhardt_1864_Nadar_%28cropped%29.jpg",
+      "downloaded": "2026-08-31T18:02:27Z"
     },
     "sherman-1.jpg": {
       "description": "Cindy Sherman — Untitled Film Still #21 (1978), MoMA-persbeeld",
@@ -65,6 +137,14 @@
       "file_url": "https://artblart.com/wp-content/uploads/2012/05/moma_sherman2012_untitledfilmstill21-web.jpg",
       "downloaded": "2026-08-31T17:43:56Z"
     },
+    "sherman-2.jpg": {
+      "description": "Cindy Sherman — uit de reeks Untitled Film Stills (1977-1980)",
+      "source": "artblart (High Museum of Art)",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://artblart.com/tag/cindy-sherman-untitled-film-stills/",
+      "file_url": "https://artblart.com/wp-content/uploads/2021/06/sherman-untitled.jpg",
+      "downloaded": "2026-08-31T18:04:52Z"
+    },
     "steerage-1.jpg": {
       "description": "Alfred Stieglitz — The Steerage (1907)",
       "source": "Wikimedia Commons",
@@ -72,6 +152,14 @@
       "page_url": "https://commons.wikimedia.org/wiki/File:Alfred_Stieglitz_-_The_Steerage_-_Google_Art_Project.jpg",
       "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Alfred_Stieglitz_-_The_Steerage_-_Google_Art_Project.jpg",
       "downloaded": "2026-07-27T10:48:09Z"
+    },
+    "steerage-2.jpg": {
+      "description": "Alfred Stieglitz — The Terminal (1892), uit Camera Work",
+      "source": "Wikimedia Commons (Cleveland Museum of Art)",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Alfred_Stieglitz_-_Camera_Work-_The_Terminal_-_1995.199.36.o_-_Cleveland_Museum_of_Art.tif",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Alfred_Stieglitz_-_Camera_Work-_The_Terminal_-_1995.199.36.o_-_Cleveland_Museum_of_Art.tif",
+      "downloaded": "2026-08-31T18:04:04Z"
     }
   }
 }
