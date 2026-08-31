@@ -139,12 +139,7 @@ ze heeft geheugen. Andere tradities behouden polyfonie mondeling — eindeloos v
 
 <div style="display: flex; gap: var(--space-lg); align-items: center; margin-top: var(--space-md);">
 
-<iframe
-  src="https://www.youtube.com/embed/_p9WQlyVPrA?start=0&end=90"
-  style="width: 60%; aspect-ratio: 16/9; border: 1.5px solid var(--color-rule);"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<CourseVideoInline id="meerstemmigheid/leonin" style="width: 60%;" />
 
 <div style="flex: 1; font-family: var(--font-serif); font-size: var(--step-0); color: var(--color-text-muted);">
 
@@ -367,12 +362,7 @@ slimme zet: de componist staat centraal.
 
 <div style="display: flex; gap: var(--space-lg); align-items: center; margin-top: var(--space-md);">
 
-<iframe
-  src="https://www.youtube.com/embed/2on2P7syDzQ?start=0&end=180"
-  style="width: 60%; aspect-ratio: 16/9; border: 1.5px solid var(--color-rule);"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<CourseVideoInline id="meerstemmigheid/josquin-nymphes" style="width: 60%;" />
 
 <div style="flex: 1; font-family: var(--font-serif); font-size: var(--step-0); color: var(--color-text-muted);">
 
@@ -440,12 +430,7 @@ nobis — zit hier het hele verhaal in.
 
 ## 
 
-<iframe
-  src="https://www.youtube.com/embed/pLyB8nxvOeY"
-  style="width: 100%; height: 80%; border: 1.5px solid var(--color-rule);"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<CourseVideoInline id="meerstemmigheid/lotti-crucifixus" style="height: 80%;" />
 
 <!--
 Choir of King's College, Cambridge. Laat de eerste twee minuten horen. Vraag de klas
@@ -560,12 +545,7 @@ verticaal.
 
 ## 
 
-<iframe
-  src="https://www.youtube.com/embed/nu1uoYELpPI"
-  style="width: 100%; height: 80%; border: 1.5px solid var(--color-rule);"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<CourseVideoInline id="meerstemmigheid/purcell-dido" style="height: 80%;" />
 
 <!--
 Catherine Bott, Academy of Ancient Music, Christopher Hogwood. Tijdens het luisteren:
@@ -614,12 +594,7 @@ harmonie zijn niet meer twee benaderingen. Ze zijn één.
 
 ## 
 
-<iframe
-  src="https://www.youtube.com/embed/cqxC8NvlVdY?start=0&end=120"
-  style="width: 100%; height: 80%; border: 1.5px solid var(--color-rule);"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<CourseVideoInline id="meerstemmigheid/bach-gloria" style="height: 80%;" />
 
 <!--
 Monteverdi Choir, English Baroque Soloists, John Eliot Gardiner. Eerste twee minuten.
