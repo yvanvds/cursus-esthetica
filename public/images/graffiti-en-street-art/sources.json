@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "images": {
+    "5pointz-1.jpg": {
+      "description": "5Pointz, Long Island City, New York — gevels vol pieces, vóór de witwas van 2013 (foto Aaron Harewood, 2008)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:5pointz_graffiti.jpg",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/5pointz_graffiti.jpg",
+      "downloaded": "2026-07-27T10:41:16Z"
+    },
+    "5pointz-2.jpg": {
+      "description": "5Pointz, Long Island City, New York (foto Youngking11)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA 3.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:5_Pointz_Long_Island_City.JPG",
+      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/5_Pointz_Long_Island_City.JPG",
+      "downloaded": "2026-07-27T10:41:18Z"
+    },
+    "philadelphia-1.jpg": {
+      "description": "Graffiti bij het 22nd Street-trolleystation, Philadelphia, 1975 (foto Jack Tinney)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://picturingblackhistory.org/the-graffiti-art-movement-in-philadelphia/",
+      "file_url": "https://picturingblackhistory.org/wp-content/uploads/2024/07/628637310-Reduced-scaled.jpg",
+      "downloaded": "2026-07-27T10:39:14Z"
+    },
+    "pixacao-1.jpg": {
+      "description": "Pixação op de gevel van een leegstaand hoogbouwpand, São Paulo — elke verdieping getagd (foto Panoptico)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Saopaulo_pixacao002.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Saopaulo_pixacao002.jpg",
+      "downloaded": "2026-07-27T10:42:46Z"
+    },
+    "pixacao-2.jpg": {
+      "description": "Pixação — de karakteristieke hoekige lettervormen van dichtbij, Centro, São Paulo (foto Marco Gomes)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Pixa%C3%A7%C3%A3o_(3228399292).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Pixa%C3%A7%C3%A3o_%283228399292%29.jpg",
+      "downloaded": "2026-07-27T10:42:51Z"
+    },
+    "subway-1.jpg": {
+      "description": "Metrostel vol graffiti, Times Square — DOCUMERICA/EPA, foto Erik Calonius, mei 1973",
+      "source": "directe URL",
+      "license": "Public Domain",
+      "page_url": "https://www.flickr.com/photos/usnationalarchives/3769044371",
+      "file_url": "https://live.staticflickr.com/3451/3769044371_47b005504e_o.jpg",
+      "downloaded": "2026-07-27T10:41:08Z"
+    },
+    "subway-2.jpg": {
+      "description": "Interieur van een getagd metrorijtuig, New York — DOCUMERICA/EPA, foto Erik Calonius, mei 1973",
+      "source": "directe URL",
+      "license": "Public Domain",
+      "page_url": "https://www.flickr.com/photos/usnationalarchives/3769844664",
+      "file_url": "https://live.staticflickr.com/2644/3769844664_7c782eb584_o.jpg",
+      "downloaded": "2026-07-27T10:41:10Z"
+    },
+    "taki-1.jpg": {
+      "description": "'Taki 183' Spawns Pen Pals — The New York Times, 21 juli 1971 (paginascan)",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://streetartnyc.org/blog/2015/06/29/the-legendary-taki-183-on-tagging-the-new-york-times-the-wall-on-207th-street-instafame-phantom-art-graffiti-and-more/",
+      "file_url": "http://streetartnyc.org/wp-content/uploads/2015/06/taki_183_nytimes.jpg",
+      "downloaded": "2026-07-27T10:39:11Z"
+    },
+    "taki-2.jpg": {
+      "description": "TAKI 183 — tag, New York, begin jaren 1970",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://streetartnyc.org/blog/2015/06/29/the-legendary-taki-183-on-tagging-the-new-york-times-the-wall-on-207th-street-instafame-phantom-art-graffiti-and-more/",
+      "file_url": "http://streetartnyc.org/wp-content/uploads/2015/06/taki-183-signs-graffiti-tag.jpg",
+      "downloaded": "2026-07-27T10:39:12Z"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "images": {
+    "daguerre-1.jpg": {
+      "description": "Louis Daguerre — Boulevard du Temple (1838), gangbare (gespiegelde) reproductie",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Boulevard_du_Temple_by_Daguerre.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Boulevard_du_Temple_by_Daguerre.jpg",
+      "downloaded": "2026-08-31T17:36:49Z"
+    },
+    "daumier-1.jpg": {
+      "description": "Honoré Daumier — Nadar élevant la photographie à la hauteur de l'art (Brooklyn Museum, 1862)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Brooklyn_Museum_-_Nadar_Élevant_la_Photographie_à_la_Hauteur_de_l'Art_-_Honoré_Daumier.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Brooklyn_Museum_-_Nadar_%C3%89levant_la_Photographie_%C3%A0_la_Hauteur_de_l%27Art_-_Honor%C3%A9_Daumier.jpg",
+      "downloaded": "2026-07-27T10:47:50Z"
+    },
+    "gursky-1.jpg": {
+      "description": "Andreas Gursky — Rhein II (1999)",
+      "source": "DailyArt Magazine",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://www.dailyartmagazine.com/andreas-gursky-rhine-ii/",
+      "file_url": "https://www.dailyartmagazine.com/wp-content/uploads/2021/08/Screenshot-2021-08-06-at-11.23.21.png",
+      "downloaded": "2026-08-31T17:44:02Z"
+    },
+    "man-ray-1.jpg": {
+      "description": "Man Ray — Le Violon d'Ingres (1924)",
+      "source": "Wikipedia (en)",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://en.wikipedia.org/wiki/File:Le_Violon_d%27Ingres.png",
+      "file_url": "https://upload.wikimedia.org/wikipedia/en/9/93/Le_Violon_d%27Ingres.png",
+      "downloaded": "2026-08-31T17:30:25Z"
+    },
+    "marey-1.jpg": {
+      "description": "Étienne-Jules Marey — Movements in Pole Vaulting (rond 1890)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Étienne-Jules_Marey_-_Movements_in_Pole_Vaulting_-_Google_Art_Project.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/%C3%89tienne-Jules_Marey_-_Movements_in_Pole_Vaulting_-_Google_Art_Project.jpg",
+      "downloaded": "2026-07-27T10:48:02Z"
+    },
+    "muholi-1.jpg": {
+      "description": "Zanele Muholi — Bester I, Mayotte (2015), uit Somnyama Ngonyama",
+      "source": "Tate",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://www.tate.org.uk/art/artists/zanele-muholi-18872/yes-but-why-zanele-muholi",
+      "file_url": "https://media.tate.org.uk/aztate-prd-ew-dg-wgtail-st1-ctr-data/images/bester_i_mayotte_2015_-_0093op.width-1200.format-jpeg.jpg",
+      "downloaded": "2026-08-31T17:43:59Z"
+    },
+    "muybridge-1.jpg": {
+      "description": "Eadweard Muybridge — The Horse in Motion, Sallie Gardner (Library of Congress, 1878)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:The_Horse_in_Motion_high_res.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/The_Horse_in_Motion_high_res.jpg",
+      "downloaded": "2026-07-27T10:48:01Z"
+    },
+    "sherman-1.jpg": {
+      "description": "Cindy Sherman — Untitled Film Still #21 (1978), MoMA-persbeeld",
+      "source": "artblart (persbeeld MoMA)",
+      "license": "Auteursrechtelijk beschermd — gebruikt onder citaatrecht (educatief)",
+      "page_url": "https://www.moma.org/collection/works/56618",
+      "file_url": "https://artblart.com/wp-content/uploads/2012/05/moma_sherman2012_untitledfilmstill21-web.jpg",
+      "downloaded": "2026-08-31T17:43:56Z"
+    },
+    "steerage-1.jpg": {
+      "description": "Alfred Stieglitz — The Steerage (1907)",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Alfred_Stieglitz_-_The_Steerage_-_Google_Art_Project.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Alfred_Stieglitz_-_The_Steerage_-_Google_Art_Project.jpg",
+      "downloaded": "2026-07-27T10:48:09Z"
+    }
+  }
+}
