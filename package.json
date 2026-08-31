@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "build:site": "astro build",
-    "build:slides": "node slides/build-all.mjs",
+    "sync:videos": "node slides/sync-videos.mjs",
+    "build:slides": "npm run sync:videos && node slides/build-all.mjs",
     "build": "npm run build:site && npm run build:slides",
     "preview": "astro preview",
     "astro": "astro"
@@ -34,6 +35,7 @@
     "@slidev/cli": "^52.15.2",
     "@slidev/theme-default": "^0.25.0",
     "mdast-util-mdx-jsx": "^3.2.0",
-    "unist-util-visit": "^5.1.0"
+    "unist-util-visit": "^5.1.0",
+    "yaml": "^2.9.0"
   }
 }

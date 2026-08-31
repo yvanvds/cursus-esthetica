@@ -442,7 +442,7 @@ layout: quadrants
 
 de lijn die je meeneuriet
 
-→ Beethoven, 9e symfonie
+<CourseVideo id="inleiding/beethoven" label="Beethoven, 5e symfonie" />
 
 ::q2::
 
@@ -450,7 +450,7 @@ de lijn die je meeneuriet
 
 organisatie van tijd
 
-→ Strawinsky, Le Sacre du Printemps
+<CourseVideo id="inleiding/stravinsky" label="Strawinsky, Le Sacre du Printemps" />
 
 ::q3::
 
@@ -466,7 +466,9 @@ fluisteren ↔ schreeuwen
 
 de huid van het geluid
 
-→ Holiday vs O'Connor
+<CourseVideo id="inleiding/holiday" label="Holiday, Strange Fruit" />
+
+<CourseVideo id="inleiding/troy" label="O'Connor, Troy" />
 
 <!--
 Hier laat je fragmenten horen — de eerste vier noten van Beethovens 5e (melodie als
