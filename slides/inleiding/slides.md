@@ -458,7 +458,7 @@ organisatie van tijd
 
 fluisteren ↔ schreeuwen
 
-→ bliksem in stille lucht
+<CourseVideo id="inleiding/troy" label="O'Connor, Troy" />
 
 ::q4::
 
@@ -468,14 +468,19 @@ de huid van het geluid
 
 <CourseVideo id="inleiding/holiday" label="Holiday, Strange Fruit" />
 
-<CourseVideo id="inleiding/troy" label="O'Connor, Troy" />
+→ en dezelfde Troy hiernaast
 
 <!--
 Hier laat je fragmenten horen — de eerste vier noten van Beethovens 5e (melodie als
 geheugen-haak), een passage uit Le Sacre (ritme dat in 1913 letterlijk een rel
-veroorzaakte in de Théâtre des Champs-Élysées), een Holiday-track ("Strange Fruit")
-en een O'Connor-track ("Troy") om hetzelfde te illustreren wat we bij beeld met de
-icoon en Rafaël deden: dezelfde noot, totaal andere stem.
+veroorzaakte in de Théâtre des Champs-Élysées), en "Troy" van O'Connor voor dynamiek:
+dat begint bijna gefluisterd en eindigt op volle stem, een bereik dat je in
+hedendaagse pop nauwelijks nog hoort omdat alles platgecomprimeerd wordt.
+
+Speel Troy bij klankkleur gewoon opnieuw, naast "Strange Fruit" van Holiday. Twee
+vrouwenstemmen die je geen seconde verwart — en meteen het punt van deze vier
+parameters: hetzelfde fragment draagt twee verschillende vragen. Ze zitten niet in
+het nummer, ze zitten in hoe je luistert.
 -->
 
 ---
