@@ -24,8 +24,26 @@ automatically based on the task description. Key skills:
   (OneNote dump, PDF export, PowerPoint) into a new MDX chapter. Defines
   a three-phase workflow (skelet → beeld/video-onderzoek → MDX-uitwerking),
   the voice signatures to imitate, image-download conventions, and a
-  movement-level verification checklist. Primarily a Cowork-mode skill
-  (image research and download benefit from web access).
+  movement-level verification checklist.
+- **`work-issues`** — the way work starts here. Works GitHub issues one at
+  a time: issue → branch → the skill from the table above → build gate →
+  PR → merge → live site. Invoke as `/work-issues` with issue numbers, a
+  `--label` filter, or empty. Also triggers when work is proposed without
+  an issue — it files the issue first.
+
+## Werkstroom
+
+All substantive work goes through a GitHub issue and a pull request; see
+the `work-issues` skill for the full procedure. In short:
+
+- Issue templates live in `.github/ISSUE_TEMPLATE/`; the label
+  (`hoofdstuk`, `beeld`, `component`, `slides`, `redactie`, `site`) picks
+  the working method and the branch name (`<label>/issue-<N>-<slug>`).
+- The gates are `npx astro check` and `npm run build` (site **and**
+  slides), plus a render check in `npm run dev` — there is no test suite.
+  `.github/workflows/pr-check.yml` runs the first two on every PR.
+- A merge to `main` deploys to GitHub Pages. There is no review step after
+  the merge, so the review moments are the checkpoints *during* the work.
 
 ## Key conventions (summary)
 
@@ -49,6 +67,7 @@ automatically based on the task description. Key skills:
 | Design tokens | `src/styles/tokens.css` |
 | Content schema | `src/content.config.ts` |
 | Existing pattern for a theme | `src/content/themes/wat-is-kunst.mdx` + its components |
+| Inhoudelijke afspraken (voorbeelden wel/niet, media, register) | `docs/REDACTIE.md` |
 
 ## Scope
 

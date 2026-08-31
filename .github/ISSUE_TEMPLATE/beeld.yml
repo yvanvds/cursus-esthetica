@@ -1,0 +1,23 @@
+name: Beeld en video
+description: Beeldmateriaal of video zoeken, vervangen, uitbreiden of opschonen
+labels: ["beeld"]
+body:
+  - type: input
+    id: theme-id
+    attributes:
+      label: Theme-id
+      placeholder: graffiti-en-street-art
+    validations:
+      required: true
+  - type: textarea
+    id: wat
+    attributes:
+      label: Welk beeld of welke sectie
+      description: Om welke werken, gebouwen of passages gaat het, en wat is er mis of ontbreekt.
+    validations:
+      required: true
+  - type: textarea
+    id: eisen
+    attributes:
+      label: Eisen
+      description: Aantal beelden, gewenste standpunten of details, videofragmenten met begin- en eindtijd. Richtwaarde voor gebouwen — 8 tot 11 beelden.

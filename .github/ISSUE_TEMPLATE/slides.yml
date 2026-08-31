@@ -1,0 +1,29 @@
+name: Slidedeck
+description: Een Slidev-deck bouwen of bijwerken voor in de les
+labels: ["slides"]
+body:
+  - type: input
+    id: theme-id
+    attributes:
+      label: Theme-id
+      description: Het deck komt in `slides/<theme-id>/slides.md`
+      placeholder: licht-en-schaduw
+    validations:
+      required: true
+  - type: textarea
+    id: opzet
+    attributes:
+      label: Wat moet er in de les gebeuren
+      description: De beats van het lesuur — waar je vertelt, waar je toont, waar je de klas iets laat doen. Niet de slides zelf.
+    validations:
+      required: true
+  - type: input
+    id: duur
+    attributes:
+      label: Lesduur
+      placeholder: 50 minuten
+  - type: textarea
+    id: materiaal
+    attributes:
+      label: Materiaal dat mee moet
+      description: Beelden uit het hoofdstuk, extra lesbeelden die niet in de cursustekst mogen, video's met tijdcodes.
