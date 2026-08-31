@@ -7,7 +7,7 @@ body:
     attributes:
       label: Theme-id
       description: Bestandsnaam onder `src/content/themes/`, zonder `.mdx`
-      placeholder: fotografie-en-film
+      placeholder: licht-en-schaduw
     validations:
       required: true
   - type: textarea
