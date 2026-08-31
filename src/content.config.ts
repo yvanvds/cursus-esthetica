@@ -15,7 +15,7 @@ const modules = defineCollection({
     title: z.string(),
     order: z.number(),
     intro: z.string().optional(),
-  }),
+  }).strict(),
 });
 
 const themes = defineCollection({
@@ -40,7 +40,7 @@ const themes = defineCollection({
       end: z.number().optional(),
       aspectRatio: z.string().optional(),
     })).optional(),
-  }),
+  }).strict(),
 });
 
 export const collections = { modules, themes };
