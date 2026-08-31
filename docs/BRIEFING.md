@@ -162,7 +162,6 @@ import { defineCollection, z } from 'astro:content';
 const modules = defineCollection({
   type: 'content',
   schema: z.object({
-    id: z.string(),          // 'kunst-wetenschap'
     title: z.string(),        // 'Kunst en wetenschap'
     order: z.number(),        // Voor volgorde op homepage
     intro: z.string(),        // Korte beschrijving
@@ -172,9 +171,8 @@ const modules = defineCollection({
 const themes = defineCollection({
   type: 'content',
   schema: z.object({
-    id: z.string(),           // 'perspectief-en-ruimte'
     title: z.string(),
-    module: z.string(),       // FK naar module.id
+    module: z.string(),       // FK naar de module-id (= bestandsnaam)
     order: z.number(),        // Volgorde binnen module
     shortDescription: z.string(),
     figure: z.string(),       // '01', '02', etc.
@@ -190,13 +188,29 @@ const themes = defineCollection({
 export const collections = { modules, themes };
 ```
 
+### De bestandsnaam is de identiteit
+
+Geen van beide collecties heeft een `id`-veld in de frontmatter. De glob-loader
+leidt de entry-id af van de bestandsnaam zonder extensie, en dat is meteen de
+sleutel voor alles wat aan een hoofdstuk hangt:
+
+- de URL — `[theme].astro` routeert op `theme.id`;
+- de map met beelden, `public/images/<theme-id>/`;
+- het slidedeck, `slides/<theme-id>/slides.md` (zie `src/lib/has-slides.ts`);
+- de `module:` in een thema, die naar de bestandsnaam van een module verwijst.
+
+Een hoofdstuk hernoemen is dus het bestand hernoemen (en de bijbehorende
+beeld- en slidesmap mee). Zet **geen** `id:` in de frontmatter: het schema kent
+het veld niet, zod stript het stil, en een waarde die van de bestandsnaam
+afwijkt wekt de indruk dat de URL iets anders is dan hij is.
+
 ### Voorbeeld thema-bestand
 
-`src/content/themes/perspectief-en-ruimte.mdx`:
+`src/content/themes/perspectief-en-ruimte.mdx` — deze bestandsnaam levert de
+route `/perspectief-en-ruimte/`:
 
 ```mdx
 ---
-id: perspectief-en-ruimte
 title: Perspectief en ruimte
 module: kunst-wetenschap
 order: 1
@@ -249,7 +263,7 @@ import ThemeLayout from '../layouts/ThemeLayout.astro';
 export async function getStaticPaths() {
   const themes = await getCollection('themes');
   return themes.map(theme => ({
-    params: { theme: theme.data.id },
+    params: { theme: theme.id },   // loader-id = bestandsnaam
     props: { theme }
   }));
 }
