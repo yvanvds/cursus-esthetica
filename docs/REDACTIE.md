@@ -45,6 +45,9 @@ skill verwijst hiernaar).
   spellingcontrole of een proefleesronde eruit wil halen. Het is geen
   slordigheid — laat staan. (Vastgelegd aug 2026, nadat de leespas van
   #17 "op haar wapenschild" ten onrechte had rechtgezet.)
+  Bij een algemene persoon geldt hetzelfde uitgangspunt, maar dan
+  andersom opgelost: geen generiek "zijn", wel de je-vorm die de cursus
+  toch al gebruikt. "Wie weet waar *je* smaak vandaan komt, kiest."
 - **Courante Engelse leenwoorden blijven staan.** Zegt het vakgebied
   *piece*, *tag*, *still*, *sample* of *frame*, dan schrijven wij dat
   ook. Geen zelfgemaakte Nederlandse samenstellingen om een leenwoord te
