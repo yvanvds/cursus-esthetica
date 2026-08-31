@@ -35,7 +35,7 @@ The user describes what the component should do without providing a prototype. I
 
 ## Placement decision
 
-**Chapter-specific (`src/components/themes/<chapter-id>/`):** the component's *content* is tied to one chapter. The definition-test in "wat-is-kunst" contains six specific scenarios and four specific philosophers — moving it to another chapter would require rewriting it. Most interactive components will be chapter-specific.
+**Chapter-specific (`src/components/themes/<chapter-id>/`):** the component's *content* is tied to one chapter. The definition-test in "inleiding" contains six specific scenarios and four specific philosophers — moving it to another chapter would require rewriting it. Most interactive components will be chapter-specific.
 
 **Reusable (`src/components/interactive/`):** the component is a *pattern* that takes content as props. A three-minute timed viewer works for any artwork. A before/after comparator works for any pair of images. Only build as reusable when there is a concrete second use case in mind — speculative abstraction is costly here.
 
@@ -171,14 +171,14 @@ Each chapter's `.mdx` file imports and uses the component directly. Goal: the MD
 
 ```mdx
 ---
-title: Wat is kunst?
-module: waarnemen
-order: 0
-figure: "00"
+title: Maar is het kunst?
+module: kijken-en-luisteren
+order: 1
+figure: "01"
 shortDescription: ...
 ---
 
-import DefinitionTest from '../../components/themes/wat-is-kunst/DefinitionTest.astro';
+import DefinitionTest from '../../components/themes/inleiding/DefinitionTest.astro';
 
 ## Geen definitie, wel een spel
 
@@ -241,10 +241,10 @@ When completing an integration, report back with:
 
 ## Example: the definition-test
 
-The first component built with this pattern is the definition-test in "Wat is kunst?". It lives at:
+The first component built with this pattern is the definition-test in "Maar is het kunst?" (`inleiding`). It lives at:
 
 ```
-src/components/themes/wat-is-kunst/
+src/components/themes/inleiding/
   DefinitionTest.astro
   DefinitionTest.tsx
   DefinitionTest.module.css

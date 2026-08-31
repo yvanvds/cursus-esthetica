@@ -66,7 +66,7 @@ the `work-issues` skill for the full procedure. In short:
 | Adding an interactive component | `.claude/skills/add-interactive-component/SKILL.md` |
 | Design tokens | `src/styles/tokens.css` |
 | Content schema | `src/content.config.ts` |
-| Existing pattern for a theme | `src/content/themes/wat-is-kunst.mdx` + its components |
+| Existing pattern for a theme | `src/content/themes/inleiding.mdx` + its components |
 | Inhoudelijke afspraken (voorbeelden wel/niet, media, register) | `docs/REDACTIE.md` |
 
 ## Scope
