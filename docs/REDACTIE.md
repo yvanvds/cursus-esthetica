@@ -32,6 +32,18 @@ skill verwijst hiernaar).
 - **Niet hoogdravend.** Courant Nederlands, hooguit één aforisme per
   sectie, geen decoratieve metaforen. (Uitgewerkt in het Register-blok
   van de `draft-theme-chapter` skill.)
+- **Courante Engelse leenwoorden blijven staan.** Zegt het vakgebied
+  *piece*, *tag*, *still*, *sample* of *frame*, dan schrijven wij dat
+  ook. Geen zelfgemaakte Nederlandse samenstellingen om een leenwoord te
+  ontwijken ("spuitbuskunst" voor graffiti — dat woord gebruikt niemand),
+  en courante leenwoorden niet cursiveren alsof ze vreemd zijn.
+  Bij twijfel de omgekeerde toets: staat het woord op een
+  taalpuristische vervangingslijst zoals die van de
+  [Bond tegen Leenwoorden](https://www.bondtegenleenwoorden.nl/), dan is
+  het gangbaar — men bestrijdt geen woorden die niemand gebruikt.
+  Bestaat er wél een gevestigde Nederlandse vakterm (*vertraging* voor
+  een suspension), dan wint die. Geldt ook buiten de cursustekst:
+  slidedecks, powerpoints, losse teksten.
 
 ## Media
 
