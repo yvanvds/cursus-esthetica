@@ -2,12 +2,15 @@ import { defineCollection } from 'astro:content';
 import { z } from 'zod';
 import { glob } from 'astro/loaders';
 
+// .strict() overal: zonder dat strippen zod-objecten onbekende sleutels stil.
+// Zo bleef het dode `id:`-veld jarenlang staan (#7), en zo zou een typo als
+// `captoin:` een bijschrift geruisloos laten verdwijnen. Nu is het een fout.
 const figureImage = z.object({
   src: z.string(),
   caption: z.string().optional(),
   source: z.string().optional(),
   alt: z.string().optional(),
-});
+}).strict();
 
 const modules = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/modules' }),
@@ -31,7 +34,7 @@ const themes = defineCollection({
     customStyles: z.string().optional(),
     customHeader: z.boolean().optional(),
     accentColor: z.string().optional(),
-    figures: z.record(z.string(), z.object({ images: z.array(figureImage) })).optional(),
+    figures: z.record(z.string(), z.object({ images: z.array(figureImage) }).strict()).optional(),
     videos: z.record(z.string(), z.object({
       youtube: z.string().length(11),
       title: z.string(),
@@ -39,7 +42,7 @@ const themes = defineCollection({
       start: z.number().optional(),
       end: z.number().optional(),
       aspectRatio: z.string().optional(),
-    })).optional(),
+    }).strict()).optional(),
   }).strict(),
 });
 
