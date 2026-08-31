@@ -60,12 +60,7 @@ gaan we vragen *hoe*.
 
 <div style="display: flex; gap: var(--space-lg); align-items: center; margin-top: var(--space-md);">
 
-<iframe
-  src="https://www.youtube.com/embed/mMTUdlEEM5A?start=740&end=876"
-  style="width: 60%; aspect-ratio: 16/9; border: 1.5px solid var(--color-rule);"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<CourseVideoInline id="belgisch-experiment/rosas" style="width: 60%;" />
 
 <div style="flex: 1; font-family: var(--font-serif); font-size: var(--step-0); color: var(--color-text-muted);">
 
@@ -710,12 +705,7 @@ backgroundSize: contain
 
 <div style="display: flex; gap: var(--space-lg); align-items: center; margin-top: var(--space-md);">
 
-<iframe
-  src="https://www.youtube.com/embed/uU8Guq_AVK0?start=0&end=180"
-  style="width: 60%; aspect-ratio: 16/9; border: 1.5px solid var(--color-rule);"
-  allow="autoplay; encrypted-media"
-  allowfullscreen
-></iframe>
+<CourseVideoInline id="belgisch-experiment/logos" style="width: 60%;" />
 
 <div style="flex: 1; font-family: var(--font-serif); font-size: var(--step-0); color: var(--color-text-muted);">
 
