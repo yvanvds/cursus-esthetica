@@ -1,14 +1,20 @@
 /* ────────────────────────────────────────────────────────────────────
    layouts-base — gedeelde structurele regels voor:
      layout: compare        (twee beelden naast elkaar)
+     layout: triptych       (drie beelden op één rij)
+     layout: detail         (één werk groot + zijn uitsneden)
      layout: paired-reveal  (tekst links, beeld dat per klik switcht)
      layout: quadrants      (titel + 2×2 grid)
+     layout: breathe        (full-bleed beeld op een ademende grond)
 
    Geen kleuren of fonts hier — alleen layout. Het thema levert tokens:
      --color-text, --color-text-quiet, --color-rule (optioneel),
      --space-sm, --space-md, --space-lg, --space-xl,
      --font-mono, --step--1
    --color-rule valt terug op --color-text als het thema het niet definieert.
+   `breathe` leest daarnaast --breathe-from / --breathe-to (en optioneel
+   --breathe-via-1 / --breathe-via-2); zonder die tokens staat zijn grond
+   stil op --color-bg.
    ──────────────────────────────────────────────────────────────────── */
 
 /* ── QUADRANTS — titel bovenaan, 2×2 grid eronder ─────────────────── */
@@ -87,6 +93,141 @@
   color: var(--color-text-quiet);
   text-align: center;
   line-height: 1.4;
+}
+
+/* ── DETAIL — één werk groot, zijn uitsneden in een smalle kolom ───
+     De hiërarchie ís het argument: dit is één werk, en dat zijn stukken
+     ervan. Zie detail.vue. ─────────────────────────────────────────── */
+.slidev-layout.detail {
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-md);
+}
+.slidev-layout.detail.detail--headed {
+  grid-template-rows: auto 1fr;
+}
+.slidev-layout.detail .detail-header h2 {
+  margin-bottom: 0;
+}
+.slidev-layout.detail .detail-row {
+  display: grid;
+  grid-template-columns: 1.9fr 1fr;
+  gap: var(--space-lg);
+  min-height: 0;
+}
+.slidev-layout.detail .detail-whole {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.detail .detail-whole img {
+  max-width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  object-fit: contain;
+}
+.slidev-layout.detail .detail-crops {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: var(--space-md);
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.detail .detail-crop {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-xs, 0.5rem);
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.detail .detail-crop img {
+  max-width: 100%;
+  min-height: 0;
+  object-fit: contain;
+  border: 1px solid var(--color-rule, var(--color-text));
+}
+.slidev-layout.detail .detail-crop-label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+.slidev-layout.detail figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-quiet);
+  line-height: 1.4;
+}
+.slidev-layout.detail .detail-whole figcaption {
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+/* ── BREATHE — full-bleed beeld op een grond die traag van kleur
+     verschuift; één beeld per klik. Zie breathe.vue. ──────────────── */
+.slidev-layout.breathe {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* De kleuren komen uit het thema. Zonder tokens lopen alle vier de stops
+   naar dezelfde waarde en staat de grond dus stil — geen zichtbaar effect
+   in plaats van een verkeerd effect. */
+@keyframes layouts-base-breathe {
+  0%   { background-color: var(--breathe-from, var(--color-bg)); }
+  33%  { background-color: var(--breathe-via-1, var(--breathe-from, var(--color-bg))); }
+  66%  { background-color: var(--breathe-via-2, var(--breathe-to, var(--color-bg))); }
+  100% { background-color: var(--breathe-to, var(--color-bg)); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .slidev-layout.breathe {
+    animation: layouts-base-breathe var(--breathe-duration, 75s)
+               ease-in-out alternate infinite;
+  }
+}
+
+.slidev-layout.breathe .breathe-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slidev-layout.breathe .breathe-stage img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 900ms ease-in-out;
+}
+.slidev-layout.breathe .breathe-stage img.is-visible {
+  opacity: 1;
+}
+.slidev-layout.breathe .breathe-caption {
+  position: absolute;
+  left: var(--space-lg);
+  bottom: var(--space-lg);
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
 
 /* ── COMPARE — twee afbeeldingen naast elkaar, zonder titel ───────── */

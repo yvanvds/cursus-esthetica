@@ -104,6 +104,24 @@ kan maar in een les wel verantwoord is (SMOLE, beschermd beeld) hoort thuis in
 het deck. Zie `docs/REDACTIE.md` — dat document geldt ook voor decks, inclusief
 de afspraken over register, leenwoorden en lange video's.
 
+**Een deck-eigen beeld staat wél bij de andere beelden, maar niet in
+`figures:`.** Mist het deck een beeld dat het hoofdstuk niet heeft — het
+stichtende werk van een beweging, een buitenaanzicht dat een vergelijking
+afmaakt — dan zoek je het en zet je het als bestand onder
+`public/images/<theme-id>/`, precies zoals elk ander beeld, en verwijs je
+ernaar met het volledige deploy-pad. Zet het **niet** in de `figures:` van het
+hoofdstuk: elke key daar hoort minstens één keer in de body van de MDX gebruikt
+te worden, en de body aanpassen is werk voor een `hoofdstuk`-issue, niet voor
+een `slides`-issue. De dekkingscheck telt alleen de keys uit `figures:`, dus een
+extra beeld verstoort de telling niet.
+
+Daar zit één probleem aan: **zo'n beeld heeft geen frontmatter om zijn `source:`
+in te zetten.** De bron hoort dan in de sprekersnotitie van de slide waar het
+staat — één regel, met maker, jaar en licentie, geformuleerd zodat de docent hem
+kan voorlezen als iemand het vraagt. `sources.json` naast het bestand krijgt zijn
+entry sowieso via de image-downloader, maar dat bestand komt niet mee de les in.
+Noem in de PR-body welke beelden deck-eigen zijn en waar hun bron staat.
+
 ## 4 — Elk hoofdstuk krijgt een eigen visueel thema
 
 Zo zijn we begonnen en zo gaan we door. Het thema draagt de sfeer van dít
@@ -115,6 +133,7 @@ hoofdstuk, niet die van de vorige les.
 | `contrapunctus` | meerstemmigheid |
 | `aigles` | belgisch-experiment |
 | `oculus` | perspectief-en-ruimte |
+| `penumbra` | licht-en-schaduw |
 
 Een nieuw deck betekent normaal een nieuw thema onder `slides/theme/<naam>/`:
 
@@ -157,8 +176,10 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 | `image-left` / `image-right` | beeld naast tekst |
 | `compare` | twee beelden naast elkaar, `left:` en `right:` |
 | `triptych` | drie (of twee/vier) beelden op één rij, `images:` + optioneel `captions:`, `reveal: true` voor één per klik |
+| `detail` | één werk groot (`image:`) plus zijn uitsneden (`details:`) — voor een figuurgroep die geen drie werken is maar een werk plus crops |
 | `paired-reveal` | tekststappen links, wisselend beeld rechts — per klik het volgende beeld uit `images:` |
 | `quadrants` | vier vakken, `::q1::` t/m `::q4::` |
+| `breathe` | full-bleed beeld op een grond die traag van kleur verschuift, één beeld per klik; leest `--breathe-from` / `--breathe-to` uit het thema |
 
 Vraagt een beweging om iets anders — een tijdlijn, een detail dat in het geheel
 schuift, een overlay, een partituurstrook onder een fragment, drie beelden in

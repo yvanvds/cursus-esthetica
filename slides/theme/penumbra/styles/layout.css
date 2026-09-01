@@ -64,6 +64,13 @@
   --color-tube:      #e6d8ec;
   --color-tube-glow: rgba(214, 168, 214, 0.22);
 
+  /* De ademhaling van `layout: breathe` (layouts-base). Voor Eliassons
+     Weather Project: een hal die van donker naar een lage amberzon trekt. */
+  --breathe-from:  #0e0d0b;
+  --breathe-via-1: #2a1c0c;
+  --breathe-via-2: #4a2f0e;
+  --breathe-to:    #6b4310;
+
   /* ── Typografie ────────────────────────────────────────────────── */
   /* Cormorant Garamond heeft extreme stokcontrast: de haarlijnen zakken op
      een donkere grond bijna weg. Dat is het motief, niet een ongelukje —
@@ -382,16 +389,25 @@
   font-size: var(--step-3);
 }
 
-/* ── Beeldlayouts — geen padding, geen lichtbron over het werk ───── */
-.slidev-layout.image,
-.slidev-layout[class*="image-"] { padding: 0; }
-.slidev-layout.image::before,
-.slidev-layout[class*="image-"]::before { display: none; }
+/* ── Beeldlayouts — de lichtbron gaat uit ────────────────────────────
+   `image.vue`, `image-left.vue` en `image-right.vue` uit layouts-base zetten
+   géén klasse `image` op hun root (dat is een <div class="slidev-layout
+   w-full h-full"> met de achtergrond als inline style), dus een selector op
+   `.slidev-layout.image` grijpt daar niets. Vandaar een klasse die je zelf
+   op de slide zet:
 
-.slidev-layout.image-right,
-.slidev-layout.image-left { padding: var(--space-xl); }
-.slidev-layout.image-right .my-cool-content-on-the-left,
-.slidev-layout.image-left  .my-cool-content-on-the-right { padding-right: var(--space-lg); }
+     layout: image
+     class: lit-off
+
+   Zonder dat ligt de amberpoel of het glasraster van dit thema als vuil over
+   het werk heen. Voor de layouts die hun naam wél op hun root zetten
+   (triptych, detail, compare, breathe, paired-reveal, en de thema-eigen
+   dimmer en raking) is het al geregeld — zie de haken onderaan. */
+.slidev-layout.lit-off::before { display: none; }
+
+/* Bij image-left/-right landt de klasse op de teksthelft; die houdt zijn
+   padding, alleen de lichtbron verdwijnt. */
+.slidev-layout.lit-off.default { padding: var(--space-xl); }
 
 /* ── Meta-regels — jaartallen, plaatsnamen, rubrieken ────────────── */
 .slidev-layout .meta {
@@ -418,6 +434,8 @@
    waar het beeld het onderwerp is, gaat de bron uit. */
 .slidev-layout.triptych::before,
 .slidev-layout.compare::before,
+.slidev-layout.detail::before,
+.slidev-layout.breathe::before,
 .slidev-layout.paired-reveal::before { display: none; }
 .slidev-layout.quadrants::before { opacity: 0.45; }
 .slidev-layout.quadrants .quadrant { background: var(--color-bg-elevated); }
