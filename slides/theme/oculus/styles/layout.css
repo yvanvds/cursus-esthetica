@@ -1,0 +1,397 @@
+/* ────────────────────────────────────────────────────────────────────
+   Oculus — Cursus Esthetica, hoofdstuk 02 "Wie mag in het midden staan?"
+
+   Een oculus is het gat in een koepel. Pozzo schilderde er een die er niet
+   was; Turrell zaagt er een die er wél is. Daartussen ligt het hoofdstuk.
+
+   Sfeer: donkere zaal, koele blauwe constructielijn, warme rode gloed.
+   Motief: een haarfijn perspectiefraster dat naar één punt loopt — en dat
+   per beweging van plaats verschuift, tot het in beweging 4 verdwijnt en
+   vervangen wordt door licht. Het thema voert dus zelf uit wat het
+   hoofdstuk beweert.
+
+   Familie met de hoofdstukpagina (Fraunces / Inter / JetBrains Mono,
+   #1a1a1a), maar met een eigen palet en een eigen geometrie.
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Palet — donkere zaal, blauwe constructie, warme gloed ─────── */
+  --color-bg:            #131417;   /* de zaal, iets koeler dan de site */
+  --color-bg-elevated:   #1c1e23;
+  --color-surface:       #242730;
+  --color-text:          #f2f0ea;
+  --color-text-muted:    #c3c1ba;
+  --color-text-dim:      #9a988f;
+  --color-text-quiet:    #7d7f88;
+  --color-border-subtle: #2e323c;
+  --color-rule:          #2e323c;   /* layouts-base leest dit */
+
+  --color-accent:        #3b85ca;   /* accentColor van het hoofdstuk */
+  --color-accent-soft:   rgba(59, 133, 202, 0.14);
+  --color-accent-line:   rgba(59, 133, 202, 0.30);  /* constructielijn */
+  --color-glow:          #6e2626;   /* eindpunt van skyspace-breathe */
+  --color-glow-soft:     rgba(110, 38, 38, 0.35);
+
+  /* ── Typografie ────────────────────────────────────────────────── */
+  --font-serif:   'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans:    'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, ui-monospace, monospace;
+
+  /* Modulaire schaal (1.2) */
+  --step--1: 0.833rem;
+  --step-0:  1rem;
+  --step-1:  1.2rem;
+  --step-2:  1.44rem;
+  --step-3:  1.728rem;
+  --step-4:  2.488rem;
+  --step-5:  3.583rem;
+  --step-6:  4.8rem;
+
+  /* Spacing */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  --radius: 0;
+
+  /* Positie van het verdwijnpunt — per slide overschrijfbaar met
+     `class: vp-left` / `vp-right` / `vp-scattered` / `vp-none`. */
+  --vp-x: 62%;
+  --vp-y: 42%;
+
+  /* Slidev hooks */
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-sans);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+/* ── Basis ───────────────────────────────────────────────────────── */
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+  font-feature-settings: "kern", "liga";
+}
+
+/* Het verdwijnpuntraster. Vier conische bundels haarlijnen die op
+   (--vp-x, --vp-y) samenkomen; naar de randen uitgefade zodat het een
+   constructie blijft en geen behang wordt. */
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-conic-gradient(
+      from 0deg at var(--vp-x) var(--vp-y),
+      var(--color-accent-line) 0deg 0.10deg,
+      transparent 0.10deg 7.5deg
+    );
+  -webkit-mask-image: radial-gradient(
+    circle at var(--vp-x) var(--vp-y),
+    transparent 0, transparent 6%, black 34%, black 62%, transparent 96%);
+          mask-image: radial-gradient(
+    circle at var(--vp-x) var(--vp-y),
+    transparent 0, transparent 6%, black 34%, black 62%, transparent 96%);
+  opacity: 0.55;
+}
+
+/* De inhoud staat boven het raster. */
+.slidev-layout > * { position: relative; z-index: 1; }
+
+/* Verdwijnpunt verplaatsen — de bewegingen van het hoofdstuk.
+   1 centraal · 2 laag en excentrisch · 3 uiteen · 4 weg. */
+.slidev-layout.vp-center    { --vp-x: 50%; --vp-y: 50%; }
+.slidev-layout.vp-left      { --vp-x: 22%; --vp-y: 56%; }
+.slidev-layout.vp-right     { --vp-x: 82%; --vp-y: 38%; }
+.slidev-layout.vp-low       { --vp-x: 50%; --vp-y: 88%; }
+.slidev-layout.vp-none::before { display: none; }
+
+/* Beweging 3: geen enkel punt meer — het raster breekt in scherven. */
+.slidev-layout.vp-scattered::before {
+  background-image:
+    repeating-conic-gradient(from 12deg at 24% 30%,
+      var(--color-accent-line) 0deg 0.10deg, transparent 0.10deg 9deg),
+    repeating-conic-gradient(from 40deg at 71% 64%,
+      var(--color-accent-line) 0deg 0.10deg, transparent 0.10deg 9deg),
+    repeating-conic-gradient(from 75deg at 46% 88%,
+      var(--color-accent-line) 0deg 0.10deg, transparent 0.10deg 9deg);
+  -webkit-mask-image: linear-gradient(to bottom, black, black);
+          mask-image: linear-gradient(to bottom, black, black);
+  opacity: 0.30;
+}
+
+/* Beweging 4: geen constructie, alleen licht dat van onderop opkomt. */
+.slidev-layout.glow::before {
+  background-image: radial-gradient(
+    ellipse 80% 55% at 50% 108%,
+    var(--color-glow-soft) 0%, transparent 70%);
+  -webkit-mask-image: none;
+          mask-image: none;
+  opacity: 1;
+}
+
+/* ── Koppen ──────────────────────────────────────────────────────── */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: var(--font-display);
+  color: var(--color-text);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+.slidev-layout h1 { font-size: var(--step-6); margin-bottom: var(--space-md); }
+.slidev-layout h2 {
+  font-size: var(--step-4);
+  margin-bottom: var(--space-md);
+  font-variation-settings: 'opsz' 100;
+}
+.slidev-layout h3 {
+  font-size: var(--step-2);
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+}
+.slidev-layout h4 { font-size: var(--step-1); font-weight: 500; }
+
+/* ── Lopende tekst ───────────────────────────────────────────────── */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+.slidev-layout li + li { margin-top: 0.3em; }
+
+.slidev-layout strong { color: var(--color-text); font-weight: 600; }
+.slidev-layout em     { font-style: italic; color: var(--color-accent); }
+
+.slidev-layout a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent-soft);
+}
+.slidev-layout a:hover { border-bottom-color: var(--color-accent); }
+
+/* ── Code / gegevensblokken ──────────────────────────────────────── */
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--color-surface);
+  padding: 0.1em 0.4em;
+  color: var(--color-text);
+}
+.slidev-layout pre {
+  background: var(--color-bg-elevated);
+  border-left: 2px solid var(--color-accent);
+  padding: var(--space-md);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  margin-top: var(--space-md);
+  color: var(--color-text);
+}
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout pre .line,
+.slidev-layout pre span { color: var(--color-text) !important; }
+.slidev-layout pre code { display: block; text-indent: 0; padding-left: 0; }
+
+/* ── Citaat ──────────────────────────────────────────────────────── */
+.slidev-layout blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--step-3);
+  line-height: 1.4;
+  color: var(--color-text);
+  background: none;
+  border-left: 1px solid var(--color-accent);
+  padding: 0 0 0 var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+/* ── Lijsten — het opsommingsteken is een verdwijnpunt ───────────── */
+.slidev-layout ul { list-style: none; padding-left: 0; }
+.slidev-layout ul > li { position: relative; padding-left: 1.5em; }
+.slidev-layout ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.3em;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--color-accent);
+  transform: rotate(45deg);
+}
+.slidev-layout ol { padding-left: 1.8em; }
+.slidev-layout ol > li::marker {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+/* ── COVER ───────────────────────────────────────────────────────── */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--space-xl) var(--space-2xl);
+  --vp-x: 50%;
+  --vp-y: 50%;
+}
+.slidev-layout.cover::before { opacity: 0.85; }
+.slidev-layout.cover h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8.2vw, 7.5rem);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144;
+  line-height: 1.0;
+  letter-spacing: -0.035em;
+  margin-bottom: var(--space-md);
+  max-width: 16em;
+}
+.slidev-layout.cover h1 + p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--step-2);
+  color: var(--color-text-muted);
+  max-width: 34em;
+}
+
+/* ── SECTIE — het verdwijnpunt van deze beweging ─────────────────── */
+.slidev-layout.section {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: var(--space-2xl);
+}
+.slidev-layout.section h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  max-width: 14em;
+}
+.slidev-layout.section p {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  margin-top: var(--space-md);
+}
+
+/* ── EINDE ───────────────────────────────────────────────────────── */
+.slidev-layout.end {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: var(--space-2xl);
+}
+.slidev-layout.end h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--step-5);
+  color: var(--color-text);
+}
+.slidev-layout.end p {
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-size: var(--step-3);
+}
+
+/* ── Beeldlayouts — padding weg, raster weg ──────────────────────── */
+.slidev-layout.image,
+.slidev-layout[class*="image-"] { padding: 0; }
+.slidev-layout.image::before,
+.slidev-layout[class*="image-"]::before { display: none; }
+
+.slidev-layout.image-right,
+.slidev-layout.image-left { padding: var(--space-xl); }
+.slidev-layout.image-right .my-cool-content-on-the-left,
+.slidev-layout.image-left  .my-cool-content-on-the-right { padding-right: var(--space-lg); }
+
+/* ── Meta-regels — jaartallen, plaatsnamen, rubrieken ────────────── */
+.slidev-layout .meta {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.slidev-layout .meta-quiet {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+
+/* ── Verdwijnpuntmarkering ───────────────────────────────────────
+   Een klein kruis precies op (--vp-x, --vp-y), dus altijd op het punt
+   waar de haarlijnen samenkomen — het kan niet uit elkaar lopen met het
+   raster. Optioneel label via het `data-label`-attribuut. */
+.slidev-layout .vp-marker {
+  position: absolute;
+  left: var(--vp-x);
+  top: var(--vp-y);
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  z-index: 2;
+  pointer-events: none;
+}
+.slidev-layout .vp-marker::before,
+.slidev-layout .vp-marker::after {
+  content: '';
+  position: absolute;
+  background: var(--color-accent);
+}
+.slidev-layout .vp-marker::before {
+  left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%);
+}
+.slidev-layout .vp-marker::after {
+  top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%);
+}
+.slidev-layout .vp-marker[data-label]::marker { content: none; }
+.slidev-layout .vp-label {
+  position: absolute;
+  left: var(--vp-x);
+  top: calc(var(--vp-y) + 30px);
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+/* ── Gecentreerde layout (Slidev ingebouwd) ──────────────────────── */
+.slidev-layout.center { text-align: center; }
+.slidev-layout.center ul > li { display: inline-block; padding-left: 1.5em; }
+
+/* ── Haken voor layouts-base ─────────────────────────────────────── */
+.slidev-layout.compare::before,
+.slidev-layout.quadrants::before { opacity: 0.25; }
+.slidev-layout.quadrants .quadrant { background: var(--color-bg-elevated); }
+.slidev-layout.quadrants .quadrant h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--color-accent);
+}
+.slidev-layout.paired-reveal::before { opacity: 0.25; }
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  background: var(--color-bg-elevated);
+}
