@@ -13,7 +13,7 @@ const style = computed(() => handleBackground(props.image, false, props.backgrou
 
 <template>
   <div class="grid grid-cols-2 w-full h-full auto-rows-fr">
-    <div class="slidev-layout default" :class="props.class">
+    <div class="slidev-layout default image-right" :class="props.class">
       <slot />
     </div>
     <div class="w-full h-full" :style="style" />
