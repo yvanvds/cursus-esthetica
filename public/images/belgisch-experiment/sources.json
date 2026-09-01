@@ -25,6 +25,13 @@
       "file_url": "https://static-assets.artlogic.net/w_1680,h_1680,c_limit,f_auto,fl_lossy,q_auto/artlogicstorage/mariangoodman/images/view/3254adbfd6e291396f64efbada403af3j.jpg",
       "downloaded": "2026-05-20T14:32:26Z"
     },
+    "charlier-geschiedenis.png": {
+      "description": "Jacques Charlier, Geschiedenis van de moderne kunst in België",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://www.mutualart.com/Artwork/Untitled-Geschiedenis-vd-Moderne-kunst-i/8D213293F18463B7AD7C624576971253",
+      "downloaded": "2026-05-20T14:32:54Z"
+    },
     "charlier-vernissage-1.jpg": {
       "description": "Jacques Charlier, Photographies de vernissage, 1974 — opening Charlier/On Kawara, Paleis voor Schone Kunsten Brussel, 7.1.1975",
       "source": "directe URL",
@@ -137,6 +144,14 @@
       "file_url": "https://publicdelivery.org/wp-content/uploads/2017/06/Wim-Delvoye-Louis-Vuttion-tattooed-on-a-pig.jpg",
       "downloaded": "2026-05-20T14:32:49Z"
     },
+    "delvoye-art-farm-3.jpg": {
+      "description": "Wim Delvoye op de Art Farm bij Beijing — hij spuit levende getatoeëerde varkens schoon",
+      "source": "directe URL",
+      "license": "In Copyright",
+      "page_url": "https://publicdelivery.org/wim-delvoye-tattooed-pigs/",
+      "file_url": "https://publicdelivery.org/wp-content/uploads/2019/01/Wim-Delvoyes-Art-Farm-2003.jpeg",
+      "downloaded": "2026-09-01T22:48:46Z"
+    },
     "logos-robot-1.jpg": {
       "description": "Logos M&M Robot Orchestra, Stichting Logos, Gent — Godfried-Willem Raes met de robots",
       "source": "directe URL",
@@ -216,13 +231,6 @@
       "page_url": "https://smak.be/en/exhibitions/mwana-kitoko-beautiful-white-man",
       "file_url": "https://jasonschmidtartists.com/media/retina/5dcbe775bfcabd0b4d88d562c1f8db75.jpg",
       "downloaded": "2026-05-20T14:32:41Z"
-    },
-    "charlier-geschiedenis.png": {
-      "description":    "Jacques Charlier, Geschiedenis van de moderne kunst in België",
-      "source": "directe URL",
-      "license": "In Copyright",
-      "page_url": "https://www.mutualart.com/Artwork/Untitled-Geschiedenis-vd-Moderne-kunst-i/8D213293F18463B7AD7C624576971253",
-      "downloaded": "2026-05-20T14:32:54Z"
     }
   }
 }
