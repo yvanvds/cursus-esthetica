@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build:site": "astro build",
     "sync:videos": "node slides/sync-videos.mjs",
+    "check:slides": "node slides/check-coverage.mjs",
     "build:slides": "npm run sync:videos && node slides/build-all.mjs",
     "build": "npm run build:site && npm run build:slides",
     "preview": "astro preview",
