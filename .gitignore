@@ -28,9 +28,12 @@ slides/*/.slidev/
 slides/*/node_modules/
 
 # Claude Code: de zelfgeschreven projectskills leggen werkafspraken vast en
-# horen dus in git. Lokale settings niet, en de gevendorde slidev-skill niet
-# (dat is een symlink naar .agents/, herstelbaar via skills-lock.json).
+# horen dus in git. Lokale settings niet.
+#
+# `skills/slidev` hoorde hier bij de uitzonderingen: het was een junction naar
+# .agents/ met een gevendorde upstream-skill erin. Sinds #34 is het een gewone
+# map met een projecteigen SKILL.md, dus hij gaat mee in git — en staat niet
+# langer in skills-lock.json, zodat een skill-update hem niet overschrijft.
 .claude/*
 !.claude/skills/
-.claude/skills/slidev
 .agents
