@@ -1,9 +1,11 @@
 /* src/styles/themes/inleiding.css */
 
 :root {
-  /* Ducttape-geel vervangt fuchsia op deze pagina */
+  /* Ducttape-geel vervangt fuchsia op deze pagina. Moet gelijk blijven aan
+     `accentColor:` in de frontmatter — zie de noot in
+     perspectief-en-ruimte.css over waarom die kopie hier staat.
+     `--color-accent-soft` wordt afgeleid (tokens.css). */
   --color-accent:      #E8D547;
-  --color-accent-soft: rgba(232, 213, 71, 0.1);
 
   /* Iets warmere achtergrond — galeriemuur, niet zwart */
   --color-bg:          #1c1a17;
