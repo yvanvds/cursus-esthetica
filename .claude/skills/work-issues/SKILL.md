@@ -1,6 +1,6 @@
 ---
 name: work-issues
-description: Werk GitHub issues van deze cursus één voor één af — issue → branch → werk met checkpoints → build-gate → PR → merge → live op de site. Roep aan als /work-issues met issuenummers ("/work-issues 12 13"), met een labelfilter ("/work-issues --label hoofdstuk"), of leeg (dan toont de skill de open issues). Gebruik dit ook wanneer de gebruiker nieuw werk voorstelt zonder issue ("we moeten hoofdstuk X nog schrijven", "die beelden zijn te klein") — dan maakt de skill eerst het issue. Dit is de tegenhanger van work-batch voor inhoudelijk werk: één issue per PR, geen chunks, gates zijn build en render in plaats van tests.
+description: Werk GitHub issues van deze cursus één voor één af — issue → branch → werk met checkpoints → build-gate → PR → merge → live op de site. Roep aan als /work-issues met issuenummers ("/work-issues 12 13"), met een labelfilter ("/work-issues --label hoofdstuk"), of leeg (dan toont de skill de open issues). Gebruik dit ook wanneer de gebruiker nieuw werk voorstelt zonder issue ("we moeten hoofdstuk X nog schrijven", "die beelden zijn te klein") — dan maakt de skill eerst het issue. Dit is de tegenhanger van work-batch voor inhoudelijk werk: één issue per PR, geen chunks, gates zijn build en render in plaats van tests. Wordt in dit project /work-batch aangeroepen, gebruik dan deze skill — die aanroep is hier altijd een vergissing.
 ---
 
 # Issues afwerken in dit cursusproject
@@ -19,16 +19,45 @@ code-issues), [[draft-theme-chapter]], [[add-interactive-component]], [[slidev]]
 | PR's | gechunkt, 4–7 issues per PR | **één issue per PR** |
 | Gate | testsuite | `astro check` + `npm run build` + render-check |
 | Reviewmoment | de PR | **de checkpoints tijdens het werk** |
-| Werkers | subagent per issue | de hoofdsessie zelf |
+| Werkers | altijd een subagent per issue | subagent zodra de keuzes gemaakt zijn |
 
 Waarom geen chunks: bij inhoudelijk werk is de diff niet los te lezen van de
 keuzes die eraan voorafgingen. Vier hoofdstukken in één PR is niet te
 beoordelen, en één slechte alinea zou drie goede hoofdstukken gijzelen.
 
-Waarom in de hoofdsessie en niet in subagents: de keuzes zijn subjectief en de
-gebruiker zit erbij. Een subagent kan geen checkpoint houden. Alleen breed
-zoekwerk (beeldresearch, factchecking van een lange lijst) mag naar een
-subagent — de beslissingen niet.
+**Roept de gebruiker `/work-batch` aan in dit project, dan bedoelt die
+`/work-issues`.** Volg deze skill. `work-batch` bestaat om CI-wachtrijen te
+bundelen; hier duurt een check zeventig seconden, dus die winst bestaat niet,
+terwijl de gates en de checkpoints wél verschillen.
+
+## Delegeren: pas als er niets meer te kiezen valt
+
+Een subagent per issue houdt de hoofdsessie licht en levert aantoonbaar betere
+uitvoering — de batch van 2026-09-01 (#19, #7, #13) vond via workers dat de
+echte oorzaak van de regeleinde-bug de stat-cache van de index was, en dat naast
+23 thema's ook 5 modules het dode `id:`-veld droegen. Maar dat werkte om één
+reden: **de drie beslissingen waren vooraf opgehaald.** Toen de workers
+startten viel er niets subjectiefs meer te kiezen.
+
+Dat is de voorwaarde, niet de omvang van de issue:
+
+1. **Eerst de keuzes.** Lees de issue, bepaal welke beslissingen erin zitten, en
+   leg ze in één blok voor aan de gebruiker. Pas als het antwoord binnen is,
+   delegeer je.
+2. **Dan één `general-purpose` subagent per issue**, met de beslissing expliciet
+   in de opdracht ("de eigenaar heeft gekozen voor X, niet Y — hier is waarom").
+   Laat de worker committen op de branch die jij al aanmaakte; geen push, geen
+   PR, geen merge. Die doe jij.
+3. **Checkpoint middenin?** Gebruik `SendMessage` naar dezelfde worker in plaats
+   van een nieuwe te starten — zijn context blijft dan intact. Een nieuwe
+   subagent moet alles koud opnieuw afleiden.
+
+**Uitzondering: label `hoofdstuk` blijft in de hoofdsessie.** Daar is het
+beoordelen van de projectstem het eigenlijke werk, en skelet, assetlijst en
+concepttekst moeten toch allemaal langs de hoofdsessie om voorgelegd te worden.
+De contextwinst verdampt daar dus juist, terwijl het risico op vervlakte prose
+het grootst is. Breed zoekwerk binnen zo'n hoofdstuk — beeldresearch,
+factchecking van een lange lijst — mag wél naar een subagent.
 
 ## Autonomiecontract (vastgelegd 2026-08-31)
 
@@ -179,6 +208,28 @@ is geen "bestaand probleem": zoek de commit die hem introduceerde
 (`git log -S`, `git log --oneline <bestand>`) en maak er een issue van als de
 fix elders hoort.
 
+#### Bewijslast: vraag om een bewijs, niet om een oordeel
+
+Dit is wat de batch van 2026-09-01 het meest opleverde, en het geldt of je nu
+zelf werkt of delegeert. "Controleer of het nog werkt" levert een geruststelling
+op. Benoem in plaats daarvan wat er stuk zou kunnen zijn gegaan en eis het
+bewijs dat het dat niet is:
+
+- Hernoemen of frontmatter aanpassen → *vergelijk de gebouwde routes onder
+  `dist/` vóór en na; de lijsten moeten identiek zijn.* Zo bleek bij #7 dat
+  geen van de 28 routes wijzigde.
+- Een Vue-component in een deck → *toon aan dat de bundel hem rechtstreeks
+  importeert in plaats van via `resolveComponent()`.* Een niet-geregistreerde
+  component geeft géén buildfout, alleen een stille runtime-waarschuwing.
+- Iets dat de working tree vuil maakte → *draai de handeling en toon dat
+  `git status --porcelain` leeg is.*
+- Waarden die uit gegenereerde JSON komen → *controleer in de bundel dat ze als
+  getal meekomen en niet als string.* Zo werd de CRLF-bug in `start: 0`
+  gevonden.
+
+Het patroon: benoem de faalmodus die geen foutmelding geeft, en vraag om het
+waarneembare bewijs dat hij zich niet voordoet.
+
 ### 3e. Commit, PR, merge
 
 ```
@@ -187,6 +238,22 @@ git commit -m "hoofdstuk: fotografie herzien (#12)"
 git push -u origin <branch>
 gh pr create --base main --title "..." --body "..."
 ```
+
+**Controleer eerst zelf de vorm van de diff — zeker na een subagent.** Niet de
+inhoud (die heeft de worker geverifieerd), maar of het aantal en het soort
+gewijzigde bestanden klopt met wat de issue vroeg:
+
+```
+git log --oneline main..HEAD
+git diff main..HEAD --stat
+git status --porcelain          # moet leeg zijn
+```
+
+Wijkt de vorm af van je verwachting, zoek uit waarom vóór je pusht. De worker
+van #19 loste een vastgelopen index op met `git rm --cached -r .` gevolgd door
+`git reset --hard` — dat klopte, maar dat wist je pas nadat de bestandstelling
+526 tegen 527 bleek te zijn. Een subagent die alleen met een probleem zit, kiest
+soms een zwaar middel; dit is de goedkoopste plek om dat te merken.
 
 De working tree bevat vaak losstaand werk van de gebruiker. Stage alleen de
 bestanden die bij deze issue horen.
