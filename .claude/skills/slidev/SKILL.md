@@ -245,10 +245,22 @@ title: <titel van het hoofdstuk>
 info: |
   Cursus Esthetica — hoofdstuk NN
   <shortDescription>
+routerMode: hash
 ---
 ```
 
 Het verschil tussen `../` en `./` op die twee regels is geen typo.
+
+**`routerMode: hash` is verplicht, niet optioneel.** GitHub Pages heeft geen
+SPA-rewrite, dus in de standaard history-modus bestaat alleen de index van een
+deck: `/slides/<id>/2` en `/slides/<id>/presenter` geven allebei 404. Die tweede
+is de fatale — in dit project staat de hele les in de sprekersnotities (§1), en
+die zijn alleen via `/presenter` te zien. Een F5 midden in de les is dan ook het
+einde van de les.
+
+Geen enkele gate vangt dit: de build is groen mét en zonder, en lokaal in
+`npx slidev` werkt history-modus prima. Alleen de gedeployde site breekt. Het
+inleiding-deck heeft daar maanden zonder gestaan (#46).
 
 Elk deck heeft daarnaast `slides/<theme-id>/vite.config.ts`:
 
