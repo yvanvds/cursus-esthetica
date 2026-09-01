@@ -216,10 +216,11 @@
 .slidev-layout.end h1 { color: var(--color-bg); font-size: clamp(3rem, 8vw, 8rem); }
 .slidev-layout.end p { color: var(--color-text-dim); }
 
-.slidev-layout.image,
-.slidev-layout[class*="image-"] { padding: 0; }
-.slidev-layout.image::before,
-.slidev-layout[class*="image-"]::before { display: none; }
+/* ── Beeldlayouts — alleen full-bleed `image` ─────────────────────
+   Niet `[class*="image-"]`: bij image-left/-right draagt de teksthelft
+   die klasse, en die hoort zijn padding en zijn chroom te houden. */
+.slidev-layout.image { padding: 0; }
+.slidev-layout.image::before { display: none; }
 
 /* Mono caps utility */
 .slidev-layout .meta {

@@ -451,15 +451,14 @@
   max-width: 36em;
 }
 
-/* ── Image layouts ──────────────────────────────────────────── */
-.slidev-layout.image,
-.slidev-layout[class*="image-"] { padding: 0; }
+/* ── Image layouts — alleen full-bleed `image` ───────────────
+   Niet `[class*="image-"]`: bij image-left/-right draagt de teksthelft die
+   klasse, en die houdt zijn padding, de registratielijn en het kruisje.
+   Op een full-bleed werk gaan ze allebei weg — chroom hoort niet over een
+   kunstwerk, ook niet als het de handtekening van het thema is. */
+.slidev-layout.image { padding: 0; }
 .slidev-layout.image::before,
-.slidev-layout[class*="image-"]::before { display: none; }
-.slidev-layout.image-right,
-.slidev-layout.image-left { padding: calc(var(--space-xl) * 1.1) var(--space-xl) var(--space-xl); }
-.slidev-layout.image-right .my-cool-content-on-the-left,
-.slidev-layout.image-left  .my-cool-content-on-the-right { padding-right: var(--space-lg); }
+.slidev-layout.image::after { display: none; }
 
 /* ── Utility — meta, tampon, negation, cachet ──────────────── */
 .slidev-layout .meta,

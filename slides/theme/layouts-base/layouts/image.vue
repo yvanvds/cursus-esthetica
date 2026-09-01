@@ -11,7 +11,7 @@ const style = computed(() => handleBackground(props.image, false, props.backgrou
 </script>
 
 <template>
-  <div class="slidev-layout w-full h-full" :style="style">
+  <div class="slidev-layout image w-full h-full" :style="style">
     <slot />
   </div>
 </template>

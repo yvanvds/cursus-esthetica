@@ -319,16 +319,13 @@
   font-size: var(--step-3);
 }
 
-/* ── Beeldlayouts — padding weg, raster weg ──────────────────────── */
-.slidev-layout.image,
-.slidev-layout[class*="image-"] { padding: 0; }
-.slidev-layout.image::before,
-.slidev-layout[class*="image-"]::before { display: none; }
-
-.slidev-layout.image-right,
-.slidev-layout.image-left { padding: var(--space-xl); }
-.slidev-layout.image-right .my-cool-content-on-the-left,
-.slidev-layout.image-left  .my-cool-content-on-the-right { padding-right: var(--space-lg); }
+/* ── Beeldlayouts — padding weg, raster weg ────────────────────────
+   Alleen de full-bleed `image`. Niet `[class*="image-"]`: bij
+   image-left/-right zit die klasse op de teksthelft, en dáár hoort het
+   raster te blijven — anders doet een `class: vp-low` op zo'n slide niets
+   meer. De beeldhelft is geen .slidev-layout en draagt sowieso geen raster. */
+.slidev-layout.image { padding: 0; }
+.slidev-layout.image::before { display: none; }
 
 /* ── Meta-regels — jaartallen, plaatsnamen, rubrieken ────────────── */
 .slidev-layout .meta {

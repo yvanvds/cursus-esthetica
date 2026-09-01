@@ -309,17 +309,11 @@
 }
 .slidev-layout.end p { color: var(--color-text-muted); font-style: italic; }
 
-/* ── Image layouts — kill default padding ──────────────────── */
-.slidev-layout.image,
-.slidev-layout[class*="image-"] { padding: 0; }
-.slidev-layout.image::before,
-.slidev-layout[class*="image-"]::before { display: none; }
-
-/* Image-right / image-left keep some breathing room on the text side */
-.slidev-layout.image-right,
-.slidev-layout.image-left { padding: var(--space-xl); }
-.slidev-layout.image-right .my-cool-content-on-the-left,
-.slidev-layout.image-left  .my-cool-content-on-the-right { padding-right: var(--space-lg); }
+/* ── Image layouts — alleen full-bleed `image` ──────────────
+   Niet `[class*="image-"]`: die klasse zit bij image-left/-right op de
+   teksthelft, en die houdt zijn padding en zijn notenbalk. */
+.slidev-layout.image { padding: 0; }
+.slidev-layout.image::before { display: none; }
 
 /* ── Mono caps utility — rubrics, dates, chapter labels ───── */
 .slidev-layout .meta,
