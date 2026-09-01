@@ -185,14 +185,21 @@ tot ze groen zijn.
    `src/content.config.ts` voldoet en TypeScript in componenten.
 2. **`npm run build`** — site én slides. De slidebuild hoort erbij: een kapot
    deck breekt de deploy van de hele site.
-3. **Referentie- en bestandscheck** *(handmatig — de build vangt dit niet)*.
-   `remark-figure-links` faalt stil op een onbekende key, en de build controleert
-   geen bestaan van beeldbestanden. Voor elk gewijzigd MDX-bestand:
-   - elke `[tekst](fig:key)` en `[tekst](video:key)` in de body heeft een key in
-     de frontmatter, en elke key in de frontmatter wordt minstens één keer
-     gebruikt;
-   - elk `src: /images/...` bestaat als bestand onder `public/`;
-   - elke figure heeft een `source:`.
+3. **`npm run check:chapters`** — referentie- en bestandscheck over alle
+   hoofdstukken. `remark-figure-links` faalt stil op een onbekende key en de
+   build controleert geen bestaan van beeldbestanden, dus dit is de enige plek
+   waar het opvalt. Het script (`scripts/check-chapters.mjs`) controleert per
+   hoofdstuk:
+   - elk `src: /images/...` uit `figures:` bestaat als bestand onder `public/`,
+     net als het header-beeld `image:`;
+   - elke `figures:`- en `videos:`-key wordt minstens één keer in de body
+     gebruikt, en elke `[tekst](fig:key)`/`[tekst](video:key)` in de body heeft
+     een key in de frontmatter;
+   - elke figuurafbeelding heeft een `source:`.
+
+   Eén hoofdstuk nakijken kan met `npm run check:chapters -- <theme-id>`. Dit
+   werd tot #43 met de hand gedaan en is toen drie keer gemist — draai het
+   commando, ook als de wijziging klein lijkt.
 4. **Render-check** — voor alles wat de lezer ziet (hoofdstuk, component,
    slides, vormgeving). Start `npm run dev` en open de gewijzigde pagina op
    `http://localhost:4321/cursus-esthetica/<theme-id>/` (routes staan in
