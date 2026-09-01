@@ -9,7 +9,7 @@ op dezelfde GitHub Pages-site als de cursus.
 ```
 slides/
   theme/
-    manifest/  contrapunctus/  aigles/   # één Slidev-thema per hoofdstuk
+    manifest/  contrapunctus/  aigles/  oculus/   # één Slidev-thema per hoofdstuk
     layouts-base/                        # gedeeld addon met extra layouts
   <theme-id>/slides.md            # één map per deck
   build-all.mjs                   # bouwt alle decks naar dist/slides/<id>/
@@ -20,7 +20,7 @@ slides/
 Elk hoofdstuk krijgt zijn **eigen visuele thema** onder `theme/` — het draagt de
 sfeer van dat hoofdstuk, niet die van de vorige les. Daarnaast trekt een deck het
 **`layouts-base`-addon** binnen voor de gedeelde extra layouts (`compare`,
-`paired-reveal`, `quadrants`) en de videocomponenten:
+`triptych`, `paired-reveal`, `quadrants`) en de videocomponenten:
 
 ```yaml
 ---

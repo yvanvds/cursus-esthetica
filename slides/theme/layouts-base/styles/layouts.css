@@ -44,6 +44,51 @@
   margin-top: var(--space-sm);
 }
 
+/* ── TRIPTYCH — drie (of twee/vier) beelden op één rij, optioneel met
+     titel erboven en een bijschrift per beeld ─────────────────────── */
+.slidev-layout.triptych {
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-md);
+}
+.slidev-layout.triptych.triptych--headed {
+  grid-template-rows: auto 1fr;
+}
+.slidev-layout.triptych .triptych-header h2 {
+  margin-bottom: 0;
+}
+.slidev-layout.triptych .triptych-row {
+  display: grid;
+  grid-template-columns: repeat(var(--triptych-count, 3), 1fr);
+  gap: var(--space-md);
+  min-height: 0;
+}
+.slidev-layout.triptych .triptych-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.triptych .triptych-panel img {
+  max-width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  object-fit: contain;
+}
+.slidev-layout.triptych .triptych-panel figcaption {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-quiet);
+  text-align: center;
+  line-height: 1.4;
+}
+
 /* ── COMPARE — twee afbeeldingen naast elkaar, zonder titel ───────── */
 .slidev-layout.compare {
   display: grid;
