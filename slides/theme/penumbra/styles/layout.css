@@ -1,0 +1,449 @@
+/* ────────────────────────────────────────────────────────────────────
+   Penumbra — Cursus Esthetica, hoofdstuk 03 "Wanneer wordt licht zelf
+   het werk?"
+
+   De penumbra is de halfschaduw: de zone waar het licht niet ophoudt maar
+   overgaat. Precies de plek waar dit hoofdstuk staat. Rembrandt bouwt zijn
+   figuur daar op — het gezicht ontstaat wáár het licht raakt. Hiroshige
+   bouwt er zijn diepte mee — bokashi is niets anders dan een penumbra van
+   inkt. En Tanizaki verdedigt haar tegen de tl-verlichting die haar
+   wegpoetst.
+
+   Sfeer: donkere zaal, warm amberlicht (#d49a3c, de accentColor van het
+   hoofdstuk), hoog-contrastletters waarvan de haarlijnen bijna in het
+   donker verdwijnen. Familie met de hoofdstukpagina: die is zwart met een
+   zaklamp die over een achtergrond schuift (Flashlight.astro). Hier valt
+   het licht niet met de muis mee, maar met de beweging van de les.
+
+   Motief: één lichtbron per beweging, en het is telkens een ánder soort
+   licht. Het thema voert daarmee uit wat het hoofdstuk beweert.
+
+     class: lit-glass     gefilterd, in gekleurde vierkanten   (1 · 2)
+     class: lit-raking    één harde schuine bundel             (3)
+     class: lit-tube      een vlakke, bronloze tl-gloed        (4)
+     class: lit-diffuse   overal en nergens, zonder richting   (5)
+     class: lit-none      niets — het werk is er niet meer     (6)
+
+   Zonder klasse: de gedempte amberpoel van `lit-glass` in rust.
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Palet — de onverlichte zaal ───────────────────────────────── */
+  --color-bg:            #0e0d0b;   /* warmer zwart dan de site (#1a1a1a) */
+  --color-bg-deep:       #050505;   /* beweging 6: het licht is uit */
+  --color-bg-elevated:   #17150f;
+  --color-surface:       #221e16;
+  --color-text:          #f4efe4;   /* bot, niet wit */
+  --color-text-muted:    #cbc3b3;
+  --color-text-dim:      #9a9284;
+  --color-text-quiet:    #7a7367;
+  --color-border-subtle: #2b271f;
+  --color-rule:          #2b271f;   /* layouts-base leest dit — donker thema,
+                                       dus verplicht: de fallback is
+                                       --color-text en dat geeft een lichte
+                                       rand rond elk quadrant */
+
+  /* ── Het licht ─────────────────────────────────────────────────── */
+  --color-accent:      #d49a3c;                      /* accentColor hoofdstuk */
+  --color-accent-soft: rgba(212, 154, 60, 0.14);
+  --color-accent-line: rgba(212, 154, 60, 0.32);
+
+  --color-beam:     rgba(212, 154, 60, 0.13);  /* de bundel */
+  --color-beam-hot: rgba(240, 206, 143, 0.22); /* de kern van de bundel */
+
+  /* Gebrandschilderd glas — vier kleuren uit Richters 72, en meteen de
+     kleuren die de Sainte-Chapelle domineren. */
+  --color-glass-1: rgba(206, 84, 62, 0.20);   /* rood */
+  --color-glass-2: rgba(58, 106, 168, 0.20);  /* blauw */
+  --color-glass-3: rgba(212, 154, 60, 0.20);  /* amber */
+  --color-glass-4: rgba(94, 132, 96, 0.16);   /* groen */
+
+  /* Flavin: fluorescent, geen zonlicht — koel en vlak, zonder verval. */
+  --color-tube:      #e6d8ec;
+  --color-tube-glow: rgba(214, 168, 214, 0.22);
+
+  /* De ademhaling van `layout: breathe` (layouts-base). Voor Eliassons
+     Weather Project: een hal die van donker naar een lage amberzon trekt. */
+  --breathe-from:  #0e0d0b;
+  --breathe-via-1: #2a1c0c;
+  --breathe-via-2: #4a2f0e;
+  --breathe-to:    #6b4310;
+
+  /* ── Typografie ────────────────────────────────────────────────── */
+  /* Cormorant Garamond heeft extreme stokcontrast: de haarlijnen zakken op
+     een donkere grond bijna weg. Dat is het motief, niet een ongelukje —
+     maar het is ook de reden dat de lopende tekst Inter is en geen serif. */
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-serif:   'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans:    'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, ui-monospace, monospace;
+
+  /* Modulaire schaal (1.2) */
+  --step--1: 0.833rem;
+  --step-0:  1rem;
+  --step-1:  1.2rem;
+  --step-2:  1.44rem;
+  --step-3:  1.728rem;
+  --step-4:  2.488rem;
+  --step-5:  3.583rem;
+  --step-6:  4.8rem;
+
+  /* Spacing */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  --radius: 0;
+
+  /* Waar de bron staat. Per slide overschrijfbaar met een inline style,
+     bv. `style="--light-x: 18%; --light-y: 12%"`. */
+  --light-x: 74%;
+  --light-y: 8%;
+
+  /* Slidev hooks */
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-sans);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+/* ── Basis ───────────────────────────────────────────────────────── */
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+  font-feature-settings: "kern", "liga";
+}
+
+/* De lichtbron. Standaard: een gefilterde poel die van (--light-x,
+   --light-y) af zwakker wordt — de rustvorm van het thema. */
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(
+    ellipse 90% 80% at var(--light-x) var(--light-y),
+    var(--color-beam-hot) 0%,
+    var(--color-beam) 26%,
+    transparent 72%);
+}
+
+/* De inhoud staat in het licht, niet eronder. */
+.slidev-layout > * { position: relative; z-index: 1; }
+
+/* ── Beweging 1 · 2 — het licht komt door iemand anders binnen ─────
+   Gekleurde vierkanten in plaats van een gladde poel: twee kruisende
+   repeating-linear-gradients maken het raster, de radiale masker maakt er
+   een lichtval van in plaats van behang. Richters 11.263 vierkanten in 72
+   kleuren, teruggebracht tot vier. */
+.slidev-layout.lit-glass::before {
+  background-image:
+    repeating-linear-gradient(90deg,
+      var(--color-glass-1) 0 22px, var(--color-glass-2) 22px 44px,
+      var(--color-glass-3) 44px 66px, var(--color-glass-4) 66px 88px),
+    repeating-linear-gradient(0deg,
+      rgba(0, 0, 0, 0.55) 0 22px, transparent 22px 44px,
+      rgba(0, 0, 0, 0.30) 44px 66px, transparent 66px 88px);
+  background-blend-mode: normal;
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 78% at var(--light-x) var(--light-y),
+    black 0%, rgba(0, 0, 0, 0.55) 38%, transparent 76%);
+          mask-image: radial-gradient(
+    ellipse 62% 78% at var(--light-x) var(--light-y),
+    black 0%, rgba(0, 0, 0, 0.55) 38%, transparent 76%);
+  opacity: 0.9;
+}
+
+/* ── Beweging 3 — het licht als hoofdrolspeler ────────────────────
+   Eén schuine bundel met een harde kern, de rest van de slide gedrukt in
+   het donker. Caravaggio's balk, en de wand waarop de hand schrijft. */
+.slidev-layout.lit-raking::before {
+  background-image:
+    linear-gradient(112deg,
+      transparent 30%,
+      var(--color-beam) 41%,
+      var(--color-beam-hot) 48%,
+      var(--color-beam) 55%,
+      transparent 68%),
+    radial-gradient(ellipse 120% 100% at 50% 50%,
+      transparent 30%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* ── Beweging 4 — het licht zelf ──────────────────────────────────
+   Geen zon, geen raam, geen verval: een buis die aanstaat en een kamer
+   die vlak meekleurt. Bewust zonder richting — dat is het punt van
+   Flavin. */
+.slidev-layout.lit-tube::before {
+  background-image:
+    linear-gradient(to bottom,
+      transparent 0 16%,
+      var(--color-tube-glow) 16.6%,
+      var(--color-tube) 17.4%,
+      var(--color-tube-glow) 18.2%,
+      transparent 19% 100%),
+    linear-gradient(to bottom,
+      var(--color-tube-glow) 0%, transparent 62%);
+  opacity: 0.75;
+}
+
+/* ── Beweging 5 — het licht zonder licht ──────────────────────────
+   Ligeti: geen begin, geen contrast, geen voor en achter. Drie zeer wijde
+   gloeden die elkaar overlappen zonder ergens een bron te vormen —
+   micropolyfonie als achtergrond. */
+.slidev-layout.lit-diffuse::before {
+  background-image:
+    radial-gradient(ellipse 120% 90% at 22% 30%, rgba(212, 154, 60, 0.075) 0%, transparent 70%),
+    radial-gradient(ellipse 110% 95% at 70% 62%, rgba(230, 216, 236, 0.055) 0%, transparent 72%),
+    radial-gradient(ellipse 130% 80% at 48% 92%, rgba(212, 154, 60, 0.055) 0%, transparent 74%);
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+
+/* ── Beweging 6 — wat verdwijnt als jij niet komt opdagen ─────────
+   Sluit de Dom en Richter is er niet meer. */
+.slidev-layout.lit-none { background: var(--color-bg-deep); }
+.slidev-layout.lit-none::before { display: none; }
+
+/* ── Koppen ──────────────────────────────────────────────────────── */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: var(--font-display);
+  color: var(--color-text);
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  font-weight: 400;
+}
+.slidev-layout h1 { font-size: var(--step-6); margin-bottom: var(--space-md); }
+.slidev-layout h2 { font-size: var(--step-4); margin-bottom: var(--space-md); }
+.slidev-layout h3 {
+  font-size: var(--step-2);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+.slidev-layout h4 { font-size: var(--step-1); font-weight: 600; }
+
+/* ── Lopende tekst ───────────────────────────────────────────────── */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+.slidev-layout li + li { margin-top: 0.35em; }
+
+.slidev-layout strong { color: var(--color-text); font-weight: 500; }
+.slidev-layout em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.12em;
+  color: var(--color-accent);
+}
+
+.slidev-layout a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent-soft);
+}
+.slidev-layout a:hover { border-bottom-color: var(--color-accent); }
+
+/* ── Code / gegevensblokken ──────────────────────────────────────── */
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--color-surface);
+  padding: 0.1em 0.4em;
+  color: var(--color-text);
+}
+.slidev-layout pre {
+  background: var(--color-bg-elevated);
+  border-left: 2px solid var(--color-accent);
+  padding: var(--space-md);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  margin-top: var(--space-md);
+  color: var(--color-text);
+}
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout pre .line,
+.slidev-layout pre span { color: var(--color-text) !important; }
+.slidev-layout pre code { display: block; text-indent: 0; padding-left: 0; }
+
+/* ── Citaat — een lichtstreep in de marge ────────────────────────── */
+.slidev-layout blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--step-4);
+  line-height: 1.3;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  padding: 0 0 0 var(--space-md);
+  margin: var(--space-lg) 0;
+  position: relative;
+}
+.slidev-layout blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.25em; bottom: 0.25em;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    var(--color-accent), var(--color-accent-line), transparent);
+}
+
+/* ── Lijsten — het opsommingsteken is een lichtpunt ──────────────── */
+.slidev-layout ul { list-style: none; padding-left: 0; }
+.slidev-layout ul > li { position: relative; padding-left: 1.5em; }
+.slidev-layout ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.35em;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px 1px var(--color-accent-line);
+}
+.slidev-layout ol { padding-left: 1.8em; }
+.slidev-layout ol > li::marker {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+/* ── COVER ───────────────────────────────────────────────────────── */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--space-xl) var(--space-2xl);
+}
+.slidev-layout.cover h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8.6vw, 7.6rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.015em;
+  margin-bottom: var(--space-md);
+  max-width: 15em;
+}
+.slidev-layout.cover h1 + p {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--step-2);
+  color: var(--color-text-muted);
+  max-width: 40em;
+}
+
+/* ── SECTIE — de bewegingen ──────────────────────────────────────── */
+.slidev-layout.section {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: var(--space-2xl);
+}
+.slidev-layout.section h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+  max-width: 14em;
+}
+.slidev-layout.section p {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  margin-top: var(--space-md);
+}
+
+/* ── EINDE ───────────────────────────────────────────────────────── */
+.slidev-layout.end {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: var(--space-2xl);
+}
+.slidev-layout.end h1 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--step-5);
+  color: var(--color-text);
+}
+.slidev-layout.end p {
+  font-family: var(--font-display);
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-size: var(--step-3);
+}
+
+/* ── Beeldlayouts — de lichtbron gaat uit ────────────────────────────
+   `image.vue`, `image-left.vue` en `image-right.vue` uit layouts-base zetten
+   géén klasse `image` op hun root (dat is een <div class="slidev-layout
+   w-full h-full"> met de achtergrond als inline style), dus een selector op
+   `.slidev-layout.image` grijpt daar niets. Vandaar een klasse die je zelf
+   op de slide zet:
+
+     layout: image
+     class: lit-off
+
+   Zonder dat ligt de amberpoel of het glasraster van dit thema als vuil over
+   het werk heen. Voor de layouts die hun naam wél op hun root zetten
+   (triptych, detail, compare, breathe, paired-reveal, en de thema-eigen
+   dimmer en raking) is het al geregeld — zie de haken onderaan. */
+.slidev-layout.lit-off::before { display: none; }
+
+/* Bij image-left/-right landt de klasse op de teksthelft; die houdt zijn
+   padding, alleen de lichtbron verdwijnt. */
+.slidev-layout.lit-off.default { padding: var(--space-xl); }
+
+/* ── Meta-regels — jaartallen, plaatsnamen, rubrieken ────────────── */
+.slidev-layout .meta {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.slidev-layout .meta-quiet {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+
+/* ── Gecentreerde layout (Slidev ingebouwd) ──────────────────────── */
+.slidev-layout.center { text-align: center; }
+.slidev-layout.center ul > li { display: inline-block; padding-left: 1.5em; }
+
+/* ── Haken voor layouts-base ─────────────────────────────────────── */
+/* Een lichtbundel over een reeks werken heen leest als vuil op de lens;
+   waar het beeld het onderwerp is, gaat de bron uit. */
+.slidev-layout.triptych::before,
+.slidev-layout.compare::before,
+.slidev-layout.detail::before,
+.slidev-layout.breathe::before,
+.slidev-layout.paired-reveal::before { display: none; }
+.slidev-layout.quadrants::before { opacity: 0.45; }
+.slidev-layout.quadrants .quadrant { background: var(--color-bg-elevated); }
+.slidev-layout.quadrants .quadrant h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--color-accent);
+}
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  background: var(--color-bg-elevated);
+}

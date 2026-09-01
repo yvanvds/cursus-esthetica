@@ -9,7 +9,8 @@ op dezelfde GitHub Pages-site als de cursus.
 ```
 slides/
   theme/
-    manifest/  contrapunctus/  aigles/  oculus/   # één Slidev-thema per hoofdstuk
+    manifest/  contrapunctus/  aigles/           # één Slidev-thema per hoofdstuk
+    oculus/    penumbra/
     layouts-base/                        # gedeeld addon met extra layouts
   <theme-id>/slides.md            # één map per deck
   build-all.mjs                   # bouwt alle decks naar dist/slides/<id>/
@@ -20,7 +21,8 @@ slides/
 Elk hoofdstuk krijgt zijn **eigen visuele thema** onder `theme/` — het draagt de
 sfeer van dat hoofdstuk, niet die van de vorige les. Daarnaast trekt een deck het
 **`layouts-base`-addon** binnen voor de gedeelde extra layouts (`compare`,
-`triptych`, `paired-reveal`, `quadrants`) en de videocomponenten:
+`triptych`, `detail`, `paired-reveal`, `quadrants`, `breathe`) en de
+videocomponenten:
 
 ```yaml
 ---
@@ -44,9 +46,10 @@ custom properties op `:root` definiëren wil het addon correct renderen:
 | Token | Gebruikt voor |
 |---|---|
 | `--color-text`, `--color-text-quiet` | meta-regel in quadrant |
-| `--color-rule` *(optioneel)* | randen rond quadrants en paired-reveal-beeld — valt terug op `--color-text` |
+| `--color-rule` *(optioneel)* | randen rond quadrants, detail-uitsneden en paired-reveal-beeld — valt terug op `--color-text` |
 | `--space-sm`, `--space-md`, `--space-lg`, `--space-xl` | gaps en padding |
-| `--font-mono`, `--step--1` | meta-regel in quadrant |
+| `--font-mono`, `--step--1` | meta-regel in quadrant, bijschriften in triptych en detail |
+| `--breathe-from`, `--breathe-to` *(optioneel)* | begin- en eindkleur van de grond onder `layout: breathe`; optioneel `--breathe-via-1` / `--breathe-via-2` voor de tussenstanden en `--breathe-duration` (standaard 75s). Zonder deze tokens staat de grond stil op `--color-bg` — geen effect in plaats van een verkeerd effect |
 
 Het basis-tokenset (`--color-bg`, `--color-text`, typografie-stapel,
 spacing-stapel, `--step-*`, `--slidev-*`-hooks) hoort sowieso in elk thema —
@@ -130,10 +133,13 @@ site (`/cursus-esthetica/...`) zou dat een dubbele prefix opleveren. Twee
 mechanismen voorkomen dat:
 
 1. **Override-layouts in `theme/layouts-base/`.** `image.vue`,
-   `image-right.vue`, `image-left.vue`, `compare.vue`, `paired-reveal.vue`
-   gebruiken een lokale `resolveAsset` die paden onder `/cursus-esthetica/`
-   ongewijzigd doorlaat. Slidev's eigen `image`/`image-right`-layouts
-   worden zo automatisch overschreven door het addon.
+   `image-right.vue`, `image-left.vue`, `compare.vue`, `triptych.vue`,
+   `detail.vue`, `breathe.vue` en `paired-reveal.vue` gebruiken een lokale
+   `resolveAsset` die paden onder `/cursus-esthetica/` ongewijzigd doorlaat.
+   Slidev's eigen `image`/`image-right`-layouts worden zo automatisch
+   overschreven door het addon. Elke eigen layout die een beeldpad verwerkt —
+   ook een thema-eigen zoals `raking` of `dimmer` in `penumbra` — moet
+   diezelfde `resolveAsset` gebruiken.
 2. **Post-build rewrite in `build-postprocess.mjs`.** Slidev genereert ook
    `<link rel="preload">`-tags in `index.html` via z'n interne resolver,
    buiten de layouts om. `build-all.mjs` draait na elke deck-build een

@@ -29,6 +29,14 @@
       "description": "Dan Flavin, monument 1 for V. Tatlin, 1964",
       "page_url": "https://www.davidzwirner.com/artists/dan-flavin/survey"
     },
+    "flavin-diagonal.jpg": {
+      "description": "Dan Flavin, the diagonal of May 25, 1963 (to Constantin Brancusi), 1963 — gele fluorescentiebuis, 244 cm op de diagonaal. Deck-eigen lesmateriaal: staat niet in figures: van het hoofdstuk.",
+      "source": "https://www.davidzwirner.com/artists/dan-flavin/survey",
+      "license": "Auteursrechtelijk beschermd — citaatrecht voor onderwijs (docs/REDACTIE.md)",
+      "page_url": "https://www.davidzwirner.com/artists/dan-flavin/survey",
+      "file_url": "https://cdn.sanity.io/images/juzvn5an/release-adp/eb6bd2885fe97f336f85cf169a685cafdfd7cbb2-1440x1920.jpg",
+      "downloaded": "2026-09-01T20:09:18Z"
+    },
     "hiroshige-1.jpg": {
       "description": "Utagawa Hiroshige, Plotse stortbui boven de Shin-Ōhashi-brug en Atake, 1857",
       "source": "Wikimedia Commons",
@@ -44,6 +52,20 @@
     "hiroshige-3.png": {
       "description": "Utagawa Hiroshige 歌川広重, Japanese Crane and Wave, Edo Period.",
       "page_url": "https://risdmuseum.org/exhibitions-events/exhibitions/hiroshige"
+    },
+    "keulen-buiten.jpg": {
+      "description": "Het Richter-raam in de zuidgevel van de Dom van Keulen, van buiten gefotografeerd — het glas is dof en grijs zolang het licht van de andere kant komt. Foto Raimond Spekking, 26 september 2008. Deck-eigen lesmateriaal: staat niet in figures: van het hoofdstuk.",
+      "source": "https://commons.wikimedia.org/wiki/File:Richter-Fenster_von_aussen_-_Kolner_Dom.jpg",
+      "license": "CC BY-SA 4.0 — Raimond Spekking",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Richter-Fenster_von_aussen_-_Kolner_Dom.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Richter-Fenster_von_aussen_-_Kolner_Dom.jpg",
+      "downloaded": "2026-09-01T20:09:22Z"
+    },
+    "michelangelo-1.png": {
+      "description": "Michelangelo, Sistine Chapel",
+      "source": "Wikimedia Commons",
+      "license": "Public domain",
+      "page_url": "https://www.history.com/articles/7-things-you-may-not-know-about-the-sistine-chapel"
     },
     "rembrandt-1.jpg": {
       "description": "Rembrandt van Rijn, Zelfportret, 1660",
@@ -70,12 +92,6 @@
       "source": "Wikimedia Commons",
       "license": "Public domain",
       "page_url": "https://commons.wikimedia.org/wiki/File:Belshazzar%E2%80%99s_feast,_by_Rembrandt.jpg"
-    },
-    "michelangelo-1.png": {
-      "description": "Michelangelo, Sistine Chapel",
-      "source": "Wikimedia Commons",
-      "license": "Public domain",
-      "page_url": "https://www.history.com/articles/7-things-you-may-not-know-about-the-sistine-chapel"
     },
     "richter-1.jpg": {
       "description": "Gerhard Richter, Domfenster, Köln, 2007, lichtval en schaduwval op de vloer",
