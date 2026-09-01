@@ -25,6 +25,13 @@ automatically based on the task description. Key skills:
   a three-phase workflow (skelet → beeld/video-onderzoek → MDX-uitwerking),
   the voice signatures to imitate, image-download conventions, and a
   movement-level verification checklist.
+- **`slidev`** — use for every classroom deck under `slides/<theme-id>/`.
+  Defines what a deck is for (the teacher's thread through the lesson, not a
+  summary for the student), that it follows the chapter's movements, that
+  every image and video from the chapter must appear, that each chapter gets
+  its own visual theme, and the project mechanics (`layouts-base`,
+  `CourseVideo`, `siteAssetsPlugin`, path behaviour) that upstream Slidev
+  docs do not cover.
 - **`work-issues`** — the way work starts here. Works GitHub issues one at
   a time: issue → branch → the skill from the table above → build gate →
   PR → merge → live site. Invoke as `/work-issues` with issue numbers, a
