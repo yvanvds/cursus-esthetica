@@ -3,6 +3,7 @@ theme: ../theme/manifest
 addons:
   - ./theme/layouts-base
 title: Maar is het kunst?
+routerMode: hash
 ---
 
 # Maar is het kunst<span style="color: var(--color-accent); font-style: italic; display: inline-block; transform: translateY(-0.08em) rotate(4deg);">?</span>
