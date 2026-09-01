@@ -194,7 +194,7 @@ Waar hij hoort:
 - **Thema-eigen vorm → het thema zelf.** Iets wat alleen bij dít hoofdstuk hoort,
   in `slides/theme/<naam>/`.
 
-Twee dingen om niet mis te doen in een eigen layout:
+Drie dingen om niet mis te doen in een eigen layout:
 
 1. **Beeldpaden door `resolveAsset()`.** Elke layout die een `image`-prop
    verwerkt moet `resolveAsset` uit `../utils` gebruiken. Slidev prefixt anders
@@ -202,7 +202,23 @@ Twee dingen om niet mis te doen in een eigen layout:
    t.o.v. de site, en dan laadt het beeld niet. Dat is de reden dat `image.vue`,
    `image-left.vue`, `image-right.vue`, `compare.vue` en `paired-reveal.vue`
    Slidevs eigen layouts overschrijven.
-2. **Geen registratie nodig, wel bewijs dat het werkte.** Slidev laadt
+2. **De layout zet zijn eigen naam als klasse op zijn root.** Slidev doet dat
+   niet voor je. Elke layout in `layouts-base/` en elke thema-eigen layout doet
+   het nu — `<div class="slidev-layout triptych">`, `… image">`, `… breathe">` —
+   en een nieuwe layout hoort dat ook te doen. Vergeet je het, dan grijpt élke
+   themaregel op `.slidev-layout.<naam>` niets: geen buildfout, geen
+   waarschuwing, alleen een slide die er anders uitziet dan bedoeld. Dat is
+   precies wat er maandenlang misging bij `image`, `image-left` en
+   `image-right` (#49).
+
+   De niet-vanzelfsprekende helft: bij **`image-left` en `image-right` staat de
+   klasse op de teksthelft**, niet op de grid-wrapper eromheen. Die wrapper is
+   geen `.slidev-layout` en kan dus door geen enkele themaregel geraakt worden;
+   de beeldhelft evenmin, en die hoort ook geen thema-chroom te dragen. Richt
+   een themaregel voor die layouts dus op de teksthelft, en gebruik géén
+   `[class*="image-"]`-vangnet om `image` en `image-left/-right` in één regel te
+   pakken — dat treft de teksthelft mee.
+3. **Geen registratie nodig, wel bewijs dat het werkte.** Slidev laadt
    `layouts/` en `components/` van een addon automatisch. Een layout of component
    die níét gevonden wordt geeft **geen buildfout** — alleen een stille
    runtime-waarschuwing en een lege plek. Open het deck dus altijd echt.
