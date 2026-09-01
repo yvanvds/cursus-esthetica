@@ -44,6 +44,13 @@ the `work-issues` skill for the full procedure. In short:
   `.github/workflows/pr-check.yml` runs the first two on every PR.
 - A merge to `main` deploys to GitHub Pages. There is no review step after
   the merge, so the review moments are the checkpoints *during* the work.
+- **`/work-batch` in this project means `/work-issues`.** The global
+  `work-batch` skill exists to bundle CI queue waits; here a check takes
+  seventy seconds, so that gain does not exist, while the gates and the
+  checkpoints do differ. Follow `work-issues`.
+- Issues are delegated to one subagent each — but only once the decisions
+  in them have been put to the owner and answered. Chapter issues stay in
+  the main session; see the `work-issues` skill.
 
 ## Key conventions (summary)
 
