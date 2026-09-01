@@ -91,7 +91,12 @@ die drie kan je de les wel geven, maar niet laten horen.
 
 **Tel het na voor je de PR opent, en zet de telling in de PR-body.** Handmatig
 doorklikken werkt niet: bij belgisch-experiment gaat het om 29 beelden over 96
-slides.
+slides. Tel daarom met `npm run check:slides` (één deck:
+`npm run check:slides -- <theme-id>`). Dat rapporteert per figuurgroep — `rosetta
+1/3` — precies omdat een reeks waarvan één beeld in het deck staat er compleet
+uitziet. Plak de uitvoer voor je deck in de PR-body. Het script breekt de build
+niet en zit niet in `npm run build`; het geeft alleen exitcode 1 zolang er iets
+ontbreekt.
 
 **Extra lesmateriaal mag erbij.** Wat om rechtenredenen niet in de cursustekst
 kan maar in een les wel verantwoord is (SMOLE, beschermd beeld) hoort thuis in
