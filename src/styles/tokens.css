@@ -13,9 +13,14 @@
   --color-text-quiet:    #888888;
   --color-text-whisper:  #666666;
 
-  /* Accent */
+  /* Accent. `-soft` wordt afgeleid en nooit als losse waarde geschreven —
+     zo kan hij niet wegdrijven van de kleur waar hij op hoort te lijken.
+     Een hoofdstuk met `accentColor:` in de frontmatter overschrijft
+     `--color-accent` op `.theme-grid`; ThemeLayout leidt `-soft` daar
+     opnieuw af, want een afgeleide waarde wordt berekend waar ze
+     gedeclareerd staat, niet waar ze gebruikt wordt. */
   --color-accent:        #ED4B9E;
-  --color-accent-soft:   rgba(237, 75, 158, 0.08);
+  --color-accent-soft:   color-mix(in srgb, var(--color-accent) 8%, transparent);
 
   /* Typografie */
   --font-serif: 'Fraunces', Georgia, serif;

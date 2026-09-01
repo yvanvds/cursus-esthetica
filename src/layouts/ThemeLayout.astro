@@ -256,6 +256,12 @@ const videos = (theme.data as any).videos ?? null;
 <style>
   /* ---- Grid ---- */
   .theme-grid {
+    /* De inline `style` hierboven zet `--color-accent` uit de frontmatter.
+       `--color-accent-soft` moet daar opnieuw uit afgeleid worden: een
+       `color-mix()` wordt berekend op het element waar ze gedeclareerd is,
+       dus de versie op `:root` in tokens.css blijft bij de globale accent
+       staan en zou hier de verkeerde kleur geven. */
+    --color-accent-soft: color-mix(in srgb, var(--color-accent) 8%, transparent);
     display: grid;
     grid-template-columns: 1fr;
     max-width: 1280px;
