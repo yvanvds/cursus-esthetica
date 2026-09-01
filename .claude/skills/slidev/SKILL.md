@@ -80,7 +80,8 @@ waarvan één beeld in het deck staat, ziet er compleet uit. Alleen tellen vindt
 het.
 
 Dus: **een figuurgroep met meerdere beelden wordt niet tot één beeld
-gereduceerd.** `compare`, `paired-reveal` en `quadrants` bestaan precies daarvoor.
+gereduceerd.** `compare`, `triptych`, `paired-reveal` en `quadrants` bestaan
+precies daarvoor.
 Staan er drie beelden in de groep, dan is de vraag welke layout die drie draagt —
 niet welk beeld het beste is.
 
@@ -113,6 +114,7 @@ hoofdstuk, niet die van de vorige les.
 | `manifest` | inleiding |
 | `contrapunctus` | meerstemmigheid |
 | `aigles` | belgisch-experiment |
+| `oculus` | perspectief-en-ruimte |
 
 Een nieuw deck betekent normaal een nieuw thema onder `slides/theme/<naam>/`:
 
@@ -129,6 +131,13 @@ gedeelde layouts stil. Het contract staat in `slides/README.md` §
 *Tokens-contract voor nieuwe thema's* — minstens `--color-text`,
 `--color-text-quiet`, `--space-sm/md/lg/xl`, `--font-mono`, `--step--1`, plus
 optioneel `--color-rule`.
+
+`--color-rule` is optioneel in de code (`layouts.css` regels 31 en 83 schrijven
+`var(--color-rule, var(--color-text))`), maar bij een donker thema is die
+fallback een lichte rand rond elk quadrant en rond het paired-reveal-beeld. Zet
+hem daar dus altijd. In de praktijk bijt dit nu nergens — alle vier de bestaande
+thema's definiëren `--color-rule` al — maar het is de val die op je wacht zodra
+je hem vergeet.
 
 Startpunt voor de sfeer is de `accentColor` en het `customStyles`-bestand van het
 hoofdstuk zelf (`src/styles/themes/<theme-id>.css`). Het deck en de
@@ -147,6 +156,7 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 | `image` | één beeld, volle slide (`backgroundSize: contain` voor werken) |
 | `image-left` / `image-right` | beeld naast tekst |
 | `compare` | twee beelden naast elkaar, `left:` en `right:` |
+| `triptych` | drie (of twee/vier) beelden op één rij, `images:` + optioneel `captions:`, `reveal: true` voor één per klik |
 | `paired-reveal` | tekststappen links, wisselend beeld rechts — per klik het volgende beeld uit `images:` |
 | `quadrants` | vier vakken, `::q1::` t/m `::q4::` |
 
@@ -261,6 +271,16 @@ en klik het door:
 - speelt elk fragment, met de juiste starttijd;
 - klopt de dekkingstelling met de frontmatter van het hoofdstuk;
 - noemt de slotslide het juiste volgende hoofdstuk.
+
+**Die render-check vraagt een scherm.** Er is geen headless alternatief in dit
+project: `slidev export` heeft `playwright-chromium` nodig en dat zit niet in de
+dependencies (toevoegen is een aparte afweging, doe dat niet en passant). Werk je
+zonder scherm, dan sla je de check niet stil over — je meldt in de PR expliciet
+wat je wél en niet hebt kunnen vaststellen, en je toont per nieuwe layout en
+component bewijs uit de gebouwde bundel: een eigen chunk met de scoped klassen
+erin (`.triptych-panel`, `.vp-rays`) en nul `resolveComponent(...)` in `dist/`.
+Een niet-gevonden layout laat precies dat achterwege, dus het onderscheid is
+hard. Wat het níét bewijst is of het er goed uitziet; zeg dat er dan ook bij.
 
 Zet de echte uitkomsten in de PR-body, inclusief de telling vóór en na.
 
