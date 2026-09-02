@@ -42,6 +42,24 @@ Houd de antwoorden vast — die reactie zélf is het materiaal van deze cursus.
 -->
 
 ---
+layout: image
+image: /cursus-esthetica/images/inleiding/cattelan-2.jpg
+backgroundSize: contain
+---
+
+<!--
+Vier dagen later. Kunstenaar David Datuna haalt de banaan van de muur en eet hem
+op, midden op de beurs. Hij noemt het zelf een performance: *Hungry Artist*.
+
+Laat dit even staan zonder commentaar. Stel dan één vraag: is het werk nu stuk?
+
+Bijna iedereen zegt eerst ja. De galerie deed iets anders — ze plakte een nieuwe
+banaan op de muur en ging door. Datuna is nooit vervolgd; er viel niets te
+vervolgen. Klik dan pas door: op de volgende slide staat wat er dié dag in het
+dossier kwam te staan.
+-->
+
+---
 
 ## $120,000 · 0.14kg · edible · replaceable
 
