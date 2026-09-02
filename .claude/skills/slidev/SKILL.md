@@ -74,10 +74,13 @@ werd opgeschreven, en zo staan ze er nu:
 
 | deck | toen | nu |
 |---|---|---|
-| inleiding | 9/10 beelden, 4/4 video | 9/10, 4/4 |
+| inleiding | 9/10 beelden, 4/4 video | **10/10, 4/4** (#65) |
 | meerstemmigheid | 12/16, 5/8 | **16/16, 8/8** (#38) |
 | belgisch-experiment | 21/29, 2/2 | **29/29, 2/2** (#39) |
 | licht-en-schaduw | 0/20, 0/4 | **20/20, 4/4** (#37) |
+
+`npm run check:slides` staat sindsdien op exit 0 over alle vijf de decks. Dat is
+de toestand die je achterlaat, niet een die je mag verslechteren.
 
 En het lekt niet willekeurig. Het zijn de **figuurgroepen met meerdere beelden**
 die tot één worden teruggebracht: Rosetta 1 van 3, Art Farm 1 van 3, de
