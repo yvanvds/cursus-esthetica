@@ -527,10 +527,15 @@ layout: end
 
 # Volgende keer
 
-*Wie heeft jouw smaak gemaakt?*
+*Wie mag in het midden staan?*
 
 <!--
-Bruggetje naar hoofdstuk 2: smaak als culturele constructie. Vraag voor thuis: kies
-één werk (foto, song, film, game) waarvan je zeker weet dat het mooi is. Probeer op
-te schrijven wáárom — en let op of je redenen *over jou* gaan, of *over het werk*.
+Bruggetje naar hoofdstuk 2. Vandaag stelden we drie vragen; volgende keer nemen we de
+derde — *waarom werkt het zo?* — en stellen hem aan één enkele keuze: waar de maker de
+kijker neerzet. Perspectief lijkt een techniek. Het is een beslissing over wie mag
+kijken en wie gezien wordt.
+
+Vraag voor thuis: zoek een beeld waarvan je kunt aanwijzen waar de maker stond — een
+nieuwsfoto, een filmstill, een screenshot uit een game. Wie staat er in het midden, en
+wie staat er net buiten beeld?
 -->
