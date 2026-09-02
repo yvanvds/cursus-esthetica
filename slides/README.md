@@ -21,7 +21,7 @@ slides/
 Elk hoofdstuk krijgt zijn **eigen visuele thema** onder `theme/` — het draagt de
 sfeer van dat hoofdstuk, niet die van de vorige les. Daarnaast trekt een deck het
 **`layouts-base`-addon** binnen voor de gedeelde extra layouts (`compare`,
-`triptych`, `detail`, `paired-reveal`, `quadrants`, `breathe`) en de
+`duet`, `triptych`, `detail`, `paired-reveal`, `quadrants`, `breathe`) en de
 videocomponenten:
 
 ```yaml
@@ -31,6 +31,25 @@ addons:
   - ./theme/layouts-base
 ---
 ```
+
+`duet` is de fragment-tegenhanger van `compare`: twee `CourseVideoInline`-spelers
+naast elkaar met een label per kant, declaratief in de frontmatter, plus een slot
+voor de vraag erboven.
+
+```yaml
+---
+layout: duet
+left:  { id: meerstemmigheid/leonin,  label: "Léonin · ca. 1170 · twee stemmen" }
+right: { id: meerstemmigheid/perotin, label: "Pérotin · ca. 1200 · vier stemmen" }
+---
+
+## Viderunt omnes · twee keer
+```
+
+De spelers zijn breedte-gebonden en dus kleiner dan één enkele speler; dat is de
+prijs van gelijktijdigheid. `slides/check-coverage.mjs` leest deze twee id's uit
+de frontmatter mee, zodat een fragment dat alleen in een `duet` staat gewoon
+meetelt in de dekking.
 
 > **Let op de paden.** `theme:` wordt door Slidev resolved t.o.v. de map
 > van `slides.md` zelf (vandaar `../`), maar `addons:` t.o.v. de parent
@@ -48,7 +67,7 @@ custom properties op `:root` definiëren wil het addon correct renderen:
 | `--color-text`, `--color-text-quiet` | meta-regel in quadrant |
 | `--color-rule` *(optioneel)* | randen rond quadrants, detail-uitsneden en paired-reveal-beeld — valt terug op `--color-text` |
 | `--space-sm`, `--space-md`, `--space-lg`, `--space-xl` | gaps en padding |
-| `--font-mono`, `--step--1` | meta-regel in quadrant, bijschriften in triptych en detail |
+| `--font-mono`, `--step--1` | meta-regel in quadrant, bijschriften in triptych en detail, labels in duet |
 | `--breathe-from`, `--breathe-to` *(optioneel)* | begin- en eindkleur van de grond onder `layout: breathe`; optioneel `--breathe-via-1` / `--breathe-via-2` voor de tussenstanden en `--breathe-duration` (standaard 75s). Zonder deze tokens staat de grond stil op `--color-bg` — geen effect in plaats van een verkeerd effect |
 
 Het basis-tokenset (`--color-bg`, `--color-text`, typografie-stapel,

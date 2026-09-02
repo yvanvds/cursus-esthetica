@@ -41,6 +41,15 @@ const IMAGE_RE = /[^\s"'`()[\]{}<>,]*\/images\/[A-Za-z0-9._\-/]+/g;
 const VIDEO_RE =
   /<CourseVideo(?:Inline)?\b[^>]*\bid\s*=\s*(?:"([^"]*)"|'([^']*)'|\{\s*['"]([^'"]*)['"]\s*\})/g;
 
+// `layout: duet` (#61) zet zijn twee fragmenten niet in een tag maar in de
+// frontmatter — `left: { id: meerstemmigheid/leonin, label: "…" }`, of dezelfde
+// mapping in blokvorm. Zonder deze tweede vangst telt een duet-slide als
+// "video ontbreekt" terwijl het fragment gewoon speelt.
+// `compare` gebruikt dezelfde propnamen voor beeldpaden, maar die zijn een
+// scalair en geen mapping, dus die matchen hier niet.
+const DUET_SIDE_RE = /^[ \t]*(?:left|right)[ \t]*:[ \t]*(?:\{[^}]*\}|(?:\n[ \t]+\S.*)+)/gm;
+const DUET_ID_RE = /\bid[ \t]*:[ \t]*["']?([^\s,"'}]+)/;
+
 function readSiteBase() {
   try {
     const config = readFileSync(join(projectRoot, 'astro.config.mjs'), 'utf8');
@@ -86,6 +95,10 @@ function deckReferences(raw) {
   const videos = new Set();
   for (const match of source.matchAll(VIDEO_RE)) {
     const id = match[1] ?? match[2] ?? match[3];
+    if (id) videos.add(id.trim());
+  }
+  for (const [side] of source.matchAll(DUET_SIDE_RE)) {
+    const id = DUET_ID_RE.exec(side)?.[1];
     if (id) videos.add(id.trim());
   }
   return { images, videos, wrongPrefix };
