@@ -62,6 +62,35 @@ het hoorden: "This is it." UNESCO erkende het in 2001 als immaterieel werelderfg
 -->
 
 ---
+
+## Chakrulo
+
+<div style="display: flex; gap: var(--space-lg); align-items: center; margin-top: var(--space-md);">
+
+<CourseVideoInline id="meerstemmigheid/chakrulo" style="width: 60%;" />
+
+<div style="flex: 1; font-family: var(--font-serif); font-size: var(--step-0); color: var(--color-text-muted);">
+
+Onderaan een drone die de bodem vasthoudt.
+
+Daarboven de stem die het verhaal vertelt.
+
+En een falsetto die om de twee anderen heen draait.
+
+</div>
+
+</div>
+
+<!--
+Ensemble Rustavi, anderhalve minuut. Speel eerst, praat daarna. Vraag tijdens het luisteren
+om te tellen: hoeveel stemmen hoor je tegelijk? Laat ze het hardop zeggen vóór je "drie"
+bevestigt — wie alleen naar de bovenste lijn luistert, hoort er één.
+
+Pas hierna doorklikken. De claim op de volgende slide moet landen op een klas die het net
+gehoord heeft, niet op gezag van de docent.
+-->
+
+---
 layout: center
 class: text-center
 ---
@@ -134,6 +163,52 @@ ze heeft geheugen. Andere tradities behouden polyfonie mondeling — eindeloos v
 -->
 
 ---
+layout: compare
+left: /cursus-esthetica/images/meerstemmigheid/erraji-1.jpg
+right: /cursus-esthetica/images/meerstemmigheid/erraji-2.jpg
+---
+
+<!--
+Hassan Erraji — Marokkaans, zanger en oedspeler, al decennia werkzaam vanuit Engeland.
+Links live op het podium, rechts een albumhoes.
+
+Stel hem in twee zinnen voor en laat het daarbij. Het gaat zo dadelijk om wat je hoort,
+niet om zijn biografie — dit is de slide waarop de klas een gezicht krijgt bij een naam,
+meer niet.
+-->
+
+---
+
+## Stem en oed
+
+<div style="display: flex; gap: var(--space-lg); align-items: center; margin-top: var(--space-md);">
+
+<CourseVideoInline id="meerstemmigheid/erraji" style="width: 60%;" />
+
+<div style="flex: 1; font-family: var(--font-serif); font-size: var(--step-0); color: var(--color-text-muted);">
+
+Dezelfde melodie.
+
+Tegelijk, en net niet gelijk.
+
+Geen noot papier — van speler op speler.
+
+</div>
+
+</div>
+
+<!--
+Hassan Erraji, NIKRIZ, WOMAD 2011. Eén minuut. Vraag vooraf: is dit één stem of twee?
+Laat de klas kiezen en laat ze het niet eens worden — er is geen goed antwoord, en dat is
+precies het punt. Het woord is heterofonie: twee sporen die dezelfde weg lopen, het ene
+een haar later dan het andere.
+
+Sluit hardop aan op de vorige slide. De uitvinding van Léonin is het *opschrijven*; hier
+hoor je samen klinken zonder dat er ook maar iets is opgeschreven. Notatie is niet de
+voorwaarde voor meerstemmigheid — ze is de voorwaarde voor een traditie met geheugen.
+-->
+
+---
 
 ## Viderunt omnes
 
@@ -160,6 +235,45 @@ Antwoord: omdat de kathedraal zo werkt. Je zingt tegen je eigen galm.
 -->
 
 ---
+layout: quadrants
+---
+
+## Drie keer tegelijk
+
+::q1::
+
+### Erraji · Marokko
+*heterofonie* — 2 lijnen, 1 melodie
+
+::q2::
+
+### Chakrulo · Georgië
+*polyfonie* — 3 lijnen, 3 stemmen
+
+::q3::
+
+### Léonin · Parijs, ca. 1170
+*organum* — 2 lijnen, 2 stemmen
+
+::q4::
+
+### en dan
+Pérotin, rond 1200: **vier**
+
+<!--
+Alle drie zijn nu gehoord — Chakrulo in de openingsbeweging, Erraji en Léonin net.
+Geef hier de drie woorden.
+
+Let op de volgorde: Léonin staat bewust niet vooraan. Hij is de eerste van wie we de naam
+kennen, en dat is een feit over schrift, niet over wie het eerst samen zong.
+
+Vraag terug: welke van de drie kende de andere twee? Geen enkele. Drie tradities, drie
+oplossingen, onafhankelijk van elkaar.
+
+Zet dan de teller klaar — 1, 2, 3 — en klik door. De volgende stap is vier.
+-->
+
+---
 layout: image-right
 image: /cursus-esthetica/images/meerstemmigheid/magnus-liber-1.jpg
 ---
@@ -180,6 +294,42 @@ Léonins opvolger trekt de logica door.
 Pérotin pakt waar Léonin stopte. Vier stemmen. Voor wie gewend was aan één enkele
 melodielijn (gregoriaans) was dit overweldigend. Het Magnus Liber Organi werd het
 referentiewerk waar alle kathedraalscholen mee werkten.
+-->
+
+---
+
+## Viderunt omnes · twee keer
+
+<div style="display: flex; gap: var(--space-md); align-items: flex-start; margin-top: var(--space-md);">
+
+<div style="flex: 1;">
+
+<CourseVideoInline id="meerstemmigheid/leonin" />
+
+<p class="meta-quiet" style="margin-top: var(--space-xs);">Léonin · ca. 1170 · twee stemmen</p>
+
+</div>
+
+<div style="flex: 1;">
+
+<CourseVideoInline id="meerstemmigheid/perotin" />
+
+<p class="meta-quiet" style="margin-top: var(--space-xs);">Pérotin · ca. 1200 · vier stemmen</p>
+
+</div>
+
+</div>
+
+<!--
+Hetzelfde stuk, dertig jaar later. Links Early Music Consort of London, David Munrow;
+rechts The Hilliard Ensemble.
+
+Dertig seconden links, dan meteen dertig seconden rechts. Niet omgekeerd, en geen uitleg
+ertussen — de sprong is alleen hoorbaar als de twee tegen elkaar aan staan.
+
+Vraag daarna: wat is erbij gekomen? Niet "meer noten" — meer *lijnen*. Onderaan houdt de
+tenor in allebei precies dezelfde gregoriaanse melodie aan. Laat de klas zelf zeggen
+waarom dit voor tijdgenoten een schok was.
 -->
 
 ---
@@ -214,6 +364,24 @@ begin een technische, mathematische praktijk is.
 -->
 
 ---
+layout: image
+image: /cursus-esthetica/images/meerstemmigheid/pythagoras-1.png
+backgroundSize: contain
+---
+
+<!--
+Stille beeldslide — laat de klas eerst kijken. Vraag: wat gebeurt hier, en waarom staan er
+getallen bij die hamers? Houd het antwoord vast tot de volgende slide.
+
+Pythagoras en de smid, houtsnede uit Franchino Gaffurio's Theorica Musicae, 1492. Bijna
+tweeduizend jaar na Pythagoras zelf, en nog altijd hét plaatje waarmee de muziekwetenschap
+zichzelf uitlegt.
+
+Boëthius vertaalde dat verhaal rond 510 in De Institutione Musica. Standaardwerk voor zes
+eeuwen: aan elke kathedraalschool die polyfonie wilde onderwijzen lag een exemplaar.
+-->
+
+---
 layout: quadrants
 ---
 
@@ -243,7 +411,8 @@ wrijving — dissonant
 Pythagoras, zes eeuwen voor Christus: als de ene snaar precies de helft is van de andere,
 klinken ze samen alsof ze één toon zijn. Verhouding 2:1, het octaaf. Eenvoudige
 verhoudingen produceren mooie samenklanken; complexe verhoudingen produceren wrijving.
-Boëthius vertaalde dit rond 510 in De Institutione Musica. Standaardwerk voor zes eeuwen.
+Dit is het antwoord op de vraag van de vorige slide: de getallen op de hamers zijn
+gewichten, en hun verhoudingen zijn de intervallen.
 -->
 
 ---
@@ -588,6 +757,24 @@ Sopraan 1 zet het thema in. Sopraan 2 valt in op een andere toonhoogte. Tenor vo
 Bas zet een eigen lijn. Horizontaal, zoals het sinds de twaalfde eeuw is gegroeid.
 Maar daaronder klinkt iets nieuws: een akkoordenschema dat sturend is. Polyfonie en
 harmonie zijn niet meer twee benaderingen. Ze zijn één.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/meerstemmigheid/bach-2.jpg
+backgroundSize: contain
+---
+
+<!--
+Bachs eigen handschrift — een folio uit de autograaf van de Mass in B Minor.
+
+Ga naar het scherm en wijs de systemen aan. Laat de klas de zelfstandige lijnen tellen op
+papier, vóór er iets klinkt: elke balk is één stem, en elke stem heeft zijn eigen
+melodische leven.
+
+Vraag er meteen bij: als je die lijnen verticaal doorsnijdt, op één moment — wat staat er
+dan boven elkaar? Dat is de vraag waar het fragment op de volgende slide het antwoord op
+is.
 -->
 
 ---
