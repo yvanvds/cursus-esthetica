@@ -370,15 +370,18 @@ backgroundSize: contain
 ---
 
 <!--
-Stille beeldslide — laat de klas eerst kijken. Vraag: wat gebeurt hier, en waarom staan er
-getallen bij die hamers? Houd het antwoord vast tot de volgende slide.
+Stille beeldslide — laat de klas eerst kijken. Vraag: wat doet die man links, en waarom
+staat een filosoof toe te kijken in een smidse? Houd het antwoord vast tot de volgende
+slide.
 
-Pythagoras en de smid, houtsnede uit Franchino Gaffurio's Theorica Musicae, 1492. Bijna
-tweeduizend jaar na Pythagoras zelf, en nog altijd hét plaatje waarmee de muziekwetenschap
-zichzelf uitlegt.
+Handschriftillustratie bij Boëthius' De musica. Links staat PYTAGORAS, met zijn naam
+erboven geschreven; daarnaast slaan drie smeden op één aambeeld. Onderaan een schrijver en
+een harpspeler: het geluid wordt eerst gemeten, dan genoteerd, dan gespeeld. De hele
+redenering van dit hoofdstuk staat op één bladzijde.
 
-Boëthius vertaalde dat verhaal rond 510 in De Institutione Musica. Standaardwerk voor zes
-eeuwen: aan elke kathedraalschool die polyfonie wilde onderwijzen lag een exemplaar.
+Boëthius bracht het verhaal rond 510 samen in dat boek. Standaardwerk voor zes eeuwen: aan
+elke kathedraalschool die polyfonie wilde onderwijzen lag een exemplaar. Dit beeld ís dus
+niet een illustratie bíj de traditie — het is hoe die traditie zichzelf doorgaf.
 -->
 
 ---
@@ -411,8 +414,10 @@ wrijving — dissonant
 Pythagoras, zes eeuwen voor Christus: als de ene snaar precies de helft is van de andere,
 klinken ze samen alsof ze één toon zijn. Verhouding 2:1, het octaaf. Eenvoudige
 verhoudingen produceren mooie samenklanken; complexe verhoudingen produceren wrijving.
-Dit is het antwoord op de vraag van de vorige slide: de getallen op de hamers zijn
-gewichten, en hun verhoudingen zijn de intervallen.
+Dit is het antwoord op de vraag van de vorige slide: volgens het verhaal hoorde Pythagoras
+in een smidse dat sommige hamers samen mooi klonken en andere niet. Het verschil zat in hun
+gewicht, en de verhouding tussen die gewichten is de verhouding die je hier ziet. Of dat
+echt zo gebeurd is, weet niemand — het verhaal is ouder dan elke bron die het vertelt.
 -->
 
 ---
