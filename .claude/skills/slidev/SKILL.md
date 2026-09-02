@@ -90,6 +90,14 @@ precies daarvoor.
 Staan er drie beelden in de groep, dan is de vraag welke layout die drie draagt —
 niet welk beeld het beste is.
 
+**Maar "niet reduceren" betekent niet "altijd op één slide".** Een figuurgroep is
+soms een reeks — Richters raam van vier kanten, de drie Rosetta-stills — en dan
+hoort ze bij elkaar. Soms zijn het twee argumenten op twee momenten in dezelfde
+beweging. De Bach-groep in `meerstemmigheid` is dat laatste: een portret en een
+autograaf-folio, en die naast elkaar zetten breekt de kijk-dan-luisterbeweging
+die de les daar maakt. De regel is dat elk beeld een plek krijgt, niet dat de
+groep één slide krijgt.
+
 Bij meerstemmigheid ontbreken `chakrulo`, `erraji` en `perotin`: dat zijn geen
 illustraties maar de luistervoorbeelden zelf, in een hoofdstuk dat over horen
 gaat. Een ontbrekende video is daarom zwaarder dan een ontbrekend beeld — zonder
