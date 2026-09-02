@@ -33,7 +33,10 @@ const themes = defineCollection({
     customLayout: z.string().optional(),
     customStyles: z.string().optional(),
     customHeader: z.boolean().optional(),
-    accentColor: z.string().optional(),
+    // Zeshexadecimale notatie, want ThemeLayout zet deze waarde rechtstreeks in
+    // een `<style>` op `:root` (#55). Het schema is daarmee de enige plek waar
+    // die vorm afgedwongen wordt.
+    accentColor: z.string().regex(/^#[0-9a-fA-F]{6}$/, 'accentColor moet #rrggbb zijn').optional(),
     figures: z.record(z.string(), z.object({ images: z.array(figureImage) }).strict()).optional(),
     videos: z.record(z.string(), z.object({
       youtube: z.string().length(11),
