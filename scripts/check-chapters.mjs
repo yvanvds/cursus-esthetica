@@ -38,6 +38,32 @@ const publicDir = join(projectRoot, 'public');
 // niet bij de key.
 const REFERENCE_RE = /\]\((fig|video):([^)\s?]+)(\?[^)\s]*)?\)/g;
 
+// Bevindingen die bekeken zijn en bewust blijven staan. Ze worden nog steeds
+// getoond, maar tellen niet mee voor de exitcode — anders staat deze check
+// permanent op rood en leest niemand hem nog, en dan verdwijnt een échte
+// nieuwe bevinding in de ruis.
+//
+// Een regel hier hoort een reden te dragen en een issuenummer waar de
+// beslissing valt. Zet er niets in om van een probleem af te zijn.
+const AANVAARD = {
+  meerstemmigheid: [
+    {
+      probleem: 'erraji: figuurgroep wordt nergens in de body gebruikt',
+      reden: 'bewust: de twee portretten staan in het deck, niet in de cursustekst (#38)',
+    },
+  ],
+  instrumentontwikkeling: [
+    { probleem: 'pianola: geen source: bij /images/instrumentontwikkeling/pianola-2.png', reden: 'herkomst nog uit te zoeken (#53)' },
+    { probleem: 'pianola: geen source: bij /images/instrumentontwikkeling/pianola-3.png', reden: 'herkomst nog uit te zoeken (#53)' },
+  ],
+  'onderwerpen-en-themas': [
+    { probleem: 'banksy: geen source: bij /images/onderwerpen-en-themas/banksy-removal.jpg', reden: 'herkomst nog uit te zoeken (#53)' },
+  ],
+  'smaak-klasse-macht': [
+    { probleem: 'cattelan: geen source: bij /images/smaak-klasse-macht/cattelan-parody.png', reden: 'herkomst nog uit te zoeken (#53)' },
+  ],
+};
+
 function frontmatterOf(raw, file) {
   // CRLF normaliseren: anders houdt de laatste waarde vóór de sluitende `---`
   // een \r over (zie slides/check-coverage.mjs).
@@ -145,29 +171,54 @@ for (const themeId of themes) {
     problems.push(`header-beeld ontbreekt onder public/ — ${data.image}`);
   }
 
+  const aanvaard = AANVAARD[themeId] ?? [];
+  const accepted = problems.filter(p => aanvaard.some(a => a.probleem === p));
+  const open = problems.filter(p => !accepted.includes(p));
+
   const heading = [
     themeId.padEnd(28),
     `beelden ${String(imageCount).padStart(2)}`,
     `figuren ${String(Object.keys(figures).length).padStart(2)}`,
     `video's ${String(Object.keys(videos).length).padStart(2)}`,
-    problems.length === 0 ? '  in orde' : `  ${problems.length} probleem/problemen`,
+    open.length === 0
+      ? accepted.length === 0 ? '  in orde' : `  in orde (${accepted.length} aanvaard)`
+      : `  ${open.length} probleem/problemen`,
   ].join('  ');
   console.log(heading);
 
-  for (const problem of problems) {
+  for (const problem of open) {
     console.log(`    ${problem}`);
   }
-
-  if (problems.length > 0) {
-    chaptersWithProblems++;
-    problemTotal += problems.length;
-    console.log('');
+  for (const problem of accepted) {
+    const reden = aanvaard.find(a => a.probleem === problem).reden;
+    console.log(`    ~ ${problem}`);
+    console.log(`      ${reden}`);
   }
+
+  // Een aanvaarde regel die niet meer voorkomt, is dode ballast: de bevinding
+  // is opgelost of anders geformuleerd. Dat hoort op te vallen.
+  for (const a of aanvaard) {
+    if (!problems.includes(a.probleem)) {
+      open.push(`aanvaarde uitzondering komt niet meer voor — haal hem uit AANVAARD: "${a.probleem}"`);
+      console.log(`    ${open[open.length - 1]}`);
+    }
+  }
+
+  if (open.length > 0) {
+    chaptersWithProblems++;
+    problemTotal += open.length;
+  }
+  if (open.length > 0 || accepted.length > 0) console.log('');
 }
 
 console.log('');
 if (chaptersWithProblems === 0) {
-  console.log(`Alle ${themes.length} hoofdstuk(ken) in orde.`);
+  const aanvaardTotaal = Object.values(AANVAARD).flat().length;
+  console.log(
+    aanvaardTotaal === 0
+      ? `Alle ${themes.length} hoofdstuk(ken) in orde.`
+      : `Alle ${themes.length} hoofdstuk(ken) in orde — ${aanvaardTotaal} aanvaarde uitzondering(en), zie AANVAARD in dit script.`
+  );
   process.exit(0);
 }
 
