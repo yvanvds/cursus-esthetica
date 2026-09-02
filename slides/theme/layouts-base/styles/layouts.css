@@ -1,6 +1,7 @@
 /* ────────────────────────────────────────────────────────────────────
    layouts-base — gedeelde structurele regels voor:
      layout: compare        (twee beelden naast elkaar)
+     layout: duet           (twee fragmenten naast elkaar, met label)
      layout: triptych       (drie beelden op één rij)
      layout: detail         (één werk groot + zijn uitsneden)
      layout: paired-reveal  (tekst links, beeld dat per klik switcht)
@@ -243,6 +244,50 @@
   background-size: contain;
   min-height: 0;
   min-width: 0;
+}
+
+/* ── DUET — twee fragmenten naast elkaar, elk met een label, optioneel
+     met een kop erboven. Zie duet.vue.
+
+     Géén eigen padding: de spelers erven die van het thema, zodat de kop
+     op dezelfde lijn staat als op elke andere slide van het deck. De
+     spelers zijn dus breedte-gebonden — twee 16:9-kaders naast elkaar
+     halen ongeveer 80% van de hoogte van één enkele speler. Dat is de
+     prijs van gelijktijdigheid, en die is hier het punt. ───────────── */
+.slidev-layout.duet {
+  display: grid;
+  grid-template-rows: 1fr;
+  gap: var(--space-lg);
+}
+.slidev-layout.duet.duet--headed {
+  grid-template-rows: auto 1fr;
+}
+.slidev-layout.duet .duet-header h2 {
+  margin-bottom: 0;
+}
+.slidev-layout.duet .duet-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);   /* zelfde tussenruimte als compare — breedte is hier schaars */
+  align-items: center;
+  min-height: 0;
+}
+.slidev-layout.duet .duet-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+}
+.slidev-layout.duet .duet-label {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  line-height: 1.4;
 }
 
 /* ── PAIRED-REVEAL — links tekst (v-clicks per bullet),

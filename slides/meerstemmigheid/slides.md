@@ -297,28 +297,12 @@ referentiewerk waar alle kathedraalscholen mee werkten.
 -->
 
 ---
+layout: duet
+left:  { id: meerstemmigheid/leonin,  label: "Léonin · ca. 1170 · twee stemmen" }
+right: { id: meerstemmigheid/perotin, label: "Pérotin · ca. 1200 · vier stemmen" }
+---
 
 ## Viderunt omnes · twee keer
-
-<div style="display: flex; gap: var(--space-md); align-items: flex-start; margin-top: var(--space-md);">
-
-<div style="flex: 1;">
-
-<CourseVideoInline id="meerstemmigheid/leonin" />
-
-<p class="meta-quiet" style="margin-top: var(--space-xs);">Léonin · ca. 1170 · twee stemmen</p>
-
-</div>
-
-<div style="flex: 1;">
-
-<CourseVideoInline id="meerstemmigheid/perotin" />
-
-<p class="meta-quiet" style="margin-top: var(--space-xs);">Pérotin · ca. 1200 · vier stemmen</p>
-
-</div>
-
-</div>
 
 <!--
 Hetzelfde stuk, dertig jaar later. Links Early Music Consort of London, David Munrow;

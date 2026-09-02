@@ -192,6 +192,7 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 | `image` | één beeld, volle slide (`backgroundSize: contain` voor werken) |
 | `image-left` / `image-right` | beeld naast tekst |
 | `compare` | twee beelden naast elkaar, `left:` en `right:` — **geen slot**, zie hieronder |
+| `duet` | twee *fragmenten* naast elkaar, `left:`/`right:` als `{ id, label }` — voor een hoorbare vergelijking; heeft wél een slot voor de vraag erboven |
 | `triptych` | drie (of twee/vier) beelden op één rij, `images:` + optioneel `captions:`, `reveal: true` voor één per klik |
 | `detail` | één werk groot (`image:`) plus zijn uitsneden (`details:`) — voor een figuurgroep die geen drie werken is maar een werk plus crops |
 | `paired-reveal` | tekststappen links, wisselend beeld rechts — per klik het volgende beeld uit `images:` |
@@ -217,7 +218,10 @@ zonder waarschuwing. `triptych` heeft er wél een, plus `captions:`. Die
 asymmetrie is precies omgekeerd aan wat je verwacht, en ze kost je een halve dag
 als je haar pas ontdekt nadat je de bijschriften geschreven hebt. Wil je bij een
 `compare` iets zeggen, dan gaat dat naar de sprekersnotitie — wat meestal ook de
-betere plek is (§1), maar het hoort een keuze te zijn.
+betere plek is (§1), maar het hoort een keuze te zijn. `duet` — de
+fragmentvariant van `compare` — heeft om die reden bewust wél een slot: op een
+vergelijkingsslide hoort de vraag van de docent boven de twee kanten te kunnen
+staan (#61).
 
 Drie dingen om niet mis te doen in een eigen layout:
 
@@ -269,6 +273,13 @@ site hetzelfde fragment.
   component zichtbaar `Onbekend fragment: <id>` in het rood — dat is opzet, zodat
   een typo in de les niet als lege plek verschijnt.
 - `label` weglaten en de titel uit de cursustekst wordt gebruikt.
+
+Moeten er **twee** fragmenten naast elkaar — hetzelfde stuk in twee uitvoeringen,
+vóór en ná een ingreep — gebruik dan `layout: duet` (§5) en niet twee
+`CourseVideoInline`'s in een handgeschreven flex-div. Die laatste vorm vraagt een
+`flex: 1`-wrapper per speler, een lege `style`-prop (anders krijg je 60% van 50%)
+en een bijschrift dat je met de hand als `<p class="meta-quiet">` moet
+onderhangen.
 
 Voeg je een video toe aan een hoofdstuk, draai dan `npm run sync:videos` voor je
 het deck opent. `npm run build:slides` doet dat zelf.
