@@ -132,13 +132,7 @@ videos:
     end: 120
 ---
 
-import VoiceLines from '../../components/themes/meerstemmigheid/VoiceLines.astro';
-
-{/* COMPONENT KANDIDAAT: een drievoudige luistercomparator in sectie 1.
-    Drie korte audiofragmenten naast elkaar (Erraji / Chakrulo / Léonin),
-    met play-knoppen en een visuele indicatie van het aantal stemmen.
-    Pedagogisch punt: meteen ervaren dat meerstemmigheid niet
-    één-keer-is-uitgevonden maar overal anders werkt. Niet gebouwd. */}
+import PolyphonyComparator from '../../components/themes/meerstemmigheid/PolyphonyComparator.astro';
 
 {/* COMPONENT KANDIDAAT: een ground-bass animator in sectie 6.
     De vijf-maten dalende baslijn van Dido's Lament loopt onderaan
@@ -164,12 +158,9 @@ Rond 1170 werkt in Notre-Dame te Parijs een man die we Léonin noemen. We weten 
 
 Dat is de cruciale uitvinding. Niet de meerstemmigheid zelf — andere culturen waren ons voor — maar het idee dat je *opschrijft* wat samen klinkt. Zonder schrift sterft een traditie met de zangers. Mét schrift kan een componist in 1190 nadenken over wat een componist in 1170 deed.
 
-{/* FASE 1 (#57): prototype van de stemmen-indicatie, tijdelijk hier geplaatst
-    zodat ze in dev te bekijken is. De volledige luistercomparator — met de
-    drie YouTube-fragmenten eraan — volgt in fase 2, en vervangt dan de
-    COMPONENT KANDIDAAT-notitie bovenaan. */}
+Hoe dat klinkt, hoor je bij [Hassan Erraji](video:erraji): zijn stem en zijn oed brengen dezelfde melodie, tegelijk en net niet gelijk. Daar komt geen notatie aan te pas — dat gaat van speler op speler.
 
-<VoiceLines />
+<PolyphonyComparator />
 
 [Léonins versie van Viderunt omnes](video:leonin) is een van de bekendste stukken uit het Magnus Liber Organi. Eén stem houdt een lange noot aan; de tweede stem fladdert daarboven. Het effect lijkt eerder op meditatiegezang dan op wat wij vandaag "klassieke muziek" noemen. En het is traag: één woord — *viderunt*, "zij hebben gezien" — duurt soms een minuut.
 

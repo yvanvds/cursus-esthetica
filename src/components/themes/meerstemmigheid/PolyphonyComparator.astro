@@ -1,7 +1,7 @@
 ---
 import { getEntry } from 'astro:content';
-import Island from './VoiceLines.tsx';
-import type { FragmentVideo } from './VoiceLines.tsx';
+import Island from './PolyphonyComparator.tsx';
+import type { FragmentVideo } from './PolyphonyComparator.tsx';
 
 // The three fragments, in the order the chapter argues for: the two traditions
 // that were here first, and only then Léonin — "de eerste van wie we de naam
@@ -10,20 +10,23 @@ const ORDER = ['erraji', 'chakrulo', 'leonin'] as const;
 
 // Timing comes from the chapter frontmatter, never retyped here.
 const theme = await getEntry('themes', 'meerstemmigheid');
-if (!theme) throw new Error('VoiceLines: hoofdstuk meerstemmigheid niet gevonden');
+if (!theme) throw new Error('PolyphonyComparator: hoofdstuk meerstemmigheid niet gevonden');
 
 const videos = theme.data.videos ?? {};
 
 const fragments: FragmentVideo[] = ORDER.map((key) => {
   const video = videos[key];
   if (!video) {
-    throw new Error(`VoiceLines: videos.${key} ontbreekt in meerstemmigheid.mdx`);
+    throw new Error(`PolyphonyComparator: videos.${key} ontbreekt in meerstemmigheid.mdx`);
   }
   if (video.start == null || video.end == null) {
-    throw new Error(`VoiceLines: videos.${key} heeft geen start/end in meerstemmigheid.mdx`);
+    throw new Error(
+      `PolyphonyComparator: videos.${key} heeft geen start/end in meerstemmigheid.mdx`,
+    );
   }
   return {
     key,
+    youtube: video.youtube,
     title: video.title,
     source: video.source,
     start: video.start,
