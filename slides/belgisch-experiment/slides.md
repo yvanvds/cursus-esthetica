@@ -22,6 +22,18 @@ gaan ze gebruiken.
 
 
 ---
+layout: section
+---
+
+# 0 — Vijf namen
+
+<!--
+Hier verzamel je de opdracht die op de titelslide is aangekondigd. Pen op papier, dertig
+seconden, geen telefoons. Niet doorklikken tot iedereen vijf namen op een blad heeft —
+de rest van deze les hangt aan wat er op die blaadjes staat.
+-->
+
+---
 layout: center
 class: text-center
 ---
@@ -40,6 +52,39 @@ Nu vijf <em>Waalse</em> kunstenaars.
 Stilte na de tweede opdracht. Negen op de tien klassen krijgen het niet. Dat is geen
 toeval en geen onwetendheid — het is het onderwerp van dit hoofdstuk. We gaan kijken
 waarom dat is, en wat de Waalse kunst ondertussen aan het doen was.
+-->
+
+---
+layout: center
+class: text-center
+---
+
+<div style="font-family: var(--font-serif); font-size: var(--step-2); color: var(--color-text-muted); max-width: 50ch; margin-left: auto; margin-right: auto;">
+Niet omdat er geen Waalse kunstenaars zijn.
+</div>
+
+<div v-click style="margin-top: var(--space-md); font-family: var(--font-display); font-size: var(--step-4); text-transform: uppercase; line-height: 1.05;">
+Omdat de cultuur waarin je opgroeide<br/>ze geen aandacht geeft.
+</div>
+
+<div v-click style="margin-top: var(--space-xl); display: flex; gap: var(--space-lg); justify-content: center;">
+<span style="display: block; width: 7em; border-bottom: 2px solid var(--color-accent);">&nbsp;</span>
+<span style="display: block; width: 7em; border-bottom: 2px solid var(--color-accent);">&nbsp;</span>
+<span style="display: block; width: 7em; border-bottom: 2px solid var(--color-accent);">&nbsp;</span>
+</div>
+
+<div v-click style="margin-top: var(--space-md); font-family: var(--font-mono); font-size: var(--step--1); color: var(--color-text-quiet); text-transform: uppercase; letter-spacing: 0.22em;">
+tegen het einde van deze les staan hier drie namen
+</div>
+
+<!--
+Dit is de belofte, en je maakt ze op het einde van beweging 4 waar. Zeg dat je die drie
+regels gaat invullen met Waalse namen die vandaag voorbijkomen — en vul ze hier niet voor.
+Wie het al weet houdt het voor zich.
+
+Onderweg vallen ze één voor één: Dardenne bij Rosetta, Corillon aan het eind van beweging
+1, Charlier in beweging 4. De notities zeggen telkens de hoeveelste het is. Zeg dat hardop,
+anders telt niemand mee.
 -->
 
 ---
@@ -125,7 +170,40 @@ image: /cursus-esthetica/images/belgisch-experiment/dardenne-rosetta-2.jpg
 <!--
 In België werd een jeugdwerkgelegenheidsplan naar het hoofdpersonage genoemd. De
 Dardennes zelf nuanceren dat verband — maar de film raakte hard genoeg om beleid
-in beweging te brengen. Eerste Waalse naam op het lijstje.
+in beweging te brengen. Eerste Waalse naam op het lijstje — eerste lege regel ingevuld.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/belgisch-experiment/dardenne-rosetta-1.jpg
+backgroundSize: contain
+---
+
+<!--
+Rosetta in de caravan. Toon dit stil — de vorige slide is een affiche, dit is de film.
+Vraag niet wat ze zien maar wat er *weg* is: geen decor, geen mooie kadrering, geen
+ruimte om te ademen. Het gezicht vult het beeld omdat de camera op haar schouder hangt
+en niet weggaat. Dat is de hele stijl van de Dardennes in één beeld.
+
+Émilie Dequenne was zeventien en had nooit eerder gefilmd. Ze kreeg in Cannes de prijs
+voor beste actrice.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/belgisch-experiment/dardenne-rosetta-3.jpg
+backgroundSize: contain
+---
+
+<!--
+Rosetta en Riquet aan tafel — let op: het bijschrift in de cursustekst noemt hier de
+caravansite, maar wat je ziet is een interieur met de twee aan tafel (staat als #63
+genoteerd). Gebruik wat er te zien is.
+
+Dit is het enige warme beeld van de film, en het is een val. Riquet is de enige die
+haar iets geeft: eten, een avond, een baan bij de wafelkraam. Hij is ook de enige wiens
+job ze afpakt — ze verklikt hem bij de baas om zijn plaats te krijgen. Zeg dat pas ná
+de stilte. De film oordeelt niet over haar, en dat is precies wat hem hard maakt.
 -->
 
 ---
@@ -212,7 +290,7 @@ image: /cursus-esthetica/images/belgisch-experiment/corillon-eanswythe-1.jpg
 <!--
 Tweede Waalse naam. Corillon bouwt fictieve auteurs, fictieve archieven, fictieve
 heiligen — een hele cultuur die nooit bestaan heeft, maar consistent volgehouden. In
-Vlaanderen relatief onbekend.
+Vlaanderen relatief onbekend. Tweede Waalse naam — tweede lege regel ingevuld.
 -->
 
 ---
@@ -616,6 +694,44 @@ dat je verbindt aan een verhaal dat niet helemaal jouw is.
 -->
 
 ---
+layout: compare
+left: /cursus-esthetica/images/belgisch-experiment/delvoye-art-farm-1.jpg
+right: /cursus-esthetica/images/belgisch-experiment/delvoye-art-farm-2.jpg
+---
+
+<!--
+Twee merken op dezelfde huid. Links *Donata* (2005), opgezet, op een witte grond zoals
+elk museumobject. Rechts het varken met het Louis Vuitton-monogram.
+
+Laat ze eerst kijken, stel dan één vraag: welk van deze twee tekens hoort bij een land?
+Links, op de flank: een adelaar met een sterrenbanier. Wacht tot iemand het ziet.
+
+Dan de terugkoppeling — tien slides geleden sloot Broodthaers álle adelaars op in één
+kamer en verklaarde van elk dat het géén kunst is. Delvoye tatoeëert er één op een varken
+en verkoopt het wél als kunst. Hetzelfde nationale symbool, het omgekeerde gebaar. Dat is
+het verschil tussen twee generaties die hetzelfde probleem aanpakken.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/belgisch-experiment/delvoye-art-farm-3.jpg
+backgroundSize: contain
+---
+
+<!--
+Dit is de kant die de twee vorige beelden wegpoetsen. Delvoye zelf, op de Art Farm bij
+Beijing, spuit lévende getatoeëerde varkens schoon. Modder, tuinslang, een bakstenen muur.
+Geen witte grond.
+
+Eén vraag aan de klas: waarom staat die boerderij in China en niet in Vlaanderen?
+Laat ze zelf uitkomen bij de dierenwetgeving. Dat is geen voetnoot — het is de vraag die
+de twee museumbeelden niet kúnnen stellen, want daar is het varken al een object.
+
+Hier ligt ook de grens van de grap. Het is aan jou of je de discussie opent; als je ze
+opent, open ze hier en niet bij het LV-monogram.
+-->
+
+---
 layout: two-cols
 ---
 
@@ -640,7 +756,8 @@ Charlier toont deze foto's in januari 1975 als zijn enige werk in het Paleis voo
 Kunsten. Wie de zaal binnenkomt, ziet zichzelf. De pointe is sociologisch: wat *het
 Belgische kunstpubliek* heet is geen natie die naar haar kunstenaars kijkt. Het is een
 gesloten kring die zichzelf valideert — gefinancierd door instituten die in naam van
-die natie subsidies uitdelen. Derde Waalse naam. In Vlaanderen relatief onbekend.
+die natie subsidies uitdelen. Derde Waalse naam — derde lege regel ingevuld. In
+Vlaanderen relatief onbekend.
 -->
 
 ---
@@ -700,6 +817,42 @@ backgroundSize: contain
 ---
 
 ---
+layout: image
+image: /cursus-esthetica/images/belgisch-experiment/logos-robot-1.jpg
+backgroundSize: contain
+---
+
+<!--
+Zeg eerst niets. Laat ze twintig seconden kijken.
+
+Vraag dan hoeveel instrumenten ze zien. Ze kunnen het niet tellen — dat is het punt.
+Dit is de Logos Tetraëder in Gent, één zaal, volgestouwd met een orkest dat één man en
+zijn medewerkers over vijftig jaar hebben gebouwd. Een vleugelpiano met een mechaniek
+erop, orgelpijpen, een sousafoon, een trom die aan de muur hangt.
+
+Let op: het bijschrift in de cursustekst belooft hier een portret van Raes met de robots;
+op dit beeld staat geen mens. Genoteerd als #63 — vertel wat je ziet.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/belgisch-experiment/logos-robot-2.jpg
+backgroundSize: contain
+---
+
+<!--
+Eén stap dichter. Nu zie je dat het losse machines zijn: elk één instrument, met de hand
+gebouwd, elk op wielen zodat het naar een concert kan rijden.
+
+Wijs er twee aan — de koperen toeter met de klep, de rij metalen staven links — en vraag
+hoe die klinken. Laat ze gokken vóór je iets afspeelt. Het is de laatste kans om te
+luisteren met de ogen.
+
+Ook hier wijkt het bijschrift in de cursustekst af: het noemt een concert, maar de vloer
+is leeg. Zelfde issue #63.
+-->
+
+---
 
 ## Logos Robot Orchestra
 
@@ -729,6 +882,26 @@ subsidies, die geen identiteitsfunctie vervullen.
 -->
 
 ---
+layout: image
+image: /cursus-esthetica/images/belgisch-experiment/logos-robot-3.jpg
+backgroundSize: contain
+---
+
+<!--
+En dit is de man. Godfried-Willem Raes, op de vloer, hand op de machine, de
+afstandsbediening in de andere. Geen labo, geen bedrijf — iemand die veertig jaar in
+dezelfde zaal instrumenten heeft zitten bouwen.
+
+Aanbod, geen verplichting: jij hebt daar gewerkt. Als je het wil zeggen, is dit de slide.
+Eén zin volstaat — "ik heb in die ruimte gestaan" — en de klas hoort de rest van dit
+hoofdstuk anders. Hoeveel je erover vertelt beslis je zelf; het robotverhaal zelf komt
+later in de cursus nog uitgebreid terug, dus je hoeft het hier niet op te maken.
+
+Terug naar de lijn: dit is met Vlaams geld gebouwd en vervult geen enkele
+identiteitsfunctie. Daarmee zijn we rond.
+-->
+
+---
 layout: center
 class: text-center
 ---
@@ -754,6 +927,44 @@ De mismatch is structureel. Een schilder die in 2000 een lofzang op de Belgische
 koloniale geschiedenis zou hebben gemaakt, zou geen serieus schilder zijn geweest. De
 staat wilde een schilderij van de natie. Hij kreeg een schilderij dat de natie in vraag
 stelt. Dat is geen falen van het beleid. Dat is wat moderne kunst nu eenmaal is.
+-->
+
+---
+layout: center
+class: text-center
+---
+
+<div style="font-family: var(--font-mono); font-size: var(--step--1); color: var(--color-text-quiet); text-transform: uppercase; letter-spacing: 0.22em;">
+de drie lege regels van in het begin
+</div>
+
+<div v-click style="margin-top: var(--space-lg); font-family: var(--font-display); font-size: var(--step-5); text-transform: uppercase; line-height: 1.05; color: var(--color-accent);">
+Dardenne
+</div>
+
+<div v-click style="font-family: var(--font-display); font-size: var(--step-5); text-transform: uppercase; line-height: 1.05; color: var(--color-accent);">
+Corillon
+</div>
+
+<div v-click style="font-family: var(--font-display); font-size: var(--step-5); text-transform: uppercase; line-height: 1.05; color: var(--color-accent);">
+Charlier
+</div>
+
+<div v-click style="margin-top: var(--space-lg); font-family: var(--font-serif); font-style: italic; font-size: var(--step-2); color: var(--color-text-muted); max-width: 55ch; margin-left: auto; margin-right: auto;">
+Een uur geleden stond er niemand op die regels.
+</div>
+
+<!--
+Terug naar de blaadjes van het begin. Klik de drie namen één voor één in — laat de klas
+ze mee opnoemen, ze zijn alledrie voorbijgekomen.
+
+Vraag dan wie er vanmorgen ook maar één van de drie had opgeschreven. Meestal niemand.
+Dat is geen verwijt en geen quiz: het is het bewijs van wat beweging 3 beweerde. Twee
+gemeenschappen, twee cultuurbudgetten, twee netwerken van instituten die elk hun eigen
+publiek opvoeden — en jouw lijstje is daar het resultaat van.
+
+Eén nuance om niet over te slaan: het werkt ook omgekeerd. Vraag een Waalse klas naar
+vijf Vlaamse kunstenaars en je krijgt hetzelfde lege blad.
 -->
 
 ---
