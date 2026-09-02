@@ -83,6 +83,23 @@ const videos = (theme.data as any).videos ?? null;
   {customStylesUrl && (
     <link slot="head" rel="stylesheet" href={customStylesUrl} />
   )}
+  {/*
+    De accentkleur van het hoofdstuk op `:root`, en dus op de hele pagina — ook
+    op de site-header, die buiten `.theme-grid` valt (#55). Stond hier eerder
+    inline op `.theme-grid`; daardoor kleurde de cursustekst wel mee en de header
+    niet, en hielden twee hoofdstukken er een tweede kopie in hun eigen
+    stylesheet op na. Die kopieën zijn weg.
+
+    Op `:root` werkt de afleiding van `--color-accent-soft` in tokens.css
+    vanzelf mee: een `color-mix()` wordt berekend op het element waar ze
+    gedeclareerd staat, en dat is hier hetzelfde element.
+
+    De waarde komt uit de frontmatter en is door het schema op #rrggbb
+    vastgelegd (`src/content.config.ts`).
+  */}
+  {theme.data.accentColor && (
+    <style slot="head" is:global set:html={`:root{--color-accent:${theme.data.accentColor}}`} />
+  )}
   <script is:inline define:vars={{ figures, videos }}>
     if (figures) window.__figures = figures;
     if (videos) window.__videos = videos;
@@ -124,10 +141,7 @@ const videos = (theme.data as any).videos ?? null;
     }
   </style>
 
-  <div
-    class="theme-grid"
-    style={theme.data.accentColor ? `--color-accent: ${theme.data.accentColor}` : undefined}
-  >
+  <div class="theme-grid">
     <aside class="theme-grid__sidebar">
       <ChapterSidebar
         currentThemeId={theme.id}
@@ -256,12 +270,6 @@ const videos = (theme.data as any).videos ?? null;
 <style>
   /* ---- Grid ---- */
   .theme-grid {
-    /* De inline `style` hierboven zet `--color-accent` uit de frontmatter.
-       `--color-accent-soft` moet daar opnieuw uit afgeleid worden: een
-       `color-mix()` wordt berekend op het element waar ze gedeclareerd is,
-       dus de versie op `:root` in tokens.css blijft bij de globale accent
-       staan en zou hier de verkeerde kleur geven. */
-    --color-accent-soft: color-mix(in srgb, var(--color-accent) 8%, transparent);
     display: grid;
     grid-template-columns: 1fr;
     max-width: 1280px;

@@ -1,14 +1,10 @@
 /* src/styles/themes/perspectief-en-ruimte.css */
 
 :root {
-  /* Moet gelijk blijven aan `accentColor:` in de frontmatter van het
-     hoofdstuk. Die waarde zet ThemeLayout inline op `.theme-grid` en dekt
-     dus de cursustekst; deze kopie dekt wat daarbuiten valt — de
-     site-header gebruikt `--color-accent` ook. Ze zijn hier ooit uit
-     elkaar gelopen (#44): de frontmatter zei #3b85ca, dit bestand #3B4CCA,
-     en de pagina toonde allebei. `--color-accent-soft` staat er niet meer
-     bij; die wordt afgeleid (tokens.css). */
-  --color-accent:      #3b85ca;
+  /* Geen `--color-accent` hier: die komt uit `accentColor:` in de frontmatter
+     en wordt door ThemeLayout op `:root` gezet (#55). Eén bron. Ooit stond hij
+     hier ook, en toen liepen de twee uit elkaar — de frontmatter zei #3b85ca,
+     dit bestand #3B4CCA, en de pagina toonde ze allebei (#44). */
   --color-bg:          #1a1a1a;
 }
 
