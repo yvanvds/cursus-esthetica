@@ -1,0 +1,175 @@
+/* ── Container ─────────────────────────────────────────────────────────── */
+
+.root {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  padding-block: var(--space-lg);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-quiet);
+  margin: 0 0 var(--space-xs);
+}
+
+.intro {
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 60ch;
+  margin: 0 0 var(--space-md);
+}
+
+/* ── Grid of three cards ───────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+/* Below three legible columns the cards stack; the diagrams then get wider,
+   which is if anything better for counting lanes. */
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--space-sm);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius);
+}
+
+/* ── Card head ─────────────────────────────────────────────────────────── */
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.origin {
+  font-family: var(--font-serif);
+  font-size: var(--step-1);
+  line-height: 1.2;
+}
+
+.term {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+
+/* ── The diagram ───────────────────────────────────────────────────────── */
+
+.diagram {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  background: var(--color-bg);
+  border-radius: 2px;
+}
+
+@media (max-width: 720px) {
+  .diagram {
+    height: 6.5rem;
+  }
+}
+
+.line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* A held note is the floor the rest rests on — drawn heavier. */
+.lineHeld {
+  stroke-width: 3;
+}
+
+.base {
+  color: var(--color-text-whisper);
+}
+
+/* The part of each line that has already sounded. */
+.played {
+  color: var(--color-accent);
+}
+
+.playhead {
+  stroke: var(--color-text-muted);
+  stroke-width: 1;
+}
+
+/* ── Labels ────────────────────────────────────────────────────────────── */
+
+.count {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  margin: var(--space-xs) 0 0;
+}
+
+.gloss {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin: var(--space-xs) 0 var(--space-sm);
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: auto;
+}
+
+.sweep {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  padding: 0.3em 0.7em;
+  cursor: pointer;
+  transition: color var(--transition-color), border-color var(--transition-color);
+}
+
+.sweep:hover,
+.sweep:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.timing {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-dim);
+}
+
+.credit {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  line-height: 1.4;
+  color: var(--color-text-whisper);
+  margin: var(--space-xs) 0 0;
+}
