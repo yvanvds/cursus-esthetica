@@ -69,14 +69,15 @@ uit je hoofd.
 ## 3 — Alles wat het hoofdstuk toont, toont het deck ook
 
 **Elke `figures:`-key en elke `videos:`-key uit de frontmatter van het hoofdstuk
-komt minstens één keer in het deck.** Dit is de regel waar het in de praktijk
-lekt:
+komt minstens één keer in het deck.** Zo stonden de decks ervoor toen die regel
+werd opgeschreven, en zo staan ze er nu:
 
-| deck | beelden | video's |
+| deck | toen | nu |
 |---|---|---|
-| inleiding | 9/10 | 4/4 |
-| meerstemmigheid | 12/16 | 5/8 |
-| belgisch-experiment | 21/29 | 2/2 |
+| inleiding | 9/10 beelden, 4/4 video | 9/10, 4/4 |
+| meerstemmigheid | 12/16, 5/8 | **16/16, 8/8** (#38) |
+| belgisch-experiment | 21/29, 2/2 | **29/29, 2/2** (#39) |
+| licht-en-schaduw | 0/20, 0/4 | **20/20, 4/4** (#37) |
 
 En het lekt niet willekeurig. Het zijn de **figuurgroepen met meerdere beelden**
 die tot één worden teruggebracht: Rosetta 1 van 3, Art Farm 1 van 3, de
@@ -187,7 +188,7 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 |---|---|
 | `image` | één beeld, volle slide (`backgroundSize: contain` voor werken) |
 | `image-left` / `image-right` | beeld naast tekst |
-| `compare` | twee beelden naast elkaar, `left:` en `right:` |
+| `compare` | twee beelden naast elkaar, `left:` en `right:` — **geen slot**, zie hieronder |
 | `triptych` | drie (of twee/vier) beelden op één rij, `images:` + optioneel `captions:`, `reveal: true` voor één per klik |
 | `detail` | één werk groot (`image:`) plus zijn uitsneden (`details:`) — voor een figuurgroep die geen drie werken is maar een werk plus crops |
 | `paired-reveal` | tekststappen links, wisselend beeld rechts — per klik het volgende beeld uit `images:` |
@@ -206,6 +207,14 @@ Waar hij hoort:
   tokens, geen kleuren of fonts.
 - **Thema-eigen vorm → het thema zelf.** Iets wat alleen bij dít hoofdstuk hoort,
   in `slides/theme/<naam>/`.
+
+**Let op welke layout een slot heeft.** `compare` heeft er géén: die rendert
+alleen zijn twee beelden, dus een kop of een bijschrift op zo'n slide verdwijnt
+zonder waarschuwing. `triptych` heeft er wél een, plus `captions:`. Die
+asymmetrie is precies omgekeerd aan wat je verwacht, en ze kost je een halve dag
+als je haar pas ontdekt nadat je de bijschriften geschreven hebt. Wil je bij een
+`compare` iets zeggen, dan gaat dat naar de sprekersnotitie — wat meestal ook de
+betere plek is (§1), maar het hoort een keuze te zijn.
 
 Drie dingen om niet mis te doen in een eigen layout:
 
