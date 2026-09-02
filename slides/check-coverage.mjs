@@ -95,6 +95,33 @@ function fileNameOf(path) {
   return path.slice(path.lastIndexOf('/') + 1);
 }
 
+// De cursusvolgorde: module-`order` eerst, dan thema-`order` binnen die module.
+// De slotslide van een deck ("Volgende keer") hoort de titel te noemen van het
+// thema dat hierop volgt. Dat is drie keer op drie fout gegaan omdat het met de
+// hand werd opgeschreven — één deck wees zelfs naar een hoofdstuk dat niet
+// bestaat. Vandaar deze controle.
+function buildCourseOrder() {
+  const modulesDir = join(projectRoot, 'src', 'content', 'modules');
+  const moduleOrder = {};
+  for (const file of readdirSync(modulesDir)) {
+    const fm = frontmatterOf(readFileSync(join(modulesDir, file), 'utf8'), file);
+    moduleOrder[file.replace(/\.md$/, '')] = fm.order;
+  }
+  return readdirSync(themesDir)
+    .map(file => {
+      const fm = frontmatterOf(readFileSync(join(themesDir, file), 'utf8'), file);
+      return { id: file.replace(/\.mdx$/, ''), module: moduleOrder[fm.module], order: fm.order, title: fm.title };
+    })
+    .sort((a, b) => a.module - b.module || a.order - b.order);
+}
+
+const courseOrder = buildCourseOrder();
+
+function nextThemeOf(themeId) {
+  const index = courseOrder.findIndex(theme => theme.id === themeId);
+  return index === -1 ? undefined : courseOrder[index + 1];
+}
+
 const requested = process.argv.slice(2).filter(arg => !arg.startsWith('-'));
 
 const decks = readdirSync(slidesDir, { withFileTypes: true })
@@ -146,7 +173,18 @@ for (const themeId of decks) {
   const videoKeys = Object.keys(chapter.videos ?? {});
   const missingVideos = videoKeys.filter(key => !deck.videos.has(`${themeId}/${key}`));
 
-  const complete = groups.length === 0 && missingVideos.length === 0;
+  // Slotslide: noemt hij het juiste volgende hoofdstuk?
+  const deckSource = readFileSync(join(slidesDir, themeId, 'slides.md'), 'utf8').replace(/\r\n/g, '\n');
+  const next = nextThemeOf(themeId);
+  const hasEndPromise = /^#\s*Volgende keer\s*$/m.test(deckSource);
+  let slotProbleem;
+  if (next && !deckSource.includes(next.title)) {
+    slotProbleem = `slotslide noemt "${next.title}" niet — dat is het volgende hoofdstuk (${next.id})`;
+  } else if (!next && hasEndPromise) {
+    slotProbleem = 'slotslide belooft een volgend hoofdstuk, maar dit is het laatste';
+  }
+
+  const complete = groups.length === 0 && missingVideos.length === 0 && !slotProbleem;
   if (!complete) incomplete++;
 
   const heading = [
@@ -163,6 +201,9 @@ for (const themeId of decks) {
   }
   if (missingVideos.length > 0) {
     console.log(`    ${'video ontbreekt'.padEnd(24)}       ${missingVideos.join(', ')}`);
+  }
+  if (slotProbleem) {
+    console.log(`    ${'volgende keer'.padEnd(24)}       ${slotProbleem}`);
   }
   for (const path of deck.wrongPrefix) {
     console.log(`    let op: beeldpad zonder '${siteBase}' — ${path}`);

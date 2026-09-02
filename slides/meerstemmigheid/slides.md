@@ -774,12 +774,16 @@ layout: end
 
 # Volgende keer
 
-*Hoe wordt iets lelijk?*
+*Wie speelt er eigenlijk?*
 
 <!--
-Bruggetje naar het volgende hoofdstuk over het lelijke. Vraag voor thuis: zoek een
-muziekstuk waarvan je zeker weet dat het je raakt, en probeer aan te wijzen *waar* in
-het stuk dat gebeurt. Op welk moment? Welke stemmen?
+Bruggetje naar het volgende hoofdstuk. Vandaag luisterden we naar wát er tegelijk
+klinkt; volgende keer naar wie of wat het voortbrengt — instrumenten, machines,
+software, en de vraag wanneer de speler ophoudt de speler te zijn.
+
+Vraag voor thuis: zoek een muziekstuk waarvan je zeker weet dat het je raakt, en
+probeer aan te wijzen *waar* in het stuk dat gebeurt. Op welk moment, welke stemmen —
+en kun je horen wát dat geluid maakt?
 
 Tip: luister naar de Spotify-playlist van het hoofdstuk — Léonin tot Bulgaars vrouwenkoor.
 -->

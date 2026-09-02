@@ -56,10 +56,15 @@ het hele hoofdstuk; hoe ver je in een lesuur komt, beslis je in de klas. De
 bewegingen zijn de natuurlijke pauzepunten.
 
 **De slotslide volgt uit de collectie, niet uit je geheugen.** `layout: end` met
-"Volgende keer" noemt het volgende hoofdstuk: dat is het thema met de eerstvolgende
-`order` binnen dezelfde module (`src/content/modules/<module>.md` heeft zelf een
-`order`, `src/content/themes/*.mdx` ook). Zoek het op vóór je het opschrijft — dit
-is drie keer op drie fout gegaan, één keer naar een hoofdstuk dat niet bestaat.
+"Volgende keer" noemt het volgende hoofdstuk in de cursusvolgorde: sorteer op de
+`order` van de module (`src/content/modules/<module>.md`) en dan op de `order` van
+het thema (`src/content/themes/*.mdx`), en neem het volgende — dat kan de eerste
+van de volgende module zijn. Is er geen volgende, dan belooft het deck er ook geen.
+
+Dit is drie keer op drie fout gegaan, één keer naar een hoofdstuk dat niet
+bestaat. `npm run check:slides` controleert het sinds #40 mee, dus je hoeft het
+niet met de hand na te lopen — maar schrijf het wel op uit de collectie en niet
+uit je hoofd.
 
 ## 3 — Alles wat het hoofdstuk toont, toont het deck ook
 
