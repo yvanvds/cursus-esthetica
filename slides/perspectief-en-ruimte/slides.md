@@ -266,6 +266,50 @@ heeft dat gezien; bijna niemand heeft het opgemerkt.
 -->
 
 ---
+layout: image
+image: /cursus-esthetica/images/perspectief/bierstadt-sierra-nevada.png
+backgroundSize: contain
+---
+
+<!--
+Albert Bierstadt, Among the Sierra Nevada, California, 1868. Drie eeuwen na
+Leonardo, aan de andere kant van de wereld.
+
+Laat de klas de reis van voor naar achter maken, en wijs mee: de herten aan de
+oever, warm bruin en scherp getekend. Het meer, al koeler. De rotswand links, nog
+donker. Dan de bergen daarachter, elke rij lichter en blauwer. En helemaal
+achteraan toppen die nauwelijks nog van de nevel te scheiden zijn.
+
+De vraag die het punt maakt: welke lijn loopt hier naar een verdwijnpunt? Geen
+enkele. Er is geen architectuur, geen tegelvloer, geen rand van een tafel. Alle
+diepte in dit doek komt uit kleur en contrast.
+
+Dit is geen renaissancevondst die daarna verdween. Het is een waarneming over hoe
+lucht werkt, en die blijft gewoon gelden.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/perspectief/bierstadt-yosemite.png
+backgroundSize: contain
+---
+
+<!--
+Bierstadt opnieuw, Looking Down Yosemite Valley, 1865.
+
+Hier kan je de lagen tellen, en doe dat ook hardop met de klas: de rotswand
+vooraan, dan de tweede, dan de derde, de vierde. Elke wand lichter en blauwer dan
+de vorige, tot het dal achteraan oplost in tegenlicht.
+
+Dit is hetzelfde principe als bij de Mona Lisa, maar zo expliciet dat het bijna
+een diagram wordt. Leonardo schreef het op als een regel — vijf keer de afstand,
+vijf keer zo blauw. Bierstadt schildert die regel uit in vijf stappen.
+
+Kort houden als je krap zit; deze en de vorige slide maken samen één punt en je
+kan er desnoods één laten vallen.
+-->
+
+---
 layout: image-left
 image: /cursus-esthetica/images/perspectief/borrell-ontsnapping.png
 backgroundSize: contain
