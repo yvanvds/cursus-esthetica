@@ -11,7 +11,6 @@ routerMode: hash
 ---
 
 <div class="vp-marker" />
-<div class="vp-label">verdwijnpunt</div>
 
 # Wie mag in het <span style="color: var(--color-accent);">midden</span> staan?
 
@@ -425,27 +424,13 @@ gezichten die op maskers lijken.
 
 Tijdgenoten vonden het onleesbaar. Matisse lachte erom. Het doek stond jaren
 opgerold in Picasso's atelier.
--->
 
----
-layout: center
-class: vp-scattered
----
-
-> Picasso heeft petroleum gedronken om vuur te spuwen.
-
-<div v-click style="margin-top: var(--space-lg); font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-text-quiet);">
-Georges Braque, 1907
-</div>
-
-<!--
-Braque zei dit toen hij het doek voor het eerst zag. Hij bedoelde het niet
-vriendelijk.
-
-Kleine pointe die de moeite waard is: dezelfde Braque bouwt binnen twee jaar mét
-Picasso het kubisme op. De felste criticus wordt de mede-uitvinder. Dat gebeurt
-vaker dan je denkt bij een breuk — de mensen die het hardst reageren, zijn de
-mensen die het scherpst gezien hebben dat er iets aan de hand is.
+Braque zei toen hij het voor het eerst zag: Picasso heeft petroleum gedronken om
+vuur te spuwen. Dat was niet vriendelijk bedoeld. Vertel er meteen bij hoe het
+afloopt — dezelfde Braque bouwt binnen twee jaar mét Picasso het kubisme op. De
+felste criticus wordt de mede-uitvinder. Dat gebeurt vaker dan je denkt bij een
+breuk: wie het hardst reageert, heeft het scherpst gezien dat er iets aan de hand
+is.
 -->
 
 ---
@@ -507,7 +492,7 @@ images:
 
 <!--
 Vraag eerst: wie heeft ooit van haar gehoord? Meestal niemand. Laat die stilte
-even hangen — die is het punt van de volgende slide.
+even hangen — je komt er aan het eind van deze slide op terug.
 
 Hetzelfde jaar als de Demoiselles. In Stockholm, in stilte, schildert Hilma af
 Klint De Tien Grootsten: doeken van bijna drie meter hoog.
@@ -521,42 +506,20 @@ Geen herkenbaar object. Alleen verf die zichzelf is.
 Vergelijk hardop met Picasso: hij breekt het perspectief open maar schildert nog
 altijd vijf vrouwen in een kamer. Zij laat het onderwerp helemaal vallen. Dit is
 abstract, drie jaar vóór Kandinsky.
--->
 
----
-layout: center
-class: vp-scattered
----
+Kom dan terug op die stilte van in het begin. Kort houden, dit is een zijstap en
+geen tweede les: af Klint werkte alleen, geleid door wat ze beschreef als
+boodschappen uit seances en theosofische visioenen, en bepaalde zelf dat haar werk
+pas twintig jaar na haar dood getoond mocht worden. Haar doeken lagen opgerold in
+een Zweedse opslagruimte terwijl Kandinsky (1910) en Mondriaan (1917) de
+uitvinders van de abstractie werden genoemd. Pas het Guggenheim-retrospectief van
+2018 maakte haar zichtbaar. Een canon is een keuze, geen natuurwet — zij was er
+eerst, de anderen kregen de titel.
 
-## Je hebt nooit van haar gehoord
+Als je het meerstemmigheidshoofdstuk al gaf: hetzelfde mechanisme als Bach die
+honderd jaar vergeten was tot Mendelssohn hem opnieuw uitvoerde.
 
-<div style="margin-top: var(--space-md); font-family: var(--font-mono); font-size: var(--step-1); line-height: 2; color: var(--color-text-muted); text-align: left; display: inline-block;">
-
-<div v-click><span style="color: var(--color-accent);">1907</span> &nbsp; De tio största</div>
-<div v-click><span style="color: var(--color-accent);">1910</span> &nbsp; Kandinsky — "de eerste abstracte aquarel"</div>
-<div v-click><span style="color: var(--color-accent);">1917</span> &nbsp; Mondriaan — "de eerste compositie"</div>
-<div v-click><span style="color: var(--color-accent);">1944</span> &nbsp; af Klint sterft · werk 20 jaar verzegeld</div>
-<div v-click><span style="color: var(--color-accent);">2018</span> &nbsp; Guggenheim · de wereld kijkt op</div>
-
-</div>
-
-<!--
-Af Klint werkte geleid door wat ze beschreef als boodschappen uit seances en
-theosofische visioenen. Ze bepaalde zelf dat haar werk pas twintig jaar na haar
-dood getoond mocht worden — de wereld was er niet klaar voor, schreef ze.
-
-De wereld was er daarna ook niet klaar voor. Haar doeken lagen opgerold in een
-Zweedse opslagruimte terwijl Kandinsky en Mondriaan de uitvinders van de abstractie
-werden genoemd. Pas het retrospectief in het Guggenheim in 2018 maakte haar echt
-zichtbaar.
-
-Het punt dat blijft hangen: een canon is een keuze, geen natuurwet. Ze was er
-eerst; de anderen kregen de titel. Sindsdien moet de geschiedenis van de moderne
-kunst herschreven worden — en dat gaat traag, want een handboek herschrijven kost
-meer moeite dan er een voetnoot in zetten.
-
-Als je het meerstemmigheidshoofdstuk al gaf: dit is hetzelfde mechanisme als Bach
-die honderd jaar vergeten was tot Mendelssohn hem opnieuw uitvoerde.
+Wie er meer over wil weten, vindt het uitgeschreven in het hoofdstuk op de site.
 -->
 
 ---
