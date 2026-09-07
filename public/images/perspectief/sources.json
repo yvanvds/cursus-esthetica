@@ -1,6 +1,22 @@
 {
   "version": 1,
   "images": {
+    "bierstadt-sierra-nevada.png": {
+      "description": "Albert Bierstadt, Among the Sierra Nevada, California, 1868 — atmosferisch perspectief: warme scherpe voorgrond, bergwanden die trapsgewijs blauwer en lichter worden tot de verste toppen vrijwel toonloos zijn.",
+      "source": "Smithsonian American Art Museum, inv. 1977.107.1 (via Google Art Project op Wikimedia Commons)",
+      "license": "Publiek domein (Bierstadt † 1902); SAAM markeert het werk als \"free to use\"",
+      "page_url": "https://americanart.si.edu/artwork/among-sierra-nevada-california-2059",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Albert_Bierstadt_-_Among_the_Sierra_Nevada%2C_California_-_Google_Art_Project.jpg",
+      "downloaded": "2026-09-07T13:35:34Z"
+    },
+    "bierstadt-yosemite.png": {
+      "description": "Albert Bierstadt, Looking Down Yosemite Valley, California, 1865 — atmosferisch perspectief: de dalwanden wijken in vier tot vijf duidelijk gescheiden lagen terug, elk lichter en blauwer dan de vorige, met tegenlicht in de nevel.",
+      "source": "Birmingham Museum of Art, inv. 1991.879 (via Google Art Project op Wikimedia Commons)",
+      "license": "Publiek domein (Bierstadt † 1902)",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Looking_Down_Yosemite-Valley.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Looking_Down_Yosemite-Valley.jpg",
+      "downloaded": "2026-09-07T13:35:40Z"
+    },
     "borrell-ontsnapping.png": {
       "description": "Pere Borrell del Caso, Escapando de la crítica (Ontsnappen aan de kritiek), 1874 — trompe-l'œil: een jongen klimt uit zijn eigen lijst. Deck-eigen lesbeeld voor de kaderslide over gezichtsbedrog in het perspectief-deck.",
       "source": "Wikimedia Commons (foto: Elke Wetzig)",
