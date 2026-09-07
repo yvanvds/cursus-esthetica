@@ -15,16 +15,33 @@
     ---
     layout: vanishing-point
     image: /cursus-esthetica/images/inleiding/school-of-athens.png
-    focus: [50, 46]        # procenten van het BEELDkader, niet van de slide
+    focus: [51.5, 44.5]    # procenten van het BEELD, niet van de slide
     rays: 16               # optioneel, standaard 14
     label: verdwijnpunt    # optioneel, standaard 'verdwijnpunt'
     caption: Rafaël, De school van Athene, 1509–1511   # optioneel
     ---
 
   Klikken: 1 = de lijnen, 2 = de horizon, 3 = het punt met zijn label.
+
+  Zodra de lijnen staan (klik 1) volgt de constructie de muisaanwijzer, zodat de
+  docent hem live over het schilderij kan schuiven — dat laat ook zien wat er op
+  álle andere plekken níét klopt. Een klik zet het punt vast, nog een klik maakt
+  het weer vrij. `focus` is de startwaarde en de terugval: zonder muis (aanraking,
+  export) staat de constructie gewoon waar de frontmatter zegt.
+
+  Waarom hier JS zit en geen pure CSS:
+  `max-height: 100%` op een <img> in een figure met automatische hoogte grijpt
+  niet — die procentuele waarde heeft geen definitieve hoogte om tegen op te
+  lossen. Het beeld puilde daardoor onder zijn eigen frame uit terwijl de overlay
+  het frame dekte, en dan staat het verdwijnpunt stelselmatig te hoog (#77). Het
+  beeld wordt nu met `object-fit: contain` in het podium gepast en de exacte
+  weergaverechthoek wordt uitgerekend uit de natuurlijke afmetingen. Diezelfde
+  rechthoek draagt de overlay én de muisberekening, dus ze kunnen per constructie
+  niet meer uit elkaar lopen.
 -->
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useSlideContext } from '@slidev/client'
 import { resolveAsset } from '../../layouts-base/utils'
 
 const props = withDefaults(
@@ -38,9 +55,111 @@ const props = withDefaults(
   { focus: () => [50, 50], rays: 14, label: 'verdwijnpunt', caption: '' },
 )
 
+const { $clicks } = useSlideContext()
+
 const src = computed(() => resolveAsset(props.image))
-const fx = computed(() => props.focus[0] ?? 50)
-const fy = computed(() => props.focus[1] ?? 50)
+
+/* ── De weergaverechthoek van het beeld ─────────────────────────────
+   Het podium vult de slide; het beeld zit er met `contain` in gepast. Uit de
+   natuurlijke verhouding volgt precies welk deel van het podium het beeld dekt,
+   en dat is de doos waar alles verder op steunt. */
+const stage = ref<HTMLElement | null>(null)
+const stageW = ref(0)
+const stageH = ref(0)
+const natW = ref(0)
+const natH = ref(0)
+
+let observer: ResizeObserver | null = null
+
+onMounted(() => {
+  if (!stage.value) return
+  observer = new ResizeObserver(([entry]) => {
+    stageW.value = entry.contentRect.width
+    stageH.value = entry.contentRect.height
+  })
+  observer.observe(stage.value)
+})
+
+onBeforeUnmount(() => observer?.disconnect())
+
+function onImageLoad(event: Event) {
+  const img = event.target as HTMLImageElement
+  natW.value = img.naturalWidth
+  natH.value = img.naturalHeight
+}
+
+const box = computed(() => {
+  if (!stageW.value || !stageH.value || !natW.value || !natH.value)
+    return { left: 0, top: 0, width: stageW.value, height: stageH.value }
+  const scale = Math.min(stageW.value / natW.value, stageH.value / natH.value)
+  const width = natW.value * scale
+  const height = natH.value * scale
+  return {
+    left: (stageW.value - width) / 2,
+    top: (stageH.value - height) / 2,
+    width,
+    height,
+  }
+})
+
+const boxStyle = computed(() => ({
+  left: `${box.value.left}px`,
+  top: `${box.value.top}px`,
+  width: `${box.value.width}px`,
+  height: `${box.value.height}px`,
+}))
+
+/* ── Het punt ───────────────────────────────────────────────────────
+   Vastgezet wint van de muis, de muis wint van de frontmatter. */
+const hover = ref<{ x: number; y: number } | null>(null)
+const pinned = ref<{ x: number; y: number } | null>(null)
+
+const interactive = computed(() => $clicks.value >= 1)
+
+const fx = computed(() => pinned.value?.x ?? hover.value?.x ?? props.focus[0] ?? 50)
+const fy = computed(() => pinned.value?.y ?? hover.value?.y ?? props.focus[1] ?? 50)
+
+const clamp = (v: number) => Math.min(100, Math.max(0, v))
+
+/* Alleen muis en pen. Op een aanraakscherm gebeurt er niets en blijft `focus`
+   staan — dat is de bedoelde terugval, geen omissie. */
+function pointFrom(event: PointerEvent) {
+  if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return null
+  const { left, top, width, height } = box.value
+  if (!width || !height) return null
+  const rect = (stage.value as HTMLElement).getBoundingClientRect()
+  // De slide staat onder een CSS-transform; de rect is dus al geschaald, maar
+  // de podiummaten in `box` niet. Vandaar de omrekening over de rectbreedte.
+  const scale = rect.width / stageW.value
+  const x = (event.clientX - rect.left - left * scale) / (width * scale)
+  const y = (event.clientY - rect.top - top * scale) / (height * scale)
+  return { x: clamp(x * 100), y: clamp(y * 100) }
+}
+
+function onPointerMove(event: PointerEvent) {
+  if (!interactive.value || pinned.value) return
+  const point = pointFrom(event)
+  if (point) hover.value = point
+}
+
+function onPointerLeave() {
+  hover.value = null
+}
+
+/* `click` komt in de browser als PointerEvent binnen, maar niet gegarandeerd —
+   vandaar de terugval op de laatst bekende hoverpositie. stopPropagation houdt
+   het vastzetten los van Slidevs eigen klik-op-de-slide-navigatie: één klik hoort
+   hier het punt te parkeren, niet ook de volgende klikstap te openen. */
+function onClick(event: PointerEvent) {
+  if (!interactive.value) return
+  event.stopPropagation()
+  if (pinned.value) {
+    pinned.value = null
+    hover.value = pointFrom(event) ?? hover.value
+    return
+  }
+  pinned.value = pointFrom(event) ?? hover.value
+}
 
 /**
  * Eindpunt van een straal vanuit (fx, fy) onder hoek `deg`, geknipt op de rand
@@ -65,62 +184,75 @@ const lines = computed(() =>
 
 <template>
   <div class="slidev-layout vanishing-point">
-    <figure class="vp-frame">
-      <img :src="src" :alt="caption" />
+    <div
+      ref="stage"
+      class="vp-stage"
+      :class="{ 'is-live': interactive && !pinned, 'is-pinned': !!pinned }"
+      @pointermove="onPointerMove"
+      @pointerleave="onPointerLeave"
+      @click="onClick"
+    >
+      <img class="vp-image" :src="src" :alt="caption" @load="onImageLoad" />
 
-      <svg
-        class="vp-overlay"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <g v-click class="vp-rays">
-          <line
-            v-for="(p, i) in lines"
-            :key="i"
-            :x1="fx" :y1="fy" :x2="p.x" :y2="p.y"
-          />
-        </g>
-        <g v-click class="vp-horizon">
-          <line :x1="0" :y1="fy" :x2="100" :y2="fy" />
-        </g>
-      </svg>
+      <figure class="vp-frame" :style="boxStyle">
+        <svg
+          class="vp-overlay"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <g v-click class="vp-rays">
+            <line
+              v-for="(p, i) in lines"
+              :key="i"
+              :x1="fx" :y1="fy" :x2="p.x" :y2="p.y"
+            />
+          </g>
+          <g v-click class="vp-horizon">
+            <line :x1="0" :y1="fy" :x2="100" :y2="fy" />
+          </g>
+        </svg>
 
-      <div v-click class="vp-point" :style="{ left: `${fx}%`, top: `${fy}%` }">
-        <span class="vp-point-label">{{ label }}</span>
-      </div>
+        <div v-click class="vp-point" :style="{ left: `${fx}%`, top: `${fy}%` }">
+          <span class="vp-point-label">{{ label }}</span>
+        </div>
 
-      <figcaption v-if="caption">{{ caption }}</figcaption>
-    </figure>
+        <figcaption v-if="caption">{{ caption }}</figcaption>
+      </figure>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* De figure krimpt tot de werkelijk gerenderde beeldmaat (shrink-to-fit op een
-   inline-block), zodat de overlay precies het beeld dekt en niet de slide. Dat
-   is de hele reden dat het beeld hier een <img> is en geen background-image. */
 .slidev-layout.vanishing-point {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: var(--space-lg);
 }
 
-.vp-frame {
+/* Het podium vult wat de slide na padding overhoudt. Het beeld past er met
+   `contain` in; `.vp-frame` krijgt daarna de exacte rechthoek die het beeld
+   werkelijk dekt, en draagt de hele constructie. */
+.vp-stage {
   position: relative;
-  display: inline-block;
-  line-height: 0;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.vp-frame > img {
+.vp-stage.is-live { cursor: crosshair; }
+.vp-stage.is-pinned { cursor: pointer; }
+
+.vp-image {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.vp-frame {
+  position: absolute;
+  margin: 0;
+  line-height: 0;
+  pointer-events: none;
 }
 
 .vp-overlay {
