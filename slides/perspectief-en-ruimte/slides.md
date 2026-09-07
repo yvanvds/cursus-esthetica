@@ -102,7 +102,7 @@ dán deze slide. Het werkt alleen als ze hem zelf hebben gezegd.
 ---
 layout: vanishing-point
 image: /cursus-esthetica/images/inleiding/school-of-athens.png
-focus: [50, 45]
+focus: [51.5, 44.5]
 rays: 18
 label: verdwijnpunt
 caption: Rafaël, De school van Athene, 1509–1511
@@ -118,6 +118,13 @@ en het aanwijzen.
 [click] De stralen verschijnen.
 [click] De horizon: alles ligt op ooghoogte.
 [click] Het punt zelf — precies tussen de gezichten van Plato en Aristoteles.
+
+Vanaf die eerste klik volgt de hele constructie je muisaanwijzer. Gebruik dat:
+schuif hem eerst een paar keer mís — naar de trap, naar een hoek — en laat zien
+dat de lijnen dan nergens met de architectuur meelopen. Op één plek klikt alles
+in elkaar. Klik daar om het punt vast te zetten; nog een klik maakt het weer los.
+Werkt de muis niet (aanraakscherm, projectie zonder cursor), dan staat het punt
+gewoon meteen goed.
 
 Dat is geen versiering, dat is een stelling. De nieuwe kunst zegt: de waarheid ligt
 op ooghoogte, in een ruimte die gehoorzaamt aan de wetten die jij, de kijker,
