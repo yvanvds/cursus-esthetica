@@ -24,6 +24,22 @@
       "page_url": "https://commons.wikimedia.org/wiki/File:Flucht_vor_der_Kritik,_Pere_Borrell_del_Caso_-_9626.jpg",
       "file_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Flucht_vor_der_Kritik%2C_Pere_Borrell_del_Caso_-_9626.jpg",
       "downloaded": "2026-09-07T13:26:46Z"
+    },
+    "braque-gitaar.png": {
+      "description": "Georges Braque, Femme à la guitare, 1913 — analytisch kubisme: de gitaar blijft als vorm herkenbaar in het midden terwijl figuur en ruimte in facetten uiteenvallen. Gekozen door de eigenaar boven de MoMA-alternatieven, die leesbaar maar minder sprekend zijn.",
+      "source": "Musée National d'Art Moderne, Centre Pompidou (reproductie via en.wikipedia; Pompidou geeft zelf geen beeld vrij)",
+      "license": "Auteursrechtelijk beschermd (Braque † 1963, ADAGP). Gebruikt onder citaatrecht conform docs/REDACTIE.md; geen vrije licentie.",
+      "page_url": "https://en.wikipedia.org/wiki/File:Georges_Braque,_1913,_Femme_%C3%A0_la_guitare_(Woman_with_Guitar),_oil_and_charcoal_on_canvas,_130_%C3%97_73_cm,_Mus%C3%A9e_National_d%27Art_Moderne,_Centre_Pompidou.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/en/6/66/Georges_Braque%2C_1913%2C_Femme_%C3%A0_la_guitare_%28Woman_with_Guitar%29%2C_oil_and_charcoal_on_canvas%2C_130_%C3%97_73_cm%2C_Mus%C3%A9e_National_d%27Art_Moderne%2C_Centre_Pompidou.jpg",
+      "downloaded": "2026-09-07T13:40:08Z"
+    },
+    "duchamp-trap.png": {
+      "description": "Marcel Duchamp, Nude Descending a Staircase (No. 2), 1912 — niet alleen meerdere standpunten maar meerdere momenten tegelijk: dezelfde figuur in opeenvolgende posities over de trap.",
+      "source": "Philadelphia Museum of Art, The Louise and Walter Arensberg Collection, 1950-134-59",
+      "license": "Auteursrechtelijk beschermd (Duchamp † 1968, ADAGP/ARS). PMA deelt de afbeelding voor educatief gebruik; hier onder citaatrecht conform docs/REDACTIE.md.",
+      "page_url": "https://www.philamuseum.org/collection/object/51449",
+      "file_url": "https://iiif.micr.io/CjRvz/full/max/0/default.jpg",
+      "downloaded": "2026-09-07T13:40:16Z"
     }
   }
 }

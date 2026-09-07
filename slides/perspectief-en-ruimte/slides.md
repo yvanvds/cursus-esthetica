@@ -585,6 +585,64 @@ ruimte is voor een deel gehaald uit culturen die daar zelf niets aan hadden.
 -->
 
 ---
+layout: image
+image: /cursus-esthetica/images/perspectief/braque-gitaar.png
+backgroundSize: contain
+---
+
+<div style="position: absolute; left: var(--space-lg); top: var(--space-lg); font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-accent); text-shadow: 0 1px 8px var(--color-bg);">
+kubisme &nbsp;·&nbsp; Picasso &amp; Braque &nbsp;·&nbsp; 1908–1914
+</div>
+
+<!--
+Georges Braque, Femme à la guitare, 1913. Hier valt de naam: dit is het kubisme,
+en het is geen eenmalig doek maar een beweging die Picasso en Braque samen
+opbouwen. Ze werken zo dicht op elkaar dat hun schilderijen uit die jaren soms
+nauwelijks uit elkaar te houden zijn — de man die "petroleum gedronken" zei is
+inmiddels de mede-uitvinder.
+
+Dit is de gitaar uit de vorige slide. Zeg dat er ook zo bij, dan valt het kwartje.
+
+Laat ze aanwijzen, dat werkt hier goed: het bruine houtnerfvlak in het midden is
+de kast, met het klankgat en de snaren erin. Daarboven een gezicht met gesloten
+ogen. Rechts en links zwarte vormen die haar armen zouden kunnen zijn. En overal
+stukken krantenletter — LE RÉVEIL, SOIRÉE.
+
+Het punt: het instrument blijft leesbaar, de ruimte eromheen niet meer. Er is geen
+vloer, geen wand, geen diepte. Alleen facetten die elkaar overlappen.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/perspectief/duchamp-trap.png
+backgroundSize: contain
+---
+
+<!--
+Marcel Duchamp, Nude Descending a Staircase, No. 2, 1912.
+
+Vraag eerst hoeveel figuren ze zien. Het antwoord is één — dezelfde figuur, in
+tientallen opeenvolgende standen, over elkaar heen.
+
+Wat Duchamp erbij doet: Picasso en Braque breken het standpunt open, hij breekt
+ook het moment open. Beweging in één stilstaand beeld. En als zowel de plek als
+het tijdstip mag opbreken, blijft er van dat ene verdwijnpunt niets meer over.
+
+De anekdote is het vertellen waard, en let op de precieze vorm: de kubisten
+vonden dít te ver gaan. Duchamps eigen broers zaten in de hangcommissie van de
+Salon des Indépendants en vroegen hem het werk terug te trekken of minstens de
+titel te wijzigen. Hij is er diezelfde dag met een taxi naartoe gegaan en heeft
+het zelf opgehaald. Het is dus niet geweigerd — hij trok het zelf terug.
+
+Een jaar later, op de Armory Show in New York, werd het een schandaal. Een
+criticus noemde het "een explosie in een dakspaanfabriek".
+
+Zeg er eerlijk bij dat Duchamp vaker bij het futurisme dan bij het kubisme wordt
+gerekend. Dat maakt het interessanter, niet slordiger: kubisme, en meteen al
+iemand die verder ging dan de kubisten wilden.
+-->
+
+---
 layout: triptych
 captions:
   - installatiezicht — Moderna Museet
