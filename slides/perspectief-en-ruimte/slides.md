@@ -210,16 +210,20 @@ class: vp-low
 
 # 2 — De truc voorbij de lijn
 
-Hoe de illusie gebouwd wordt
+Van gebouwde ruimte naar gezichtsbedrog
 
 <!--
 Tweede beweging. Het verdwijnpunt is naar beneden gezakt: we kijken vanaf hier
 omhoog, naar plafonds.
 
 Doel van dit blok: laten zien dat perspectief niet één techniek is maar twee
-(meetkunde én kleur), dat de barok er een sport van maakt, en dat de illusie op
-het hoogtepunt van haar kunnen meteen ook haar eigen zwakte toont — ze werkt maar
-vanaf één tegel.
+(meetkunde én kleur), en dat kunstenaars er meteen van beginnen af te wijken
+zodra het systeem staat. Eerst door het bedrog zo ver door te drijven dat het oog
+er echt in loopt — de barok maakt daar een sport van. Daarna, vierhonderd jaar
+later, door het bedrog uit het beeld te halen en in de kijker te leggen.
+
+Dat is één lijn, en die loopt van Pozzo naar Riley. Zeg dat er niet meteen bij,
+maar houd hem vast: de illusie verhuist.
 -->
 
 ---
@@ -262,6 +266,52 @@ heeft dat gezien; bijna niemand heeft het opgemerkt.
 -->
 
 ---
+layout: image-left
+image: /cursus-esthetica/images/perspectief/borrell-ontsnapping.png
+backgroundSize: contain
+class: vp-low
+---
+
+## Trompe-l'œil
+
+De meetkunde klopt. De kleur klopt. Het systeem staat.
+
+<v-click>
+
+En precies dan verschuift de vraag: niet meer *hoe geef ik ruimte weer*, maar **hoe ver kan ik het oog voor de gek houden?**
+
+</v-click>
+
+<v-click>
+
+<div style="margin-top: var(--space-md); font-family: var(--font-serif); font-style: italic; font-size: var(--step-2); color: var(--color-accent);">
+letterlijk: bedrieg het oog
+</div>
+
+</v-click>
+
+<!--
+Pere Borrell del Caso, Ontsnappen aan de kritiek, 1874. Een jongen klimt uit zijn
+eigen lijst. Bron als iemand het vraagt: Wikimedia Commons, foto van Elke Wetzig
+(CC BY-SA 4.0); het schilderij zelf is publiek domein.
+
+Vraag eerst wat er raar is aan dit beeld, en laat ze het zelf zeggen: de lijst is
+geschilderd, de jongen hangt er half buiten. Het is een grap over de illusie, en
+daarom is het een goed instapje.
+
+Waar deze slide voor staat: zodra het perspectief eenmaal werkt, is het geen doel
+meer maar gereedschap. En het eerste wat kunstenaars ermee doen, is er misbruik van
+maken. Het woord trompe-l'œil betekent letterlijk "bedrieg het oog" — geen
+compliment aan de werkelijkheid, maar aan de truc.
+
+Zeg erbij dat dit werk twee eeuwen ná de volgende slide gemaakt is. Het staat hier
+niet chronologisch maar omdat het de term in één beeld uitlegt; Pozzo laat zien hoe
+ver je ermee kan gaan.
+
+Kort houden. Dit is een deurpost, geen kamer.
+-->
+
+---
 layout: image
 image: /cursus-esthetica/images/perspectief/pozzo-1.png
 backgroundSize: contain
@@ -277,8 +327,9 @@ Antwoord: alles boven de echte kroonlijst is verf. De pilaren die het plafond
 omhoog lijken te tillen, de heiligen in de wolken, de open hemel — allemaal
 geschilderd op een plat oppervlak.
 
-Het woord is trompe-l'œil: bedrieg het oog. Bezoekers in 1690 keken omhoog en zagen
-een koepel die er niet was.
+Hier zie je hoe ver het trompe-l'œil van de vorige slide gedreven kan worden:
+bezoekers in 1690 keken omhoog en zagen een koepel die er niet was. Geen grap meer
+over een lijst — een heel gebouw dat er niet staat.
 
 Hier werken beide perspectieven samen — lijnen én kleur. Dat is waarom het zo
 onheimelijk goed is.
@@ -323,26 +374,10 @@ Dit is het absolute hoogtepunt van het renaissanceproject — één oog, één w
 tot in het extreme doorgevoerd. En precies daar begin je te voelen dat er iets mis
 is. Niet omdat de techniek faalt: ze slaagt te goed.
 
-Laat de vervolgvraag even hangen voor je doorklikt.
--->
-
----
-layout: center
-class: vp-low
----
-
-<div style="font-family: var(--font-serif); font-style: italic; font-size: var(--step-5); line-height: 1.25; max-width: 20ch; margin-left: auto; margin-right: auto;">
-Waarom zou schoonheid maar vanaf één plek bestaan?
-</div>
-
-<!--
-Laat deze staan. Zeg niets. Tel tot vijf.
-
-Dit is het scharnier van de hele les: de vraag die de derde beweging veroorzaakt.
-Alles tot hier bouwde het ene standpunt op; alles hierna breekt het af.
-
-Als iemand antwoordt, ga er niet op in — zeg dat we het antwoord in het volgende
-kwartier gaan zien.
+Laat na de laatste klik de stilte vallen. Zeg niets, tel tot vijf. De tegel op de
+kerkvloer heeft de vraag al gesteld — waarom zou dit maar vanaf één plek bestaan? —
+en die vraag draagt de rest van de les. Als iemand antwoordt, ga er niet op in; zeg
+dat we het antwoord in het volgende kwartier gaan zien.
 -->
 
 ---
@@ -350,6 +385,10 @@ layout: image
 image: /cursus-esthetica/images/perspectief/riley-1.png
 backgroundSize: contain
 ---
+
+<div v-click style="position: absolute; left: var(--space-lg); bottom: var(--space-lg); max-width: 30ch; font-family: var(--font-serif); font-style: italic; font-size: var(--step-2); color: var(--color-accent); text-shadow: 0 1px 8px var(--color-bg);">
+Pozzo bedriegt je oog met een geschilderde koepel. Riley heeft daar geen koepel meer voor nodig.
+</div>
 
 <!--
 Bridget Riley, Movement in Squares, 1961. Vierhonderd jaar na Pozzo.
@@ -359,32 +398,57 @@ Niets zeggen. Laat ze dertig seconden kijken.
 Vraag dan: wat beweegt er? Antwoord: niets. Er beweegt helemaal niets — het is inkt
 op papier, volstrekt stil.
 
-De beweging gebeurt in hun ogen. Op-art heeft geen verdwijnpunt meer; de illusie
-zit niet ín het beeld maar in de kijker. Het netvlies doet mee.
+[click] Dan pas de regel eronder.
+
+Dit is hetzelfde gezichtsbedrog als bij Pozzo, maar een stap verder. Pozzo had een
+gewelf, pilaren, wolken en een tegel op de vloer nodig. Riley heeft zwarte en witte
+vierkanten en verder niets. Er is geen verdwijnpunt, geen ruimte, geen lijn die
+ergens naartoe loopt — en toch beweegt het.
+
+De formulering die je wil laten hangen: de illusie zit niet meer ín het beeld. Ze
+zit in jou. Je netvlies doet mee, of je wil of niet.
 
 Waarschuw wie snel misselijk wordt of migraine krijgt dat ze even weg mogen kijken.
 Dat is geen grap bij Riley.
 -->
 
 ---
-layout: compare
-left: /cursus-esthetica/images/perspectief/riley-2.png
-right: /cursus-esthetica/images/perspectief/riley-3.png
+layout: image
+image: /cursus-esthetica/images/perspectief/riley-2.png
+backgroundSize: contain
 ---
 
 <!--
-Links: Fall, 1963. Rechts: Hesitate, 1964.
+Bridget Riley, Fall, 1963.
 
-Bij Fall: vraag of ze kleuren zien. Veel mensen zien er kleur in — die is er niet.
-Zwart en wit, verder niets. De kleur ontstaat in het oog, niet op het doek.
+Weer eerst kijken, dan pas praten.
 
-Bij Hesitate: de vlakken lijken dieper te liggen dan het doek. Ook dat is geen
-perspectiefconstructie; er is geen enkele lijn die ergens naartoe loopt.
+Vraag: zie je kleur? Veel mensen zien er kleur in — die is er niet. Zwart en wit,
+verder niets. De kleur ontstaat in het oog, niet op het doek.
 
-De les van deze twee slides: het centrum van het perspectief is aan het verschuiven
-van het doek naar de kijker. Riley bouwt geen ruimte meer — ze bespeelt jouw
-fysiologie. Dat is de brug naar de laatste beweging, waar je uiteindelijk zelf in
-het werk staat. Zeg dat er nu al bij, dan valt het straks op zijn plaats.
+Dat is een sterker bewijs dan alles wat je kan uitleggen: het beeld dat de klas
+beschrijft, bestaat niet op papier. Ze beschrijven hun eigen waarneming en denken
+dat ze het werk beschrijven.
+-->
+
+---
+layout: image
+image: /cursus-esthetica/images/perspectief/riley-3.png
+backgroundSize: contain
+---
+
+<!--
+Bridget Riley, Hesitate, 1964.
+
+De vlakken lijken dieper te liggen dan het doek. Vraag waar die diepte vandaan
+komt, en laat ze zoeken: er is geen enkele lijn die ergens naartoe loopt, geen
+horizon, geen object dat vóór een ander staat. Alleen ovalen die iets van vorm
+veranderen.
+
+Sluit de beweging hier af. Het centrum van het perspectief is verschoven van het
+doek naar de kijker: Riley bouwt geen ruimte meer, ze bespeelt jouw fysiologie.
+Dat is de brug naar de laatste beweging, waar je uiteindelijk zélf in het werk
+staat. Zeg dat er nu al bij, dan valt het straks op zijn plaats.
 -->
 
 ---
