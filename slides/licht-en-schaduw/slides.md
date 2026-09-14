@@ -254,8 +254,8 @@ huizen, na zonsondergang niets dan vuur. En dan stap je hierin. Het is geen
 metafoor als bezoekers zeiden dat het als de hemel voelde — ze hadden gewoon
 nooit zoveel licht tegelijk gezien.
 
-Wijs het middelste beeld aan en houd het vast, want de volgende slide bouwt
-erop verder.
+Wijs het middelste beeld aan en laat het even inzinken; je komt er bij de
+vergelijking van binnen op terug.
 -->
 
 ---
