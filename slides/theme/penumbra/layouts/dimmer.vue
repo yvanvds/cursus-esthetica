@@ -38,10 +38,12 @@
 
   Het beeld past met `object-fit: contain` in een podium dat de slide vult; de
   werkelijk weergegeven beeldrechthoek komt uit `useContainBox` (layouts-base)
-  en draagt de strook onderaan met links het bijschrift en rechts de stap —
-  op de onderrand van het beeld, welke verhouding het ook heeft. Zie de kop
-  van die composable voor waarom een inline-block-figure hier niet volstond
-  (#77, #92).
+  en draagt de strook onderaan met de stap bovenaan rechts en het bijschrift
+  eronder over de volle breedte — op de onderrand van het beeld, welke
+  verhouding het ook heeft. Zie de kop van die composable voor waarom een
+  inline-block-figure hier niet volstond (#77, #92). De stap staat op een
+  eigen regel omdat hij `nowrap` is en de strook maar zo breed als het beeld:
+  naast het bijschrift duwde een lange stap dat over drie regels (#97).
 -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
@@ -106,8 +108,8 @@ const label = computed(() => props.steps[index.value] ?? '')
 
       <figure class="dimmer-frame" :style="boxStyle">
         <div v-if="caption || label" class="dimmer-strip">
-          <figcaption v-if="caption" class="dimmer-caption">{{ caption }}</figcaption>
           <div v-if="label" class="dimmer-step">{{ label }}</div>
+          <figcaption v-if="caption" class="dimmer-caption">{{ caption }}</figcaption>
         </div>
       </figure>
     </div>
@@ -150,16 +152,18 @@ const label = computed(() => props.steps[index.value] ?? '')
   pointer-events: none;
 }
 
-/* Eén strook op de onderrand van het beeld: bijschrift links, stap rechts.
-   De gradiënt zit op de strook en niet op het bijschrift, zodat de stap op
-   een lichte foto dezelfde grond onder zich heeft. */
+/* Eén strook op de onderrand van het beeld, als kolom: de stap op een eigen
+   regel bovenaan rechts, het bijschrift eronder over de volle breedte. Naast
+   elkaar op één regel liet de nowrap-stap het bijschrift over drie regels
+   breken (#97). De gradiënt zit op de strook en niet op het bijschrift, zodat
+   de stap op een lichte foto dezelfde grond onder zich heeft. */
 .dimmer-strip {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--space-md);
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-xs);
   padding: var(--space-sm) var(--space-md);
   font-family: var(--font-mono);
   font-size: var(--step--1);
@@ -168,15 +172,14 @@ const label = computed(() => props.steps[index.value] ?? '')
   background: linear-gradient(to top, rgba(5, 5, 5, 0.85), transparent);
 }
 
+/* Mag wikkelen als een deck ooit een extreem lang bijschrift heeft. */
 .dimmer-caption {
-  min-width: 0;
   letter-spacing: 0.16em;
   color: var(--color-text);
 }
 
 .dimmer-step {
-  flex-shrink: 0;
-  margin-left: auto;
+  align-self: flex-end;
   text-align: right;
   white-space: nowrap;
   letter-spacing: 0.22em;
