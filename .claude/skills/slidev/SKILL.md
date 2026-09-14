@@ -223,7 +223,7 @@ fragmentvariant van `compare` — heeft om die reden bewust wél een slot: op ee
 vergelijkingsslide hoort de vraag van de docent boven de twee kanten te kunnen
 staan (#61).
 
-Drie dingen om niet mis te doen in een eigen layout:
+Vier dingen om niet mis te doen in een eigen layout:
 
 1. **Beeldpaden door `resolveAsset()`.** Elke layout die een `image`-prop
    verwerkt moet `resolveAsset` uit `../utils` gebruiken. Slidev prefixt anders
@@ -251,6 +251,17 @@ Drie dingen om niet mis te doen in een eigen layout:
    `layouts/` en `components/` van een addon automatisch. Een layout of component
    die níét gevonden wordt geeft **geen buildfout** — alleen een stille
    runtime-waarschuwing en een lege plek. Open het deck dus altijd echt.
+4. **Een layout die zelf op `$clicks` stapt, registreert zijn klikken.**
+   Slidev telt de klikken van een slide uit wat er bij de clicks-context
+   geregistreerd staat, en normaal doet de `v-click`-directive dat. Leest een
+   layout `$clicks` rechtstreeks uit `useSlideContext()` — een dimstand, een
+   beeld per klik — zonder `v-click` in zijn template, dan is het kliktotaal
+   nul, klemt Slidev `$clicks` op nul en verlaat de pijltjestoets de slide
+   zonder één stap te tonen. Geen buildfout, geen waarschuwing, en in de
+   overview valt niets op (#93). Roep daarom `useOwnClicks(() => n)` uit
+   `layouts-base/utils` aan, met `n` het aantal klikken dat de layout zelf
+   afhandelt — `dimmer` en `breathe` doen dat. Een `clicks:`-regel in de
+   frontmatter is géén alternatief: die verplaatst de val naar de auteur.
 
 ## 6 — Video's
 

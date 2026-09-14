@@ -30,6 +30,12 @@
   Stap 0 staat er meteen en is het volle licht; elke klik gaat één stap
   verder. Minder dan vijf stappen mag: de curve wordt over `steps` verdeeld.
 
+  De layout registreert zijn klikken zelf (`steps.length - 1`, via
+  `useOwnClicks` uit layouts-base): er staat geen `v-click` in de template,
+  en zonder registratie telt Slidev nul klikken en verlaat de pijltjestoets de
+  slide zonder één stap te tonen (#93). De auteur hoeft dus geen `clicks:` in
+  de frontmatter te zetten.
+
   Het beeld past met `object-fit: contain` in een podium dat de slide vult; de
   werkelijk weergegeven beeldrechthoek komt uit `useContainBox` (layouts-base)
   en draagt de strook onderaan met links het bijschrift en rechts de stap —
@@ -40,7 +46,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useSlideContext } from '@slidev/client'
-import { resolveAsset, useContainBox } from '../../layouts-base/utils'
+import { resolveAsset, useContainBox, useOwnClicks } from '../../layouts-base/utils'
 
 const props = withDefaults(
   defineProps<{
@@ -52,6 +58,10 @@ const props = withDefaults(
 )
 
 const { $clicks } = useSlideContext()
+
+/* Zonder v-click in de template telt Slidev geen klikken; zie useOwnClicks.
+   Bij minder dan twee stappen valt er niets te klikken. */
+useOwnClicks(() => Math.max(props.steps.length - 1, 0))
 
 const src = computed(() => resolveAsset(props.image))
 

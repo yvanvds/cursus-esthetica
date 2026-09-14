@@ -1,5 +1,6 @@
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import type { CSSProperties, Ref } from 'vue';
+import { useSlideContext } from '@slidev/client';
 
 const SITE_BASE = '/cursus-esthetica';
 
@@ -131,4 +132,49 @@ export function useContainBox(stage: Ref<HTMLElement | null>) {
   }));
 
   return { onImageLoad, box, boxStyle };
+}
+
+/** Volgnummer voor de registratiesleutel van `useOwnClicks`. */
+let ownClicksSeq = 0;
+
+/**
+ * Registreert `count` klikken voor een layout die zelf op `$clicks` stapt.
+ *
+ * Waarom dit bestaat: Slidev telt de klikken van een slide niet uit wat een
+ * layout met `$clicks` dóét, maar uit wat er bij de clicks-context van die
+ * slide geregistreerd staat. Normaal doet de `v-click`-directive dat bij
+ * mount. Een layout zonder `v-click` in zijn template — `dimmer`, `breathe` —
+ * registreert niets, dus is het kliktotaal nul, klemt Slidev `$clicks` op nul
+ * en gaat de pijltjestoets meteen naar de volgende slide. Geen buildfout, geen
+ * waarschuwing; de stappen worden gewoon nooit getoond (#93).
+ *
+ * De registratie gebeurt zoals `v-click` het zelf doet: `calculateSince(1, n)`
+ * levert dezelfde `ClicksInfo` als een `v-click="1"` dat `n` klikken beslaat
+ * (absoluut, dus `delta: 0` — de relatieve offsets van eventuele `v-click`s in
+ * de slot-inhoud verschuiven er niet door), en `register` zet daarvan `max`
+ * in de telling. De sleutel is een string per instantie, want de overview, de
+ * presenter-modus en de volgende-slide-preview renderen de layout elk nog een
+ * keer, elk tegen een eigen context; bij unmount wordt de registratie weer
+ * opgeruimd zodat een oude instantie de telling niet vervuilt.
+ *
+ * `count` mag reactief zijn (HMR op de frontmatter). Bij 0 wordt niets
+ * geregistreerd — een dimmer met één stap is dan gewoon een stilstaand beeld.
+ *
+ * Gebruik, in een layout die `useSlideContext()` al aanroept:
+ *   useOwnClicks(() => Math.max(props.steps.length - 1, 0))
+ */
+export function useOwnClicks(count: () => number): void {
+  const { $clicksContext } = useSlideContext();
+  const key = `own-clicks-${++ownClicksSeq}`;
+
+  watch(
+    count,
+    (n) => {
+      if (n > 0) $clicksContext.register(key, $clicksContext.calculateSince(1, n));
+      else $clicksContext.unregister(key);
+    },
+    { immediate: true },
+  );
+
+  onBeforeUnmount(() => $clicksContext.unregister(key));
 }
