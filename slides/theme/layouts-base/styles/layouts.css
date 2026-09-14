@@ -3,7 +3,7 @@
      layout: compare        (twee beelden naast elkaar)
      layout: duet           (twee fragmenten naast elkaar, met label)
      layout: triptych       (drie beelden op één rij)
-     layout: detail         (één werk groot + zijn uitsneden)
+     layout: detail         (één werk groot + zijn uitsneden, of alleen de uitsneden)
      layout: paired-reveal  (tekst links, beeld dat per klik switcht)
      layout: quadrants      (titel + 2×2 grid)
      layout: breathe        (full-bleed beeld op een ademende grond)
@@ -96,9 +96,12 @@
   line-height: 1.4;
 }
 
-/* ── DETAIL — één werk groot, zijn uitsneden in een smalle kolom ───
+/* ── DETAIL — één werk groot, zijn uitsneden in een smalle kolom; of,
+     zonder geheel, de uitsneden als rij over de volle breedte ────────
      De hiërarchie ís het argument: dit is één werk, en dat zijn stukken
-     ervan. Zie detail.vue. ─────────────────────────────────────────── */
+     ervan. Zie detail.vue. De vorm kiest de layout zelf: `.detail--row`
+     op de root als er geen `image:` is, `--detail-count` op `.detail-crops`
+     voor het kolomaantal van de rij. ──────────────────────────────── */
 .slidev-layout.detail {
   display: grid;
   grid-template-rows: 1fr;
@@ -117,6 +120,9 @@
   gap: var(--space-lg);
   min-height: 0;
 }
+.slidev-layout.detail.detail--row .detail-row {
+  grid-template-columns: 1fr;
+}
 .slidev-layout.detail .detail-whole {
   display: flex;
   flex-direction: column;
@@ -133,6 +139,9 @@
   flex: 1 1 auto;
   object-fit: contain;
 }
+/* Kolom naast het geheel: elke uitsnede krijgt een gelijk deel van de
+   hoogte. In de rij-vorm (geen geheel) krijgt elke uitsnede een gelijk deel
+   van de breedte en de volle hoogte. */
 .slidev-layout.detail .detail-crops {
   display: grid;
   grid-auto-rows: 1fr;
@@ -140,16 +149,37 @@
   min-width: 0;
   min-height: 0;
 }
+.slidev-layout.detail.detail--row .detail-crops {
+  grid-template-columns: repeat(var(--detail-count, 2), 1fr);
+  gap: var(--space-lg);
+}
+/* Label, beeld, bijschrift. De middelste rij is `auto`, niet `1fr`, en de
+   inhoud wordt niet uitgerekt (`align-content: start`): zo hugt de rij het
+   beeld als dat in de breedte begrensd is, en blijft het bijschrift er
+   direct onder in plaats van onderaan het vak. `start`, niet `center`: het
+   label is een kop boven de uitsnede, en twee koppen op verschillende
+   hoogte — wat centreren bij uitsneden van ongelijke verhouding oplevert —
+   lezen als een fout. Geldt in beide vormen. */
 .slidev-layout.detail .detail-crop {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto auto;
+  align-content: start;
   gap: var(--space-xs, 0.5rem);
   margin: 0;
   min-width: 0;
   min-height: 0;
 }
+/* `max-height: 100%` grijpt hier wél: de grid-area van een grid-item geldt
+   als definitief voor percentages (anders dan een figure met automatische
+   hoogte, zie useContainBox in utils.ts). Beide assen begrensd en
+   width/height auto → het beeld behoudt zijn verhouding en de rand ligt
+   strak om het getoonde beeld. Zonder deze begrenzing liep een uitsnede die
+   hoger was dan haar rij onder het bijschrift door (#94). */
 .slidev-layout.detail .detail-crop img {
   max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   min-height: 0;
   object-fit: contain;
   border: 1px solid var(--color-rule, var(--color-text));

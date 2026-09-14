@@ -552,8 +552,6 @@ Laat ze het gezicht bekijken. Het komt uit het zwart tevoorschijn.
 ---
 layout: detail
 reveal: true
-image: /cursus-esthetica/images/licht-en-schaduw/rembrandt-2.png
-caption: Rembrandt van Rijn, Het feestmaal van Belshazzar, 1636
 details:
   - src: /cursus-esthetica/images/licht-en-schaduw/rembrandt-3.png
     caption: de omgekeerde beker, de gemorste wijn
@@ -564,8 +562,8 @@ details:
 ## Twee stukken van hetzelfde doek
 
 <!--
-Zeg eerst hardop dat rechts géén twee andere schilderijen staan maar twee
-uitvergrotingen van het doek dat links hangt. Dat is niet vanzelfsprekend op een
+Zeg eerst hardop dat dit géén twee andere schilderijen zijn maar twee
+uitvergrotingen van het doek van daarnet. Dat is niet vanzelfsprekend op een
 scherm en het is precies het soort verwarring dat je wil vermijden.
 
 [click] De beker. Rembrandt schildert hier geen zilver. Hij schildert de manier
