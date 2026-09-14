@@ -112,6 +112,14 @@ op de vloer achterlaat.
 Links, van buiten: een doffe, grijsblauwe plaat in het gotische maaswerk. De
 vierkanten zijn er, maar de kleur niet — van deze kant is er niets te zien.
 
+Laat dat linkerbeeld even staan. Sluit de Dom, doe alle stroom uit, en dit is
+wat er overblijft: een grijze plak glas achter gotisch maaswerk. Stel dan de
+vraag waar je géén antwoord op wil: is het kunstwerk er dan nog? Ligt het in het
+glas, dat er nog steeds hangt? Of in het licht, dat weg is?
+
+Dit is de vraag van het hele hoofdstuk. Alles wat volgt is een poging om hem vier
+keer anders te beantwoorden.
+
 Twee dingen die je moet laten landen, en wijs ze allebei aan op het middelste
 beeld:
 
@@ -133,36 +141,6 @@ geen raster, alleen kleur die over de vloer schuift en met de zon meebeweegt.
 Dit is wat een bezoeker in de Dom het eerst ziet, nog voor hij omhoogkijkt.
 
 Geen martelaar, geen Christus, geen voorstelling van wat dan ook.
--->
-
----
-layout: dimmer
-image: /cursus-esthetica/images/licht-en-schaduw/richter-2.jpg
-caption: Gerhard Richter, Domfenster, Köln, 2007
-steps:
-  - middagzon
-  - de zon zakt
-  - de laatste bezoeker vertrekt
-  - alle stroom uit
----
-
-<!--
-Zeg vooraf, hardop, dat wat ze zo zien een gesimuleerde dimmer is en geen foto
-van de donkere Dom. Je haalt hier met software het licht uit een foto; niemand
-is 's nachts met een statief gaan staan. Dat maakt de demonstratie niet minder
-waar, maar de klas hoort het verschil te weten.
-
-Klik dan traag door. Vier klikken, en laat na elke klik twee tellen vallen.
-
-Op het einde: doe alle stroom uit, sluit de Dom, en je houdt een grijze plak
-glas achter gotisch maaswerk over.
-
-De vraag die je daarna stelt, en waar je géén antwoord op wil: is het kunstwerk
-er dan nog? Ligt het in het glas, dat er nog steeds hangt? Of in het licht, dat
-weg is?
-
-Dit is de vraag van het hele hoofdstuk. Alles wat volgt is een poging om hem vier
-keer anders te beantwoorden.
 -->
 
 ---
@@ -310,40 +288,29 @@ dan hoeven ze het nu nog niet op te lossen.
 
 ---
 layout: compare
-left: /cursus-esthetica/images/licht-en-schaduw/sainte-chapelle-2.png
-right: /cursus-esthetica/images/licht-en-schaduw/keulen-buiten.jpg
----
-
-<!--
-Links: de Sainte-Chapelle van buiten. Rechts: het Richter-raam in de zuidgevel
-van de Dom van Keulen, ook van buiten.
-
-Bron van het rechterbeeld, voor als iemand ernaar vraagt: foto van Raimond
-Spekking, 26 september 2008, Wikimedia Commons, CC BY-SA 4.0. Het staat niet in
-het hoofdstuk op de site; dit is lesmateriaal dat alleen in dit deck zit.
-
-Vraag: wat zie je hier van beide werken? Antwoord: niets. Een doos van steen, en
-een grijze plaat achter maaswerk.
-
-Zeg het dan ronduit: 870 jaar uit elkaar, 750 kilometer uit elkaar, en van buiten
-zijn ze allebei niets. Het werk zit niet in het glas. Het werk is wat de zon doet
-wanneer ze door dat glas valt, en alleen vanaf de kant waar jij niet staat.
-
-Dit is de eerste keer in de les dat de kernstelling hard wordt uitgesproken.
-Neem er tijd voor.
--->
-
----
-layout: compare
 left: /cursus-esthetica/images/licht-en-schaduw/sainte-chapelle-1.jpg
 right: /cursus-esthetica/images/licht-en-schaduw/richter-4.png
 ---
 
 <!--
-En dezelfde twee gebouwen van binnen. 1248 links, 2007 rechts.
+De Sainte-Chapelle en de Dom van Keulen, allebei van binnen. 1248 links, 2007
+rechts.
 
-Vraag wat er hetzelfde is en wat er verschilt. Ze vinden het zelf: hetzelfde
-principe, ander onderwerp.
+Begin niet hier maar bij wat ze al gezien hebben: de buitenkant van deze twee
+gebouwen staat op de twee triptieken — een doos van steen bij de Sainte-Chapelle,
+een grijze plaat achter maaswerk bij Richter. Ga desnoods even terug. Vraag: wat
+zag je daar van beide werken? Antwoord: niets.
+
+Zeg het dan ronduit: ruim 750 jaar uit elkaar, 400 kilometer uit elkaar, en van
+buiten zijn ze allebei niets. Het werk zit niet in het glas. Het werk is wat de
+zon doet wanneer ze door dat glas valt, en alleen vanaf de kant waar jij niet
+staat.
+
+Dit is de eerste keer in de les dat de kernstelling hard wordt uitgesproken.
+Neem er tijd voor.
+
+Vraag dan pas wat er hetzelfde is en wat er verschilt. Ze vinden het zelf:
+hetzelfde principe, ander onderwerp.
 
 Wat veranderde tussen 1248 en 2007 is alleen waar het werk naar vérwijst. Het
 middeleeuwse raam vertelt verhalen waar de gelovige op moet kunnen lezen.
@@ -626,11 +593,14 @@ steps:
 ---
 
 <!--
-Ook hier eerst zeggen dat dit een gesimuleerde dimmer is, geen foto van het doek
-in het donker. Zelfde afspraak als bij Richter.
+Zeg vooraf, hardop, dat wat ze zo zien een gesimuleerde dimmer is en geen foto
+van het doek in het donker. Je haalt hier met software het licht uit een foto;
+niemand heeft in de zaal de spots uitgedaan. Dat maakt de demonstratie niet
+minder waar, maar de klas hoort het verschil te weten. Dit gebaar komt op het
+einde van de les nog één keer terug.
 
-Klik traag door en laat ze kijken naar het gezicht van de koning, niet naar het
-geheel.
+Klik traag door, vier klikken, en laat ze kijken naar het gezicht van de koning,
+niet naar het geheel.
 
 Wat er gebeurt is het argument: het gezicht wordt niet donkerder, het houdt op te
 bestaan. Er blijft geen omtrek over en geen silhouet. Rembrandt tekende geen
@@ -1222,12 +1192,12 @@ steps:
 ---
 
 <!--
-Derde en laatste keer dat je dit gebaar maakt, en zeg opnieuw dat het een
+Tweede en laatste keer dat je dit gebaar maakt, en zeg opnieuw dat het een
 gesimuleerde dimmer is en geen foto van de kapel bij nacht.
 
-Het is met opzet hetzelfde gebaar als bij Richter in beweging 1 en bij Rembrandt
-in beweging 3, en nu op het oudste werk van de les. Wijs daarop: driemaal
-hetzelfde, over 770 jaar heen.
+Het is met opzet hetzelfde gebaar als bij Rembrandt in beweging 3, en nu op het
+oudste werk van de les. Wijs daarop: tweemaal hetzelfde, bijna vier eeuwen uit
+elkaar.
 
 Laat de laatste stand staan. Zeg niets. Tel tot vijf.
 
