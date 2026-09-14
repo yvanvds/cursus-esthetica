@@ -29,11 +29,18 @@
 
   Stap 0 staat er meteen en is het volle licht; elke klik gaat één stap
   verder. Minder dan vijf stappen mag: de curve wordt over `steps` verdeeld.
+
+  Het beeld past met `object-fit: contain` in een podium dat de slide vult; de
+  werkelijk weergegeven beeldrechthoek komt uit `useContainBox` (layouts-base)
+  en draagt de strook onderaan met links het bijschrift en rechts de stap —
+  op de onderrand van het beeld, welke verhouding het ook heeft. Zie de kop
+  van die composable voor waarom een inline-block-figure hier niet volstond
+  (#77, #92).
 -->
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useSlideContext } from '@slidev/client'
-import { resolveAsset } from '../../layouts-base/utils'
+import { resolveAsset, useContainBox } from '../../layouts-base/utils'
 
 const props = withDefaults(
   defineProps<{
@@ -47,6 +54,9 @@ const props = withDefaults(
 const { $clicks } = useSlideContext()
 
 const src = computed(() => resolveAsset(props.image))
+
+const stage = ref<HTMLElement | null>(null)
+const { onImageLoad, boxStyle } = useContainBox(stage)
 
 /** Aantal standen; minstens twee, anders valt er niets te dimmen. */
 const stops = computed(() => Math.max(props.steps.length, 2))
@@ -75,20 +85,28 @@ const label = computed(() => props.steps[index.value] ?? '')
 
 <template>
   <div class="slidev-layout dimmer">
-    <figure class="dimmer-frame">
-      <img :src="src" :alt="caption" :style="{ filter }" />
-      <figcaption v-if="caption" class="dimmer-caption">{{ caption }}</figcaption>
-    </figure>
-    <div v-if="label" class="dimmer-step">{{ label }}</div>
+    <div ref="stage" class="dimmer-stage">
+      <img
+        class="dimmer-image"
+        :src="src"
+        :alt="caption"
+        :style="{ filter }"
+        @load="onImageLoad"
+      />
+
+      <figure class="dimmer-frame" :style="boxStyle">
+        <div v-if="caption || label" class="dimmer-strip">
+          <figcaption v-if="caption" class="dimmer-caption">{{ caption }}</figcaption>
+          <div v-if="label" class="dimmer-step">{{ label }}</div>
+        </div>
+      </figure>
+    </div>
     <slot />
   </div>
 </template>
 
 <style scoped>
 .slidev-layout.dimmer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: var(--space-lg);
   background: var(--color-bg-deep);
 }
@@ -97,46 +115,61 @@ const label = computed(() => props.steps[index.value] ?? '')
    moet het beeld niet in een iets lichtere rechthoek achterblijven. */
 .slidev-layout.dimmer::before { display: none; }
 
-.dimmer-frame {
+/* Het podium vult wat de slide na padding overhoudt. Het beeld past er met
+   `contain` in; `.dimmer-frame` krijgt de exacte rechthoek die het beeld
+   werkelijk dekt, en draagt de strook met bijschrift en stap. */
+.dimmer-stage {
   position: relative;
-  display: inline-block;
-  line-height: 0;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.dimmer-frame > img {
+.dimmer-image {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   transition: filter 1200ms ease-in-out;
 }
 
-.dimmer-caption {
+.dimmer-frame {
+  position: absolute;
+  margin: 0;
+  line-height: 0;
+  pointer-events: none;
+}
+
+/* Eén strook op de onderrand van het beeld: bijschrift links, stap rechts.
+   De gradiënt zit op de strook en niet op het bijschrift, zodat de stap op
+   een lichte foto dezelfde grond onder zich heeft. */
+.dimmer-strip {
   position: absolute;
   left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
   padding: var(--space-sm) var(--space-md);
   font-family: var(--font-mono);
   font-size: var(--step--1);
-  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-text-quiet);
   line-height: 1.4;
   background: linear-gradient(to top, rgba(5, 5, 5, 0.85), transparent);
 }
 
+.dimmer-caption {
+  min-width: 0;
+  letter-spacing: 0.16em;
+  color: var(--color-text);
+}
+
 .dimmer-step {
-  position: absolute;
-  right: var(--space-lg);
-  bottom: var(--space-lg);
-  z-index: 2;
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
+  flex-shrink: 0;
+  margin-left: auto;
+  text-align: right;
+  white-space: nowrap;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--color-accent);
 }
 </style>

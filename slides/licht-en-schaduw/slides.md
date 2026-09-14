@@ -466,9 +466,9 @@ dat werkt alleen als ze het eerst zelf gezocht hebben.
 ---
 layout: raking
 image: /cursus-esthetica/images/licht-en-schaduw/caravaggio-1.jpg
-source: [104, -10]
-target: [40, 48]
-spread: 11
+source: [140, 21]
+target: [27, 50]
+spread: 3
 caption: Caravaggio, De Roeping van Mattheüs, 1599–1600
 ---
 
