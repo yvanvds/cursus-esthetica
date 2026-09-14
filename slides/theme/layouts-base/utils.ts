@@ -79,8 +79,12 @@ export function handleBackground(
  *
  * Zolang het beeld of het podium nog geen maten heeft, is `box` het hele
  * podium — dan staat het frame in elk geval niet op een verkeerde plek.
- * `vanishing-point` draagt nog zijn eigen kopie van deze logica; die migratie
- * is een aparte issue.
+ *
+ * `stageSize` zijn de podiummaten zelf, in dezelfde (ongetransformeerde)
+ * pixels als `box`. Een layout die muiscoördinaten op het beeld wil
+ * terugrekenen heeft die nodig: de slide staat onder een CSS-transform, dus
+ * `getBoundingClientRect()` is al geschaald en `box` niet — de verhouding
+ * `rect.width / stageSize.width` is die schaal (`vanishing-point`).
  */
 export function useContainBox(stage: Ref<HTMLElement | null>) {
   const stageW = ref(0);
@@ -108,6 +112,9 @@ export function useContainBox(stage: Ref<HTMLElement | null>) {
     natH.value = img.naturalHeight;
   }
 
+  /** De podiummaten in px, zoals de ResizeObserver ze meldt. */
+  const stageSize = computed(() => ({ width: stageW.value, height: stageH.value }));
+
   /** De beeldrechthoek in px t.o.v. het podium. */
   const box = computed(() => {
     if (!stageW.value || !stageH.value || !natW.value || !natH.value)
@@ -131,7 +138,7 @@ export function useContainBox(stage: Ref<HTMLElement | null>) {
     height: `${box.value.height}px`,
   }));
 
-  return { onImageLoad, box, boxStyle };
+  return { onImageLoad, stageSize, box, boxStyle };
 }
 
 /** Volgnummer voor de registratiesleutel van `useOwnClicks`. */
