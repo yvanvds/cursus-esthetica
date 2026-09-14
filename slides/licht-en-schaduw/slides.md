@@ -45,7 +45,7 @@ class: lit-glass
 
 # 1 — Een ceremonie in Keulen
 
-Een raam waar niemand om gevraagd had
+Een raam in opdracht van de Dom
 
 <!--
 Eerste beweging. Kort blok, en het is puur opzet: één concreet geval waar de
@@ -54,6 +54,12 @@ hele les op terugslaat.
 Doel: de klas laten voelen dat de vraag "is dit kunst" hier niet academisch is.
 Er waren mensen bij die er ruzie over maakten, met naam en toenaam, en die ruzie
 ging niet over smaak maar over wat licht mag betekenen.
+
+Vraagt iemand wie dit raam wilde: de Dom zelf. Het Domkapitel besloot in 2003
+het zuidertransept, waar sinds 1948 een eenvoudige verglazing zat, een nieuw
+raam te geven — eerst gedacht als figuratief gedenkraam voor de Duitse
+martelaren van de twintigste eeuw — en liet dat los voor Richters toevalsraster
+uit zijn *4096 Farben*, waarvoor hij geen honorarium vroeg.
 -->
 
 ---
