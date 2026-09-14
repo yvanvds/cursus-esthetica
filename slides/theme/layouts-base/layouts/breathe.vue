@@ -29,11 +29,17 @@
     ---
 
   Respecteert `prefers-reduced-motion`: dan staat de achtergrond stil.
+
+  De layout registreert zijn klikken zelf (`images.length - 1`, via
+  `useOwnClicks` uit `../utils`): er staat geen `v-click` in de template, en
+  zonder registratie telt Slidev nul klikken en verlaat de pijltjestoets de
+  slide bij het eerste beeld (#93). De auteur hoeft dus geen `clicks:` in de
+  frontmatter te zetten; met één beeld wordt niets geregistreerd.
 -->
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useSlideContext } from '@slidev/client'
-import { resolveAsset } from '../utils'
+import { resolveAsset, useOwnClicks } from '../utils'
 
 const props = withDefaults(
   defineProps<{
@@ -44,6 +50,9 @@ const props = withDefaults(
 )
 
 const { $clicks } = useSlideContext()
+
+/* Zonder v-click in de template telt Slidev geen klikken; zie useOwnClicks. */
+useOwnClicks(() => Math.max(props.images.length - 1, 0))
 
 const resolved = computed(() => props.images.map(resolveAsset))
 
