@@ -340,7 +340,7 @@ class: lit-glass
 
 <div v-click>
 <div class="meta-quiet">Gerhard Richter</div>
-<div style="font-family: var(--font-display); font-style: italic; font-size: var(--step-3); color: var(--color-accent); margin-top: var(--space-sm);">in geen geval kleurlawaai</div>
+<div style="font-family: var(--font-display); font-style: italic; font-size: var(--step-3); color: var(--color-accent); margin-top: var(--space-sm);">licht heeft geen betekenis nodig</div>
 </div>
 
 </div>
@@ -371,7 +371,7 @@ class: lit-glass
 ---
 
 <div style="font-family: var(--font-display); font-size: var(--step-5); font-style: italic; line-height: 1.25; max-width: 24ch; margin-left: auto; margin-right: auto;">
-Een glasraam is een voorouder van een TFT-paneel.
+Een glasraam is een voorouder van een beeldscherm.
 </div>
 
 <div v-click class="meta" style="margin-top: var(--space-lg);">
@@ -743,7 +743,7 @@ class: lit-raking
 ---
 
 <div style="font-family: var(--font-display); font-style: italic; font-size: var(--step-5); line-height: 1.25; max-width: 22ch; margin-left: auto; margin-right: auto;">
-Kijk vanavond naar je woonkamer met alle lampen aan.
+Kijk vanavond naar je kamer met alle lampen aan.
 </div>
 
 <div v-click class="meta" style="margin-top: var(--space-lg);">
