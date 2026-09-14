@@ -17,9 +17,9 @@
     ---
     layout: raking
     image: /cursus-esthetica/images/licht-en-schaduw/caravaggio-1.jpg
-    source: [96, -8]        # de bron, in % van het BEELDkader; mag buiten 0–100
-    target: [42, 52]        # waar de bundel heen wijst; standaard het midden
-    spread: 13              # halve openingshoek in graden, standaard 12
+    source: [140, 21]       # de bron, in % van het BEELDkader; mag (ver) buiten 0–100
+    target: [27, 50]        # waar de bundel heen wijst; standaard het midden
+    spread: 3               # halve openingshoek in graden, standaard 12
     caption: Caravaggio, De Roeping van Mattheüs, 1599–1600
     ---
 
@@ -29,10 +29,21 @@
   vanishing-point: de bundel vertrekt daardoor exact uit het opgegeven punt,
   maar de openingshoek op het scherm wijkt af van `spread` zodra het beeld niet
   vierkant is. Regel `spread` dus op het oog en niet met een gradenboog.
+
+  Een bron ver buiten het kader met een kleine `spread` geeft een bijna
+  evenwijdige balk — zonlicht; een bron dichtbij met een grote `spread` een
+  wig. Bij Caravaggio is het eerste bedoeld: de bovenrand loopt mee met de
+  verlichte diagonaal op de muur, en de balk blijft smal genoeg om alleen de
+  hand van Christus en het gezicht van Mattheüs te raken.
+
+  Het beeld past met `object-fit: contain` in een podium dat de slide vult; de
+  werkelijk weergegeven beeldrechthoek komt uit `useContainBox` (layouts-base)
+  en draagt de overlay en het bijschrift. Zie de kop van die composable voor
+  waarom een inline-block-figure hier niet volstond (#77, #92).
 -->
 <script setup lang="ts">
-import { computed } from 'vue'
-import { resolveAsset } from '../../layouts-base/utils'
+import { computed, ref } from 'vue'
+import { resolveAsset, useContainBox } from '../../layouts-base/utils'
 
 const props = withDefaults(
   defineProps<{
@@ -46,6 +57,9 @@ const props = withDefaults(
 )
 
 const src = computed(() => resolveAsset(props.image))
+
+const stage = ref<HTMLElement | null>(null)
+const { onImageLoad, boxStyle } = useContainBox(stage)
 
 const sx = computed(() => props.source[0] ?? 100)
 const sy = computed(() => props.source[1] ?? 0)
@@ -87,56 +101,59 @@ const scrim = computed(() => {
 
 <template>
   <div class="slidev-layout raking">
-    <figure class="raking-frame">
-      <img :src="src" :alt="caption" />
+    <div ref="stage" class="raking-stage">
+      <img class="raking-image" :src="src" :alt="caption" @load="onImageLoad" />
 
-      <svg
-        class="raking-overlay"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <g v-click>
-          <polygon class="raking-cone" :points="cone" />
-        </g>
-        <g v-click>
-          <path class="raking-scrim" :d="scrim" fill-rule="evenodd" />
-        </g>
-      </svg>
+      <figure class="raking-frame" :style="boxStyle">
+        <svg
+          class="raking-overlay"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <g v-click>
+            <polygon class="raking-cone" :points="cone" />
+          </g>
+          <g v-click>
+            <path class="raking-scrim" :d="scrim" fill-rule="evenodd" />
+          </g>
+        </svg>
 
-      <figcaption v-if="caption">{{ caption }}</figcaption>
-    </figure>
+        <figcaption v-if="caption">{{ caption }}</figcaption>
+      </figure>
+    </div>
   </div>
 </template>
 
 <style scoped>
-/* Shrink-to-fit op een inline-block, zodat de overlay precies het beeld dekt
-   en niet de slide. Zelfde reden als in vanishing-point: daarom is dit een
-   <img> en geen background-image. */
 .slidev-layout.raking {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: var(--space-lg);
 }
 
 .slidev-layout.raking::before { display: none; }
 
-.raking-frame {
+/* Het podium vult wat de slide na padding overhoudt. Het beeld past er met
+   `contain` in; `.raking-frame` krijgt de exacte rechthoek die het beeld
+   werkelijk dekt, en draagt de overlay en het bijschrift. */
+.raking-stage {
   position: relative;
-  display: inline-block;
-  line-height: 0;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.raking-frame > img {
+.raking-image {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.raking-frame {
+  position: absolute;
+  margin: 0;
+  line-height: 0;
+  pointer-events: none;
 }
 
 .raking-overlay {
