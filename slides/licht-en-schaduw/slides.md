@@ -65,20 +65,23 @@ uit zijn *4096 Farben*, waarvoor hij geen honorarium vroeg.
 ---
 layout: image
 class: lit-off
-image: /cursus-esthetica/images/licht-en-schaduw/richter-1.jpg
+image: /cursus-esthetica/images/licht-en-schaduw/richter-4.png
 backgroundSize: contain
 ---
 
 <!--
-Gerhard Richter, Domfenster, Keulen, 2007 — de lichtval op de vloer.
+Gerhard Richter, Domfenster, Keulen, 2007 — het raam frontaal, van binnen.
 
 Zeg niets. Tel twintig seconden af, echt tellen. Het voelt belachelijk lang en
-dat is het punt: dit beeld toont niet het raam maar wat het raam op de stenen
-doet.
+dat is het punt: het oog zoekt een figuur in dit raster en vindt er geen, en
+dat moet de klas zelf ondervinden voor jij er iets over zegt.
 
-Vraag dan pas: wat kijk je hier naar? Laat ze gokken. "Een tapijt", "een
-projectie", "gemorste verf" — allemaal goed. Zeg dat het gebrandschilderd glas
-is, in een gotische kathedraal, ingewijd op 25 augustus 2007.
+Vraag dan pas: wat kijk je hier naar? Een raam, dat zien ze. Laat ze dan gokken
+wat het voorstelt — "pixels", "een stad van boven", "een testbeeld" — en geef
+het antwoord nog niet. Laat ze ook gokken hoeveel vierkanten het zijn, en geef
+dan de cijfers, langzaam: 106 vierkante meter, 11.263 glasvierkanten van 9,6 bij
+9,6 centimeter, 72 kleuren. Gebrandschilderd glas in een gotische kathedraal,
+ingewijd op 25 augustus 2007.
 
 En dan de anekdote, droog: de aartsbisschop van Keulen, Joachim Meisner, kwam
 niet opdagen bij de inwijding van zijn eigen raam. Hij had laten weten dat het
@@ -91,23 +94,26 @@ daar geef je hem een eerlijke lezing.
 ---
 layout: triptych
 captions:
-  - frontaal — 11.263 vierkanten in 72 kleuren
+  - het raam van buiten — dof glas in het maaswerk
   - detail — geen lood, alleen siliconenkit
-  - het raam in zijn architecturale context
+  - de lichtval op de vloer
 images:
   - /cursus-esthetica/images/licht-en-schaduw/richter-2.jpg
   - /cursus-esthetica/images/licht-en-schaduw/richter-3.png
-  - /cursus-esthetica/images/licht-en-schaduw/richter-4.png
+  - /cursus-esthetica/images/licht-en-schaduw/richter-1.jpg
 ---
 
 ## Het raam zelf
 
 <!--
-Nu pas het werk in zijn geheel. De cijfers zijn hier de les, dus geef ze
-langzaam: 106 vierkante meter, 11.263 glasvierkanten van 9,6 bij 9,6 centimeter,
-72 kleuren.
+Hetzelfde raam van drie kanten: de buitenkant, het materiaal, en wat het licht
+op de vloer achterlaat.
 
-Twee dingen die je moet laten landen, en wijs ze allebei aan:
+Links, van buiten: een doffe, grijsblauwe plaat in het gotische maaswerk. De
+vierkanten zijn er, maar de kleur niet — van deze kant is er niets te zien.
+
+Twee dingen die je moet laten landen, en wijs ze allebei aan op het middelste
+beeld:
 
 Eén — die 72 kleuren zijn niet gekozen door Richter. Het zijn de kleuren die al
 in de oudere ramen van dezelfde kathedraal zaten. Hij nam het bestaande palet
@@ -116,11 +122,15 @@ over en deed er iets anders mee.
 Twee — de rangschikking is gedaan door een random number generator. Geen
 compositie, geen opbouw, geen zwaartepunt.
 
-Het middelste beeld: geen lood. Middeleeuws glas-in-lood houdt de stukken bij
-elkaar met loodstrips die je als lijnen ziet. Hier zit alleen siliconenkit op een
-drager, dus er is geen tekening tussen de vlakken. Vraag of iemand ziet waarom
-dat verschil maakt — antwoord: zonder lood is er geen enkele lijn die je oog
-stuurt.
+Datzelfde middelste beeld: geen lood. Middeleeuws glas-in-lood houdt de stukken
+bij elkaar met loodstrips die je als lijnen ziet. Hier zit alleen siliconenkit op
+een drager, dus er is geen tekening tussen de vlakken. Vraag of iemand ziet
+waarom dat verschil maakt — antwoord: zonder lood is er geen enkele lijn die je
+oog stuurt.
+
+Rechts: wat er van het raam op de stenen terechtkomt. Geen vierkanten meer,
+geen raster, alleen kleur die over de vloer schuift en met de zon meebeweegt.
+Dit is wat een bezoeker in de Dom het eerst ziet, nog voor hij omhoogkijkt.
 
 Geen martelaar, geen Christus, geen voorstelling van wat dan ook.
 -->
@@ -326,7 +336,7 @@ Neem er tijd voor.
 ---
 layout: compare
 left: /cursus-esthetica/images/licht-en-schaduw/sainte-chapelle-1.jpg
-right: /cursus-esthetica/images/licht-en-schaduw/richter-1.jpg
+right: /cursus-esthetica/images/licht-en-schaduw/richter-4.png
 ---
 
 <!--
