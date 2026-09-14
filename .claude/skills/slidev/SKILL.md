@@ -194,7 +194,7 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 | `compare` | twee beelden naast elkaar, `left:` en `right:` — **geen slot**, zie hieronder |
 | `duet` | twee *fragmenten* naast elkaar, `left:`/`right:` als `{ id, label }` — voor een hoorbare vergelijking; heeft wél een slot voor de vraag erboven |
 | `triptych` | drie (of twee/vier) beelden op één rij, `images:` + optioneel `captions:`, `reveal: true` voor één per klik |
-| `detail` | één werk groot (`image:`) plus zijn uitsneden (`details:`) — voor een figuurgroep die geen drie werken is maar een werk plus crops |
+| `detail` | uitsneden van één werk (`details:`, elk met het label *detail* erboven en zijn bijschrift eronder), optioneel met het werk zelf groot ernaast (`image:`); zonder `image:` staan de uitsneden als rij over de volle breedte — kies dat als het geheel al op de slide ervóór stond. Voor een figuurgroep die geen drie werken is maar een werk plus crops; `reveal: true` voor één per klik |
 | `paired-reveal` | tekststappen links, wisselend beeld rechts — per klik het volgende beeld uit `images:` |
 | `quadrants` | vier vakken, `::q1::` t/m `::q4::` |
 | `breathe` | full-bleed beeld op een grond die traag van kleur verschuift, één beeld per klik; leest `--breathe-from` / `--breathe-to` uit het thema |
