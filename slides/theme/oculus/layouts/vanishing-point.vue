@@ -29,20 +29,18 @@
   het weer vrij. `focus` is de startwaarde en de terugval: zonder muis (aanraking,
   export) staat de constructie gewoon waar de frontmatter zegt.
 
-  Waarom hier JS zit en geen pure CSS:
-  `max-height: 100%` op een <img> in een figure met automatische hoogte grijpt
-  niet — die procentuele waarde heeft geen definitieve hoogte om tegen op te
-  lossen. Het beeld puilde daardoor onder zijn eigen frame uit terwijl de overlay
-  het frame dekte, en dan staat het verdwijnpunt stelselmatig te hoog (#77). Het
-  beeld wordt nu met `object-fit: contain` in het podium gepast en de exacte
-  weergaverechthoek wordt uitgerekend uit de natuurlijke afmetingen. Diezelfde
-  rechthoek draagt de overlay én de muisberekening, dus ze kunnen per constructie
-  niet meer uit elkaar lopen.
+  Het beeld wordt met `object-fit: contain` in het podium gepast; de werkelijk
+  weergegeven beeldrechthoek komt uit `useContainBox` (layouts-base). Waarom dat
+  met JS moet en niet met CSS staat daar uitgelegd — het is de fout van #77, die
+  hier het eerst zichtbaar werd (het verdwijnpunt stond stelselmatig te hoog).
+  Diezelfde rechthoek draagt de overlay én de muisberekening, dus ze kunnen per
+  constructie niet meer uit elkaar lopen. Sinds #99 gebruikt deze layout de
+  gedeelde composable in plaats van een eigen kopie.
 -->
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useSlideContext } from '@slidev/client'
-import { resolveAsset } from '../../layouts-base/utils'
+import { resolveAsset, useContainBox } from '../../layouts-base/utils'
 
 const props = withDefaults(
   defineProps<{
@@ -60,54 +58,11 @@ const { $clicks } = useSlideContext()
 const src = computed(() => resolveAsset(props.image))
 
 /* ── De weergaverechthoek van het beeld ─────────────────────────────
-   Het podium vult de slide; het beeld zit er met `contain` in gepast. Uit de
-   natuurlijke verhouding volgt precies welk deel van het podium het beeld dekt,
-   en dat is de doos waar alles verder op steunt. */
+   Het podium vult de slide; het beeld zit er met `contain` in gepast. `box` is
+   het deel van het podium dat het beeld werkelijk dekt, en dat is de doos waar
+   alles verder op steunt. */
 const stage = ref<HTMLElement | null>(null)
-const stageW = ref(0)
-const stageH = ref(0)
-const natW = ref(0)
-const natH = ref(0)
-
-let observer: ResizeObserver | null = null
-
-onMounted(() => {
-  if (!stage.value) return
-  observer = new ResizeObserver(([entry]) => {
-    stageW.value = entry.contentRect.width
-    stageH.value = entry.contentRect.height
-  })
-  observer.observe(stage.value)
-})
-
-onBeforeUnmount(() => observer?.disconnect())
-
-function onImageLoad(event: Event) {
-  const img = event.target as HTMLImageElement
-  natW.value = img.naturalWidth
-  natH.value = img.naturalHeight
-}
-
-const box = computed(() => {
-  if (!stageW.value || !stageH.value || !natW.value || !natH.value)
-    return { left: 0, top: 0, width: stageW.value, height: stageH.value }
-  const scale = Math.min(stageW.value / natW.value, stageH.value / natH.value)
-  const width = natW.value * scale
-  const height = natH.value * scale
-  return {
-    left: (stageW.value - width) / 2,
-    top: (stageH.value - height) / 2,
-    width,
-    height,
-  }
-})
-
-const boxStyle = computed(() => ({
-  left: `${box.value.left}px`,
-  top: `${box.value.top}px`,
-  width: `${box.value.width}px`,
-  height: `${box.value.height}px`,
-}))
+const { onImageLoad, stageSize, box, boxStyle } = useContainBox(stage)
 
 /* ── Het punt ───────────────────────────────────────────────────────
    Vastgezet wint van de muis, de muis wint van de frontmatter. */
@@ -130,7 +85,7 @@ function pointFrom(event: PointerEvent) {
   const rect = (stage.value as HTMLElement).getBoundingClientRect()
   // De slide staat onder een CSS-transform; de rect is dus al geschaald, maar
   // de podiummaten in `box` niet. Vandaar de omrekening over de rectbreedte.
-  const scale = rect.width / stageW.value
+  const scale = rect.width / stageSize.value.width
   const x = (event.clientX - rect.left - left * scale) / (width * scale)
   const y = (event.clientY - rect.top - top * scale) / (height * scale)
   return { x: clamp(x * 100), y: clamp(y * 100) }
