@@ -151,6 +151,7 @@ hoofdstuk, niet die van de vorige les.
 | `aigles` | belgisch-experiment |
 | `oculus` | perspectief-en-ruimte |
 | `penumbra` | licht-en-schaduw |
+| `pagina37` | graffiti-en-street-art |
 
 Een nieuw deck betekent normaal een nieuw thema onder `slides/theme/<naam>/`:
 
@@ -175,6 +176,13 @@ hem daar dus altijd. In de praktijk bijt dit nu nergens — alle vier de bestaan
 thema's definiëren `--color-rule` al — maar het is de val die op je wacht zodra
 je hem vergeet.
 
+De omgekeerde val zit bij een **licht thema**: Slidevs ingebouwde `end`-layout
+zet `bg-black text-white` in een *scoped* style op zijn root, en die
+specificiteit (`.slidev-layout.end[data-v-…]`) wint van elke themaregel. De
+donkere thema's merken dat niet; op krantenpapier is de slotslide een zwart gat
+(#109). Een licht thema levert daarom een eigen `layouts/end.vue` mee dat alleen
+de slot rendert — zie `pagina37/layouts/end.vue`.
+
 Startpunt voor de sfeer is de `accentColor` en het `customStyles`-bestand van het
 hoofdstuk zelf (`src/styles/themes/<theme-id>.css`). Het deck en de
 hoofdstukpagina horen herkenbaar familie te zijn, zonder dezelfde CSS te delen —
@@ -198,6 +206,8 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 | `paired-reveal` | tekststappen links, wisselend beeld rechts — per klik het volgende beeld uit `images:` |
 | `quadrants` | vier vakken, `::q1::` t/m `::q4::` |
 | `breathe` | full-bleed beeld op een grond die traag van kleur verschuift, één beeld per klik; leest `--breathe-from` / `--breathe-to` uit het thema |
+| `scale` | beelden op één rij als *schaal*: `images:` op vaste plekken (de lege plekken staan er al), één per klik, `labels:`/`captions:` per beeld, `axis:`/`axis2:` als `{ from, to }` eronder; `stage: true` zet het laatst onthulde beeld groot boven de rij — voor een gradatie (tag → throw-up → piece → wildstyle), niet voor drie losse werken |
+| `spotlight` | één beeld (`image:`) met `regions:` (elk `{ x, y, w, h, label }` in procenten van het beeld); per klik licht één zone op en dimt de rest, label ernaast; `finale: true` geeft een laatste klik met alle zones omlijnd — de docent leest het werk voor, zone na zone, zonder dat het beeld verspringt |
 
 Vraagt een beweging om iets anders — een tijdlijn, een detail dat in het geheel
 schuift, een overlay, een partituurstrook onder een fragment, drie beelden in

@@ -10,7 +10,7 @@ op dezelfde GitHub Pages-site als de cursus.
 slides/
   theme/
     manifest/  contrapunctus/  aigles/           # één Slidev-thema per hoofdstuk
-    oculus/    penumbra/
+    oculus/    penumbra/       pagina37/
     layouts-base/                        # gedeeld addon met extra layouts
   <theme-id>/slides.md            # één map per deck
   build-all.mjs                   # bouwt alle decks naar dist/slides/<id>/
@@ -21,8 +21,8 @@ slides/
 Elk hoofdstuk krijgt zijn **eigen visuele thema** onder `theme/` — het draagt de
 sfeer van dat hoofdstuk, niet die van de vorige les. Daarnaast trekt een deck het
 **`layouts-base`-addon** binnen voor de gedeelde extra layouts (`compare`,
-`duet`, `triptych`, `detail`, `paired-reveal`, `quadrants`, `breathe`) en de
-videocomponenten:
+`duet`, `triptych`, `detail`, `paired-reveal`, `quadrants`, `breathe`, `scale`,
+`spotlight`) en de videocomponenten:
 
 ```yaml
 ---
@@ -64,7 +64,8 @@ custom properties op `:root` definiëren wil het addon correct renderen:
 
 | Token | Gebruikt voor |
 |---|---|
-| `--color-text`, `--color-text-quiet` | meta-regel in quadrant |
+| `--color-text`, `--color-text-quiet` | meta-regel in quadrant, labels en assen in scale, labels in spotlight |
+| `--color-accent`, `--color-bg` | aanwijslijn in scale; zone-omlijning, labelstrook en bijschriftstrook in spotlight |
 | `--color-rule` *(optioneel)* | randen rond quadrants, detail-uitsneden en paired-reveal-beeld — valt terug op `--color-text` |
 | `--space-sm`, `--space-md`, `--space-lg`, `--space-xl` | gaps en padding |
 | `--font-mono`, `--step--1` | meta-regel in quadrant, bijschriften in triptych en detail, labels in duet |
@@ -153,7 +154,8 @@ mechanismen voorkomen dat:
 
 1. **Override-layouts in `theme/layouts-base/`.** `image.vue`,
    `image-right.vue`, `image-left.vue`, `compare.vue`, `triptych.vue`,
-   `detail.vue`, `breathe.vue` en `paired-reveal.vue` gebruiken een lokale
+   `detail.vue`, `breathe.vue`, `scale.vue`, `spotlight.vue` en
+   `paired-reveal.vue` gebruiken een lokale
    `resolveAsset` die paden onder `/cursus-esthetica/` ongewijzigd doorlaat.
    Slidev's eigen `image`/`image-right`-layouts worden zo automatisch
    overschreven door het addon. Elke eigen layout die een beeldpad verwerkt —
