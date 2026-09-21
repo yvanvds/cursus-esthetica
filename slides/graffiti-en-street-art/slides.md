@@ -12,26 +12,18 @@ masthead: Cursus Esthetica
 edition: hoofdstuk 17
 dateline: New York, 21 juli 1971 — São Paulo, 2008 — Parijs, 2023
 page: pagina 37
-image: /cursus-esthetica/images/graffiti-en-street-art/header.jpg
-caption: Baksteen en rolluik — tags in verschillende handschriften
 tag: TAKI 183
 ---
 
 # Voor wie schrijf je je naam?
 
-::standfirst::
-
-Een tag is geen versiering maar een bericht — alleen niet aan jou gericht.
-
-Zeven bewegingen: een koerier, een handschrift, een schaal, een muur, een gevel, een boek, een advertentie.
-
 <!--
-Zeventiende les. Laat de slide staan zoals hij is — een krantenpagina, nog
-zonder de tag — en stel de titelvraag meteen: voor wie schrijf je je naam?
-Niet beantwoorden. Laat de klas gokken en schrijf twee of drie antwoorden op
-het bord: "voor jezelf", "om gezien te worden", "voor de anderen". Laat ze
-daar staan tot de laatste slide — daar komen we op terug, en het antwoord van
-de koerier uit 1971 staat er dan naast.
+Zeventiende les. Laat de slide staan zoals hij is — een krantenpagina met
+alleen een kop, nog zonder de tag — en stel de titelvraag meteen: voor wie
+schrijf je je naam? Niet beantwoorden. Laat de klas gokken en schrijf twee
+of drie antwoorden op het bord: "voor jezelf", "om gezien te worden", "voor
+de anderen". Laat ze daar staan tot de laatste slide — daar komen we op
+terug, en het antwoord van de koerier uit 1971 staat er dan naast.
 
 [click] Er verschijnt een naam over de kop heen, in spuitbusrood. Vraag wat
 er nu gebeurd is met de pagina. Iemand zegt "vandalisme", iemand anders "een
@@ -40,10 +32,25 @@ beeld: de krant die alles ordent, en één hand die er dwars doorheen schrijft.
 Zeg nog niet wie TAKI 183 is — dat is de eerste beweging, en die werkt alleen
 als de naam eerst even een raadsel blijft, zoals hij dat in 1971 voor heel
 New York was.
+-->
 
-De foto: een muur en een rolluik met tags in verschillende handschriften
-over elkaar. Waar en wanneer weten we niet, en dat hoeft ook niet — hij
-staat er om te laten zien dat dit overal is.
+---
+layout: photo
+class: page-print
+image: /cursus-esthetica/images/graffiti-en-street-art/header.jpg
+caption: Baksteen en rolluik — tags in verschillende handschriften
+---
+
+<!--
+De persfoto bij het hoofdstuk, groot: een muur en een rolluik met tags in
+verschillende handschriften over elkaar. Waar en wanneer weten we niet, en
+dat hoeft ook niet — hij staat er om te laten zien dat dit overal is.
+
+Laat de klas even kijken en vraag wat ze zien. "Gekrabbel", "namen",
+"rommel" — alles is goed. Vraag dan hoeveel verschillende handen ze
+herkennen: wit op de baksteen, roze, zwart op het rolluik. Dat ze het
+niet kunnen lezen, is straks het punt van beweging 2; nu hoeven ze alleen
+te zien dat het geschreven is, door meer dan één iemand.
 -->
 
 ---
@@ -151,14 +158,32 @@ Philadelphia, 1975 — graffiti aan het trolleystation van 22nd Street.
 "Coming to a wall near you!" — laat dat lezen, het is de hele mentaliteit in
 één regel.
 
-Want TAKI was niet eens de eerste. In Philadelphia schreef Darryl McCray,
-bijgenaamd Cornbread, al vanaf het midden van de jaren zestig zijn naam op
-muren. Eerst om een meisje voor zich te winnen — "Cornbread Loves Cynthia",
-over heel North Philadelphia — daarna omdat de naam zelf een doel werd.
+Want TAKI was niet eens de eerste. In Philadelphia werd al vanaf het midden
+van de jaren zestig geschreven, jaren vóór het artikel op pagina 37. Wie
+daar begon, en waarom, staat op de volgende slide — klik pas door als de
+klas de regel op de muur gelezen heeft.
+-->
+
+---
+layout: image
+class: page-print
+image: /cursus-esthetica/images/graffiti-en-street-art/cornbread-lives.jpg
+backgroundSize: contain
+---
+
+<!--
+"Cornbread Lives" op de flank van Burma de olifant, Philadelphia Zoo — een
+postkaart naar de foto uit 1971, niet het origineel; hier via Artsy, onder
+citaatrecht.
+
+In Philadelphia schreef Darryl McCray, bijgenaamd Cornbread, al vanaf het
+midden van de jaren zestig zijn naam op muren. Eerst om een meisje voor
+zich te winnen — "Cornbread Loves Cynthia", over heel North Philadelphia —
+daarna omdat de naam zelf een doel werd.
 
 De anekdote die blijft hangen: toen een krant hem in 1971 per vergissing
 dood verklaarde, klom hij de zoo van Philadelphia binnen en spoot "Cornbread
-Lives" op de flank van een olifant.
+Lives" op de flank van een olifant. Dit is die olifant.
 
 Vraag: waarom een olifant? Niet voorzeggen. Het antwoord — omdat iedereen
 erover praat, omdat het onmogelijk lijkt — is het antwoord dat in beweging 4
@@ -204,31 +229,6 @@ die zin op het bord naast de antwoorden van het begin.
 -->
 
 ---
-layout: center
-class: page-print
----
-
-## Een gesprek met TAKI 183
-
-<div style="margin-top: var(--space-md);">
-<CourseVideo id="graffiti-en-street-art/taki" label="Unseen Interview with Taki 183 & Blek le Rat — New York City" />
-</div>
-
-<div class="meta-quiet" style="margin-top: var(--space-lg);">
-decennia na de feiten · geen verplichte kost
-</div>
-
-<!--
-Wie er liever een van de grondleggers zelf over hoort: een gefilmd gesprek
-met TAKI 183, decennia na de feiten. Geen verplichte kost — speel een paar
-minuten en stop wanneer je wil.
-
-Wat je erin ziet: een merkwaardig rustige man voor iemand die ooit heel New
-York op stang joeg. Laat de klas dat opmerken; het botst met het beeld dat
-ze van "vandalen" hebben, en die botsing is nuttig voor de rest van de les.
--->
-
----
 layout: section
 number: 2
 class: page-tagged
@@ -251,26 +251,36 @@ de navolgers uit het artikel van 1971. De pagina raakt vol.
 -->
 
 ---
-layout: image
+layout: center
 class: page-tagged
-image: /cursus-esthetica/images/graffiti-en-street-art/tag-1.jpg
-backgroundSize: contain
 ---
 
+## Als kalligrafie
+
+<div style="margin-top: var(--space-md); font-family: var(--font-display); font-style: italic; font-size: var(--step-4); line-height: 1.3; color: var(--color-text);">
+<span v-click>vaart</span><span v-click> · druk</span><span v-click> · beheersing</span>
+</div>
+
+<div v-click class="meta" style="margin-top: var(--space-xl);">
+één beweging, geen correctie mogelijk
+</div>
+
 <!--
-Een handstyle: de tag als kalligrafie.
+Het hardnekkigste misverstand over graffiti: dat het tekenen is. Het is
+schrijven. Een tag is een handtekening, en zoals elke handtekening wordt ze
+beoordeeld op drie dingen — niet op leesbaarheid.
 
-Dit is geen tekenen. Het is schrijven. Een tag is een handtekening, en zoals
-elke handtekening wordt ze beoordeeld op vaart, druk en beheersing — niet op
-leesbaarheid.
+[click] Vaart.
 
-Maak de vergelijking met kalligrafie expliciet: ook daar telt niet wát er
-staat, maar hóe het er staat. En kalligraaf en tagger hebben hetzelfde
-probleem: één beweging, geen correctie mogelijk. Inkt vloeit, verf loopt
-uit. Wie aarzelt, ziet dat terug in de lijn.
+[click] Druk.
 
-Vraag de klas waar op dit beeld de hand versnelde en waar ze vertraagde. Ze
-zien het — en daarmee lezen ze al als een schrijver.
+[click] Beheersing. Vergelijk het met kalligrafie: ook daar telt niet wát
+er staat, maar hóe het er staat.
+
+[click] Kalligraaf en tagger hebben bovendien hetzelfde probleem: één
+beweging, geen correctie mogelijk. Inkt vloeit, verf loopt uit. Wie
+aarzelt, ziet dat terug in de lijn. Houd die zin vast voor de twee
+volgende beelden — daar gaan ze het zelf zien.
 -->
 
 ---
@@ -281,15 +291,35 @@ backgroundSize: contain
 ---
 
 <!--
-Drie tags, drie handschriften.
+Drie tags, drie handschriften — gewone tags, zoals ze overal staan.
 
 Daarom is een goede tag geen mooie tekening maar een consistent
 handschrift. Snelheid, herhaling, herkenbaarheid — dat zijn de criteria.
+Vraag de klas welke van de drie het snelst gezet is, en waaraan ze dat
+zien: de lijn die niet aarzelt.
 
-Laat de klas proberen de drie te lezen. Dat lukt niet, en dat is het punt:
+Laat ze dan proberen de drie te lezen. Dat lukt niet, en dat is het punt:
 dat buitenstaanders er niets van kunnen lezen, is geen gebrek maar een
 filter. De tekst richt zich tot de paar honderd mensen die de code kennen.
 Wie hem niet kent, is niet het publiek.
+-->
+
+---
+layout: image
+class: page-tagged
+image: /cursus-esthetica/images/graffiti-en-street-art/tag-1.jpg
+backgroundSize: contain
+---
+
+<!--
+Een handstyle: de tag als kalligrafie — de complexe vorm, na de drie
+gewone.
+
+Hier zie je waar de vergelijking met kalligrafie op slaat: niet wát er
+staat, maar hóe het er staat. Vraag de klas waar op dit beeld de hand
+versnelde en waar ze vertraagde, waar de druk toenam en waar de verf
+uitliep. Ze zien het — en daarmee lezen ze al als een schrijver, op vaart,
+druk en beheersing.
 -->
 
 ---
@@ -558,7 +588,33 @@ ik heb er iets voor geriskeerd.
 
 [click] Hoogte, gevaar en onbereikbaarheid zijn valuta. Daarom die
 voorliefde voor bruggen, daken en spoorbermen — en daarom de olifant van
-Cornbread uit de eerste beweging. Haal hem terug: dezelfde logica.
+Cornbread uit de eerste beweging. Haal hem terug: dezelfde logica. De
+volgende slide laat de klas dat zelf uitzoeken.
+-->
+
+---
+layout: image
+class: page-tagged
+image: /cursus-esthetica/images/graffiti-en-street-art/muur-2.jpg
+backgroundSize: contain
+---
+
+<!--
+Een gevel met een brandtrap, van boven tot onder beschreven. Dreamstime-
+stockfoto, de preview met watermerk — bewust zo gebruikt, hier onder
+citaatrecht.
+
+Zeg niets over de muur. Stel alleen vragen, en laat de klas speculeren:
+
+Welke naam op deze muur was het moeilijkst te zetten? Waarom die?
+Waar moest je staan, of hangen, om daar te komen — op de trap, op de
+leuning, aan de goot? Wie hield de trap vast?
+Wat zegt de hoogte over de schrijver? En wat zegt de plek naast de deur,
+op ooghoogte?
+Welke naam zou jij als eerste overschrijven, en welke zou je laten staan?
+
+Voorzeg geen antwoorden. Als iemand "hoogte, gevaar en onbereikbaarheid
+zijn valuta" hardop herhaalt, ben je klaar met deze slide.
 -->
 
 ---
@@ -652,14 +708,67 @@ backgroundSize: contain
 SMOLE, TER-rijtuig, Zuid-Frankrijk, ca. 2001 — foto uit het
 ekosystem.org-archief, fotograaf onbekend, hier onder citaatrecht.
 
-Dit is het deck-eigen beeld: het staat niet in het hoofdstuk, wel in de les.
-Vier kippen over de volle flank van een rijtuig, "Captain Chicken" ernaast.
-Een schrijver die zijn naam — en zijn kippen — op treinen zet die door
-Frankrijk en België rijden. Dit zie je zelf op het perron.
+Drie slides over één schrijver; dit is de eerste. Deck-eigen beelden: ze
+staan niet in het hoofdstuk, wel in de les. Een schrijver die zijn naam —
+en zijn kippen — op treinen zet die door Frankrijk en België rijden. Dit
+zie je zelf op het perron.
 
-Laat de klas het beeld even bekijken en vraag: wie is het publiek van deze
-kippen? Niet de reizigers — die zien een grap. De andere schrijvers, die
-zien een naam, een crew en een plek die niet makkelijk te halen was.
+Zeg nog niet wie het is. Laat de klas eerst de kippen tellen. Dan de
+letters in "Captain Chicken" rechts ernaast, en de letters C4 eronder. En
+vraag dan: waar staat de naam van de schrijver? Antwoord: Captain Chicken
+ís SMOLE — de kippen zijn zijn handtekening. Kijk hoe ze op een rij staan:
+in hetzelfde ritme als de letters van een naam op een muur, schouder aan
+schouder, elk een tikje anders. Wie de code kent, leest hier een naam; wie
+hem niet kent, ziet vier kippen.
+
+Vraag dan: wie is het publiek van deze kippen? Niet de reizigers — die zien
+een grap. De andere schrijvers, die zien een naam en een plek die niet
+makkelijk te halen was.
+-->
+
+---
+layout: image
+class: page-tagged
+image: /cursus-esthetica/images/graffiti-en-street-art/smole-2.jpg
+backgroundSize: contain
+---
+
+<!--
+SMOLE, piece op een muur — plaats en jaar onbekend, overgenomen uit eerder
+lesmateriaal, hier onder citaatrecht.
+
+Nu de naam voluit: S-M-O-L-E, over de volle breedte. Laat de klas de letters
+tellen en aanwijzen — dat kost even, en dat is de bedoeling.
+
+Dan de blik sturen: kijk naar wat er bovenop elke letter staat. Kammen.
+Kijk in de letters: ogen, snavels, veren. De kippen van de trein zijn niet
+weg — ze zitten ín de letters. SMOLE stopt kip-elementen in zijn ander
+werk; wie de trein gezien heeft, herkent ze hier. Zijn werk gaat diep — je
+moet op details letten om het te zien, en dat is precies wat schrijvers
+van elkaar verwachten.
+-->
+
+---
+layout: image
+class: page-tagged
+image: /cursus-esthetica/images/graffiti-en-street-art/smole-3.jpg
+backgroundSize: contain
+---
+
+<!--
+SMOLE, piece langs het spoor — plaats en jaar onbekend, overgenomen uit
+eerder lesmateriaal, hier onder citaatrecht.
+
+Derde keer dezelfde naam, andere muur, ander palet. Laat de klas nu zelf
+zoeken: waar zit de kip? Links, de vogel naast de eerste letter — en wie
+langer kijkt, vindt in de letters weer de rondingen van de trein. Wijs ook
+op het spoor op de voorgrond: de muur staat langs de lijn waar zijn treinen
+rijden.
+
+Sluit de drie slides af met de vraag waar de hele beweging om draait: hoe
+lees je dit als je de code niet kent? Als kleur. En als je hem wel kent?
+Als een naam, drie keer, in hetzelfde handschrift — met een kip als
+handtekening.
 -->
 
 ---
@@ -813,7 +922,8 @@ gaat de cel in. Laat de klas hierop reageren voor je verder gaat — dit is de
 zin waar de meeste discussie op komt.
 
 [click] Wie het rauwe materiaal van die avond wil zien: de beelden van de
-invasie zelf. Schokkerig en chaotisch, maar echt. Speel een minuut.
+invasie zelf. Schokkerig en chaotisch, maar echt. De speler start op 2:40,
+zoals het hoofdstuk het zet. Speel een minuut.
 -->
 
 ---
@@ -876,7 +986,7 @@ class: page-print
 </div>
 
 <div v-click style="margin-top: var(--space-lg);">
-<CourseVideo id="graffiti-en-street-art/style-wars" label="Style Wars (1983) — integraal, ruim een uur: een extraatje voor thuis" />
+<CourseVideo id="graffiti-en-street-art/style-wars" :start="2160" label="Style Wars (1983) — vanaf 36:00; integraal is een extraatje voor thuis" />
 </div>
 
 <!--
@@ -894,10 +1004,12 @@ geloofwaardiger maakte. Generaties Europese taggers leerden wildstyle niet
 op straat maar uit die foto's, letter per letter nagetekend aan de
 keukentafel.
 
-[click] Style Wars staat integraal online — ruim een uur, dus eerder iets
-voor een vrije avond dan voor de les. Zeg dat erbij: het is een extraatje,
-maar het blijft de beste film die ooit over graffiti gemaakt is. Speel
-hooguit de openingsminuten.
+[click] Style Wars staat integraal online. Voor de les stapt het deck in op
+36:00 — dat is deck-eigen; het hoofdstuk verwijst naar de integrale film.
+De YouTube-video duurt ruim twee uur: de film zelf eindigt na ongeveer een
+uur, daarna volgt een uur extra materiaal. Zeg erbij dat de hele film een
+extraatje is voor een vrije avond — maar het blijft de beste film die ooit
+over graffiti gemaakt is.
 -->
 
 ---

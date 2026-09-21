@@ -52,6 +52,8 @@
      section     de sectieslide — het nummer groot in spray als tag-laag,
                  de bewegingstitel als kop, de ondertitel als datumregel
      end         de slotslide op papier (de ingebouwde is zwart, scoped)
+     photo       één persfoto groot, met het onderschrift in mono eronder,
+                 op de breedte van het beeld — de krantenfoto
    ──────────────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Sedgwick+Ave+Display&family=Archivo:wght@400;900&display=swap');
@@ -367,7 +369,12 @@
    <span class="tag">TAKI 183</span>          marker, in het papier
    <span class="tag tag--spray">SKY</span>    spuitbus, met halo
    Rotatie via --tag-tilt; inline-block zodat de rotatie de regel niet
-   meeneemt. */
+   meeneemt.
+
+   Marker is multiply: de inkt trekt in het papier. Spray is dat bewust
+   níét: rood × zwart = zwart, dus met multiply verdween de tag onder een
+   zwarte kop (#114). Spray ligt erbovenop, zoals SKY over de zwarte tags
+   op muur-1.jpg — vandaar `z-index: 2` boven de tekst, die op 1 staat. */
 .slidev-layout .tag {
   display: inline-block;
   font-family: var(--font-hand);
@@ -383,6 +390,9 @@
 }
 .slidev-layout .tag--spray {
   color: var(--color-accent);
+  mix-blend-mode: normal;
+  position: relative;
+  z-index: 2;
   text-shadow:
     0 0 0.03em var(--color-accent-halo),
     0 0 0.10em var(--color-accent-line),
@@ -556,6 +566,7 @@
    `image-left`/`image-right` staan hier bewust niet in: daar landt de
    klasse op de teksthelft, en die mag zijn papier houden. */
 .slidev-layout.image,
+.slidev-layout.photo,
 .slidev-layout.compare,
 .slidev-layout.triptych,
 .slidev-layout.detail,
@@ -566,6 +577,7 @@
   background-image: none;
 }
 .slidev-layout.image::before,
+.slidev-layout.photo::before,
 .slidev-layout.compare::before,
 .slidev-layout.triptych::before,
 .slidev-layout.detail::before,
@@ -574,6 +586,7 @@
 .slidev-layout.scale::before,
 .slidev-layout.spotlight::before,
 .slidev-layout.image::after,
+.slidev-layout.photo::after,
 .slidev-layout.compare::after,
 .slidev-layout.triptych::after,
 .slidev-layout.detail::after,

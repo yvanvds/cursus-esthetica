@@ -50,6 +50,22 @@ const VIDEO_RE =
 const DUET_SIDE_RE = /^[ \t]*(?:left|right)[ \t]*:[ \t]*(?:\{[^}]*\}|(?:\n[ \t]+\S.*)+)/gm;
 const DUET_ID_RE = /\bid[ \t]*:[ \t]*["']?([^\s,"'}]+)/;
 
+// Ontbrekende beelden of video's die bekeken zijn en bewust ontbreken. Ze
+// worden nog steeds getoond, maar tellen niet mee voor de exitcode — anders
+// staat deze check permanent op rood en leest niemand hem nog (zelfde
+// afspraak als AANVAARD in scripts/check-chapters.mjs).
+//
+// Een regel hier is een keuze van de eigenaar, met een reden en het
+// issuenummer waar die keuze valt — geen gemak. `video:` is de key uit de
+// `videos:` van het hoofdstuk, `image:` de bestandsnaam uit `figures:`. Een
+// regel die niet meer nodig is (het beeld staat weer in het deck) wordt
+// gemeld als dode ballast.
+const AANVAARD = {
+  'graffiti-en-street-art': [
+    { video: 'taki', reden: 'lang interview, door de eigenaar uit de les gehaald (#114)' },
+  ],
+};
+
 function readSiteBase() {
   try {
     const config = readFileSync(join(projectRoot, 'astro.config.mjs'), 'utf8');
@@ -167,14 +183,22 @@ for (const themeId of decks) {
   const chapter = frontmatterOf(readFileSync(themeFile, 'utf8'), `${themeId}.mdx`);
   const deck = deckReferences(readFileSync(join(slidesDir, themeId, 'slides.md'), 'utf8'));
 
-  // Beelden, per figuurgroep, zodat "1 van 3" zichtbaar is.
+  const aanvaard = AANVAARD[themeId] ?? [];
+  const acceptedImages = aanvaard.filter(a => a.image).map(a => a.image);
+  const acceptedVideos = aanvaard.filter(a => a.video).map(a => a.video);
+
+  // Beelden, per figuurgroep, zodat "1 van 3" zichtbaar is. Een aanvaard
+  // beeld telt als gedekt maar wordt apart gemeld.
   const groups = [];
+  const acceptedMissing = [];
   let imageTotal = 0;
   let imageCovered = 0;
   for (const [key, group] of Object.entries(chapter.figures ?? {})) {
     const images = imagesOfGroup(group);
     if (images.length === 0) continue;
-    const missing = images.filter(src => !deck.images.has(src));
+    const absent = images.filter(src => !deck.images.has(src));
+    const missing = absent.filter(src => !acceptedImages.includes(fileNameOf(src)));
+    acceptedMissing.push(...absent.filter(src => acceptedImages.includes(fileNameOf(src))).map(fileNameOf));
     imageTotal += images.length;
     imageCovered += images.length - missing.length;
     if (missing.length > 0) {
@@ -184,7 +208,16 @@ for (const themeId of decks) {
 
   // Video's, per key uit de frontmatter; in het deck is de id `<theme-id>/<key>`.
   const videoKeys = Object.keys(chapter.videos ?? {});
-  const missingVideos = videoKeys.filter(key => !deck.videos.has(`${themeId}/${key}`));
+  const absentVideos = videoKeys.filter(key => !deck.videos.has(`${themeId}/${key}`));
+  const missingVideos = absentVideos.filter(key => !acceptedVideos.includes(key));
+  const acceptedMissingVideos = absentVideos.filter(key => acceptedVideos.includes(key));
+
+  // Een aanvaarde regel waarvan het beeld of de video wél in het deck staat, is
+  // dode ballast: haal hem weg, anders dekt hij later stil een echt gat.
+  const ballast = [
+    ...acceptedImages.filter(name => !acceptedMissing.includes(name)).map(name => `beeld ${name}`),
+    ...acceptedVideos.filter(key => !acceptedMissingVideos.includes(key)).map(key => `video ${key}`),
+  ];
 
   // Slotslide: noemt hij het juiste volgende hoofdstuk?
   const deckSource = readFileSync(join(slidesDir, themeId, 'slides.md'), 'utf8').replace(/\r\n/g, '\n');
@@ -197,16 +230,31 @@ for (const themeId of decks) {
     slotProbleem = 'slotslide belooft een volgend hoofdstuk, maar dit is het laatste';
   }
 
-  const complete = groups.length === 0 && missingVideos.length === 0 && !slotProbleem;
+  const accepted = acceptedMissing.length + acceptedMissingVideos.length;
+  const complete = groups.length === 0 && missingVideos.length === 0 && !slotProbleem && ballast.length === 0;
   if (!complete) incomplete++;
 
   const heading = [
     themeId.padEnd(22),
     `beelden ${String(imageCovered).padStart(2)}/${String(imageTotal).padEnd(2)}`,
-    `video's ${missingVideos.length === 0 ? videoKeys.length : videoKeys.length - missingVideos.length}/${videoKeys.length}`,
-    complete ? '  volledig' : '',
+    `video's ${videoKeys.length - missingVideos.length - acceptedMissingVideos.length}/${videoKeys.length}`,
+    complete ? (accepted === 0 ? '  volledig' : `  volledig (${accepted} aanvaard)`) : '',
   ].join('  ');
   console.log(heading.trimEnd());
+
+  for (const name of acceptedMissing) {
+    const reden = aanvaard.find(a => a.image === name).reden;
+    console.log(`    ~ ${'beeld ontbreekt'.padEnd(24)}       ${name}`);
+    console.log(`      ${reden}`);
+  }
+  for (const key of acceptedMissingVideos) {
+    const reden = aanvaard.find(a => a.video === key).reden;
+    console.log(`    ~ ${'video ontbreekt'.padEnd(24)}       ${key}`);
+    console.log(`      ${reden}`);
+  }
+  for (const item of ballast) {
+    console.log(`    aanvaarde uitzondering komt niet meer voor — haal hem uit AANVAARD: ${item}`);
+  }
 
   for (const group of groups) {
     const names = group.missing.map(fileNameOf).join(', ');
@@ -225,7 +273,12 @@ for (const themeId of decks) {
 }
 
 if (incomplete === 0) {
-  console.log(`Alle ${decks.length} deck(s) tonen elk beeld en elke video uit hun hoofdstuk.`);
+  const aanvaardTotaal = decks.reduce((n, id) => n + (AANVAARD[id] ?? []).length, 0);
+  console.log(
+    aanvaardTotaal === 0
+      ? `Alle ${decks.length} deck(s) tonen elk beeld en elke video uit hun hoofdstuk.`
+      : `Alle ${decks.length} deck(s) tonen elk beeld en elke video uit hun hoofdstuk — ${aanvaardTotaal} aanvaarde uitzondering(en), zie AANVAARD in dit script.`,
+  );
   process.exit(0);
 }
 

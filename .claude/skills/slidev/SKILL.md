@@ -114,7 +114,12 @@ slides. Tel daarom met `npm run check:slides` (één deck:
 1/3` — precies omdat een reeks waarvan één beeld in het deck staat er compleet
 uitziet. Plak de uitvoer voor je deck in de PR-body. Het script breekt de build
 niet en zit niet in `npm run build`; het geeft alleen exitcode 1 zolang er iets
-ontbreekt.
+ontbreekt. Ontbreekt iets bewust — de eigenaar haalt een fragment uit de les —
+dan hoort dat in de `AANVAARD`-lijst bovenaan `slides/check-coverage.mjs`:
+reden plus issuenummer per regel, zichtbaar in de uitvoer, en gemeld als dode
+ballast zodra het beeld of de video weer in het deck staat. Het is een keuze
+van de eigenaar met een issue erachter, geen manier om een telling groen te
+krijgen.
 
 **Extra lesmateriaal mag erbij.** Wat om rechtenredenen niet in de cursustekst
 kan maar in een les wel verantwoord is (SMOLE, beschermd beeld) hoort thuis in
@@ -294,6 +299,11 @@ site hetzelfde fragment.
   component zichtbaar `Onbekend fragment: <id>` in het rood — dat is opzet, zodat
   een typo in de les niet als lege plek verschijnt.
 - `label` weglaten en de titel uit de cursustekst wordt gebruikt.
+- `:start="2160"` / `:end="…"` (seconden) overschrijven de tijden uit het
+  hoofdstuk, met het bijschrift mee — alleen als het deck bewust een ander
+  fragment wil dan de cursustekst (Style Wars op 36:00 in de les, integraal
+  op de site, #114). Voor site én deck hoort de tijd in de frontmatter van
+  het hoofdstuk.
 
 Moeten er **twee** fragmenten naast elkaar — hetzelfde stuk in twee uitvoeringen,
 vóór en ná een ingreep — gebruik dan `layout: duet` (§5) en niet twee
