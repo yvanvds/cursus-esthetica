@@ -176,6 +176,13 @@ hem daar dus altijd. In de praktijk bijt dit nu nergens — alle vier de bestaan
 thema's definiëren `--color-rule` al — maar het is de val die op je wacht zodra
 je hem vergeet.
 
+De omgekeerde val zit bij een **licht thema**: Slidevs ingebouwde `end`-layout
+zet `bg-black text-white` in een *scoped* style op zijn root, en die
+specificiteit (`.slidev-layout.end[data-v-…]`) wint van elke themaregel. De
+donkere thema's merken dat niet; op krantenpapier is de slotslide een zwart gat
+(#109). Een licht thema levert daarom een eigen `layouts/end.vue` mee dat alleen
+de slot rendert — zie `pagina37/layouts/end.vue`.
+
 Startpunt voor de sfeer is de `accentColor` en het `customStyles`-bestand van het
 hoofdstuk zelf (`src/styles/themes/<theme-id>.css`). Het deck en de
 hoofdstukpagina horen herkenbaar familie te zijn, zonder dezelfde CSS te delen —
