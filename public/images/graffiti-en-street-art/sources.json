@@ -10,12 +10,20 @@
       "downloaded": "2026-07-27T10:41:16Z"
     },
     "5pointz-2.jpg": {
-      "description": "5Pointz, Long Island City, New York (foto Youngking11)",
+      "description": "5Pointz, Long Island City, New York, 20 januari 2013 (foto Ezmosis)",
       "source": "Wikimedia Commons",
       "license": "CC BY-SA 3.0",
-      "page_url": "https://commons.wikimedia.org/wiki/File:5_Pointz_Long_Island_City.JPG",
-      "file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/5_Pointz_Long_Island_City.JPG",
-      "downloaded": "2026-07-27T10:41:18Z"
+      "page_url": "https://commons.wikimedia.org/wiki/File:View_of_5_Pointz,_January_20,_2013.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/View_of_5_Pointz%2C_January_20%2C_2013.jpg",
+      "downloaded": "2026-09-21T12:51:22Z"
+    },
+    "muur-1.jpg": {
+      "description": "Muren vol tags in metrostation 116th Street, New York — DOCUMERICA/NARA, foto Erik Calonius, mei 1973",
+      "source": "Wikimedia Commons",
+      "license": "Public Domain",
+      "page_url": "https://commons.wikimedia.org/wiki/File:VANDALS_HAVE_SPRAY-PAINTED_MESSAGES_ON_WALLS_OF_THIS_SUBWAY_STATION_(116TH_STREET)_-_NARA_-_548271.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/VANDALS_HAVE_SPRAY-PAINTED_MESSAGES_ON_WALLS_OF_THIS_SUBWAY_STATION_%28116TH_STREET%29_-_NARA_-_548271.jpg",
+      "downloaded": "2026-09-21T12:50:58Z"
     },
     "philadelphia-1.jpg": {
       "description": "Graffiti bij het 22nd Street-trolleystation, Philadelphia, 1975 (foto Jack Tinney)",
@@ -57,6 +65,14 @@
       "file_url": "https://live.staticflickr.com/2644/3769844664_7c782eb584_o.jpg",
       "downloaded": "2026-07-27T10:41:10Z"
     },
+    "tag-3.jpg": {
+      "description": "Tag in wit op een muur in het centrum van München, oktober 2023 (foto Pittigrilli)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA 4.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Tag_(graffiti)_in_white_on_wall_in_the_center_of_Munich,_Germany,_October_2023.jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Tag_%28graffiti%29_in_white_on_wall_in_the_center_of_Munich%2C_Germany%2C_October_2023.jpg",
+      "downloaded": "2026-09-21T12:50:49Z"
+    },
     "taki-1.jpg": {
       "description": "'Taki 183' Spawns Pen Pals — The New York Times, 21 juli 1971 (paginascan)",
       "source": "directe URL",
@@ -66,12 +82,20 @@
       "downloaded": "2026-07-27T10:39:11Z"
     },
     "taki-2.jpg": {
-      "description": "Demetrius, de schrijver achter TAKI 183, zet zijn tag — jaren na dato",
-      "source": "directe URL",
-      "license": "In Copyright",
-      "page_url": "https://streetartnyc.org/blog/2015/06/29/the-legendary-taki-183-on-tagging-the-new-york-times-the-wall-on-207th-street-instafame-phantom-art-graffiti-and-more/",
-      "file_url": "http://streetartnyc.org/wp-content/uploads/2015/06/taki-183-signs-graffiti-tag.jpg",
-      "downloaded": "2026-07-27T10:39:12Z"
+      "description": "Demetrios (TAKI 183) met Jon Naars foto van zijn tag uit 1973, Yonkers — foto Emily Nadal, Gothamist, 21 mei 2026",
+      "source": "Gothamist (WNYC)",
+      "license": "In Copyright — citaatrecht",
+      "page_url": "https://gothamist.com/arts-entertainment/an-interview-with-the-forefather-of-new-york-city-graffiti",
+      "file_url": "https://api-prod.gothamist.com/images/357174/original/",
+      "downloaded": "2026-09-21T12:51:02Z"
+    },
+    "throwup-1.jpg": {
+      "description": "Throw-up in Montreal, 2016 (foto Coastal Elite, Flickr)",
+      "source": "Wikimedia Commons",
+      "license": "CC BY-SA 2.0",
+      "page_url": "https://commons.wikimedia.org/wiki/File:Montreal_Throw_Up_(31463501360).jpg",
+      "file_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Montreal_Throw_Up_%2831463501360%29.jpg",
+      "downloaded": "2026-09-21T12:50:57Z"
     }
   }
 }
