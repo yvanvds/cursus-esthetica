@@ -10,6 +10,10 @@
 
   Gebruik in een deck:  <CourseVideoInline id="meerstemmigheid/leonin" style="width: 60%;" />
 
+  `start` en `end` (seconden, optioneel) overschrijven de tijden uit
+  videos.generated.json, net als bij CourseVideo — alleen voor een deck dat
+  bewust een ander fragment wil dan het hoofdstuk (#114).
+
   Afmeting komt van de aanroeper: geef `style` of `class` mee, die vallen door
   naar de wrapper. Zonder afmeting is het 100% breed op 16/9. Wil je een vaste
   hoogte (`height: 80%`), zet die dan op de wrapper — de iframe vult hem.
@@ -27,11 +31,19 @@ interface VideoEntry {
   aspectRatio?: string;
 }
 
-const props = defineProps<{ id: string }>();
+const props = defineProps<{ id: string; start?: number; end?: number }>();
 
-const video = computed<VideoEntry | undefined>(
-  () => (videos as Record<string, VideoEntry>)[props.id],
-);
+/* De entry uit de cursustekst, met de tijden van het deck eroverheen als die
+   gegeven zijn. Een prop overschrijft alleen zijn eigen veld. */
+const video = computed<VideoEntry | undefined>(() => {
+  const entry = (videos as Record<string, VideoEntry>)[props.id];
+  if (!entry) return undefined;
+  return {
+    ...entry,
+    ...(props.start != null ? { start: props.start } : {}),
+    ...(props.end != null ? { end: props.end } : {}),
+  };
+});
 
 // Geen autoplay: een slide die uit zichzelf begint te spelen zodra je erop
 // belandt, neemt de les over. De docent drukt zelf op play.

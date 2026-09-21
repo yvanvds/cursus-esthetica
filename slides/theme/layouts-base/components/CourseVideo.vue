@@ -5,6 +5,14 @@
 
   Gebruik in een deck:  <CourseVideo id="inleiding/beethoven" label="Beethoven, 5e symfonie" />
   Laat `label` weg en de titel uit de cursustekst wordt gebruikt.
+
+  `start` en `end` (seconden, optioneel) overschrijven de tijden uit
+  videos.generated.json — het bijschrift volgt mee ("Vanaf 36:00"). Alleen
+  voor wanneer het deck bewust een ánder fragment wil dan het hoofdstuk: de
+  les die niet integraal kijkt maar op 36:00 instapt (#114). Wil je het
+  fragment voor site én deck veranderen, dan hoort dat in de frontmatter van
+  het hoofdstuk, niet hier.
+    <CourseVideo id="graffiti-en-street-art/style-wars" :start="2160" />
 -->
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
@@ -19,11 +27,19 @@ interface VideoEntry {
   aspectRatio?: string;
 }
 
-const props = defineProps<{ id: string; label?: string }>();
+const props = defineProps<{ id: string; label?: string; start?: number; end?: number }>();
 
-const video = computed<VideoEntry | undefined>(
-  () => (videos as Record<string, VideoEntry>)[props.id],
-);
+/* De entry uit de cursustekst, met de tijden van het deck eroverheen als die
+   gegeven zijn. Een prop overschrijft alleen zijn eigen veld. */
+const video = computed<VideoEntry | undefined>(() => {
+  const entry = (videos as Record<string, VideoEntry>)[props.id];
+  if (!entry) return undefined;
+  return {
+    ...entry,
+    ...(props.start != null ? { start: props.start } : {}),
+    ...(props.end != null ? { end: props.end } : {}),
+  };
+});
 const open = ref(false);
 
 function formatTime(seconds: number): string {

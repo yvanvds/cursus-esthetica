@@ -29,7 +29,10 @@
     gericht.
 
   De kop komt uit de default slot, de intro uit `::standfirst::` (mag weg).
-  `tag` verschijnt bij de eerste klik, in marker over de kop; zonder `tag`
+  Zonder `image` en zonder standfirst is de voorpagina alleen masthead,
+  datumregel en kop — de kop krijgt dan de hele pagina (#114: de onderste
+  helft gaf te veel van het antwoord weg). `tag` verschijnt bij de eerste
+  klik, in spray óver de kop (geen multiply, zie het thema); zonder `tag`
   heeft de slide geen klik. Het beeld gaat door `resolveAsset` (layouts-
   base), zoals elke layout die een beeldpad verwerkt.
 
@@ -37,7 +40,7 @@
   geregistreerd; `useOwnClicks` is hier niet nodig.
 -->
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import { resolveAsset } from '../../layouts-base/utils'
 
 const props = withDefaults(
@@ -62,10 +65,13 @@ const props = withDefaults(
 )
 
 const src = computed(() => (props.image ? resolveAsset(props.image) : ''))
+
+const slots = useSlots()
+const hasBody = computed(() => !!src.value || !!slots.standfirst)
 </script>
 
 <template>
-  <div class="slidev-layout frontpage">
+  <div class="slidev-layout frontpage" :class="{ 'frontpage--headline-only': !hasBody }">
     <header class="fp-masthead">
       <span class="fp-paper">{{ masthead }}</span>
       <span v-if="edition" class="fp-edition">{{ edition }}</span>
@@ -81,7 +87,7 @@ const src = computed(() => (props.image ? resolveAsset(props.image) : ''))
       <div v-if="tag" v-click class="fp-tag tag tag--spray" aria-hidden="true">{{ tag }}</div>
     </div>
 
-    <div class="fp-body" :class="{ 'fp-body--photo': !!src }">
+    <div v-if="hasBody" class="fp-body" :class="{ 'fp-body--photo': !!src }">
       <div class="fp-standfirst">
         <slot name="standfirst" />
       </div>
@@ -153,10 +159,30 @@ const src = computed(() => (props.image ? resolveAsset(props.image) : ''))
   margin: 0;
 }
 
+/* Zonder persfoto en standfirst neemt de kop de rest van de pagina: groter,
+   verticaal gecentreerd in wat er onder de datumregel overblijft. */
+.slidev-layout.frontpage.frontpage--headline-only .fp-headline {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: var(--space-xl);
+}
+.slidev-layout.frontpage.frontpage--headline-only .fp-headline :deep(h1) {
+  font-size: 6.4rem;
+  max-width: 8.2em;
+}
+.slidev-layout.frontpage.frontpage--headline-only .fp-tag {
+  top: 28%;
+  left: 4%;
+  font-size: 8.4rem;
+}
+
 /* De tag over de kop: spuitbus, niet marker — zwarte marker over een zwarte
    kop is onleesbaar, en op muur-1.jpg gaat de rode SKY ook over de zwarte
    tags heen. De vorm (`.tag`, `.tag--spray`, `--tag-tilt`) komt uit het
-   thema; hier alleen plek en maat. */
+   thema — inclusief de z-index die hem óver de kop legt; hier alleen plek
+   en maat. */
 /* Over de kop, niet over de datumregel: die moet leesbaar blijven. */
 .slidev-layout.frontpage .fp-tag {
   position: absolute;
@@ -166,6 +192,7 @@ const src = computed(() => (props.image ? resolveAsset(props.image) : ''))
   --tag-tilt: -6deg;
   transform-origin: 15% 80%;
   transition: opacity 180ms ease-out;
+  z-index: 2;
 }
 
 /* ── De pagina eronder: kolom links, persfoto rechts ─────────────── */
