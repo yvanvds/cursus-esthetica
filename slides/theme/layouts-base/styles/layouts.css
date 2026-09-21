@@ -7,10 +7,13 @@
      layout: paired-reveal  (tekst links, beeld dat per klik switcht)
      layout: quadrants      (titel + 2×2 grid)
      layout: breathe        (full-bleed beeld op een ademende grond)
+     layout: scale          (beelden op één rij als schaal, met een as eronder)
+     layout: spotlight      (één beeld, per klik licht een zone op)
 
    Geen kleuren of fonts hier — alleen layout. Het thema levert tokens:
      --color-text, --color-text-quiet, --color-rule (optioneel),
-     --space-sm, --space-md, --space-lg, --space-xl,
+     --color-accent, --color-bg,
+     --space-xs, --space-sm, --space-md, --space-lg, --space-xl,
      --font-mono, --step--1
    --color-rule valt terug op --color-text als het thema het niet definieert.
    `breathe` leest daarnaast --breathe-from / --breathe-to (en optioneel
@@ -342,4 +345,240 @@
   max-height: 72vh;
   object-fit: contain;
   border: 1px solid var(--color-rule, var(--color-text));
+}
+
+/* ── SCALE — beelden op één rij als schaal, met een as eronder; optioneel
+     het laatst onthulde beeld groot erboven (`stage`). Zie scale.vue. ──
+     Rijen: kop (optioneel), podium (optioneel, neemt de rest), de rij, de
+     assen. De rij heeft vaste kolommen (`--scale-count`), dus een paneel
+     dat nog verborgen is laat zijn plek open — dat is het punt. ───────── */
+.slidev-layout.scale {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md);
+  align-content: center;
+}
+.slidev-layout.scale.scale--headed {
+  grid-template-rows: auto auto auto;
+}
+.slidev-layout.scale.scale--staged {
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  align-content: stretch;
+}
+.slidev-layout.scale.scale--staged.scale--headed {
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+.slidev-layout.scale .scale-header h2 {
+  margin-bottom: 0;
+}
+/* Het podium: alle beelden gestapeld, alleen het huidige zichtbaar, zodat de
+   wissel een fade is en het podium nooit van maat verandert. */
+.slidev-layout.scale .scale-stage {
+  position: relative;
+  margin: 0;
+  min-height: 0;
+}
+.slidev-layout.scale .scale-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+.slidev-layout.scale .scale-stage img.is-visible {
+  opacity: 1;
+}
+.slidev-layout.scale .scale-row {
+  display: grid;
+  grid-template-columns: repeat(var(--scale-count, 4), 1fr);
+  gap: var(--space-md);
+  align-items: start;   /* labels op één lijn, ook als een bijschrift wikkelt */
+  min-height: 0;
+}
+.slidev-layout.scale .scale-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs, 0.5rem);
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  padding-bottom: var(--space-xs, 0.5rem);
+  border-bottom: 2px solid transparent;
+}
+/* Met een podium is de rij een strook thumbnails; de accentlijn wijst aan
+   welk beeld het podium toont. */
+.slidev-layout.scale.scale--staged .scale-panel img {
+  height: 5.5rem;
+}
+.slidev-layout.scale .scale-panel.is-current {
+  border-bottom-color: var(--color-accent);
+}
+.slidev-layout.scale .scale-panel img {
+  max-width: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+.slidev-layout.scale .scale-label {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+.slidev-layout.scale .scale-panel figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-quiet);
+  text-align: center;
+  line-height: 1.4;
+}
+/* De as: pool — lijn met pijlpunt — pool. */
+.slidev-layout.scale .scale-axis {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  line-height: 1.4;
+}
+/* Vaste breedte voor de polen, zodat twee assen onder elkaar dezelfde lijn
+   hebben; de eerste pool rechts uitgelijnd tegen de lijn. */
+.slidev-layout.scale .scale-axis-pole {
+  flex: 0 0 8em;
+}
+.slidev-layout.scale .scale-axis-pole:first-child {
+  text-align: right;
+}
+.slidev-layout.scale .scale-axis-line {
+  position: relative;
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--color-rule, var(--color-text));
+}
+.slidev-layout.scale .scale-axis-line::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0.5em;
+  height: 0.5em;
+  border-top: 1px solid var(--color-rule, var(--color-text));
+  border-right: 1px solid var(--color-rule, var(--color-text));
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* ── SPOTLIGHT — één beeld, per klik licht een zone op. Zie spotlight.vue.
+     Het beeld vult het podium met contain; `.spotlight-frame` krijgt via
+     useContainBox de rechthoek die het beeld werkelijk dekt en draagt de
+     dim-doos, de zones en het bijschrift. ─────────────────────────────── */
+.slidev-layout.spotlight {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+}
+.slidev-layout.spotlight.spotlight--headed {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.slidev-layout.spotlight .spotlight-header h2 {
+  margin-bottom: 0;
+}
+.slidev-layout.spotlight .spotlight-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.slidev-layout.spotlight .spotlight-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+.slidev-layout.spotlight .spotlight-frame {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* De dim-doos: een doos op de actieve zone met een schaduw zo groot als het
+   frame; de rest van het beeld gaat daardoor onder een sluier. Op stap 0 en
+   in de finale is de doos het hele frame en de sluier doorzichtig, zodat de
+   overgang naar de eerste zone als een inzoomende blik leest. */
+.slidev-layout.spotlight .spotlight-dim {
+  position: absolute;
+  box-shadow: 0 0 0 200vmax rgba(0, 0, 0, var(--spotlight-dim, 0));
+  transition:
+    left 500ms ease-in-out, top 500ms ease-in-out,
+    width 500ms ease-in-out, height 500ms ease-in-out,
+    box-shadow 500ms ease-in-out;
+}
+.slidev-layout.spotlight .spotlight-region {
+  position: absolute;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+.slidev-layout.spotlight .spotlight-region.is-active,
+.slidev-layout.spotlight .spotlight-region.is-finale {
+  opacity: 1;
+}
+/* Het label: op een strook in de grondkleur van het thema, met een
+   accentstreep, rechts van de zone of — tegen de rechterrand — links. */
+.slidev-layout.spotlight .spotlight-label {
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  border-left: 2px solid var(--color-accent);
+  padding: 0.2em 0.6em 0.2em 0.5em;
+}
+.slidev-layout.spotlight .spotlight-label--right {
+  left: calc(100% + var(--space-xs, 0.5rem));
+}
+.slidev-layout.spotlight .spotlight-label--left {
+  right: calc(100% + var(--space-xs, 0.5rem));
+  border-left: none;
+  border-right: 2px solid var(--color-accent);
+  padding: 0.2em 0.5em 0.2em 0.6em;
+}
+.slidev-layout.spotlight .spotlight-label--top {
+  left: 0;
+  top: auto;
+  bottom: calc(100% + var(--space-xs, 0.5rem));
+}
+.slidev-layout.spotlight .spotlight-label--bottom {
+  left: 0;
+  top: calc(100% + var(--space-xs, 0.5rem));
+}
+.slidev-layout.spotlight .spotlight-label-no {
+  color: var(--color-accent);
+  margin-right: 0.6em;
+}
+.slidev-layout.spotlight .spotlight-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: var(--space-xs, 0.5rem) var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
 }

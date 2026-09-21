@@ -1,0 +1,598 @@
+/* ────────────────────────────────────────────────────────────────────
+   Pagina 37 — Cursus Esthetica, hoofdstuk 17 "Voor wie schrijf je je
+   naam?"
+
+   Op 21 juli 1971 drukt The New York Times op pagina 37 een kort stuk over
+   een koerier die overal zijn naam achterlaat. Het is de krant die van een
+   gewoonte een beweging maakt: pas als de naam gedrukt staat, gaan
+   duizenden anderen hem nadoen. Vijf jaar later leest Baudrillard de tag
+   als het lege teken tussen de tekens van de reclame — het enige teken in
+   de stad dat niets van je wil.
+
+   Dit deck is die krantenpagina. Krantenpapier, een broadsheet-kop, kolommen
+   in een leesserif, datumregels in kapitaal van een redactie-typemachine —
+   en daaroverheen, per klik, een naam in marker. De spanning van het
+   hoofdstuk als vorm: de gedrukte pagina die alles ordent, en de hand die
+   er dwars doorheen schrijft.
+
+   Sfeer: warm, gebroken wit met een fijne papierkorrel en een vleug
+   vergeling aan de randen; drukinkt met een zweem blauw; één tweede kleur,
+   het spuitbusrood van de SKY-tag op muur-1.jpg, met een zachte halo zodat
+   het als spray leest en niet als drukwerk. Het hoofdstuk heeft geen
+   accentColor en geen eigen stylesheet — het deck zet de sfeer als eerste.
+   Familie met de site: dezelfde modulaire schaal (1.2), dezelfde
+   spacing-stapel, mono-kapitaal voor meta-regels, serif voor koppen.
+
+   Vier lagen, elk met een eigen letter:
+     print     Playfair Display 900    de broadsheet-kop
+     kolom     Libre Caslon Text       de lopende tekst van de krant
+     redactie  Courier Prime           datumregels, bijschriften, rubrieken
+     hand      Sedgwick Ave Display    de tag — een marker-handstyle,
+                                       getekend naar de New Yorkse
+                                       tagging van de jaren '70–'80
+   Plus, alleen in beweging 7: Archivo 900 — de zware schreefloze van een
+   advertentie.
+
+   Motief per beweging, als klasse op de slide (`class: page-…`):
+
+     page-print     schone krantenpagina                       (1 · 6)
+     page-tagged    de marges raken vol — twee marker-krabbels
+                    met namen uit het artikel van 1971         (2 · 3 · 4)
+     page-vertical  pixação — hoge zwarte strepen langs de
+                    randen, als de gevel                       (5)
+     page-ad        de pagina wordt een advertentie: wit vlak,
+                    zware schreefloze kop, hairline-kader      (7)
+
+   Zonder klasse: `page-print`.
+
+   Thema-eigen layouts (slides/theme/pagina37/layouts/):
+     frontpage   de voorpagina — masthead, dubbele lijn, datumregel, kop
+                 over de volle breedte, persfoto met bijschrift, en per
+                 klik een tag over de kop
+     section     de sectieslide — het nummer groot in spray als tag-laag,
+                 de bewegingstitel als kop, de ondertitel als datumregel
+     end         de slotslide op papier (de ingebouwde is zwart, scoped)
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Sedgwick+Ave+Display&family=Archivo:wght@400;900&display=swap');
+
+:root {
+  /* ── Palet — krantenpapier en drukinkt ─────────────────────────── */
+  --color-bg:            #ece5d4;   /* het papier */
+  --color-bg-elevated:   #e4dcc9;   /* een iets donkerder vlak: kader, kolomkop */
+  --color-surface:       #dcd3be;
+  --color-text:          #1d1f26;   /* drukinkt: bijna zwart, een vleug blauw */
+  --color-text-muted:    #33353d;
+  --color-text-dim:      #595b63;
+  --color-text-quiet:    #767880;
+  --color-border-subtle: #c9c0aa;
+  --color-rule:          #1d1f26;   /* krantenlijnen zijn inkt, geen grijs */
+
+  /* ── De spuitbus ──────────────────────────────────────────────────
+     Het rood van SKY op muur-1.jpg (gemeten #a92e32 op de K, Kodachrome
+     inbegrepen), iets naar het oranje getrokken zoals verse spray. */
+  --color-accent:        #b43224;
+  --color-accent-soft:   rgba(180, 50, 36, 0.14);
+  --color-accent-line:   rgba(180, 50, 36, 0.36);
+  --color-accent-halo:   rgba(180, 50, 36, 0.55);
+
+  /* ── De marker ────────────────────────────────────────────────── */
+  --color-marker:        #14151a;
+  --color-marker-faint:  rgba(20, 21, 26, 0.26);   /* de krabbels in de marge */
+
+  /* ── De advertentie (beweging 7) ──────────────────────────────── */
+  --color-ad-bg:         #fbfaf7;
+  --color-ad-ink:        #0b0b0d;
+
+  /* ── Papier — twee fijne puntrasters op incommensurabele stappen, een
+     derde in wit, en een lichte vergeling naar de randen. Alles in één
+     background-stapel op de slide zelf, zodat ::before en ::after vrij
+     blijven voor het decor per beweging. ───────────────────────────── */
+  --paper:
+    radial-gradient(circle, rgba(72, 56, 30, 0.06) 0 0.55px, transparent 0.9px),
+    radial-gradient(circle, rgba(72, 56, 30, 0.045) 0 0.5px, transparent 0.85px),
+    radial-gradient(circle, rgba(255, 252, 244, 0.4) 0 0.4px, transparent 0.75px),
+    radial-gradient(ellipse 85% 80% at 50% 50%, transparent 55%, rgba(128, 96, 40, 0.11) 100%);
+  --paper-size:     3px 3px, 5px 5px, 7px 7px, 100% 100%;
+  --paper-position: 0 0, 1px 2px, 2px 1px, 0 0;
+  --paper-repeat:   repeat, repeat, repeat, no-repeat;
+
+  /* ── Typografie ────────────────────────────────────────────────── */
+  --font-display: 'Playfair Display', 'Times New Roman', Georgia, serif;
+  --font-serif:   'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+  --font-sans:    'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'Courier Prime', 'Courier New', Courier, monospace;
+  --font-hand:    'Sedgwick Ave Display', 'Permanent Marker', cursive;
+
+  /* Modulaire schaal (1.2), dezelfde als de site */
+  --step--1: 0.833rem;
+  --step-0:  1rem;
+  --step-1:  1.2rem;
+  --step-2:  1.44rem;
+  --step-3:  1.728rem;
+  --step-4:  2.488rem;
+  --step-5:  3.583rem;
+  --step-6:  4.8rem;
+
+  /* Spacing */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  --radius: 0;
+
+  /* De tag-laag: hoe scheef de hand schrijft. Per element overschrijfbaar
+     met een inline style. */
+  --tag-tilt: -4deg;
+
+  /* Slidev hooks */
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-serif);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+/* ── Basis — de pagina ───────────────────────────────────────────── */
+.slidev-layout {
+  background-color: var(--color-bg);
+  background-image: var(--paper);
+  background-size: var(--paper-size);
+  background-position: var(--paper-position);
+  background-repeat: var(--paper-repeat);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+  font-feature-settings: "kern", "liga", "onum";
+}
+
+/* Het decor per beweging zit in ::before / ::after; de inhoud staat erop. */
+.slidev-layout > * { position: relative; z-index: 1; }
+
+/* ── Beweging 2 · 3 · 4 — de marges raken vol ─────────────────────
+   Twee marker-krabbels als decor: namen uit het artikel van 21 juli 1971
+   (de navolgers die de journalist al noteerde). Multiply, zodat de inkt in
+   het papier zit; lage dekking via de kleur, zodat ze decor blijven. */
+.slidev-layout.page-tagged::before,
+.slidev-layout.page-tagged::after {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  font-family: var(--font-hand);
+  line-height: 1;
+  color: var(--color-marker-faint);
+  mix-blend-mode: multiply;
+  white-space: nowrap;
+}
+.slidev-layout.page-tagged::before {
+  content: 'BARBARA 62';
+  top: 0.9rem;
+  right: 1.6rem;
+  font-size: var(--step-3);
+  transform: rotate(3deg);
+}
+.slidev-layout.page-tagged::after {
+  content: 'JOE 136';
+  left: 1.4rem;
+  bottom: 1rem;
+  font-size: var(--step-4);
+  transform: rotate(-7deg);
+}
+
+/* ── Beweging 5 — de gevel ─────────────────────────────────────────
+   Pixação: hoge, smalle zwarte strepen langs beide randen, in twee net
+   verschillende hoeken zodat ze elkaar kruisen en hoekig lezen, met
+   onregelmatige tussenruimte. Geen letters — er is geen letter voor. De
+   strepen vervagen naar het midden zodat de tekst vrij blijft. */
+.slidev-layout.page-vertical::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(93deg,
+      var(--color-marker) 0 3px, transparent 3px 9px,
+      var(--color-marker) 9px 10px, transparent 10px 22px,
+      var(--color-marker) 22px 26px, transparent 26px 33px),
+    repeating-linear-gradient(97.5deg,
+      transparent 0 13px, var(--color-marker) 13px 15px,
+      transparent 15px 29px, var(--color-marker) 29px 30px, transparent 30px 41px);
+  -webkit-mask-image:
+    linear-gradient(to right,
+      rgba(0, 0, 0, 0.75) 0, rgba(0, 0, 0, 0.45) 5%, transparent 12%,
+      transparent 88%, rgba(0, 0, 0, 0.45) 95%, rgba(0, 0, 0, 0.75) 100%);
+          mask-image:
+    linear-gradient(to right,
+      rgba(0, 0, 0, 0.75) 0, rgba(0, 0, 0, 0.45) 5%, transparent 12%,
+      transparent 88%, rgba(0, 0, 0, 0.45) 95%, rgba(0, 0, 0, 0.75) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* ── Beweging 7 — de pagina wordt een advertentie ─────────────────
+   Wit vlak, hairline-kader, zware schreefloze. Geen korrel, geen
+   vergeling: reclame is schoon. */
+.slidev-layout.page-ad {
+  background-color: var(--color-ad-bg);
+  background-image: none;
+  color: var(--color-ad-ink);
+  font-family: var(--font-sans);
+}
+.slidev-layout.page-ad::before {
+  content: '';
+  position: absolute;
+  inset: var(--space-md);
+  z-index: 0;
+  pointer-events: none;
+  border: 1.5px solid var(--color-ad-ink);
+}
+.slidev-layout.page-ad h1,
+.slidev-layout.page-ad h2,
+.slidev-layout.page-ad h3 {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-ad-ink);
+  border: none;
+}
+.slidev-layout.page-ad p,
+.slidev-layout.page-ad li {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-ad-ink);
+}
+.slidev-layout.page-ad .meta,
+.slidev-layout.page-ad .meta-quiet {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+/* ── Koppen — de broadsheet ──────────────────────────────────────── */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: var(--font-display);
+  color: var(--color-text);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  font-weight: 900;
+  /* Koppen in tabelcijfers; de lopende tekst houdt de onum van de pagina. */
+  font-feature-settings: "kern", "liga", "lnum";
+}
+.slidev-layout h1 { font-size: var(--step-5); margin-bottom: var(--space-md); }
+.slidev-layout h2 {
+  font-size: var(--step-4);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--color-rule);
+}
+.slidev-layout h3 {
+  font-size: var(--step-2);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+.slidev-layout h4 {
+  font-size: var(--step-0);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Lopende tekst — de kolom ────────────────────────────────────── */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+.slidev-layout li + li { margin-top: 0.3em; }
+
+.slidev-layout strong { color: var(--color-text); font-weight: 700; }
+.slidev-layout em { font-style: italic; color: var(--color-text); }
+
+.slidev-layout a {
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent-line);
+}
+.slidev-layout a:hover { border-bottom-color: var(--color-accent); }
+
+/* Echte krantenkolommen voor een tekstslide die er twee nodig heeft:
+   <div class="columns">…</div> */
+.slidev-layout .columns {
+  column-count: 2;
+  column-gap: var(--space-lg);
+  column-rule: 1px solid var(--color-rule);
+}
+.slidev-layout .columns p { margin-top: 0; }
+.slidev-layout .columns p + p { text-indent: 1.4em; }
+
+/* Twee kolommen met uitgelijnde rijen — voor een vergelijking (street art |
+   graffiti). CSS-kolommen (`.columns`) kunnen geen rijen uitlijnen, dus elke
+   rij is een eigen tweekolomsgrid met dezelfde maten; zo werkt `v-click` per
+   rij en blijft de kolomlijn doorlopen:
+   <div class="versus">
+     <div class="versus-row versus-head"><span>street art</span><span>graffiti</span></div>
+     <div class="versus-row" v-click><span>beeld</span><span>tekst</span></div>
+   </div> */
+.slidev-layout .versus { display: grid; }
+.slidev-layout .versus-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.slidev-layout .versus-row > * {
+  padding: 0.45em var(--space-md) 0.45em 0;
+  font-family: var(--font-serif);
+  font-size: var(--step-2);
+  line-height: 1.35;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.slidev-layout .versus-row > * + * {
+  border-left: 1px solid var(--color-rule);
+  padding-left: var(--space-md);
+  padding-right: 0;
+}
+.slidev-layout .versus-head > * {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--step-3);
+  border-bottom: 2px solid var(--color-rule);
+}
+
+/* Advertentieregels — de tekens van de stad die iets van je willen
+   (Baudrillard). Zware schreefloze in kapitaal, ook buiten `page-ad`. */
+.slidev-layout .ad-line {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: var(--step-4);
+  letter-spacing: 0;
+  word-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: var(--color-text);
+}
+
+/* ── De tag-laag ─────────────────────────────────────────────────────
+   <span class="tag">TAKI 183</span>          marker, in het papier
+   <span class="tag tag--spray">SKY</span>    spuitbus, met halo
+   Rotatie via --tag-tilt; inline-block zodat de rotatie de regel niet
+   meeneemt. */
+.slidev-layout .tag {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.35em;
+  line-height: 1;
+  color: var(--color-marker);
+  mix-blend-mode: multiply;
+  transform: rotate(var(--tag-tilt));
+  transform-origin: 40% 60%;
+  letter-spacing: 0.01em;
+}
+.slidev-layout .tag--spray {
+  color: var(--color-accent);
+  text-shadow:
+    0 0 0.03em var(--color-accent-halo),
+    0 0 0.10em var(--color-accent-line),
+    0 0 0.28em var(--color-accent-soft);
+}
+
+/* ── Code / gegevensblokken (zelden nodig in dit deck) ───────────── */
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-bg-elevated);
+  padding: 0.1em 0.4em;
+  color: var(--color-text);
+}
+.slidev-layout pre {
+  background: var(--color-bg-elevated);
+  border-left: 2px solid var(--color-rule);
+  padding: var(--space-md);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  margin-top: var(--space-md);
+  color: var(--color-text);
+}
+.slidev-layout pre,
+.slidev-layout pre code,
+.slidev-layout pre .line,
+.slidev-layout pre span { color: var(--color-text) !important; }
+.slidev-layout pre code { display: block; text-indent: 0; padding-left: 0; }
+
+/* ── Citaat — de pull quote: dikke lijn boven, dunne onder ───────── */
+.slidev-layout blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--step-4);
+  line-height: 1.25;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-top: 3px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  padding: var(--space-sm) 0;
+  margin: var(--space-lg) 0;
+  position: relative;
+}
+.slidev-layout blockquote p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* ── Lijsten — het opsommingsteken is een inktblokje ─────────────── */
+.slidev-layout ul { list-style: none; padding-left: 0; }
+.slidev-layout ul > li { position: relative; padding-left: 1.3em; }
+.slidev-layout ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.62em;
+  width: 0.38em;
+  height: 0.38em;
+  background: var(--color-text);
+}
+.slidev-layout ol { padding-left: 1.8em; }
+.slidev-layout ol > li::marker {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+/* ── Meta-regels — datumregels, plaatsnamen, rubrieken ───────────── */
+.slidev-layout .meta,
+.slidev-layout .meta-quiet,
+.slidev-layout .dateline {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+.slidev-layout .meta       { color: var(--color-accent); }
+.slidev-layout .meta-quiet { color: var(--color-text-quiet); }
+.slidev-layout .dateline {
+  color: var(--color-text);
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  padding: 0.35em 0;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+/* De dubbele krantenlijn — dik boven dun. <hr> of <div class="rule"> */
+.slidev-layout hr,
+.slidev-layout .rule {
+  box-sizing: border-box;
+  border: none;
+  height: 7px;
+  border-top: 2.5px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  margin: var(--space-sm) 0;
+}
+
+/* ── COVER (Slidevs ingebouwde, als vangnet; het deck gebruikt
+     `layout: frontpage`) ───────────────────────────────────────────── */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--space-xl) var(--space-2xl);
+}
+.slidev-layout.cover h1 {
+  font-size: var(--step-6);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  max-width: 14em;
+}
+.slidev-layout.cover h1 + p {
+  font-size: var(--step-2);
+  max-width: 34em;
+}
+
+/* ── SECTIE — thema-eigen layout, de vorm staat in section.vue; hier
+     alleen wat de tekst-tokens van de slot-inhoud regelt ──────────── */
+.slidev-layout.section h1 {
+  font-size: var(--step-5);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  max-width: 11em;
+  margin-bottom: var(--space-md);
+}
+.slidev-layout.section p {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── EINDE — thema-eigen layout end.vue: Slidevs ingebouwde zet in een
+     scoped style zwart op zijn root, zie de kop van dat bestand ─────── */
+.slidev-layout.end {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: var(--space-2xl);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+.slidev-layout.end h1 {
+  font-size: var(--step-5);
+}
+.slidev-layout.end p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-3);
+  color: var(--color-text-muted);
+}
+
+/* ── Gecentreerde layout (Slidev ingebouwd) ──────────────────────── */
+.slidev-layout.center { text-align: center; }
+.slidev-layout.center h2 { border-bottom: none; padding-bottom: 0; }
+.slidev-layout.center ul > li { display: inline-block; padding-left: 1.3em; }
+
+/* ── Beeldlayouts — het papier treedt terug ──────────────────────────
+   Waar het beeld het onderwerp is, geen decor over het werk: geen korrel,
+   geen vergeling, geen margekrabbels, geen gevelstrepen — ook niet als
+   een slide per ongeluk een `page-…`-klasse meekrijgt. De layouts uit
+   layouts-base zetten hun naam als klasse op hun root (#49), dus dit
+   grijpt. Bij `image` zet de layout zijn achtergrond bovendien inline.
+
+   `image-left`/`image-right` staan hier bewust niet in: daar landt de
+   klasse op de teksthelft, en die mag zijn papier houden. */
+.slidev-layout.image,
+.slidev-layout.compare,
+.slidev-layout.triptych,
+.slidev-layout.detail,
+.slidev-layout.breathe,
+.slidev-layout.paired-reveal,
+.slidev-layout.scale,
+.slidev-layout.spotlight {
+  background-image: none;
+}
+.slidev-layout.image::before,
+.slidev-layout.compare::before,
+.slidev-layout.triptych::before,
+.slidev-layout.detail::before,
+.slidev-layout.breathe::before,
+.slidev-layout.paired-reveal::before,
+.slidev-layout.scale::before,
+.slidev-layout.spotlight::before,
+.slidev-layout.image::after,
+.slidev-layout.compare::after,
+.slidev-layout.triptych::after,
+.slidev-layout.detail::after,
+.slidev-layout.breathe::after,
+.slidev-layout.paired-reveal::after,
+.slidev-layout.scale::after,
+.slidev-layout.spotlight::after { display: none; }
+
+/* ── Haken voor layouts-base ─────────────────────────────────────── */
+.slidev-layout.quadrants .quadrant { background: var(--color-bg-elevated); }
+.slidev-layout.quadrants .quadrant h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--color-text);
+}
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  background: var(--color-bg-elevated);
+}
+.slidev-layout.triptych figcaption,
+.slidev-layout.detail figcaption {
+  letter-spacing: 0.06em;
+}
