@@ -8,11 +8,18 @@ import VideoOverlay from '../components/base/VideoOverlay.astro';
 interface Props {
   title?: string;
   description?: string;
+  /**
+   * Only the page itself: no site header, footer, lightbox or video overlay.
+   * For full-screen tools such as the debate app (#117); fonts and tokens
+   * stay the same as on every other page.
+   */
+  bare?: boolean;
 }
 
 const {
   title = 'Cursus Esthetica',
   description = 'Veertien manieren van kijken.',
+  bare = false,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
@@ -74,13 +81,19 @@ const base = import.meta.env.BASE_URL;
     `} />
   </head>
   <body>
-    <SiteHeader />
-    <main class="page-content">
+    {bare ? (
       <slot />
-    </main>
-    <SiteFooter />
-    <Lightbox />
-    <VideoOverlay />
+    ) : (
+      <>
+        <SiteHeader />
+        <main class="page-content">
+          <slot />
+        </main>
+        <SiteFooter />
+        <Lightbox />
+        <VideoOverlay />
+      </>
+    )}
   </body>
 </html>
 

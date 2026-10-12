@@ -1,0 +1,58 @@
+---
+// The two buttons under the debate section of chapter 17 (#117). The hrefs
+// are built here because a bare `/downloads/...` in MDX does not get Astro's
+// `base` (`/cursus-esthetica`) and would 404 on GitHub Pages.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const assignment = `${base}/downloads/graffiti-en-street-art/debat-graffiti.docx`;
+const app = `${base}/graffiti-en-street-art/debat/`;
+---
+
+<div class="debat-links">
+  <a class="debat-links__button debat-links__button--primary" href={assignment} download="debat-graffiti.docx">
+    Opdracht downloaden <span class="debat-links__meta">docx</span>
+  </a>
+  <a class="debat-links__button" href={app}>Debat-app openen →</a>
+</div>
+
+<style>
+  .debat-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-block: var(--space-md);
+  }
+
+  /* Two classes deep: ThemeLayout styles every `.theme-body a` as an
+     underlined accent link, and that has to lose here. */
+  .debat-links .debat-links__button {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6em;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.7rem var(--space-sm);
+    transition: color var(--transition-color), border-color var(--transition-color);
+  }
+
+  .debat-links .debat-links__button:hover {
+    color: var(--color-text);
+    border-color: var(--color-accent);
+  }
+
+  .debat-links .debat-links__button--primary,
+  .debat-links .debat-links__button--primary:hover {
+    color: var(--color-bg);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .debat-links__meta {
+    opacity: 0.7;
+  }
+</style>
