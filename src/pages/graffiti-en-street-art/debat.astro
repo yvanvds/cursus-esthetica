@@ -1,0 +1,45 @@
+---
+// The debate app of chapter 17 (#117), full screen, without the chapter's
+// layout. A static route next to `[theme].astro`: that one generates
+// `/graffiti-en-street-art/`, this one `/graffiti-en-street-art/debat/` —
+// different depths, so they cannot collide.
+//
+// `client:only`: the app reads localStorage and the clock on first render.
+// A server render would show an empty start screen that hydration then has to
+// replace — a mismatch, and a visible jump on the projector.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DebatApp from '../../components/themes/graffiti-en-street-art/DebatApp.tsx';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const chapterHref = `${base}/graffiti-en-street-art/`;
+---
+
+<BaseLayout
+  title="Debat graffiti — Cursus Esthetica"
+  description="Hulpmiddel voor de leerkracht bij het debat van hoofdstuk 17: stemmingen, timers en sprekers."
+  bare
+>
+  <DebatApp client:only="react" chapterHref={chapterHref}>
+    <p slot="fallback" class="debat-loading">Debat-app laden…</p>
+  </DebatApp>
+  <noscript>
+    <p class="debat-loading">
+      De debat-app heeft JavaScript nodig. <a href={chapterHref}>Terug naar het hoofdstuk</a>.
+    </p>
+  </noscript>
+</BaseLayout>
+
+{/* Global, not scoped: a scoped style would hand the island a data-astro-cid prop. */}
+<style is:global>
+  .debat-loading {
+    padding: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-quiet);
+  }
+
+  .debat-loading a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>
