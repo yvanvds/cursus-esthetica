@@ -33,3 +33,8 @@ body:
     attributes:
       label: Vaste keuzes
       description: Voorbeelden die er zeker in of zeker uit moeten, register, gevoeligheden. Wat blijvend is, verhuist bij akkoord naar `docs/REDACTIE.md`.
+  - type: textarea
+    id: stijl
+    attributes:
+      label: Stijl
+      description: Accentkleur, één motief uit de inhoud, eventueel een eigen font. Leeglaten betekent — beslissen bij het skelet.

@@ -16,7 +16,7 @@ Do NOT use `smaak-klasse-macht.mdx` as a length reference — it overshoots. Use
  
 ### Werkplek
  
-De skill draait in de repo-root. Schrijf alle prose — initiële MDX, snoei, latere revisies — rechtstreeks naar `src/content/themes/<theme-id>.mdx`. Beelden landen onder `public/images/<theme-id>/`. `<theme-id>` is één en dezelfde waarde overal: de bestandsnaam zonder extensie. Die bepaalt ook de URL — er is geen apart `id:`-veld in de frontmatter (zie Phase 3).
+De skill draait in de repo-root. Schrijf alle prose — initiële MDX, snoei, latere revisies — rechtstreeks naar `src/content/themes/<theme-id>.mdx`. Beelden landen onder `public/images/<theme-id>/`, de stylesheet van het hoofdstuk onder `src/styles/themes/<theme-id>.css`. `<theme-id>` is één en dezelfde waarde overal: de bestandsnaam zonder extensie. Die bepaalt ook de URL — er is geen apart `id:`-veld in de frontmatter (zie Phase 3).
  
 ## What the voice is doing (and what to imitate)
  
@@ -66,8 +66,9 @@ Now and only now, propose the chapter:
 3. **Examples table.** For each example: keep / replace / drop / add, with one-line reason. "Add" entries should reference the research that surfaced them.
 4. **Length budget — in woorden, niet in regels.** De Astro-site rekent met ongeveer 190 woorden per minuut (de Astro reading-time plugin). Bepaal eerst met de gebruiker de doel-leestijd; vermenigvuldig met 190 voor het woord-budget van de body-prose (exclusief frontmatter, MDX-imports en de Bronnen-sectie). Richtwaardes: 12 min → 2280 woorden, 15 min → 2850 woorden, 18 min → 3420 woorden. Tel woorden in Phase 3, niet regels — paragraafbreaks en korte zinnen vertekenen lijnentellingen. Als het skelet projecteert op meer dan 110% van het budget, snoei nu, niet in Phase 3.
 5. **Custom-component candidates.** Mark beats where an interactive moment would amplify the argument (timed viewer, comparator, side-by-side regime shift, etc.). Do *not* design the component. Just note it as a candidate; it gets built later via `add-interactive-component`.
-6. **Source list so far.** Reproduce the list from 1b so the user can validate the research base.
-7. **Stop. Show all of the above to the user.** Wait for sign-off or revision. Do not proceed.
+6. **Style proposal.** Style is part of the chapter work and is decided here, not added afterwards. Propose one accent colour (the `accentColor:`), one motif that comes out of the content, and the two or three concrete elements that carry it (heading, subheading, caption, ground) — nothing more. At most two fonts of the chapter's own. If the issue's `Stijl` field is filled in, start from that. Check `slides/theme/` first: if a deck for this chapter already set the mood (as `aigles` did for belgisch-experiment and `pagina37` for graffiti-en-street-art), that deck theme is the starting point for the page — the mirror image of the `slidev` skill §4, which takes the chapter's accent and stylesheet as the starting point for the deck. The proposal belongs to this checkpoint so the user judges it together with the throughline.
+7. **Source list so far.** Reproduce the list from 1b so the user can validate the research base.
+8. **Stop. Show all of the above to the user.** Wait for sign-off or revision. Do not proceed.
 ### Phase 2 — Beeld- en video-onderzoek
  
 Input: the signed-off skeleton from Phase 1.
@@ -108,11 +109,22 @@ Input: the signed-off skeleton (Phase 1) and signed-off asset list (Phase 2).
  
 #### Frontmatter
  
-Match the existing schema exactly (`src/content.config.ts`). Mandatory fields: `title`, `module`, `order`, `figure`, `shortDescription`. Optional: `accentColor`, `image` (header image).
+Match the existing schema exactly (`src/content.config.ts`). Mandatory fields: `title`, `module`, `order`, `figure`, `shortDescription`. Optional: `image` (header image), `accentColor` and `customStyles` (both set by this skill, see *Style* below), `customLayout` (never from this skill).
 
 **There is no `id` field.** The filename without extension *is* the chapter id: it produces the URL (`[theme].astro` routes on the glob-loader id), and it is the `<theme-id>` in `public/images/<theme-id>/` and `slides/<theme-id>/`. Choose the filename deliberately — renaming later means moving those directories too. Never add `id:` to the frontmatter: the schema does not declare it, zod strips it silently, and a value that drifts from the filename makes the URL look like something it is not.
  
-**Do not set `customStyles`, `customLayout`, or `customHeader`.** These are visual customisations the user adds later if needed. The skill produces the chapter content; styling is a separate decision the user owns.
+#### Style — `accentColor` and the chapter stylesheet
+
+Style is part of the chapter work: the proposal was decided at the Phase 1 checkpoint, and this is where it lands. Two things:
+
+1. `accentColor: "#rrggbb"` in the frontmatter. `ThemeLayout` sets it on `html[data-theme="<theme-id>"]`; do not repeat it in the stylesheet.
+2. `src/styles/themes/<theme-id>.css`, referenced as `customStyles: "<theme-id>.css"`. Every rule in it is scoped under `html[data-theme="<theme-id>"]` — variables, `body`, `.theme-body h1`, all of it — because the file is bundled into every chapter page (BRIEFING §5). Never `:root`; `npm run check:chapters` reports it as an error. Open the file with the same header comment as `inleiding.css`.
+
+Keep it the size of the Phase 1 proposal: the motif and the two or three elements that carry it, no more.
+
+Fonts, if the proposal has one (at most two): self-hosted via fontsource like the three base fonts — install `@fontsource-variable/<font>` (or `@fontsource/<font>`), copy the `latin` `.woff2` into `public/fonts/`, and write the `@font-face` in the chapter stylesheet, not in `BaseLayout`. The `@font-face` block has no selector and cannot be scoped, but a browser only fetches a font when a matching rule uses it, so as long as every `font-family:` that names it sits under `html[data-theme="<theme-id>"]`, the file loads on this page only. Reference it as `url('/fonts/<file>.woff2')`; the bundler prefixes `base`.
+
+`customLayout` (level 3) is not for this skill. It is reserved and gets built through a `site` issue.
  
 `figures:` and `videos:` keys are short identifiers used by inline `[text](fig:key)` and `[text](video:key)` references. Use the same key in the body link and in the frontmatter map.
  
@@ -140,7 +152,7 @@ videos:
 - One H1 (the title — repeated below the frontmatter, plain text, no spans).
 - H2 for sections, H3 for subsections (sparingly).
 - Inline references via `[link text](fig:key)` and `[link text](video:key)`. Every key used in body must exist in frontmatter. Every key in frontmatter should be used at least once.
-- **No HTML, no custom CSS classes, no custom spans, no custom divs.** Pure markdown plus standard `<em>`/`<strong>` if you need them (rare — markdown's `*` and `**` work). Do not borrow `<span class="drift">` or any other class from inleiding/perspectief — those depend on customStyles files this chapter doesn't have. If the user later wants typographic flourishes, they will add CSS and class hooks themselves.
+- **Markdown first; class hooks only for what this chapter's own stylesheet defines.** Pure markdown plus standard `<em>`/`<strong>` if you need them (rare — markdown's `*` and `**` work). A `<span class="…">` or `<div class="…">` is allowed only when `src/styles/themes/<theme-id>.css` defines that class for one of the two or three elements from the style proposal. Never borrow `<span class="drift">` or any other class from inleiding/perspectief: those live in another chapter's stylesheet, scoped to that chapter's `data-theme`, and here they render as plain text.
 - Component imports go directly after the frontmatter, *if* a custom component is being integrated. If you are merely flagging candidates (skill default), use MDX comments instead:
   ```mdx
   {/* COMPONENT KANDIDAAT: a comparator side-by-side of the icon
@@ -205,8 +217,9 @@ Movement-level checklist. Read your draft against it. Do not check by comparing 
 - [ ] Every image referenced exists at the declared path under `/public/images/<theme-id>/`.
 - [ ] **Math en geografie expliciet dubbelgecheckt.** Voor elke tijdsclaim ("X jaar later", "Y eeuwen voor", "een eeuw vergeten"): doe de rekensom uit en verifieer met de jaartallen die elders in het hoofdstuk staan. Voor elke plaatsnaam met meerdere mogelijke referenten ("Notre-Dame" — Parijs of Reims? "San Marco" — Venetië, of een andere?): voeg een kwalificator toe ("Notre-Dame te Parijs", "de Reimse kathedraal") of verwijder de ambiguïteit. Dit zijn precies de plekken waar onder lengte-druk slordigheid binnenkomt.
 - [ ] Chapter ends with a `## Bronnen` section linking to the textual research consulted in Phase 1b.
-- [ ] **No HTML, no custom CSS classes, no `<span class="...">` borrowed from other chapters.** Pure markdown body.
-- [ ] **No frontmatter `customStyles`, `customLayout`, or `customHeader`.** The user adds visual styling later.
+- [ ] **Class hooks in the body only for classes that `src/styles/themes/<theme-id>.css` defines.** No `<span class="...">` borrowed from another chapter; otherwise pure markdown.
+- [ ] **Style present and in scope.** `accentColor` set; `customStyles: "<theme-id>.css"` points at `src/styles/themes/<theme-id>.css`; every rule in it under `html[data-theme="<theme-id>"]`, no `:root`; no `customLayout`. The stylesheet matches the Phase 1 proposal and no more.
+- [ ] **`npm run check:chapters` is green**, including its `:root` check on the stylesheet.
 - [ ] No leftover OneNote artefacts (numbered lists like "1.1, 1.2", academic phrasing, slide-deck residue).
 - [ ] Length within budget — woordental van de body-prose binnen het in Phase 1c afgesproken bereik (leestijd × 190 wpm). Waarschuw de gebruiker bij >110% van het budget.
 - [ ] Custom-component candidates are MDX comments, not actual imports — unless the component has already been built.
@@ -217,15 +230,15 @@ Movement-level checklist. Read your draft against it. Do not check by comparing 
 - [ ] **Every factual claim has a verifiable source from the Phase 1b research.** Old course material does not count as a source.
 ## Output for the user at end of Phase 3
  
-1. The MDX file at `src/content/themes/<theme-id>.mdx`, ending in a `## Bronnen` section.
-2. A short summary listing: throughline question chosen, examples kept/replaced/dropped relative to the old material, custom-component candidates flagged, anything you couldn't research and want the user to decide.
+1. The MDX file at `src/content/themes/<theme-id>.mdx`, ending in a `## Bronnen` section, and the stylesheet at `src/styles/themes/<theme-id>.css`.
+2. A short summary listing: throughline question chosen, examples kept/replaced/dropped relative to the old material, custom-component candidates flagged, the style as landed (accent, motif, fonts), anything you couldn't research and want the user to decide.
 3. Any judgement calls worth flagging — e.g. "I dropped the old anecdote about X because it didn't fit the throughline; if you want it back, here's where it would slot."
 ## Common pitfalls
  
 - **Skipping research.** The single most common failure: jumping from the old material to a skeleton without a Phase 1b research pass. Old course material gets things wrong, omits sharper framings, and misses cross-references that would strengthen the chapter. If the skeleton report doesn't include a source list, you skipped Phase 1b.
 - **Translating instead of rewriting.** Old course text often has academic register baked in. If your draft sounds like a smoothed translation from English (or a smoothed translation from the old material's register), you're in trouble. Restart from the throughline question.
 - **Hoogdravendheid als stijlmiddel.** Niet-courante woorden, gestapelde aforismen en decoratieve metaforen zijn geen extra kwaliteit maar de valse variant van "intellectueel alert". Zie het Register-blok onder de voice rules; de register-check in de verificatielijst vangt dit vóór levering.
-- **Borrowing CSS classes.** `<span class="drift">` works in inleiding because inleiding has a `customStyles: 'inleiding.css'` file with the matching CSS. In a fresh chapter without that file, the span renders as plain text and confuses the reader. Pure markdown only.
+- **Borrowing CSS classes.** `<span class="drift">` works in inleiding because `inleiding.css` defines it under `html[data-theme="inleiding"]`. In any other chapter that span renders as plain text and confuses the reader. Class hooks only for what this chapter's own stylesheet defines.
 - **Padding to fill length.** If the chapter wants to be 180 lines, let it be 180 lines. Better short and dense than long and slack.
 - **Reusing the same image across chapters without checking.** Inleiding and perspectief both use `monalisa.png`, `school-of-athens.png` — that's intentional cross-referencing. New chapters should reuse where it amplifies, never out of laziness.
 - **Auto-generating "drie vragen" or any other closer that exists in another chapter.** Each chapter's ending must come from its own argument.
