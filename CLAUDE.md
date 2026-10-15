@@ -32,17 +32,30 @@ automatically based on the task description. Key skills:
   its own visual theme, and the project mechanics (`layouts-base`,
   `CourseVideo`, `siteAssetsPlugin`, path behaviour) that upstream Slidev
   docs do not cover.
+- **`create-issues`** — the way work is *filed* here. Turns an
+  observation, a wish or a list of proposals into GitHub issues that
+  `work-issues` can work unattended: verify first, cut into one-PR issues,
+  one checkpoint (the list), fixed body blocks (nu, beslissingen, bewijs),
+  placeholders for forward references, and a hand-off that is exactly the
+  `/work-issues` command. Invoke as `/create-issues` with a description, or
+  empty. Also triggers on "maak er issues van", "zet dit op de lijst", or
+  any description of a problem that asks for proposals.
 - **`work-issues`** — the way work starts here. Works GitHub issues one at
   a time: issue → branch → the skill from the table above → build gate →
   PR → merge → live site. Invoke as `/work-issues` with issue numbers, a
   `--label` filter, or empty. Also triggers when work is proposed without
-  an issue — it files the issue first.
+  an issue — it files the issue first (one small issue; for anything more,
+  `create-issues`).
 
 ## Werkstroom
 
 All substantive work goes through a GitHub issue and a pull request; see
 the `work-issues` skill for the full procedure. In short:
 
+- New work starts with `/create-issues` (the observation becomes a queue)
+  and is worked with `/work-issues <nummers>` (the queue becomes PRs),
+  usually as the first message of a fresh session so it can run unattended.
+  Neither skill proposes new sessions or asks whether to start.
 - Issue templates live in `.github/ISSUE_TEMPLATE/`; the label
   (`hoofdstuk`, `beeld`, `component`, `slides`, `redactie`, `site`) picks
   the working method and the branch name (`<label>/issue-<N>-<slug>`).

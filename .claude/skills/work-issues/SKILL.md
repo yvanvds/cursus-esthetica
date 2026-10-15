@@ -124,6 +124,12 @@ issue-first geldt ook hier. Kies het juiste template
 akkoord. Dat kost een halve minuut en levert de titel, het label en de scope op
 die de rest van deze skill nodig heeft.
 
+Dat is de route voor één klein, duidelijk issue. Is het meer dan dat — een
+observatie die in meerdere issues uiteenvalt, een oorzaak die eerst
+geverifieerd moet worden, werk met afhankelijkheden — dan hoort het bij
+`create-issues`: die skill levert de wachtrij in de vorm die deze skill
+verwacht, en je gaat daarna verder bij stap 1.
+
 ## Stap 2 — Werktype bepaalt skill, checkpoints en verificatie
 
 Het label bepaalt het werktype. Staat er geen inhoudelijk label, leid het af uit
