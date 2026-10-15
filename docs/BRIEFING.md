@@ -280,6 +280,18 @@ In frontmatter: `customLayout: "Graffiti"`. In plaats van `ThemeLayout`
 gebruikt de pagina dan `/src/layouts/themes/Graffiti.astro`. Dit geeft
 volledige controle over de HTML-structuur, niet alleen styling.
 
+### Wat een hoofdstukstijl minimaal is
+
+Een accentkleur (niveau 1) en één motief dat uit de inhoud van het hoofdstuk
+komt, uitgewerkt in twee of drie elementen (kop, tussenkop, bijschrift,
+grond) in de stylesheet van niveau 2. Hoogstens twee eigen fonts: zelf gehost
+via fontsource zoals de basisfonts in `public/fonts/`, met de `@font-face` in
+de stylesheet van het hoofdstuk, zodat het bestand alleen op die pagina wordt
+opgehaald. Hoe ver mag het gaan: ver, zolang het uit de inhoud komt. Bij een
+nieuw hoofdstuk hoort het stijlvoorstel bij fase 1 van `draft-theme-chapter`
+en wordt het samen met de rode draad beoordeeld; niveau 3 blijft een
+`site`-issue.
+
 ### Implementatie in `[theme].astro`
 
 ```astro
