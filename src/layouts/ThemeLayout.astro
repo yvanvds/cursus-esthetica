@@ -22,14 +22,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const { theme, headings, readingTime } = Astro.props;
 
-const themeStyles = import.meta.glob<{ default: string }>(
-  '/src/styles/themes/*.css',
-  { query: '?url', eager: true }
-);
-const customStylesUrl = theme.data.customStyles
-  ? themeStyles[`/src/styles/themes/${theme.data.customStyles}`]?.default
-  : null;
-if (theme.data.customStyles && !customStylesUrl) {
+// Alle hoofdstukstylesheets gaan mee in de CSS-bundel van de pagina, ná
+// global.css (BaseLayout importeert die eerst). Niet als `<link>` in de
+// head-slot: die slot rendert vóór de stylesheets die Astro zelf in de `<head>`
+// zet, en een stylesheet die vóór tokens.css staat verliest elke gelijkstand
+// (#120). Elk bestand scoped zijn regels daarom zelf onder
+// `html[data-theme="<id>"]`, zodat het op élke hoofdstukpagina mee mag;
+// scripts/check-chapters.mjs weigert een `:root`-blok erin.
+const themeStyles = import.meta.glob('/src/styles/themes/*.css', { eager: true });
+if (
+  theme.data.customStyles &&
+  !(`/src/styles/themes/${theme.data.customStyles}` in themeStyles)
+) {
   throw new Error(
     `customStyles '${theme.data.customStyles}' not found at src/styles/themes/ for theme '${theme.id}'`
   );
@@ -79,26 +83,32 @@ const videos = (theme.data as any).videos ?? null;
 <BaseLayout
   title={`${theme.data.title} — Cursus Esthetica`}
   description={theme.data.shortDescription}
+  themeId={theme.id}
 >
-  {customStylesUrl && (
-    <link slot="head" rel="stylesheet" href={customStylesUrl} />
-  )}
   {/*
-    De accentkleur van het hoofdstuk op `:root`, en dus op de hele pagina — ook
-    op de site-header, die buiten `.theme-grid` valt (#55). Stond hier eerder
-    inline op `.theme-grid`; daardoor kleurde de cursustekst wel mee en de header
-    niet, en hielden twee hoofdstukken er een tweede kopie in hun eigen
-    stylesheet op na. Die kopieën zijn weg.
+    De accentkleur van het hoofdstuk op `<html>`, en dus op de hele pagina — ook
+    op de site-header, die buiten `.theme-grid` valt (#55).
 
-    Op `:root` werkt de afleiding van `--color-accent-soft` in tokens.css
-    vanzelf mee: een `color-mix()` wordt berekend op het element waar ze
-    gedeclareerd staat, en dat is hier hetzelfde element.
+    De selector is `html[data-theme="<id>"]`, niet `:root`. Deze `<style>` staat
+    in de head-slot van BaseLayout, en die slot rendert vóór de stylesheets die
+    Astro zelf in de `<head>` zet: tokens.css komt later met dezelfde
+    `:root`-selector en won daardoor altijd (#120). De attribuutselector heeft
+    specificiteit (0,1,1) tegenover (0,1,0) en wint ongeacht de volgorde;
+    `data-theme` zet BaseLayout op `<html>`.
+
+    Omdat de waarde op hetzelfde element staat als in tokens.css werkt de
+    afleiding van `--color-accent-soft` vanzelf mee: een `color-mix()` wordt
+    berekend op het element waar ze gedeclareerd staat.
 
     De waarde komt uit de frontmatter en is door het schema op #rrggbb
     vastgelegd (`src/content.config.ts`).
   */}
   {theme.data.accentColor && (
-    <style slot="head" is:global set:html={`:root{--color-accent:${theme.data.accentColor}}`} />
+    <style
+      slot="head"
+      is:global
+      set:html={`html[data-theme="${theme.id}"]{--color-accent:${theme.data.accentColor}}`}
+    />
   )}
   <script is:inline define:vars={{ figures, videos }}>
     if (figures) window.__figures = figures;
@@ -268,6 +278,10 @@ const videos = (theme.data as any).videos ?? null;
 </BaseLayout>
 
 <style>
+  /* Laagvolgorde, dezelfde als in base.css: wie het eerst in het document
+     staat bepaalt hem, en dat is per build of dev-server anders. */
+  @layer base, layout;
+
   /* ---- Grid ---- */
   .theme-grid {
     display: grid;
@@ -399,103 +413,112 @@ const videos = (theme.data as any).videos ?? null;
     margin-bottom: 0;
   }
 
-  /* ---- Prose ---- */
-  .theme-body :global(h1) {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: var(--step-4);
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: var(--space-md);
-  }
-
-  @media (min-width: 1024px) {
+  /* ---- Prose ----
+     In de laag `layout`. Een gelaagde regel verliest altijd van een ongelaagde,
+     en de stylesheet van een hoofdstuk (src/styles/themes/) is ongelaagd: zo
+     wint hoofdstuk-CSS zonder specificiteitsgevecht. Astro compileert
+     `.theme-body :global(h1)` namelijk tot `.theme-body[data-astro-cid-…] h1`
+     (0,2,1), en dat won van `.theme-body h1` in inleiding.css (#120).
+     base.css zit in de laag `base` daaronder: anders zouden zijn `a`, `ul` en
+     `h1` als ongelaagde regels van deze winnen. */
+  @layer layout {
     .theme-body :global(h1) {
-      font-size: var(--step-5);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--step-4);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: var(--space-md);
     }
-  }
 
-  .theme-body :global(h2) {
-    font-family: var(--font-serif);
-    font-size: var(--step-3);
-    font-weight: 400;
-    margin-top: var(--space-xl);
-    margin-bottom: var(--space-sm);
-    scroll-margin-top: var(--space-lg);
-  }
+    @media (min-width: 1024px) {
+      .theme-body :global(h1) {
+        font-size: var(--step-5);
+      }
+    }
 
-  .theme-body :global(h3) {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: var(--step-2);
-    font-weight: 400;
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-xs);
-  }
+    .theme-body :global(h2) {
+      font-family: var(--font-serif);
+      font-size: var(--step-3);
+      font-weight: 400;
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-sm);
+      scroll-margin-top: var(--space-lg);
+    }
 
-  .theme-body :global(p) {
-    font-family: var(--font-sans);
-    font-size: var(--step-0);
-    line-height: 1.7;
-    max-width: 68ch;
-    margin-bottom: var(--space-sm);
-  }
+    .theme-body :global(h3) {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: var(--step-2);
+      font-weight: 400;
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-xs);
+    }
 
-  .theme-body :global(ul),
-  .theme-body :global(ol) {
-    margin-bottom: var(--space-sm);
-    padding-left: var(--space-md);
-  }
+    .theme-body :global(p) {
+      font-family: var(--font-sans);
+      font-size: var(--step-0);
+      line-height: 1.7;
+      max-width: 68ch;
+      margin-bottom: var(--space-sm);
+    }
 
-  .theme-body :global(ul) {
-    list-style: disc;
-  }
+    .theme-body :global(ul),
+    .theme-body :global(ol) {
+      margin-bottom: var(--space-sm);
+      padding-left: var(--space-md);
+    }
 
-  .theme-body :global(ol) {
-    list-style: decimal;
-  }
+    .theme-body :global(ul) {
+      list-style: disc;
+    }
 
-  .theme-body :global(blockquote) {
-    border-left: 3px solid var(--color-accent);
-    padding-left: var(--space-md);
-    margin-block: var(--space-md);
-    color: var(--color-text-muted);
-    font-style: italic;
-  }
+    .theme-body :global(ol) {
+      list-style: decimal;
+    }
 
-  .theme-body :global(img) {
-    margin-block: var(--space-md);
-    border-radius: var(--radius);
-  }
+    .theme-body :global(blockquote) {
+      border-left: 3px solid var(--color-accent);
+      padding-left: var(--space-md);
+      margin-block: var(--space-md);
+      color: var(--color-text-muted);
+      font-style: italic;
+    }
 
-  .theme-body :global(code) {
-    font-family: var(--font-mono);
-    background: var(--color-surface);
-    padding: 0.15em 0.4em;
-    border-radius: 3px;
-    font-size: 0.9em;
-  }
+    .theme-body :global(img) {
+      margin-block: var(--space-md);
+      border-radius: var(--radius);
+    }
 
-  .theme-body :global(pre) {
-    font-family: var(--font-mono);
-    background: var(--color-surface);
-    padding: var(--space-sm);
-    border-radius: var(--radius);
-    overflow-x: auto;
-    margin-block: var(--space-md);
-  }
+    .theme-body :global(code) {
+      font-family: var(--font-mono);
+      background: var(--color-surface);
+      padding: 0.15em 0.4em;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
 
-  .theme-body :global(pre code) {
-    background: none;
-    padding: 0;
-    border-radius: 0;
-    font-size: 1em;
-  }
+    .theme-body :global(pre) {
+      font-family: var(--font-mono);
+      background: var(--color-surface);
+      padding: var(--space-sm);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      margin-block: var(--space-md);
+    }
 
-  .theme-body :global(a) {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    .theme-body :global(pre code) {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 1em;
+    }
+
+    .theme-body :global(a) {
+      color: var(--color-accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
   }
 
   /* ---- Mobile nav bar ---- */

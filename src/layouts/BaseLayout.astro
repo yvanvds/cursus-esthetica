@@ -14,19 +14,26 @@ interface Props {
    * stay the same as on every other page.
    */
   bare?: boolean;
+  /**
+   * Chapter id, set as `data-theme` on `<html>`. Everything chapter-specific
+   * (the accent from the frontmatter, the stylesheet under src/styles/themes/)
+   * hangs off `html[data-theme="<id>"]` (#120). Omitted on every other page.
+   */
+  themeId?: string;
 }
 
 const {
   title = 'Cursus Esthetica',
   description = 'Veertien manieren van kijken.',
   bare = false,
+  themeId,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
-<html lang="nl">
+<html lang="nl" data-theme={themeId}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

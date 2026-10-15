@@ -235,17 +235,44 @@ Gewone markdown blijft werken.
 Dit is een kernconcept. Elk thema begint met de basis-identiteit, maar kan
 op drie niveaus afwijken:
 
+`BaseLayout` zet het thema-id als `data-theme` op `<html>` (`ThemeLayout`
+geeft `theme.id` door); op andere pagina's ontbreekt het attribuut. Alles wat
+hoofdstuk-eigen is hangt aan `html[data-theme="<id>"]`.
+
 ### Niveau 1: Alleen accentkleur wijzigen
 
-In frontmatter: `accentColor: "#00D4C8"`. De `ThemeLayout` leest dit en
-overschrijft `--color-accent` voor die pagina alleen.
+In frontmatter: `accentColor: "#00D4C8"`. `ThemeLayout` schrijft dit als
+`html[data-theme="<id>"] { --color-accent: … }` in een `<style>` in de
+`<head>`. De selector is bewust niet `:root`: die `<style>` staat in de
+head-slot van `BaseLayout`, en die slot rendert vóór de stylesheets die Astro
+zelf in de `<head>` zet, zodat `tokens.css` met zijn eigen `:root`-blok later
+kwam en won (#120). De attribuutselector (0,1,1) wint van `:root` (0,1,0)
+ongeacht de volgorde. Omdat de waarde op hetzelfde element staat als in
+`tokens.css`, rekent de afgeleide `--color-accent-soft` vanzelf mee.
 
 ### Niveau 2: Custom stylesheet
 
-In frontmatter: `customStyles: "graffiti.css"`. De layout laadt dan
-`/src/styles/themes/graffiti.css` *na* de basis-CSS. Dit bestand kan
-variabelen overschrijven, nieuwe regels toevoegen, of volledig andere
-typografie definiëren.
+In frontmatter: `customStyles: "graffiti.css"`, een bestand onder
+`src/styles/themes/`. Het wordt niet per pagina als `<link>` geladen maar
+gebundeld: `ThemeLayout` importeert alle `src/styles/themes/*.css` met een
+eager `import.meta.glob`, zodat ze in de CSS-bundel van elke hoofdstukpagina
+landen, na `global.css`. Verwijst `customStyles` naar een bestand dat niet in
+die glob zit, dan faalt de build.
+
+Omdat elk bestand op élke hoofdstukpagina meegaat, scoped het al zijn regels
+onder zijn eigen `html[data-theme="<id>"]` — ook `body`-regels en de
+variabelen die vroeger op `:root` stonden (`html[data-theme="x"] { --color-bg:
+… }`, `html[data-theme="x"] body { … }`, `html[data-theme="x"] .theme-body h1
+{ … }`). Een `:root`-blok in zo'n bestand is een fout; `npm run
+check:chapters` meldt bestand en regel.
+
+De prose-regels van `ThemeLayout` (`.theme-body h1`, `p`, `a`, `ul`, …) staan
+in de cascade-laag `layout`, en `base.css` in de laag `base` daaronder (de
+volgorde staat in `base.css` en in `ThemeLayout`). Hoofdstuk-CSS blijft
+ongelaagd en wint dus altijd van beide, zonder specificiteitsgevecht met de
+`[data-astro-cid-…]`-selectors die Astro aan scoped stijlen toevoegt.
+Variabelen overschrijven, regels toevoegen of andere typografie: alles kan,
+zolang het onder `html[data-theme="<id>"]` staat.
 
 ### Niveau 3: Volledig eigen layout
 

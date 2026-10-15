@@ -52,7 +52,7 @@ const ariaLabel = type === 'video'
     display: inline;
     background: none;
     border: none;
-    border-bottom: 1px dashed rgba(237, 75, 158, 0.4);
+    border-bottom: 1px dashed color-mix(in srgb, var(--color-accent) 40%, transparent);
     padding: 0;
     color: var(--color-accent);
     cursor: pointer;
@@ -68,7 +68,7 @@ const ariaLabel = type === 'video'
   .figure-link__bracket {
     font-family: var(--font-mono);
     font-size: 0.85em;
-    color: rgba(237, 75, 158, 0.6);
+    color: color-mix(in srgb, var(--color-accent) 60%, transparent);
   }
 
   .figure-link__icon {
