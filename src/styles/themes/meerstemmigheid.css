@@ -1,0 +1,210 @@
+/* src/styles/themes/meerstemmigheid.css
+
+   Perkament, ijzergallusinkt, rubriekrood: de pagina als het manuscript van
+   het deck (slides/theme/contrapunctus/styles/layout.css). Eerste hoofdstuk
+   op lichte grond en daarmee de pilot voor alle lichte thema's (#123).
+
+   Elke regel staat onder `html[data-theme="meerstemmigheid"]`: dit bestand
+   zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120) en mag
+   alleen hier gelden. Een `:root`-blok is verboden — `npm run check:chapters`
+   meldt het. */
+
+/* ---- Fonts ----
+   Een `@font-face` heeft geen selector en kan niet gescoped worden, maar een
+   browser haalt een font pas op als een regel die erbij past het gebruikt.
+   Elke `font-family:` die deze namen noemt staat hieronder onder
+   `html[data-theme="meerstemmigheid"]`, dus de bestanden worden alleen op
+   deze pagina opgehaald. Alleen de latin-subset, statische gewichten
+   (@fontsource/cormorant-garamond, @fontsource/cormorant-sc).
+
+   Het pad is relatief, naar src/assets/fonts/: Vite verwerkt het als asset
+   en levert het onder `base` uit, met hash. Een absoluut `url('/fonts/…')`
+   zoals de basisfonts laat de bundler met rust, en dat geeft 404 onder
+   /cursus-esthetica — BaseLayout zet die prefix voor de basisfonts met de
+   hand, een stylesheet kan dat niet. */
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../assets/fonts/cormorant-garamond-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../assets/fonts/cormorant-garamond-latin-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../assets/fonts/cormorant-garamond-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('../../assets/fonts/cormorant-sc-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('../../assets/fonts/cormorant-sc-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Grond en inkt ----
+   Het palet van het deck. Geen `--color-accent` hier: het rubriekrood staat
+   in `accentColor:` in de frontmatter en wordt door ThemeLayout op
+   `html[data-theme]` gezet (#120); `--color-accent-soft` volgt vanzelf.
+
+   Contrast op #ede2c6 (WCAG): text 14.1, muted 8.5, quiet 4.1, dim 3.6,
+   accent 5.5. Het deck heeft `dim` op #a89875 (2.2:1) — te licht voor
+   bijschriften en meta, daarom hier donkerder. `whisper` en `border` heeft
+   het deck niet; ze zitten tussen `dim` en `border-subtle`. */
+
+html[data-theme="meerstemmigheid"] {
+  --color-bg:            #ede2c6;   /* perkament */
+  --color-bg-elevated:   #e6d9b8;   /* gevouwen katern */
+  --color-surface:       #dfd0a8;   /* donkerder blad */
+  --color-border:        #ab9b74;
+  --color-border-subtle: #c8b893;
+
+  --color-text:          #1e1408;   /* ijzergallusinkt */
+  --color-text-muted:    #4a3a26;
+  --color-text-quiet:    #7a6a4e;
+  --color-text-dim:      #857252;
+  --color-text-whisper:  #968560;
+
+  --font-ink:    'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --font-rubric: 'Cormorant SC', 'Cormorant Garamond', Garamond, serif;
+
+  /* De haarlijnen van de notenbalk: inkt, verdund. */
+  --color-staff: color-mix(in srgb, var(--color-text) 45%, transparent);
+}
+
+/* ---- Rubrieken ----
+   Broodkruimel en leestijd in mono-kapitaal rubriekrood, zoals de
+   mono-rubrieken op de slides. */
+
+html[data-theme="meerstemmigheid"] .theme-header__breadcrumb,
+html[data-theme="meerstemmigheid"] .theme-header__breadcrumb a,
+html[data-theme="meerstemmigheid"] .theme-header__reading-time {
+  color: var(--color-accent);
+  letter-spacing: 0.16em;
+}
+
+html[data-theme="meerstemmigheid"] .theme-header__breadcrumb a:hover {
+  color: var(--color-text);
+}
+
+/* ---- Notenbalk ----
+   Vijf haarlijnen van 1px met 3px ertussen: 17px hoog. Onder de hoofdstukkop
+   over de volle breedte (de cover van het deck), boven elke h2 naar rechts
+   uitlopend (de gewone slides). Niet boven de laatste h2, dat is Bronnen. */
+
+html[data-theme="meerstemmigheid"] .theme-header::after,
+html[data-theme="meerstemmigheid"] .theme-body h2::before {
+  content: '';
+  display: block;
+  height: 17px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-staff) 0 1px,
+    transparent 1px 4px
+  );
+  pointer-events: none;
+}
+
+html[data-theme="meerstemmigheid"] .theme-header::after {
+  margin-top: var(--space-md);
+}
+
+html[data-theme="meerstemmigheid"] .theme-body h2::before {
+  margin-bottom: var(--space-sm);
+  -webkit-mask-image: linear-gradient(to right, black 45%, transparent);
+          mask-image: linear-gradient(to right, black 45%, transparent);
+}
+
+html[data-theme="meerstemmigheid"] .theme-body h2:last-of-type::before {
+  display: none;
+}
+
+/* ---- Koppen ----
+   Cormorant is klein op dezelfde puntgrootte: tien procent erbij, zodat de
+   hiërarchie van ThemeLayout (step-5 / step-3 / step-2) gelijk blijft. */
+
+html[data-theme="meerstemmigheid"] .theme-body h1 {
+  font-family: var(--font-ink);
+  font-weight: 400;
+  font-style: italic;
+  font-size: calc(var(--step-4) * 1.1);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+@media (min-width: 1024px) {
+  html[data-theme="meerstemmigheid"] .theme-body h1 {
+    font-size: calc(var(--step-5) * 1.1);
+  }
+}
+
+html[data-theme="meerstemmigheid"] .theme-body h2 {
+  font-family: var(--font-rubric);
+  font-weight: 600;
+  font-size: calc(var(--step-3) * 1.1);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+html[data-theme="meerstemmigheid"] .theme-body h3 {
+  font-family: var(--font-ink);
+  font-weight: 400;
+  font-style: italic;
+  font-size: calc(var(--step-2) * 1.12);
+}
+
+html[data-theme="meerstemmigheid"] .theme-body blockquote {
+  font-family: var(--font-ink);
+  font-size: calc(var(--step-1) * 1.08);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+/* ---- Initiaal ----
+   De eerste alinea na elke h2 begint met een rode initiaal van drie regels,
+   zoals de sectieslides van het deck. Niet op de intro onder de h1 (die
+   staat niet na een h2) en niet op Bronnen (daar volgt een lijst, geen p).
+   `float` is de terugval voor browsers zonder `initial-letter`. */
+
+html[data-theme="meerstemmigheid"] .theme-body h2 + p::first-letter {
+  font-family: var(--font-ink);
+  font-weight: 600;
+  font-style: normal;
+  color: var(--color-accent);
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.8;
+  padding: 0.08em 0.1em 0 0;
+}
+
+@supports (initial-letter: 3) or (-webkit-initial-letter: 3) {
+  html[data-theme="meerstemmigheid"] .theme-body h2 + p::first-letter {
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0 0.12em 0 0;
+    -webkit-initial-letter: 3;
+            initial-letter: 3;
+  }
+}
