@@ -1,8 +1,12 @@
-/* src/styles/themes/inleiding.css */
+/* src/styles/themes/inleiding.css
 
-:root {
+   Elke regel staat onder `html[data-theme="inleiding"]`: dit bestand zit in de
+   CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120) en mag alleen hier
+   gelden. Een `:root`-blok is verboden — `npm run check:chapters` meldt het. */
+
+html[data-theme="inleiding"] {
   /* Ducttape-geel staat in `accentColor:` in de frontmatter en wordt door
-     ThemeLayout op `:root` gezet (#55). Hier dus geen kopie. */
+     ThemeLayout op `html[data-theme]` gezet (#55, #120). Hier dus geen kopie. */
 
   /* Iets warmere achtergrond — galeriemuur, niet zwart */
   --color-bg:          #1c1a17;
@@ -13,21 +17,21 @@
 }
 
 /* Alleen voor de h1 van dit hoofdstuk */
-.theme-body h1 {
+html[data-theme="inleiding"] .theme-body h1 {
   position: relative;
   font-size: var(--step-5);
   line-height: 1;
 }
 
 /* Split de h1 in MDX met een span om het vraagteken — zie sectie 7 */
-.theme-body h1 .drift {
+html[data-theme="inleiding"] .theme-body h1 .drift {
   display: inline-block;
   transform: translateY(-0.08em) rotate(4deg);
   color: var(--color-accent);
   font-style: italic;
 }
 
-body {
+html[data-theme="inleiding"] body {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' /></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.3' /></svg>");
   background-repeat: repeat;
 }

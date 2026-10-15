@@ -1,15 +1,21 @@
-/* src/styles/themes/perspectief-en-ruimte.css */
+/* src/styles/themes/perspectief-en-ruimte.css
 
-:root {
+   Elke regel staat onder `html[data-theme="perspectief-en-ruimte"]`: dit
+   bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120)
+   en mag alleen hier gelden. Een `:root`-blok is verboden —
+   `npm run check:chapters` meldt het. */
+
+html[data-theme="perspectief-en-ruimte"] {
   /* Geen `--color-accent` hier: die komt uit `accentColor:` in de frontmatter
-     en wordt door ThemeLayout op `:root` gezet (#55). Eén bron. Ooit stond hij
-     hier ook, en toen liepen de twee uit elkaar — de frontmatter zei #3b85ca,
-     dit bestand #3B4CCA, en de pagina toonde ze allebei (#44). */
+     en wordt door ThemeLayout op `html[data-theme]` gezet (#55, #120). Eén
+     bron. Ooit stond hij hier ook, en toen liepen de twee uit elkaar — de
+     frontmatter zei #3b85ca, dit bestand #3B4CCA, en de pagina toonde ze
+     allebei (#44). */
   --color-bg:          #1a1a1a;
 }
 
 /* ---- Shared: regime wrapper ---- */
-.regime {
+html[data-theme="perspectief-en-ruimte"] .regime {
   margin-block: var(--space-lg);
 }
 
@@ -18,12 +24,12 @@
 /* Full-height vertical line on right edge of text column.
    z-index: -1 inside an isolated stacking context keeps it
    behind children but above the section background. */
-.regime--renaissance {
+html[data-theme="perspectief-en-ruimte"] .regime--renaissance {
   position: relative;
   isolation: isolate;
 }
 
-.regime--renaissance::after {
+html[data-theme="perspectief-en-ruimte"] .regime--renaissance::after {
   content: '';
   position: absolute;
   right: 0;
@@ -36,7 +42,7 @@
 }
 
 /* Centred dot as typographic pause between consecutive paragraphs */
-.regime--renaissance p + p::before {
+html[data-theme="perspectief-en-ruimte"] .regime--renaissance p + p::before {
   content: '·';
   display: block;
   text-align: center;
@@ -48,12 +54,12 @@
 /* ---- Regime 2: barok ---- */
 
 /* Same vertical line as renaissance */
-.regime--barok {
+html[data-theme="perspectief-en-ruimte"] .regime--barok {
   position: relative;
   isolation: isolate;
 }
 
-.regime--barok::after {
+html[data-theme="perspectief-en-ruimte"] .regime--barok::after {
   content: '';
   position: absolute;
   right: 0;
@@ -67,7 +73,7 @@
 
 /* LineBreak: cover the line for the Pozzo passages.
    Background occludes the z-index: -1 pseudo-element. */
-.regime--barok .line-break-wrapper {
+html[data-theme="perspectief-en-ruimte"] .regime--barok .line-break-wrapper {
   background: var(--color-bg);
   padding-block: var(--space-md);
   margin-block: var(--space-md);
@@ -76,17 +82,17 @@
 /* ---- Regime 3: gebroken ---- */
 
 /* No vertical line. Shifted paragraphs only on desktop. */
-.regime--gebroken .shifted--left,
-.regime--gebroken .shifted--right {
+html[data-theme="perspectief-en-ruimte"] .regime--gebroken .shifted--left,
+html[data-theme="perspectief-en-ruimte"] .regime--gebroken .shifted--right {
   transition: none;
 }
 
 @media (min-width: 640px) {
-  .regime--gebroken .shifted--left {
+  html[data-theme="perspectief-en-ruimte"] .regime--gebroken .shifted--left {
     padding-inline-start: 3rem;
   }
 
-  .regime--gebroken .shifted--right {
+  html[data-theme="perspectief-en-ruimte"] .regime--gebroken .shifted--right {
     padding-inline-end: 6rem;
     /* Narrow the column slightly — gives leftward-crowded feel */
     max-width: calc(68ch - 6rem);
@@ -94,7 +100,7 @@
 }
 
 /* Braque fragment: small serif aside, ~30ch, indented */
-.regime--gebroken .regime-fragment {
+html[data-theme="perspectief-en-ruimte"] .regime--gebroken .regime-fragment {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: var(--step--1);
@@ -108,18 +114,19 @@
 
 /* ---- Regime 4: skyspace ---- */
 
-.regime--skyspace {
+html[data-theme="perspectief-en-ruimte"] .regime--skyspace {
   max-width: 50ch;
   padding-block: var(--space-2xl);
 }
 
-.regime--skyspace p {
+html[data-theme="perspectief-en-ruimte"] .regime--skyspace p {
   line-height: 1.85;
 }
 
 /* Page background breathes while the reader is in the skyspace section.
    JS (RegimeSection.astro) toggles .skyspace-active on <body>.
-   alternate direction: dark→warm→dark→… — never jumps back to start. */
+   alternate direction: dark→warm→dark→… — never jumps back to start.
+   Keyframe names are global; the name is specific enough not to collide. */
 @keyframes skyspace-breathe {
   0%   { background-color: #1a1a1a; }
   33%  { background-color: #3d2b2b; }
@@ -128,7 +135,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  body.skyspace-active {
+  html[data-theme="perspectief-en-ruimte"] body.skyspace-active {
     animation: skyspace-breathe 75s ease-in-out alternate infinite;
   }
 }

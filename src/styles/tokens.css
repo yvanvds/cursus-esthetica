@@ -16,9 +16,10 @@
   /* Accent. `-soft` wordt afgeleid en nooit als losse waarde geschreven —
      zo kan hij niet wegdrijven van de kleur waar hij op hoort te lijken.
      Een hoofdstuk met `accentColor:` in de frontmatter overschrijft
-     `--color-accent` op `.theme-grid`; ThemeLayout leidt `-soft` daar
-     opnieuw af, want een afgeleide waarde wordt berekend waar ze
-     gedeclareerd staat, niet waar ze gebruikt wordt. */
+     `--color-accent` op `html[data-theme="<id>"]` (ThemeLayout, #120): dat
+     is hetzelfde element als `:root`, dus de afleiding hieronder rekent
+     vanzelf met de nieuwe waarde — een afgeleide waarde wordt berekend waar
+     ze gedeclareerd staat, niet waar ze gebruikt wordt. */
   --color-accent:        #ED4B9E;
   --color-accent-soft:   color-mix(in srgb, var(--color-accent) 8%, transparent);
 

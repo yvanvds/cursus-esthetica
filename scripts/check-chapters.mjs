@@ -18,6 +18,13 @@
 //      frontmatter;
 //   5. het header-beeld (`image:`) bestaat als bestand onder `public/`.
 //
+// En los van de hoofdstukken, altijd over álle bestanden:
+//   6. geen `:root` in `src/styles/themes/*.css`. Die bestanden zitten in de
+//      CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120); een
+//      `:root`-blok geldt dus overal én verliest van tokens.css, dat met
+//      dezelfde selector later in de bundel staat. Elke regel hoort onder
+//      `html[data-theme="<id>"]`.
+//
 // Aanroep: `npm run check:chapters` (alle hoofdstukken) of
 // `npm run check:chapters -- belgisch-experiment` (één of meer thema's).
 //
@@ -31,6 +38,7 @@ import { parse } from 'yaml';
 const scriptsDir = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(scriptsDir, '..');
 const themesDir = join(projectRoot, 'src', 'content', 'themes');
+const themeStylesDir = join(projectRoot, 'src', 'styles', 'themes');
 const publicDir = join(projectRoot, 'public');
 
 // `[tekst](fig:key)` en `[tekst](video:key)`. De figuurvariant mag een query
@@ -94,6 +102,20 @@ function referencesIn(body) {
     (match[1] === 'fig' ? figures : videos).add(match[2]);
   }
   return { figures, videos };
+}
+
+// Regelnummers (vanaf 1) waarop `:root` als selector staat. Commentaar telt
+// niet mee — een bestand mag uitleggen waarom er géén `:root` in staat — en
+// wordt vervangen door spaties, zodat de regelnummers kloppen.
+function rootSelectorLinesIn(css) {
+  const stripped = css
+    .replace(/\r\n/g, '\n')
+    .replace(/\/\*[\s\S]*?\*\//g, comment => comment.replace(/[^\n]/g, ' '));
+  const lines = [];
+  stripped.split('\n').forEach((line, index) => {
+    if (/:root\b/.test(line)) lines.push(index + 1);
+  });
+  return lines;
 }
 
 const requested = process.argv.slice(2).filter(arg => !arg.startsWith('-'));
@@ -211,18 +233,46 @@ for (const themeId of themes) {
   if (open.length > 0 || accepted.length > 0) console.log('');
 }
 
+// ---- Hoofdstukstylesheets (punt 6) ----
+// Altijd over alle bestanden, ook als er maar één hoofdstuk gevraagd is: een
+// `:root` in welk bestand ook raakt élke hoofdstukpagina.
+const stylesheets = existsSync(themeStylesDir)
+  ? readdirSync(themeStylesDir).filter(name => name.endsWith('.css')).sort()
+  : [];
+let stylesheetProblems = 0;
+
 console.log('');
-if (chaptersWithProblems === 0) {
+for (const file of stylesheets) {
+  const lines = rootSelectorLinesIn(readFileSync(join(themeStylesDir, file), 'utf8'));
+  const label = `styles/themes/${file}`.padEnd(28);
+  if (lines.length === 0) {
+    console.log(`${label}  in orde`);
+    continue;
+  }
+  stylesheetProblems += lines.length;
+  console.log(`${label}  ${lines.length} probleem/problemen`);
+  for (const line of lines) {
+    console.log(`    regel ${line}: \`:root\` — scope de regel onder html[data-theme="<id>"] (#120)`);
+  }
+}
+
+console.log('');
+if (chaptersWithProblems === 0 && stylesheetProblems === 0) {
   const aanvaardTotaal = Object.values(AANVAARD).flat().length;
   console.log(
     aanvaardTotaal === 0
-      ? `Alle ${themes.length} hoofdstuk(ken) in orde.`
-      : `Alle ${themes.length} hoofdstuk(ken) in orde — ${aanvaardTotaal} aanvaarde uitzondering(en), zie AANVAARD in dit script.`
+      ? `Alle ${themes.length} hoofdstuk(ken) en ${stylesheets.length} stylesheet(s) in orde.`
+      : `Alle ${themes.length} hoofdstuk(ken) en ${stylesheets.length} stylesheet(s) in orde — ${aanvaardTotaal} aanvaarde uitzondering(en), zie AANVAARD in dit script.`
   );
   process.exit(0);
 }
 
-console.log(
-  `${problemTotal} probleem/problemen in ${chaptersWithProblems} van ${themes.length} hoofdstuk(ken).`
-);
+const summary = [];
+if (chaptersWithProblems > 0) {
+  summary.push(`${problemTotal} probleem/problemen in ${chaptersWithProblems} van ${themes.length} hoofdstuk(ken)`);
+}
+if (stylesheetProblems > 0) {
+  summary.push(`${stylesheetProblems} \`:root\` in src/styles/themes/`);
+}
+console.log(`${summary.join('; ')}.`);
 process.exit(1);
