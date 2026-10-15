@@ -8,13 +8,24 @@ interface Props {
 
 const { theme } = Astro.props;
 const id = theme.id;
-const { title, figure, shortDescription, image } = theme.data;
+const { title, figure, shortDescription, image, accentColor } = theme.data;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const imageSrc = image && image.startsWith('/') ? base + image : image;
 const themeHasSlides = hasSlides(id);
+
+// The chapter's accent goes inline on the <article>, not on `:root` (#121).
+// On the chapter page the accent is the whole page, so ThemeLayout sets it on
+// `html[data-theme="<id>"]` (#55, #120). On the homepage fourteen cards sit
+// side by side, each with its own chapter: the card itself is the scope.
+// Everything inside that already reads `--color-accent` (figure number, title
+// hover, primary button) follows along; the 2px top border below makes the
+// colour visible without hover. The card does not use `--color-accent-soft`,
+// so nothing has to be re-derived here. Cards without an accent (the stubs)
+// omit the attribute and inherit the site pink from tokens.css.
+const cardStyle = accentColor ? `--color-accent: ${accentColor}` : undefined;
 ---
 
-<article class="theme-card">
+<article class="theme-card" style={cardStyle}>
   <a href={`${base}/${id}`} class="theme-card__link" tabindex="-1" aria-hidden="true">
     <div class="theme-card__image">
       {imageSrc
@@ -48,6 +59,9 @@ const themeHasSlides = hasSlides(id);
     scroll-snap-align: start;
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border-subtle);
+    /* After the shorthand: replaces the top side of that border with the
+       chapter accent (set inline on the article, or the site pink). */
+    border-top: 2px solid var(--color-accent);
     border-radius: var(--radius);
     overflow: hidden;
     display: flex;
