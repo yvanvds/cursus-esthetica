@@ -285,9 +285,14 @@ volledige controle over de HTML-structuur, niet alleen styling.
 Een accentkleur (niveau 1) en één motief dat uit de inhoud van het hoofdstuk
 komt, uitgewerkt in twee of drie elementen (kop, tussenkop, bijschrift,
 grond) in de stylesheet van niveau 2. Hoogstens twee eigen fonts: zelf gehost
-via fontsource zoals de basisfonts in `public/fonts/`, met de `@font-face` in
-de stylesheet van het hoofdstuk, zodat het bestand alleen op die pagina wordt
-opgehaald. Hoe ver mag het gaan: ver, zolang het uit de inhoud komt. Bij een
+via fontsource, de `.woff2` onder `src/assets/fonts/` en de `@font-face` in de
+stylesheet van het hoofdstuk met een relatief pad
+(`url('../../assets/fonts/<bestand>.woff2')`), zodat Vite het bestand als
+asset onder `base` uitlevert en het alleen op die pagina wordt opgehaald. Niet
+`url('/fonts/…')` zoals de basisfonts in `public/fonts/`: de bundler zet daar
+geen `base` voor en het pad geeft 404; `BaseLayout` doet dat voor de
+basisfonts met de hand (#123). Hoe ver mag het gaan: ver, zolang het uit de
+inhoud komt. Bij een
 nieuw hoofdstuk hoort het stijlvoorstel bij fase 1 van `draft-theme-chapter`
 en wordt het samen met de rode draad beoordeeld; niveau 3 blijft een
 `site`-issue.
