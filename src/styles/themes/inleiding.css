@@ -2,7 +2,64 @@
 
    Elke regel staat onder `html[data-theme="inleiding"]`: dit bestand zit in de
    CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120) en mag alleen hier
-   gelden. Een `:root`-blok is verboden — `npm run check:chapters` meldt het. */
+   gelden. Een `:root`-blok is verboden — `npm run check:chapters` meldt het.
+
+   De typografische stem van het manifest-deck (slides/theme/manifest), op de
+   donkere galeriemuur en met de tape als accent (#128). Twee eigen letters
+   (BRIEFING §5), de rest uit de basis:
+     manifest    Big Shoulders Display 700/900   de h2's (700) en het
+                                                 stempelcijfer (900)
+     typemachine Space Mono 400                  de mono in de tekstkolom:
+                                                 Margin, SpecSheet en de
+                                                 widgets — niet de sidebar,
+                                                 TOC of broodkruimel
+     h1, h3      Fraunces cursief (basis)        zoals ze waren
+   Niet uit het deck: het botpapier, het persimmon en Spectral. */
+
+/* ---- Fonts ----
+   Een `@font-face` heeft geen selector en kan niet gescoped worden, maar een
+   browser haalt een font pas op als een regel die erbij past het gebruikt.
+   Elke `font-family:` die deze namen noemt staat onder
+   `html[data-theme="inleiding"]` (hier) of `html[data-theme="belgisch-
+   experiment"]`, dus de bestanden worden alleen op die pagina's opgehaald.
+   Latin-subset, statische gewichten.
+
+   Het pad wijst rechtstreeks naar het fontsource-pakket, zoals in
+   belgisch-experiment.css (#125): Vite lost de kale module-id in `url()` op,
+   verwerkt het bestand als asset en levert het met hash onder `base` uit.
+   Afwijking van de conventie in BRIEFING §5 (kopie onder src/assets/fonts/)
+   om dezelfde reden als daar: kopiëren uit node_modules kon in die sessie
+   niet.
+
+   De twee Big Shoulders-declaraties staan woordelijk ook in
+   belgisch-experiment.css. Die dubbeling is bewust: dit hoofdstuk mag niet
+   afhangen van de stylesheet van een ander. Beide wijzen naar hetzelfde
+   bestand, dus Vite levert het één keer uit en de browser haalt het één keer
+   op. */
+
+@font-face {
+  font-family: 'Big Shoulders Display';
+  src: url('@fontsource/big-shoulders-display/files/big-shoulders-display-latin-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Big Shoulders Display';
+  src: url('@fontsource/big-shoulders-display/files/big-shoulders-display-latin-900-normal.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src: url('@fontsource/space-mono/files/space-mono-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 html[data-theme="inleiding"] {
   /* Ducttape-geel staat in `accentColor:` in de frontmatter en wordt door
@@ -14,6 +71,12 @@ html[data-theme="inleiding"] {
 
   /* Marginalia-kleur */
   --color-margin:      #7a7568;
+
+  /* `--font-display` bestaat niet in tokens.css; alleen hoofdstuk-CSS
+     gebruikt hem. Space Mono heeft in de latin-subset geen → en geen ⊠:
+     die komen uit JetBrains Mono, de basis-mono die toch al geladen is. */
+  --font-display:    'Big Shoulders Display', Impact, 'Arial Narrow Bold', sans-serif;
+  --font-typewriter: 'Space Mono', 'JetBrains Mono', ui-monospace, monospace;
 }
 
 /* Alleen voor de h1 van dit hoofdstuk */
@@ -34,4 +97,125 @@ html[data-theme="inleiding"] .theme-body h1 .drift {
 html[data-theme="inleiding"] body {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' /></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.3' /></svg>");
   background-repeat: repeat;
+}
+
+/* ---- De typemachine ----
+   `--font-mono` wordt in de tekstkolom Space Mono. Op `.theme-body` en niet op
+   `html`: de sidebar, de TOC, de broodkruimel en de hoofdstuknavigatie zijn
+   site, geen pamflet, en blijven JetBrains Mono zoals op elke andere pagina.
+   Binnen de kolom gaat alles mee — Margin, SpecSheet, de haakjes van de
+   figuurlinks, DefinitionTest en TimedViewer — zodat er in één kolom niet
+   twee monoletters naast elkaar staan. Geen van die elementen zet een
+   gewicht boven 400, dus één snit volstaat. */
+
+html[data-theme="inleiding"] .theme-body {
+  --font-mono: var(--font-typewriter);
+  counter-reset: beweging;
+}
+
+/* De Margin-notitie, het onderwerp van #128, met een eigen regel: de
+   component zet `font-family` in een scoped stijl
+   (`.margin-note[data-astro-cid-…]`, 0,2,0); deze selector (0,2,1) wint,
+   ook als de variabele hierboven ooit verdwijnt. Space Mono heeft een hogere
+   romp dan JetBrains Mono, vandaar iets meer regelafstand. */
+html[data-theme="inleiding"] .margin-note {
+  font-family: var(--font-typewriter);
+  line-height: 1.55;
+}
+
+/* ---- De bewegingen ----
+   Big Shoulders Display 700, kapitaal, in de tekstkleur (h2 in het deck,
+   daar 800). Kapitalen in een condensed letter krijgen wat spatiëring. De
+   maat blijft onder de h1: 2.25rem kapitaal tegenover 3.58rem Fraunces. De
+   h3's blijven Fraunces cursief: Big Shoulders is voor de vijf bewegingen
+   en hun stempels.
+
+   Alleen de directe h2's van `.theme-body`: de koppen van de MDX. Een widget
+   met een eigen h2 telt zo niet mee. Inleiding heeft geen Bronnen-kop: vijf
+   h2's, vijf bewegingen. */
+
+html[data-theme="inleiding"] .theme-body > h2 {
+  counter-increment: beweging;
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  font-size: calc(var(--step-3) * 1.3);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--color-text);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+/* ---- Het stempel ----
+   Het bewegingsnummer, gedraaid -6° zoals het cijfer op de sectieslides van
+   het deck, in ducttape-geel op 25 %: een stempel dat net niet vol is
+   neergekomen. Op mobiel en tablet een eigen regel boven de kop. */
+
+html[data-theme="inleiding"] .theme-body > h2::before {
+  content: counter(beweging);
+  display: block;
+  width: max-content;
+  margin-bottom: var(--space-xs);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 0.85;
+  letter-spacing: 0;
+  color: var(--color-accent);
+  opacity: 0.25;
+  transform: rotate(-6deg);
+  /* Draaien om de linkerbovenhoek: de inkt komt niet links buiten de kolom. */
+  transform-origin: left top;
+  pointer-events: none;
+}
+
+/* Desktop: het stempel hangt in de goot links van de tekstkolom, de 2.5rem
+   (`--space-lg`) tussen de lijn van de sidebar en de kop, verticaal
+   gecentreerd op de kop. De kop zelf verschuift niet.
+
+   `.theme-grid__content` is op desktop een scrollcontainer (overflow-y: auto
+   in ThemeLayout) en knipt alles af wat links buiten zijn rand valt. Daarom
+   schuift de container hier één goot naar links, met evenveel padding: de
+   tekst, de WithMargin-grid en de scrollbalk blijven waar ze waren, en de
+   goot wordt het linkerdeel van de container in plaats van lege grid-gap.
+   Niet verder: links van de goot begint de sidebar.
+
+   4rem, de onderkant van de 4–5rem uit #128: de goot is 40px, en de inkt
+   van een gedraaide 3, 4 of 5 in 900 is bij 4rem 31–32px breed, met 3 à 6px
+   lucht aan elke kant (gemeten, #128). Bij 4.5rem blijft daar 1 à 2px van
+   over en plakt het cijfer tegen de lijn van de sidebar en tegen de kop. Het stempel staat midden in
+   de goot (`width` = de goot, `text-align: center`), zodat een smalle 1 niet
+   tegen de kop aan schuift. */
+
+@media (min-width: 1024px) {
+  html[data-theme="inleiding"] .theme-grid__content {
+    width: calc(100% + var(--space-lg));
+    max-width: calc(68ch + var(--space-lg));
+    margin-left: calc(-1 * var(--space-lg));
+    padding-left: var(--space-lg);
+  }
+
+  html[data-theme="inleiding"] .theme-body > h2::before {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: var(--space-lg);
+    margin: 0;
+    text-align: center;
+    font-size: 4rem;
+    transform: translateY(-50%) rotate(-6deg);
+    transform-origin: center;
+  }
+}
+
+/* ---- Mobiel ---- */
+
+@media (max-width: 640px) {
+  html[data-theme="inleiding"] .theme-body > h2 {
+    font-size: calc(var(--step-3) * 1.15);
+  }
 }
