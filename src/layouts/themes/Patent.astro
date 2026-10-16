@@ -1,0 +1,105 @@
+---
+/**
+ * Patent — de eigen layout van "Wie speelt er eigenlijk?"
+ * (instrumentontwikkeling). De pagina als patentblad: het hoofdstuk draait om
+ * instrumenten als uitvindingen, met Beauchamps patenttekening van de Frying
+ * Pan en het gegraveerde messingplaatje *me fecit logos* op het chassis van
+ * HAT (#129).
+ *
+ * De vorm van niveau 3 (BRIEFING §5), naar het model van Aigles en Pagina37:
+ * deze layout OMHULT ThemeLayout en vult alleen zijn slot `header`. Grid,
+ * sidebar, TOC, dialogs, scripts en prose-regels blijven van ThemeLayout;
+ * alle props en de default slot gaan ongewijzigd door. `[theme].astro` kiest
+ * deze layout op `customLayout: "Patent"`.
+ *
+ * De kop is de gewone hoofdstukkop (broodkruimel en leestijd, dezelfde
+ * opmaak als de standaardinhoud van de slot in ThemeLayout) met daaronder het
+ * messingplaatje. De stijlen van de gewone kop staan hieronder opnieuw: die
+ * van ThemeLayout zijn scoped en raken markup uit deze layout niet. Het
+ * plaatje zelf krijgt zijn vorm in src/styles/themes/instrumentontwikkeling.css.
+ *
+ * Het nummer op het plaatje is het figuurnummer uit de frontmatter, niet
+ * hardgecodeerd: de nummering kan nog veranderen (#143). "me fecit cursus
+ * esthetica" hoort bij dit ene hoofdstuk en staat hier vast.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import ThemeLayout from '../ThemeLayout.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  theme: CollectionEntry<'themes'>;
+  headings: Heading[];
+  readingTime?: string;
+}
+
+const { theme, headings, readingTime } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const allModules = await getCollection('modules');
+const allThemes = await getCollection('themes');
+const currentModule = allModules.find(m => m.id === theme.data.module);
+if (!currentModule) throw new Error(`Module '${theme.data.module}' not found for theme '${theme.id}'`);
+const totalInModule = allThemes.filter(t => t.data.module === theme.data.module).length;
+---
+
+<ThemeLayout theme={theme} headings={headings} readingTime={readingTime}>
+  <header slot="header" class="patent-head">
+    <p class="patent-head__breadcrumb">
+      <a href={`${base}/#${currentModule.id}`}>{currentModule.data.title}</a>
+      <span aria-hidden="true">·</span>
+      <span>hoofdstuk {theme.data.order} van {totalInModule}</span>
+    </p>
+    {readingTime && <p class="patent-head__reading-time">{readingTime}</p>}
+    <p class="patent-plate"><span>hoofdstuk {theme.data.figure}</span> <span aria-hidden="true">·</span> <span><span lang="la">me fecit</span> cursus esthetica</span></p>
+  </header>
+  <slot />
+</ThemeLayout>
+
+<style>
+  /* De gewone hoofdstukkop: dezelfde waarden als `.theme-header` en zijn
+     kinderen in ThemeLayout. Wijzigt daar iets, dan hier ook. */
+  .patent-head {
+    margin-bottom: var(--space-xl);
+  }
+
+  .patent-head__breadcrumb {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+    margin-bottom: var(--space-sm);
+    max-width: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+  }
+
+  .patent-head__breadcrumb a {
+    color: var(--color-text-quiet);
+    text-decoration: none;
+    transition: color var(--transition-color);
+  }
+
+  .patent-head__breadcrumb a:hover {
+    color: var(--color-text-muted);
+  }
+
+  .patent-head__reading-time {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-whisper);
+    margin-top: var(--space-sm);
+    margin-bottom: 0;
+  }
+</style>

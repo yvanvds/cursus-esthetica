@@ -1,0 +1,214 @@
+/* src/styles/themes/instrumentontwikkeling.css
+
+   Het patentblad. Het hoofdstuk draait om instrumenten als uitvindingen:
+   Beauchamps patenttekening van de Frying Pan staat erin, HAT draagt een
+   gegraveerd messingplaatje *me fecit logos*, en de rode draad is de hand die
+   per beweging een stukje verder van de snaar wegschuift (#129). Vier
+   elementen, allemaal in het koper van de accent:
+
+     Fig.-labels   de nummering van een patenttekening boven elke beweging
+     haarlijnen    een koperen lijn onder elke h2, over de kolombreedte
+     plaatje       het messingplaatje onder de hoofdstukkop (Patent.astro)
+     de lijn       per beweging een dunne lijn in de marge, telkens verder
+                   van de tekstkolom (Movement.astro)
+
+   De SpecSheets met leaders (src/components/base/SpecSheet.astro) nemen het
+   koper vanzelf over: hun stippellijn staat op `--color-accent`.
+
+   Geen eigen fonts: JetBrains Mono uit de basis draagt het patentblad. Geen
+   tokens-swap van de grond. Het koper (#C9722E) staat in `accentColor:` in
+   de frontmatter en wordt door ThemeLayout op `html[data-theme]` gezet (#120).
+
+   Elke regel staat onder `html[data-theme="instrumentontwikkeling"]`: dit
+   bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120)
+   en mag alleen hier gelden. Een `:root`-blok is verboden — `npm run
+   check:chapters` meldt het. */
+
+/* ---- Messing ----
+   Alleen voor het plaatje. Messing is geler dan het koper van de accent: een
+   ander metaal, en het plaatje op HAT is messing. De gravure is donkerbruin
+   met een lichte rand eronder, zoals letters die in het metaal gesneden zijn.
+   Contrast van de gravure (WCAG): 10.1 op brass-light, 6.9 op brass, 5.0
+   op brass-deep, de onderrand van het verloop. Het koper van de Fig.-labels
+   op de grond (#1a1a1a): 4.9. */
+
+html[data-theme="instrumentontwikkeling"] {
+  --color-brass-light: #E9D293;
+  --color-brass:       #CDAB62;
+  --color-brass-deep:  #B38F48;
+  --color-brass-edge:  #7A5A24;
+  --color-engraving:   #33240C;
+}
+
+/* ---- De Fig.-labels en de haarlijnen ----
+   Elke beweging krijgt boven haar kop een label in mono, `Fig. 1` tot
+   `Fig. 6`, in koper — de nummering op een patenttekening. Onder de kop een
+   haarlijn in koper over de volle kolombreedte.
+
+   Alleen de directe h2's van `.theme-body`: de koppen van de MDX. De
+   Movement-wrappers beginnen ónder de kop, dus de koppen blijven directe
+   kinderen. Bronnen is de laatste h2 (`:last-of-type`): geen label en telt
+   niet mee, wel de haarlijn. */
+
+html[data-theme="instrumentontwikkeling"] .theme-body {
+  counter-reset: fig;
+}
+
+html[data-theme="instrumentontwikkeling"] .theme-body > h2 {
+  counter-increment: fig;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+html[data-theme="instrumentontwikkeling"] .theme-body > h2::before {
+  content: 'Fig. ' counter(fig);
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+html[data-theme="instrumentontwikkeling"] .theme-body > h2:last-of-type {
+  counter-increment: none;
+}
+
+html[data-theme="instrumentontwikkeling"] .theme-body > h2:last-of-type::before {
+  content: none;
+}
+
+/* ---- Het messingplaatje ----
+   Onder broodkruimel en leestijd in de kop (Patent.astro): een smal plaatje
+   met "hoofdstuk 05 · me fecit cursus esthetica" in mono-kapitaal.
+
+   Het verloop is de bewuste uitzondering op "geen gradiënten" uit de
+   briefing (§2), op dit ene element: licht messing boven, dieper messing
+   onder, en een schuine glans erover zoals licht op geborsteld metaal. De
+   rand is een afgeschuinde kant (inner shadow licht boven, donker onder), de
+   hoeken zijn licht afgerond. Twee schroefjes, de ::before en ::after van
+   het plaatje zelf, houden het vast; ze horen bij hetzelfde element. */
+
+html[data-theme="instrumentontwikkeling"] .patent-plate {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin: var(--space-md) 0 0;
+  padding: 0.5em 2.4em 0.45em;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-engraving);
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--color-brass-light) 75%, transparent);
+  background:
+    linear-gradient(105deg,
+      transparent 30%,
+      color-mix(in srgb, var(--color-brass-light) 55%, transparent) 46%,
+      transparent 62%),
+    linear-gradient(180deg, var(--color-brass-light) 0%, var(--color-brass) 55%, var(--color-brass-deep) 100%);
+  border: 1px solid var(--color-brass-edge);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--color-brass-light) 90%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--color-brass-edge) 60%, transparent),
+    inset 1px 0 0 color-mix(in srgb, var(--color-brass-light) 40%, transparent),
+    inset -1px 0 0 color-mix(in srgb, var(--color-brass-edge) 35%, transparent);
+}
+
+html[data-theme="instrumentontwikkeling"] .patent-plate::before,
+html[data-theme="instrumentontwikkeling"] .patent-plate::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, transparent 43%, var(--color-brass-edge) 43%, var(--color-brass-edge) 57%, transparent 57%),
+    radial-gradient(circle at 35% 35%, var(--color-brass-light), var(--color-brass-deep));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-brass-edge) 70%, transparent);
+}
+
+html[data-theme="instrumentontwikkeling"] .patent-plate::before {
+  left: 0.85em;
+}
+
+html[data-theme="instrumentontwikkeling"] .patent-plate::after {
+  right: 0.85em;
+}
+
+/* ---- De hand schuift weg ----
+   Per beweging één dunne verticale lijn in de marge links van de tekst, over
+   de hoogte van die beweging (Movement.astro zet `--movement` op 1 tot 6).
+   Bij beweging 1 vlak tegen de kolom, bij beweging 6 het verst: de afstand
+   tussen hand en snaar. Lineair in de goot die er is:
+
+     afstand = goot × (0.08 + (n − 1) × 0.14)
+     desktop, goot 40px    3.2  8.8  14.4  20.0  25.6  31.2 px
+     tablet,  goot 24px    1.9  5.3   8.6  12.0  15.4  18.7 px
+     mobiel,  goot 16px    1.3  3.5   5.8   8.0  10.2  12.5 px
+
+   Bij beweging 6 blijft er op desktop 8px tot de lijn van de sidebar. Op
+   mobiel en tablet is de goot de padding van `.theme-grid`; de lijn blijft,
+   samengedrukt, binnen het scherm. */
+
+html[data-theme="instrumentontwikkeling"] .movement {
+  --hand-gutter: var(--space-sm);
+  position: relative;
+}
+
+html[data-theme="instrumentontwikkeling"] .movement::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: calc(100% + var(--hand-gutter) * (0.08 + (var(--movement) - 1) * 0.14));
+  width: 1px;
+  background: var(--color-accent);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  html[data-theme="instrumentontwikkeling"] .movement {
+    --hand-gutter: var(--space-md);
+  }
+}
+
+/* Desktop: `.theme-grid__content` is een scrollcontainer (overflow-y: auto
+   in ThemeLayout) en knipt alles af wat links buiten zijn rand valt. Zoals
+   in inleiding.css (#128) schuift de container één goot naar links, met
+   evenveel padding: tekst en scrollbalk blijven waar ze waren, en de goot
+   tussen sidebar en tekst hoort nu bij de container, waar de lijnen staan. */
+
+@media (min-width: 1024px) {
+  html[data-theme="instrumentontwikkeling"] .theme-grid__content {
+    width: calc(100% + var(--space-lg));
+    max-width: calc(68ch + var(--space-lg));
+    margin-left: calc(-1 * var(--space-lg));
+    padding-left: var(--space-lg);
+  }
+
+  html[data-theme="instrumentontwikkeling"] .movement {
+    --hand-gutter: var(--space-lg);
+  }
+}
+
+/* ---- Mobiel ----
+   Het plaatje past op 390 breed op één regel met minder spatiëring. */
+
+@media (max-width: 640px) {
+  html[data-theme="instrumentontwikkeling"] .patent-plate {
+    letter-spacing: 0.1em;
+    padding-inline: 2.1em;
+  }
+}

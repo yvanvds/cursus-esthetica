@@ -4,6 +4,8 @@ module: kijken-en-luisteren
 order: 5
 figure: "05"
 accentColor: "#C9722E"
+customLayout: "Patent"
+customStyles: "instrumentontwikkeling.css"
 image: /images/instrumentontwikkeling/vleugel-1.jpg
 shortDescription: Van luit tot robotorkest — elk instrument is een gestold verlangen, en elke nieuwe klank herschrijft wie er mag spelen.
 
@@ -189,6 +191,8 @@ videos:
 ---
 
 import StringActionDemo from '../../components/themes/instrumentontwikkeling/StringActionDemo.astro';
+import Movement from '../../components/themes/instrumentontwikkeling/Movement.astro';
+import SpecSheet from '../../components/base/SpecSheet.astro';
 
 {/* COMPONENT KANDIDAAT: "hand-afstand"-widget. Een interactieve gradient
     die de structuur van het hoofdstuk samenvat: snaar onder de vingers →
@@ -207,7 +211,11 @@ import StringActionDemo from '../../components/themes/instrumentontwikkeling/Str
 
 ## Een bestelwagen in de sneeuw
 
+<Movement n={1}>
+
 Half december 2009 vertrok ik met een bestelwagen uit Gent, bestemming Cornwall. Het sneeuwde, en dat hadden we niet zien aankomen. Achterin, stevig vastgesjord: vierennegentig kilo percussierobot. *HAT*, voluit *Hit Any Thing*, gebouwd in het atelier van de Logos Foundation, met op het chassis een gegraveerd messingplaatje: *me fecit logos*. Mijn co-chauffeur, een Amerikaanse componist die dat jaar bij Logos in residentie was, bleek bij vertrek nog nooit met een manuele versnellingsbak te hebben gereden. Dus reed ik de hele rit zelf, door de sneeuw, met een robot in de laadruimte.
+
+<SpecSheet leaders items={["bouwer: Logos Foundation", "jaar: 2009", "gewicht: vierennegentig kilo"]} />
 
 De bestemming: het huis van Richard D. James, beter bekend als Aphex Twin. Een groot, modern huis — geen villa. De piano waarop hij *Drukqs* had opgenomen stond gewoon in de woonkamer; in de kelder eronder stond zijn elektronica opgestapeld, met als blikvanger een plate reverb van een vierkante meter of vijf. We pakten [de robot](fig:hat) uit, testten hem, en gingen daarna met zijn gezin iets eten in de plaatselijke pub. Wat me het meest is bijgebleven: hoe goed deze wereldster van de elektronische muziek thuis bleek in obscure experimentele software waar je onmogelijk dansmuziek mee maakt. En zijn ergernis over muzieksoftware die noten twee milliseconden te vroeg of te laat plaatst. Twee milliseconden. Volgens hem hoorde je dat — het maakte muziek "rommelig".
 
@@ -215,9 +223,15 @@ Waarom bestelt iemand die elke denkbare klank uit een computer kan halen een sta
 
 Let onderweg op één ding. In elke sectie schuift de hand een stukje verder weg van de klank. Eerst raak je de snaar zelf aan. Dan komt er een machine tussen. Dan verdwijnt de aanraking. En uiteindelijk verdwijn jij.
 
+</Movement>
+
 ## De snaar onder je vingers
 
+<Movement n={2}>
+
 Londen, 1600. John Dowland publiceert [*Flow My Tears*](video:dowland), het beroemdste lied van zijn tijd, en het instrument waarop het hoort is [de luit](fig:luit): een bolle klankkast van tientallen reepjes gebogen hout, en zes tot tien *koren* — dubbele snaren — zodat een achtkorige luit er vijftien telt. Vermeer schilderde haar in een stille kamer bij het venster, en dat is precies waar ze thuishoort. De luit fluistert. Melancholie op spreekafstand, voor een handvol luisteraars.
+
+<SpecSheet leaders items={["klankkast: tientallen reepjes gebogen hout", "koren: zes tot tien", "snaren: vijftien bij acht koren"]} />
 
 Maar vrijwel niemand bespeelt het instrument nog. Wat de luit de das omdeed, was haar eigen bouw. Lage snaarspanning, dubbele koren, een teer klankblad: het instrument kon niet luider gemaakt worden zonder zichzelf te breken. De viool werd in de negentiende eeuw verbouwd voor grotere zalen, de piano herbouwd rond een gietijzeren hart — de luit werd niet gemoderniseerd. Ze werd weggelegd.
 
@@ -225,11 +239,17 @@ Wat wél luider kon, was de gitaar. Rond 1850 herontwierp de Spaanse bouwer Anto
 
 Maar tegen de blazerssectie van een Amerikaanse bigband was ook Torres niet opgewassen. In de jaren twintig zat de gitarist achteraan onhoorbaar mee te tokkelen — tot George Beauchamp in 1932 [een gitaar uit gegoten aluminium](fig:fryingpan) bouwde met een elektromagnetische pickup: de "Frying Pan". De klank kwam niet langer uit de kast maar uit een luidspreker, en daarmee was de kast zelf overbodig geworden. Leo Fender begreep dat als eerste ten volle: de Telecaster (1950) en de Stratocaster (1954) zijn in wezen planken met snaren, massaproducten die je met een schroevendraaier herstelt. Gibson volgde in 1952 met de Les Paul.
 
+<SpecSheet leaders items={["bouwer: George Beauchamp", "jaar: 1932", "materiaal: gegoten aluminium"]} />
+
 Op maandagochtend 18 augustus 1969, rond negen uur, staan er op het modderveld van Woodstock nog zo'n dertigduizend van de vierhonderdduizend bezoekers. Jimi Hendrix speelt het Amerikaanse volkslied op [een witte Stratocaster](fig:hendrix) en laat het [klinken als luchtaanvallen, sirenes, gegil](video:hendrix) — feedback en vervorming niet als bijwerking maar als woordenschat. Een kritiek op de oorlog in Vietnam. Achteraf werd dit hét anti-oorlogsstatement van een generatie genoemd. Hendrix zelf hield het droog: "I'm an American, so I played it." Met een klassieke gitaar had Hendrix deze muziek nooit kunnen maken. De elektrische gitaar is het antwoord van een instrumentenbouwer op de verzuchting van een gitarist. Hendrix' performance is het antwoord van die gitarist op de realisatie van de instrumentenbouwer. Een dialoog.
 
 *Het verhaal van de elektrische gitaar wordt meestal verteld als een rij mannen: Beauchamp, Fender, Berry, Hendrix. Het had anders gekund. Op 7 mei 1964 nam Granada TV op een stilgelegd station bij Manchester een muziekspecial op, The Blues and Gospel Train: het perron omgebouwd tot decor van een zuidelijk-Amerikaans haltepunt, het publiek op het perron aan de overkant, de aankomst van de artiesten per koets geregisseerd. Geen concertregistratie dus, maar televisie — bijna een videoclip avant la lettre. Tussen de bluesmannen: [Sister Rosetta Tharpe](fig:tharpe), gospelzangeres, elektrische Gibson in de hand. Zij speelde al in de jaren veertig elektrische gitaar mét vervorming, toen het woord rock-'n-roll nog niet bestond; Chuck Berry zou zijn carrière ooit omschreven hebben als "one long Sister Rosetta Tharpe impersonation". De regenbui die tijdens de opnames losbarstte stond niet in het draaiboek, maar paste er wonderwel in: Tharpe opende met [Didn't It Rain](video:tharpe), gitaarsolo over een nat perron. Een instrument bepaalt zelf niets — het heeft geen inspraak in wie ermee de geschiedenis haalt. Dat doen de mensen die de geschiedenis schrijven, en in het tijdsgewricht waarin de rockcanon werd opgesteld, waren dat vrijwel uitsluitend mannen. Zwart, vrouw én gospel: Tharpe paste er drie keer niet in. De Rock & Roll Hall of Fame nam haar pas in 2018 op.*
 
+</Movement>
+
 ## Een machine tussen hand en snaar
+
+<Movement n={3}>
 
 Florence, 1700. Een hofklerk inventariseert de instrumenten van de Medici en noteert een nieuwigheid van Bartolomeo Cristofori: een *arpicimbalo* "dat zacht en luid speelt". Dat klinkt banaal. Het was een revolutie.
 
@@ -241,7 +261,11 @@ Kijk goed naar de mechaniek, want er valt iets vreemds op. Hefbomen. Een echappe
 
 De negentiende eeuw maakte die machine monsterlijk sterk. Concertzalen groeiden, virtuozen speelden houten instrumenten aan flarden, en dus kwam er gietijzer in de piano: Alpheus Babcock goot in 1825 het eerste eendelige frame, Steinway perfectioneerde het vanaf 1855. In [een moderne concertvleugel](fig:vleugel) trekken de snaren samen met een kracht van zo'n twintig ton — het gewicht van een vrachtwagen, permanent aanwezig in een muziekinstrument. Zo eindigde het verlangen van 1700, met je handen kunnen spreken, in een machine die een zaal van tweeduizend mensen vult.
 
+</Movement>
+
 ## Muziek zonder aanraking
+
+<Movement n={4}>
 
 Petrograd, oktober 1920. De jonge fysicus Lev Termen — later Léon Theremin — demonstreert een instrument zonder toetsen, zonder snaren, zonder aanraking: [twee antennes en een zoemend veld](fig:theremin). Je handen bewegen in de lucht; de ene bepaalt de toonhoogte, de andere het volume. In 1922 demonstreerde hij het aan Lenin, in 1929 nam RCA het in licentie. Hollywood hoorde er meteen het onheimelijke in: de theremin werd de stem van het onbekende in *Spellbound* en *The Day the Earth Stood Still*.
 
@@ -255,7 +279,11 @@ Carlos leefde toen al als vrouw; ze was begin 1968 met haar hormoonbehandeling b
 
 Ze was geen uitzondering, eerder een patroon. De elektronische muziek had nog geen conservatoria, geen jury's, geen poortwachters — en precies daar kregen vrouwen een kans. Daphne Oram richtte in 1958 de BBC Radiophonic Workshop mee op. Delia Derbyshire realiseerde er in 1963 [de Doctor Who-tune](video:derbyshire), volledig met tape en testoscillatoren, een paar jaar vóór de synthesizer; de BBC vermeldde haar naam niet eens op het scherm.
 
+</Movement>
+
 ## De machine speelt zelf
+
+<Movement n={5}>
 
 Tussen 1923 en 1925 werden er in de Verenigde Staten meer [pianola's](fig:pianola) verkocht dan gewone piano's. Lees die zin nog eens. Op het hoogtepunt van de jazz-eeuw kochten de meeste mensen een piano die zichzelf bespeelt, met blaasbalgen en een geperforeerde papierrol waarin de muziek als gaatjes gestanst zit. De rol is software, het instrument een afspeelmachine — een eeuw vóór Spotify.
 
@@ -265,7 +293,11 @@ Sommige componisten zagen meteen wat dat betekende: hier stond een uitvoerder zo
 
 Yamaha bracht in 1987 het [Disklavier](fig:disklavier) op de markt: een gewone akoestische piano met sensoren op de toetsen en motoren eronder, aangestuurd via MIDI. Nancarrows ponsmachine, maar dan digitaal. Aphex Twin gebruikte er een voor [*Avril 14th*](video:avril) (2001): componeren op de computer, en de vleugel voert het bestand uit. Wat je hoort lijkt een pianist van vlees en bloed — tot je beseft dat ook de ademende rusten geprogrammeerd zijn. Herinner je zijn klacht over die twee milliseconden, in de pub in Cornwall: dit is dezelfde man. De machine is voor hem geen gemakzucht maar het tegendeel — de enige uitvoerder die precies genoeg speelt. In 2012 hing hij in het Londense Barbican een computergestuurde vleugel aan kabels en liet hem al zwaaiend door de zaal spelen; een [opname](video:aisatsana) van die opstelling sluit zijn album *Syro* af.
 
+</Movement>
+
 ## Een loods aan de Bomastraat
+
+<Movement n={6}>
 
 Terug naar Gent. Aan de Bomastraat staat sinds 1990 [een stalen tetraëder](fig:logos), de concertzaal van de Logos Foundation. Binnen speelt het M&M-orkest — *Man & Machine* — met ruim zestig muziekrobots die Godfried-Willem Raes en zijn medewerkers sinds de jaren negentig bouwden: robots die blazen, slaan, strijken en schudden, gelast en geprogrammeerd in het eigen atelier, en elk jaar komt er wel één of meer bij.
 
@@ -274,6 +306,8 @@ Toen Aphex Twin in 2008 contact opnam, wilde hij eerst gewoon een bestaande robo
 Je zou denken dat zoiets gekoesterd wordt. In 2017 verloor Logos zijn structurele subsidie, en het advies voor de periode 2023-2027 was opnieuw negatief. Toch speelt het robotorkest anno 2026 nog elke maand in de tetraëder. Hier sluit de cirkel van dit hoofdstuk zich: instrumenten verdwijnen niet omwille van hun klank. De luit verdween omdat niemand nog in haar investeerde terwijl piano en viool werden herbouwd; de pianola sneuvelde wanneer de radio populair werd; een robotorkest hangt af van subsidies. Wie beslist welke instrumenten mogen bestaan, beslist mee welke muziek denkbaar is.
 
 En de vraag van het begin? Bij Dowland speelde de hand. Bij Cristofori bespeelde de hand een machine. Bij de Theremin speelde de lucht, bij Carlos het stopcontact, bij Nancarrow het papier, bij *HAT* de code. Maar volg de keten terug en je komt altijd bij iemand uit: een bouwer, een componist, een programmeur, iemand die iets wilde laten klinken wat nog niet bestond. De volgende keer dat je muziek hoort — om het even welke — tel de schakels tussen een lichaam en de klank. Het zijn er meer dan je denkt. En aan het begin van de keten zit altijd een verlangen.
+
+</Movement>
 
 ## Bronnen
 

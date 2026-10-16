@@ -1,0 +1,123 @@
+---
+// src/components/base/SpecSheet.astro
+//
+// A row of technical facts under a passage. Born in inleiding (the banana,
+// Guernica, the Mona Lisa); moved to base in #129 so instrumentontwikkeling
+// can reuse it as the data block of a patent sheet.
+//
+// Default: every item is one label, in a wrapping row with an arrow before
+// each — the inleiding rendering, unchanged.
+//
+// `leaders`: every item has the form "label: waarde" and becomes a row of its
+// own, label left, value right, a dotted leader between them, like the data
+// block on a patent sheet. The split is on the first colon; an item without
+// one renders as a label without value. The leader takes the accent colour
+// (through tokens, so each chapter's own accent).
+interface Props {
+  items: string[];   // ["$120,000", "0.14kg", "edible"] or, with leaders, ["bouwer: Logos Foundation", "jaar: 2009"]
+  leaders?: boolean;
+}
+const { items, leaders = false } = Astro.props;
+
+const rows = items.map((item) => {
+  const colon = item.indexOf(':');
+  return colon === -1
+    ? { label: item.trim(), value: null }
+    : { label: item.slice(0, colon).trim(), value: item.slice(colon + 1).trim() };
+});
+---
+
+{leaders ? (
+  <dl class="spec-sheet spec-sheet--leaders">
+    {rows.map(({ label, value }) => (
+      <div class="spec-sheet__row">
+        <dt>{label}</dt>
+        {value && <dd>{value}</dd>}
+      </div>
+    ))}
+  </dl>
+) : (
+  <dl class="spec-sheet">
+    {items.map((item) => <dt>{item}</dt>)}
+  </dl>
+)}
+
+<style>
+  .spec-sheet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-xs);
+    padding-top: var(--space-xs);
+    border-top: 1px dashed var(--color-border);
+    margin-bottom: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .spec-sheet dt {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--color-text-quiet);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+  }
+
+  .spec-sheet dt::before {
+    content: '→ ';
+    color: var(--color-accent);
+  }
+
+  /* ---- Leaders ----
+     One row per fact. The label is a flex box whose ::after grows into the
+     dotted leader; it never shrinks below the label plus a short leader.
+     The value sits right of it and is the part that wraps on a narrow
+     screen, so the leader still runs up to its first line. (Not
+     `text-wrap: balance`: the box keeps its width while the balanced lines
+     get shorter, and a gap opens between leader and value.) The leader is
+     lifted a little off the baseline, to the height of the lower-case
+     letters, as on a printed table. */
+  .spec-sheet--leaders {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0.2rem;
+    margin-block: var(--space-md);
+  }
+
+  .spec-sheet__row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+  }
+
+  .spec-sheet--leaders dt {
+    display: flex;
+    flex: 1 0 auto;
+    align-items: baseline;
+    gap: 0.6em;
+  }
+
+  .spec-sheet--leaders dt::before {
+    content: none;
+  }
+
+  .spec-sheet--leaders dt::after {
+    content: '';
+    flex: 1 1 2em;
+    min-width: 2em;
+    border-bottom: 1px dotted var(--color-accent);
+    transform: translateY(-0.3em);
+  }
+
+  .spec-sheet--leaders dd {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin: 0;
+    text-align: right;
+    color: var(--color-text-muted);
+  }
+</style>
