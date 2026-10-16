@@ -1,0 +1,21 @@
+---
+/*
+  Movement — the body of one movement of instrumentontwikkeling, from just
+  below its h2 to just before the next h2 (#129). The chapter's thread is the
+  hand that moves a little further from the string in every movement; this
+  wrapper carries the movement number as the custom property `--movement`,
+  and instrumentontwikkeling.css draws one thin copper line in the margin
+  beside it, further from the text column with every movement.
+
+  The h2 stays outside the wrapper, a direct child of `.theme-body`, so the
+  Fig. counter on `.theme-body > h2` keeps counting. No script: the line is
+  CSS only.
+*/
+interface Props {
+  n: 1 | 2 | 3 | 4 | 5 | 6;
+}
+const { n } = Astro.props;
+---
+<div class="movement" data-movement={n} style={`--movement: ${n}`}>
+  <slot />
+</div>
