@@ -1,0 +1,131 @@
+---
+/**
+ * De tag: een naam in Sedgwick Ave Display, spuitbusrood met halo, licht
+ * gedraaid, óver de kop die eraan voorafgaat — zoals TAKI 183 over de kop
+ * van de voorpagina in het deck (slides/theme/pagina37/layouts/frontpage.vue).
+ *
+ * In MDX direct na de kop:
+ *
+ *   # Voor wie schrijf je je naam?
+ *   <Tag size="4.6rem" offset="0.7em">TAKI 183</Tag>
+ *
+ * Het blok is nul hoog; de span staat absoluut en valt met een negatieve
+ * offset over de kop erboven. Fijnregeling per prop:
+ *   offset  afstand van de ankerlijn tot de onderkant van de tag (em van
+ *           de tag zelf); groter = hoger
+ *   left    horizontale positie vanaf de linkerrand van de kolom; nooit
+ *           negatief — de kolom scrollt op desktop (overflow: auto) en
+ *           alles wat rechts of links uitsteekt geeft een scrollbalk
+ *   size    lettergrootte; onder 640px gaat er veertig procent af
+ *   tilt    rotatie, standaard -6deg
+ *
+ * Verschijnen: een IntersectionObserver zet `spray-tag--in` zodra de kop in
+ * beeld komt, en de spray komt op in 420 ms (opacity plus een lichte
+ * schaal). De verborgen begintoestand hangt aan `spray-tag--js`, dat het
+ * inline script hieronder synchroon zet: zonder JS staat de tag er meteen,
+ * statisch. Bij prefers-reduced-motion ook.
+ *
+ * Geen mix-blend-mode: multiply — rood × zwart = zwart, en onder een kop in
+ * Playfair 900 verdween de tag daardoor (#114, het deck). Spray ligt
+ * erbovenop, zoals de rode SKY over de zwarte tags op muur-1.jpg.
+ */
+interface Props {
+  offset?: string;
+  left?: string;
+  size?: string;
+  tilt?: string;
+}
+
+const { offset = '0.35em', left = '0.05em', size = '3rem', tilt = '-6deg' } = Astro.props;
+const style = `--tag-offset:${offset};--tag-left:${left};--tag-size:${size};--tag-tilt:${tilt}`;
+---
+
+<div class="spray-tag" aria-hidden="true" style={style}>
+  <span class="spray-tag__spray"><slot /></span>
+</div>
+<script is:inline>document.currentScript.previousElementSibling.classList.add('spray-tag--js');</script>
+
+<script>
+  const tags = document.querySelectorAll<HTMLElement>('.spray-tag.spray-tag--js');
+
+  if (tags.length > 0) {
+    if (!('IntersectionObserver' in window)) {
+      tags.forEach(tag => tag.classList.add('spray-tag--in'));
+    } else {
+      const tagFor = new Map<Element, HTMLElement>();
+      const observer = new IntersectionObserver(entries => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const tag = tagFor.get(entry.target);
+          if (tag) tag.classList.add('spray-tag--in');
+          observer.unobserve(entry.target);
+        }
+      }, { threshold: 0.4 });
+
+      tags.forEach(tag => {
+        const heading = tag.previousElementSibling ?? tag;
+        tagFor.set(heading, tag);
+        observer.observe(heading);
+      });
+    }
+  }
+</script>
+
+<style>
+  .spray-tag {
+    position: relative;
+    height: 0;
+    margin: 0;
+  }
+
+  .spray-tag__spray {
+    position: absolute;
+    left: var(--tag-left);
+    bottom: var(--tag-offset);
+    z-index: 2;
+    font-family: var(--font-hand);
+    font-weight: 400;
+    font-style: normal;
+    font-size: var(--tag-size);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    color: var(--color-accent);
+    text-shadow:
+      0 0 0.03em var(--color-accent-halo),
+      0 0 0.10em var(--color-accent-line),
+      0 0 0.28em var(--color-accent-soft);
+    transform: rotate(var(--tag-tilt));
+    transform-origin: 15% 80%;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .spray-tag--js .spray-tag__spray {
+    opacity: 0;
+    transform: rotate(var(--tag-tilt)) scale(0.9);
+  }
+
+  .spray-tag--js.spray-tag--in .spray-tag__spray {
+    opacity: 1;
+    transform: rotate(var(--tag-tilt)) scale(1);
+    transition:
+      opacity 420ms ease-out,
+      transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1.15);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spray-tag--js .spray-tag__spray,
+    .spray-tag--js.spray-tag--in .spray-tag__spray {
+      opacity: 1;
+      transform: rotate(var(--tag-tilt));
+      transition: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .spray-tag__spray {
+      font-size: calc(var(--tag-size) * 0.6);
+    }
+  }
+</style>

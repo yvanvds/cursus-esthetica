@@ -165,14 +165,23 @@ const videos = (theme.data as any).videos ?? null;
           ☰ Hoofdstukken
         </button>
       </div>
-      <header class="theme-header">
-        <p class="theme-header__breadcrumb">
-          <a href={`${base}/#${currentModule.id}`}>{currentModule.data.title}</a>
-          <span aria-hidden="true">·</span>
-          <span>hoofdstuk {theme.data.order} van {totalInModule}</span>
-        </p>
-        {readingTime && <p class="theme-header__reading-time">{readingTime}</p>}
-      </header>
+      {/*
+        De hoofdstukkop is de standaardinhoud van de slot `header`. Een eigen
+        layout (niveau 3, BRIEFING §5) omhult ThemeLayout en vult die slot met
+        zijn eigen kop — de masthead van Pagina37 (#124) — en houdt verder
+        grid, sidebar, TOC, dialogs en scripts. Zonder slot-inhoud rendert
+        elk ander hoofdstuk precies deze kop.
+      */}
+      <slot name="header">
+        <header class="theme-header">
+          <p class="theme-header__breadcrumb">
+            <a href={`${base}/#${currentModule.id}`}>{currentModule.data.title}</a>
+            <span aria-hidden="true">·</span>
+            <span>hoofdstuk {theme.data.order} van {totalInModule}</span>
+          </p>
+          {readingTime && <p class="theme-header__reading-time">{readingTime}</p>}
+        </header>
+      </slot>
 
       <div class="theme-body">
         <slot />

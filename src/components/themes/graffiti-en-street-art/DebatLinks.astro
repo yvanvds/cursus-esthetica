@@ -23,7 +23,12 @@ const app = `${base}/graffiti-en-street-art/debat/`;
   }
 
   /* Two classes deep: ThemeLayout styles every `.theme-body a` as an
-     underlined accent link, and that has to lose here. */
+     underlined accent link, and that has to lose here.
+
+     Newspaper boxes (#124): a 1.5px ink frame, square corners, Courier
+     Prime (both come from the chapter's tokens, --font-mono and --radius).
+     The primary button is set solid in ink, like a boxed notice on the
+     page; the spray red is kept for hover. */
   .debat-links .debat-links__button {
     display: inline-flex;
     align-items: baseline;
@@ -31,21 +36,26 @@ const app = `${base}/graffiti-en-street-art/debat/`;
     font-family: var(--font-mono);
     font-size: var(--step--1);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-decoration: none;
     color: var(--color-text);
-    border: 1px solid var(--color-border);
+    border: 1.5px solid var(--color-text);
     border-radius: var(--radius);
     padding: 0.7rem var(--space-sm);
-    transition: color var(--transition-color), border-color var(--transition-color);
+    transition: color var(--transition-color), border-color var(--transition-color), background-color var(--transition-color);
   }
 
   .debat-links .debat-links__button:hover {
-    color: var(--color-text);
+    color: var(--color-accent);
     border-color: var(--color-accent);
   }
 
-  .debat-links .debat-links__button--primary,
+  .debat-links .debat-links__button--primary {
+    color: var(--color-bg);
+    background: var(--color-text);
+    border-color: var(--color-text);
+  }
+
   .debat-links .debat-links__button--primary:hover {
     color: var(--color-bg);
     background: var(--color-accent);

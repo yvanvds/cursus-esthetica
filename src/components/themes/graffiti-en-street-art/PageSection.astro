@@ -1,0 +1,36 @@
+---
+/**
+ * Een beweging met een eigen motief op de krantenpagina, zoals de
+ * `page-…`-klassen van het deck (slides/theme/pagina37/styles/layout.css):
+ *
+ *   pixacao  de gevel — hoge zwarte strepen langs beide randen van de sectie
+ *            (page-vertical)
+ *   ad       de pagina wordt een advertentie: wit vlak, haarlijnkader, de
+ *            kop in Archivo 900 kapitaal (page-ad)
+ *
+ * In MDX van de h2 tot vóór de volgende h2, met lege regels rond de inhoud:
+ *
+ *   <PageSection kind="pixacao">
+ *
+ *   ## São Paulo schrijft terug
+ *   …
+ *
+ *   </PageSection>
+ *
+ * De h2 erin houdt zijn id (de TOC springt ernaartoe) en zijn spray-nummer:
+ * de teller staat op .theme-body en telt door een wrapper heen. De stijl
+ * staat in src/styles/themes/graffiti-en-street-art.css onder
+ * html[data-theme], bij de fonts en kleuren waar hij van afhangt — een
+ * scoped stylesheet hier zou de `.theme-body h2`-regels van dat bestand in
+ * specificiteit niet winnen.
+ */
+interface Props {
+  kind: 'pixacao' | 'ad';
+}
+
+const { kind } = Astro.props;
+---
+
+<section class:list={['page-section', `page-section--${kind}`]}>
+  <slot />
+</section>

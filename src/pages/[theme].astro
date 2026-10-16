@@ -12,16 +12,34 @@ export async function getStaticPaths() {
 
 const { theme } = Astro.props;
 
-// TODO: custom layout per thema (BRIEFING.md §5) — later implementeren:
-// if (theme.data.customLayout) {
-//   const { default: Layout } = await import(`../layouts/themes/${theme.data.customLayout}.astro`);
-//   // gebruik Layout in plaats van ThemeLayout
-// }
+// Niveau 3 (BRIEFING §5): een hoofdstuk met `customLayout: "Naam"` in de
+// frontmatter rendert met `src/layouts/themes/Naam.astro` in plaats van
+// ThemeLayout, met dezelfde props. Een eager `import.meta.glob` zoals bij de
+// stylesheets in ThemeLayout: statisch analyseerbaar, dus Vite bundelt elke
+// eigen layout mee en een verkeerde naam faalt hier, bij de build, niet pas in
+// de browser. Een eigen layout omhult ThemeLayout en vult zijn slot `header`
+// (zie Pagina37.astro, #124); hij vervangt ThemeLayout niet.
+const themeLayouts = import.meta.glob<{ default: typeof ThemeLayout }>(
+  '/src/layouts/themes/*.astro',
+  { eager: true }
+);
+
+let Layout = ThemeLayout;
+if (theme.data.customLayout) {
+  const path = `/src/layouts/themes/${theme.data.customLayout}.astro`;
+  const module = themeLayouts[path];
+  if (!module) {
+    throw new Error(
+      `customLayout '${theme.data.customLayout}' not found at src/layouts/themes/ for theme '${theme.id}'`
+    );
+  }
+  Layout = module.default;
+}
 
 const { Content, headings, remarkPluginFrontmatter } = await render(theme);
 const readingTime: string | undefined = remarkPluginFrontmatter?.readingTime;
 ---
 
-<ThemeLayout theme={theme} headings={headings} readingTime={readingTime}>
+<Layout theme={theme} headings={headings} readingTime={readingTime}>
   <Content />
-</ThemeLayout>
+</Layout>
