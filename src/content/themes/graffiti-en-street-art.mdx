@@ -5,6 +5,13 @@ order: 1
 figure: "17"
 image: /images/graffiti-en-street-art/header.jpg
 shortDescription: Een tag is geen versiering maar een bericht — alleen niet aan jou gericht.
+# Pagina 37: de krantenpagina van het deck (slides/theme/pagina37) als pagina
+# van de site. Het spuitbusrood van SKY op muur-1.jpg; de stylesheet zet
+# papier, inkt en letters; de layout zet de masthead in plaats van de
+# hoofdstukkop (#124).
+accentColor: "#b43224"
+customStyles: "graffiti-en-street-art.css"
+customLayout: "Pagina37"
 
 figures:
     taki:
@@ -120,8 +127,12 @@ videos:
 ---
 
 import DebatLinks from '../../components/themes/graffiti-en-street-art/DebatLinks.astro';
+import Tag from '../../components/themes/graffiti-en-street-art/Tag.astro';
+import PageSection from '../../components/themes/graffiti-en-street-art/PageSection.astro';
 
 # Voor wie schrijf je je naam?
+
+<Tag size="4.6rem" offset="0.75em" left="0.1em" tilt="-7deg">TAKI 183</Tag>
 
 {/* COMPONENT KANDIDAAT: een "muur-lezer" bij de sectie 'Hoe lees je
     een muur?' — één foto van een dichtgetagde muur waarin lagen
@@ -159,6 +170,8 @@ Trap alleen niet in de val te denken dat groter ook hoger staat. Status volgt ni
 
 ## Hoe lees je een muur?
 
+<Tag offset="0.3em" left="0.2em" tilt="-5deg">CHAKA</Tag>
+
 Een dichtbeschreven [muur](fig:muur) lijkt chaos. Ze is een archief. Onderaan, half verdwenen, staan de oudste namen: wie daar staat, was er eerst. Daaroverheen jongere lagen — en overschrijven is nooit neutraal. Over de tag van een gerespecteerde schrijver heen gaan is een statement, soms een oorlogsverklaring. Omgekeerd zijn er tags die jarenlang onaangeroerd blijven terwijl alles eromheen wordt overspoten. Dat is geen toeval, dat is aanzien. Wie de code kent, leest op één muur af wie er in de buurt telt, wie in opkomst is en wie er ruzie heeft.
 
 Ook de plek zelf is tekst. Een tag op ooghoogte in een steegje zegt: ik was hier. Dezelfde tag op een brugligger boven het spoor zegt: ik was hier, en ik heb er iets voor geriskeerd. Hoogte, gevaar en onbereikbaarheid zijn valuta. Daarom die voorliefde voor bruggen, daken en spoorbermen.
@@ -169,6 +182,8 @@ Hoe diep de logica van naam en risico zit, bewijst Los Angeles. Eind jaren tacht
 
 Sta je binnenkort op een perron en schuift er een trein binnen met een throw-up over de volle flank, dan weet je nu: dit is geen ruis. Iemand is 's nachts een bewaakt emplacement opgeslopen en heeft zijn naam aan een machine toevertrouwd die er duizenden kilometers mee aflegt. Je hoeft het niet mooi te vinden. Maar je leest, of je wil of niet, een bericht — alleen niet aan jou gericht.
 
+<PageSection kind="pixacao">
+
 ## São Paulo schrijft terug
 
 Wie denkt dat dit een Amerikaans verhaal is, moet naar São Paulo kijken. Daar ontstond in de jaren tachtig een schrijfcultuur die de New Yorkse logica overneemt en radicaliseert: [pixação](fig:pixacao). De lettervormen komen niet uit de hiphop maar van de hoezen van metalplaten — hoekig, uitgerekt, als runen. Geen kleurexplosies maar zwarte lijnen, vaak met verfrollers aangebracht. En vooral: de gevel als jachtterrein. Pixadores beklimmen flatgebouwen met blote handen, van vensterbank naar vensterbank, tien, vijftien verdiepingen hoog, om hun naam helemaal bovenaan de gevel te zetten. Er vallen doden. Het risico is geen bijwerking, het is de kern van de discipline: hoe onmogelijker de plek, hoe zwaarder de naam weegt. De [trailer van de documentaire Pixadores](video:pixadores) toont in twee minuten waar het over gaat — bekijk die, en je begrijpt meer dan uit tien foto's.
@@ -177,11 +192,15 @@ De sociale lading is nauwelijks te missen. De pixadores komen uit de periferie, 
 
 En binnen de schrijfwereld zelf herhaalt de hiërarchie zich. Pixadores kijken neer op graffiti: te kleurrijk, te gewild bij galeries, te koop. Sinds Brazilië in 2009 graffiti met toestemming van de eigenaar legaliseerde, is het onderscheid zelfs wet — graffiti mag, pixação uitdrukkelijk niet.
 
+</PageSection>
+
 ## Het boek dat de muren liet reizen
 
 Dat er in São Paulo, Antwerpen en Moskou überhaupt geschreven wordt in stijlen die in de Bronx zijn uitgevonden, is de verdienste van twee documenten. In 1983 zond de Amerikaanse televisie *Style Wars* uit, een documentaire over de New Yorkse metroschrijvers. Een jaar later verscheen *Subway Art*, het fotoboek van Martha Cooper en Henry Chalfant. Het verkocht een half miljoen exemplaren en werd in het Verenigd Koninkrijk berucht als een van de meest gestolen boeken — een reputatie die het onder schrijvers alleen maar geloofwaardiger maakte. Generaties Europese taggers leerden wildstyle niet op straat maar uit die foto's, letter per letter nagetekend op de keukentafel.
 
 Maar niet alles reisde mee. De stijl wel. De context — de Bronx van de jaren zeventig, de armoede, de metro-oorlog, het waarom van de namen — bleef achter. Wat aankwam was een look. En een look zonder context is precies datgene waar een markt iets mee kan. Wie de oorsprong in vol bedrijf wil zien: [Style Wars staat integraal online](video:style-wars) — ruim een uur, dus eerder iets voor een vrije avond dan voor een studiesessie, maar het blijft de beste film die ooit over graffiti gemaakt is.
+
+<PageSection kind="ad">
 
 ## Rebellie te koop
 
@@ -192,6 +211,8 @@ Hoe die omarming afloopt wanneer er echt geld op tafel ligt, laat New York zien.
 Zo eindigt elke verkochte versie van graffiti op hetzelfde punt: er blijft een vormtaal over zonder de zaken die haar betekenis gaven. Geen naam, dus geen identiteit. Geen herhaling, dus geen aanwezigheid. Geen risico, dus geen status. Geen conflict, dus geen hiërarchie. Wat overblijft is een look — verkoopbaar, en leeg.
 
 Graffiti wordt pas echt onschadelijk wanneer niemand er nog iets mee riskeert. En misschien wordt ze dan ook overbodig. Tot het zover is, geldt het antwoord dat een koerier uit Washington Heights in 1971 aan een journalist gaf, en dat een pixador vijftien verdiepingen boven São Paulo vandaag nog altijd zou geven. Voor wie je je naam schrijft? Voor de anderen die de code kennen. En voor jezelf.
+
+</PageSection>
 
 ## Het debat
 

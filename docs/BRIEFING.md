@@ -274,11 +274,28 @@ ongelaagd en wint dus altijd van beide, zonder specificiteitsgevecht met de
 Variabelen overschrijven, regels toevoegen of andere typografie: alles kan,
 zolang het onder `html[data-theme="<id>"]` staat.
 
-### Niveau 3: Volledig eigen layout
+### Niveau 3: Eigen layout
 
-In frontmatter: `customLayout: "Graffiti"`. In plaats van `ThemeLayout`
-gebruikt de pagina dan `/src/layouts/themes/Graffiti.astro`. Dit geeft
-volledige controle over de HTML-structuur, niet alleen styling.
+In frontmatter: `customLayout: "Pagina37"`. De pagina rendert dan met
+`src/layouts/themes/Pagina37.astro` in plaats van `ThemeLayout`, met dezelfde
+props (`theme`, `headings`, `readingTime`). `[theme].astro` verzamelt alle
+eigen layouts met een eager `import.meta.glob('/src/layouts/themes/*.astro')`
+— statisch analyseerbaar, zoals de stylesheets — en gooit een fout als de
+naam niet bestaat.
+
+De vorm van een eigen layout is een layout die `ThemeLayout` **omhult**, niet
+vervangt (#124). `ThemeLayout` biedt daarvoor een benoemde slot `header`
+waarvan de standaardinhoud de gewone hoofdstukkop is (broodkruimel en
+leestijd); een eigen layout rendert `ThemeLayout` met alle props, vult die
+slot met zijn eigen kop en geeft de default slot door. Grid, sidebar, TOC,
+dialogs, scripts en prose-regels blijven zo van `ThemeLayout`, en elk
+hoofdstuk zonder `customLayout` rendert exact als voorheen. De pilot is de
+masthead van `graffiti-en-street-art`: naam van de krant, dubbele lijn,
+datumregel, module en hoofdstuknummer in Courier; de h1 zelf blijft in de
+MDX-body en krijgt zijn vorm via de stylesheet van niveau 2. Een eigen layout
+komt dus altijd samen met een stylesheet (niveau 2) en een accent (niveau 1);
+hoofdstuk-specifieke tekst mag erin hardgecodeerd staan, met een commentaar
+dat de layout bij dat ene hoofdstuk hoort.
 
 ### Wat een hoofdstukstijl minimaal is
 
@@ -301,35 +318,58 @@ en wordt het samen met de rode draad beoordeeld; niveau 3 blijft een
 
 ```astro
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import ThemeLayout from '../layouts/ThemeLayout.astro';
 
 export async function getStaticPaths() {
   const themes = await getCollection('themes');
   return themes.map(theme => ({
     params: { theme: theme.id },   // loader-id = bestandsnaam
-    props: { theme }
+    props: { theme },
   }));
 }
 
 const { theme } = Astro.props;
-const { Content } = await theme.render();
 
-// Dynamisch layout kiezen
+// Eigen layouts (niveau 3): eager glob, dus gebundeld en bij de build
+// gecontroleerd — geen dynamische import met een template-string.
+const themeLayouts = import.meta.glob<{ default: typeof ThemeLayout }>(
+  '/src/layouts/themes/*.astro',
+  { eager: true }
+);
+
 let Layout = ThemeLayout;
 if (theme.data.customLayout) {
-  Layout = (await import(`../layouts/themes/${theme.data.customLayout}.astro`)).default;
+  const module = themeLayouts[`/src/layouts/themes/${theme.data.customLayout}.astro`];
+  if (!module) throw new Error(`customLayout '${theme.data.customLayout}' not found …`);
+  Layout = module.default;
 }
+
+const { Content, headings, remarkPluginFrontmatter } = await render(theme);
+const readingTime: string | undefined = remarkPluginFrontmatter?.readingTime;
 ---
 
-<Layout theme={theme}>
+<Layout theme={theme} headings={headings} readingTime={readingTime}>
   <Content />
 </Layout>
 ```
 
+En de eigen layout zelf, in essentie:
+
+```astro
+---
+import ThemeLayout from '../ThemeLayout.astro';
+const { theme, headings, readingTime } = Astro.props;
+---
+<ThemeLayout theme={theme} headings={headings} readingTime={readingTime}>
+  <header slot="header" class="masthead">…</header>
+  <slot />
+</ThemeLayout>
+```
+
 Belangrijk: de `BaseLayout` (navigatie, footer, font-loading) blijft altijd
-geldig, ongeacht hoe een thema verder afwijkt. Custom layouts erven van
-`BaseLayout`.
+geldig, ongeacht hoe een thema verder afwijkt. Een eigen layout omhult
+`ThemeLayout`, en die rendert `BaseLayout`.
 
 ## 6. Homepage (`src/pages/index.astro`)
 
