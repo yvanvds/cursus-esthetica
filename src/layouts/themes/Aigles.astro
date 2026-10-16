@@ -1,0 +1,163 @@
+---
+/**
+ * Aigles — de eigen layout van "Voor wie maakt België kunst?"
+ * (belgisch-experiment). De pagina als dossier van Broodthaers' Département
+ * des Aigles, zoals het deck (slides/theme/aigles): registratiekruisje
+ * linksboven, het dossiernummer rechtsboven, een haarlijn over de volle
+ * breedte. De h1 en de tweetalige strook eronder staan in de MDX-body; de
+ * stylesheet van het hoofdstuk geeft ze hun vorm (#125).
+ *
+ * De vorm van niveau 3 (BRIEFING §5), naar het model van Pagina37: deze
+ * layout OMHULT ThemeLayout en vult alleen zijn slot `header`. Grid, sidebar,
+ * TOC, dialogs, scripts en prose-regels blijven van ThemeLayout; alle props
+ * en de default slot gaan ongewijzigd door. `[theme].astro` kiest deze
+ * layout op `customLayout: "Aigles"`.
+ *
+ * Het dossiernummer is het figuurnummer uit de frontmatter, niet
+ * hardgecodeerd: de nummering in deze module kan nog veranderen (#143).
+ * Module, positie in de module en leestijd komen uit de collectie en de
+ * props, zoals in ThemeLayout.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import ThemeLayout from '../ThemeLayout.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  theme: CollectionEntry<'themes'>;
+  headings: Heading[];
+  readingTime?: string;
+}
+
+const { theme, headings, readingTime } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const allModules = await getCollection('modules');
+const allThemes = await getCollection('themes');
+const currentModule = allModules.find(m => m.id === theme.data.module);
+if (!currentModule) throw new Error(`Module '${theme.data.module}' not found for theme '${theme.id}'`);
+const totalInModule = allThemes.filter(t => t.data.module === theme.data.module).length;
+---
+
+<ThemeLayout theme={theme} headings={headings} readingTime={readingTime}>
+  <header slot="header" class="dossier-head">
+    <span class="dossier-head__mark" aria-hidden="true"></span>
+    <p class="dossier-head__meta">
+      <a href={`${base}/#${currentModule.id}`}>{currentModule.data.title}</a>
+      <span aria-hidden="true">·</span>
+      <span>hoofdstuk {theme.data.order} van {totalInModule}</span>
+    </p>
+    <p class="dossier-head__number">
+      <span class="dossier-head__label">dossier</span>
+      <span>{theme.data.figure}</span>
+    </p>
+    {readingTime && <p class="dossier-head__time">{readingTime}</p>}
+  </header>
+  <slot />
+</ThemeLayout>
+
+<style>
+  /* De kleuren en fonts (--color-accent = messing, --font-mono = JetBrains
+     Mono, --color-rule) staan in src/styles/themes/belgisch-experiment.css
+     onder html[data-theme]; deze layout rendert alleen voor dat hoofdstuk.
+
+     Drie kolommen: kruisje, meta, dossiernummer. De leestijd staat onder de
+     meta in dezelfde kolom; de haarlijn eronder loopt over de volle breedte
+     (de ministeriële lijn op de cover van het deck). */
+  .dossier-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    column-gap: 0.75rem;
+    row-gap: 0.35rem;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-rule);
+    margin-bottom: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  .dossier-head p {
+    margin: 0;
+    max-width: none;
+  }
+
+  /* Registratiekruisje: twee lijnen van 1px in messing, 11 × 11 px — het
+     drukkersteken uit de hoek van elke slide. Gecentreerd op de eerste regel
+     (regelhoogte 1.5em), ook als de meta op mobiel over twee regels loopt. */
+  .dossier-head__mark {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: start;
+    margin-top: calc((1.5em - 11px) / 2);
+    width: 11px;
+    height: 11px;
+    background:
+      linear-gradient(to bottom, transparent 5px, var(--color-accent) 5px, var(--color-accent) 6px, transparent 6px),
+      linear-gradient(to right,  transparent 5px, var(--color-accent) 5px, var(--color-accent) 6px, transparent 6px);
+    opacity: 0.85;
+  }
+
+  .dossier-head__meta {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.5em;
+    letter-spacing: 0.14em;
+    color: var(--color-text-quiet);
+  }
+
+  .dossier-head__meta a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-color);
+  }
+
+  .dossier-head__meta a:hover {
+    color: var(--color-accent);
+  }
+
+  .dossier-head__time {
+    grid-row: 2;
+    grid-column: 2;
+    letter-spacing: 0.14em;
+    color: var(--color-text-whisper);
+  }
+
+  /* Dossiernummer: het voorvoegsel in quiet, het nummer vet in messing
+     (.dossier in het deck). */
+  .dossier-head__number {
+    grid-row: 1;
+    grid-column: 3;
+    white-space: nowrap;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--color-accent);
+  }
+
+  .dossier-head__label {
+    font-weight: 400;
+    color: var(--color-text-quiet);
+    margin-right: 0.4em;
+  }
+
+  @media (max-width: 640px) {
+    .dossier-head__meta,
+    .dossier-head__time {
+      letter-spacing: 0.1em;
+    }
+
+    .dossier-head__number {
+      letter-spacing: 0.12em;
+    }
+  }
+</style>

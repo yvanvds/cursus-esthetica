@@ -1,0 +1,33 @@
+---
+/**
+ * De tweetalige strook: de titel van het hoofdstuk in het Frans, direct onder
+ * de Nederlandse h1, met een korte messinglijn ervoor (.strip in het deck,
+ * slides/theme/aigles). Broodthaers' tweetaligheid als vorm (#125).
+ *
+ * In MDX direct na de kop:
+ *
+ *   # Voor wie maakt België kunst?
+ *   <Strip fr="Pour qui la Belgique fait-elle de l'art ?" />
+ *
+ * De Franse spatie vóór ? ! : ; en » wordt hier een smalle vaste spatie
+ * (U+202F), zodat de auteur een gewone spatie kan typen en het leesteken
+ * nooit alleen op een nieuwe regel belandt. De rechte apostrof wordt een
+ * gekrulde, zoals smartypants dat in de lopende tekst doet: een attribuut
+ * gaat niet door die stap.
+ *
+ * De stijl staat in src/styles/themes/belgisch-experiment.css, niet scoped
+ * hier: een `<p>` in `.theme-body` krijgt de prose-regels van de
+ * hoofdstukstylesheet (0,2,2), en daar verliest een scoped stijl (0,2,0) van
+ * (#124).
+ */
+interface Props {
+  fr: string;
+}
+
+const { fr } = Astro.props;
+const french = fr
+  .replace(/'/g, '\u2019')
+  .replace(/ ([?!:;\u00BB])/g, '\u202F$1');
+---
+
+<p class="strip" lang="fr">{french}</p>

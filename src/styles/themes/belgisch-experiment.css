@@ -1,0 +1,391 @@
+/* src/styles/themes/belgisch-experiment.css
+
+   Het dossier van het Département des Aigles: de bureaucratische envelop
+   waarin de staat kunst stopt, als pagina van de site — het palet, de letters
+   en de motieven van het deck (slides/theme/aigles/styles/layout.css).
+   Pruisisch nachtblauw, papiercrème, messing; het poststempelrood alleen voor
+   stempels en doorhalingen. De dossierkop staat in
+   src/layouts/themes/Aigles.astro, de strook en het stempel in
+   src/components/themes/belgisch-experiment/ (#125).
+
+   Elke regel staat onder `html[data-theme="belgisch-experiment"]`: dit
+   bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120)
+   en mag alleen hier gelden. Een `:root`-blok is verboden — `npm run
+   check:chapters` meldt het.
+
+   Twee eigen letters (BRIEFING §5), de rest uit de basis:
+     staat     Big Shoulders Display 700/900   h1, h2, de Romeinse cijfers,
+                                               de stempels
+     tekst     Hanken Grotesk 400/600          de lopende tekst, en de UI mee
+     dossier   JetBrains Mono (basis)          dossierkop, meta — in plaats
+                                               van Space Mono uit het deck
+     français  Fraunces cursief (basis)        de FR-strook — in plaats van
+                                               Spectral uit het deck */
+
+/* ---- Fonts ----
+   Een `@font-face` heeft geen selector en kan niet gescoped worden, maar een
+   browser haalt een font pas op als een regel die erbij past het gebruikt.
+   Elke `font-family:` die deze namen noemt staat hieronder onder
+   `html[data-theme="belgisch-experiment"]`, dus de bestanden worden alleen
+   op deze pagina opgehaald. Alleen de latin-subset, statische gewichten
+   (@fontsource/big-shoulders-display, @fontsource/hanken-grotesk).
+
+   Het pad wijst hier rechtstreeks naar het fontsource-pakket: Vite lost een
+   kale module-id in `url()` op (eerst relatief, dan als pakket), verwerkt het
+   bestand als asset en levert het onder `base` uit, met hash — hetzelfde
+   resultaat als een kopie onder src/assets/fonts/ (#123). Afwijking van de
+   conventie in BRIEFING §5, zie #125: de kopie uit node_modules kon in die
+   sessie niet gemaakt worden. Terug naar de conventie is de vijf bestanden
+   naar src/assets/fonts/ kopiëren en `@fontsource/<pakket>/files/`
+   hieronder vervangen door `../../assets/fonts/`. */
+
+@font-face {
+  font-family: 'Big Shoulders Display';
+  src: url('@fontsource/big-shoulders-display/files/big-shoulders-display-latin-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Big Shoulders Display';
+  src: url('@fontsource/big-shoulders-display/files/big-shoulders-display-latin-900-normal.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('@fontsource/hanken-grotesk/files/hanken-grotesk-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('@fontsource/hanken-grotesk/files/hanken-grotesk-latin-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('@fontsource/hanken-grotesk/files/hanken-grotesk-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Nachtblauw, papier, messing, stempelrood ----
+   Het palet van het deck. Geen `--color-accent` hier: het messing staat in
+   `accentColor:` in de frontmatter en wordt door ThemeLayout op
+   `html[data-theme]` gezet (#120); `--color-accent-soft` volgt vanzelf. Het
+   messing is de accent en niet het rood van het deck, omdat
+   beweging-en-dynamiek al #e23b2e heeft. Het rood is `--color-stamp`, een
+   tweede kleur alleen voor stempels en doorhalingen.
+
+   Contrast op #0D1B2E (WCAG): text 13.8, muted 8.7, messing 7.6,
+   quiet 4.5, dim 3.8, whisper 3.3, stempelrood 4.2 (3.6 op 90 % dekking,
+   zie .tampon). De `-dim` van het deck (#4D4836, 1.9) is te donker voor
+   tekst; dim en whisper liggen hier tussen quiet en border, allebei boven
+   3:1 voor meta. `border` heeft het deck niet: tussen border-subtle en
+   whisper, alleen voor lijnen. */
+
+html[data-theme="belgisch-experiment"] {
+  --color-bg:            #0D1B2E;   /* Pruisisch nachtblauw */
+  --color-bg-elevated:   #142841;   /* de dossiermap */
+  --color-surface:       #1C3553;
+  --color-border:        #44536B;
+  --color-border-subtle: #2B3A52;
+
+  --color-text:          #ECE5D1;   /* papiercrème */
+  --color-text-muted:    #C0B89F;
+  --color-text-quiet:    #8A8170;
+  --color-text-dim:      #7D7666;
+  --color-text-whisper:  #736C5D;
+
+  --color-stamp:         #E63E2A;   /* poststempelrood */
+  --color-rule:          var(--color-text-quiet);
+
+  --font-display: 'Big Shoulders Display', Impact, 'Arial Narrow Bold', sans-serif;
+  --font-sans:    'Hanken Grotesk', -apple-system, system-ui, sans-serif;
+
+  --radius: 0;
+}
+
+/* ---- De lopende tekst ----
+   Hanken Grotesk in muted, zoals het deck: het crème is voor koppen en
+   nadruk. Iets groter dan Inter, want Hanken heeft een kleinere x-hoogte. */
+
+html[data-theme="belgisch-experiment"] .theme-body p,
+html[data-theme="belgisch-experiment"] .theme-body li {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+html[data-theme="belgisch-experiment"] .theme-body strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Links in messing met een zachte onderlijn (a in het deck). */
+html[data-theme="belgisch-experiment"] .theme-body a {
+  color: var(--color-accent);
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+html[data-theme="belgisch-experiment"] .theme-body a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+/* ---- De kop ----
+   Big Shoulders Display 900, strak. De letter is smal: twintig procent erbij
+   zodat de hiërarchie van ThemeLayout (step-4 / step-5) blijft staan. */
+
+html[data-theme="belgisch-experiment"] .theme-body h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: normal;
+  font-size: calc(var(--step-4) * 1.2);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  color: var(--color-text);
+  text-wrap: balance;
+  max-width: none;
+}
+
+@media (min-width: 1024px) {
+  html[data-theme="belgisch-experiment"] .theme-body h1 {
+    font-size: calc(var(--step-5) * 1.2);
+  }
+}
+
+/* ---- De tweetalige strook ----
+   Direct onder de h1 (Strip.astro): de Franse titel in Fraunces cursief, in
+   messing, met een korte messinglijn ervoor op de hoogte van de eerste regel
+   (.strip in het deck). */
+
+html[data-theme="belgisch-experiment"] .theme-body h1:has(+ .strip) {
+  margin-bottom: var(--space-sm);
+}
+
+html[data-theme="belgisch-experiment"] .theme-body .strip {
+  position: relative;
+  padding-left: 3em;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--step-2);
+  line-height: 1.3;
+  color: var(--color-accent);
+  max-width: none;
+  margin-bottom: var(--space-xl);
+}
+
+html[data-theme="belgisch-experiment"] .theme-body .strip::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 2.2em;
+  height: 1px;
+  background: var(--color-accent);
+}
+
+/* ---- De bewegingen, met het messing cijfer ----
+   Elke h2 telt een beweging; het nummer staat als groot Romeins cijfer in
+   messing links van de kop, met een haarlijn tussen cijfer en titel
+   (.numeral in het deck). Een vaste kolombreedte (1em van het cijfer; VII,
+   het breedste, is 0.95em), links uitgelijnd op de rand van de tekstkolom: cijfer, haarlijn
+   en titel staan bij elke kop op dezelfde plek. De h2 is een grid; de tekst
+   van de kop wordt daarin een anoniem item — de koppen in dit hoofdstuk zijn
+   platte tekst.
+
+   Niet op Bronnen: dat is de laatste h2 (`> h2:last-of-type`). */
+
+html[data-theme="belgisch-experiment"] .theme-body {
+  counter-reset: beweging;
+}
+
+html[data-theme="belgisch-experiment"] .theme-body h2 {
+  counter-increment: beweging;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--space-md);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--step-3) * 1.15);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--color-text);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+html[data-theme="belgisch-experiment"] .theme-body h2::before {
+  content: counter(beweging, upper-roman);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: content-box;
+  width: 1em;
+  padding-right: 0.25em;
+  border-right: 1px solid var(--color-border);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.4em;
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+}
+
+html[data-theme="belgisch-experiment"] .theme-body > h2:last-of-type {
+  counter-increment: none;
+  display: block;
+}
+
+html[data-theme="belgisch-experiment"] .theme-body > h2:last-of-type::before {
+  content: none;
+}
+
+html[data-theme="belgisch-experiment"] .theme-body h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ---- Citaat: Hanken cursief, messingstreep links (blockquote in het deck,
+   daar in Spectral) ---- */
+
+html[data-theme="belgisch-experiment"] .theme-body blockquote {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--color-text);
+  border-left: 3px solid var(--color-accent);
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  margin-block: var(--space-lg);
+}
+
+html[data-theme="belgisch-experiment"] .theme-body blockquote p {
+  font: inherit;
+  color: inherit;
+  margin-bottom: 0;
+}
+
+/* ---- Lijsten: het opsommingsteken is een kruisje in messing (× in het
+   deck, daar in rood; het rood is hier voor stempels) ---- */
+
+html[data-theme="belgisch-experiment"] .theme-body ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+html[data-theme="belgisch-experiment"] .theme-body ul > li {
+  position: relative;
+  padding-left: 1.6em;
+}
+
+html[data-theme="belgisch-experiment"] .theme-body ul > li + li {
+  margin-top: 0.35em;
+}
+
+html[data-theme="belgisch-experiment"] .theme-body ul > li::before {
+  content: '×';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+}
+
+html[data-theme="belgisch-experiment"] .theme-body ol > li::marker {
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+}
+
+/* ---- Het stempel ----
+   Klein gedraaid kader in stempelrood, kapitaal (Tampon.astro, .tampon in
+   het deck). Licht doorschijnend zoals inkt: 90 % dekking en een vleug rood
+   in het vlak. 1.2rem in gewicht 700 is "grote tekst" voor WCAG (vanaf
+   18.66px vet), dus 3:1 volstaat; het rood haalt 4.2, op 90 % 3.6.
+   `vertical-align: middle` en regelhoogte 1: het stempel past in de
+   regelhoogte van de alinea en duwt de regels niet uit elkaar. */
+
+html[data-theme="belgisch-experiment"] .tampon {
+  display: inline-block;
+  margin-left: 0.4em;
+  padding: 0.12em 0.45em 0.06em;
+  border: 1.5px solid currentColor;
+  background: color-mix(in srgb, var(--color-stamp) 8%, transparent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-stamp);
+  opacity: 0.9;
+  transform: rotate(-3deg);
+  vertical-align: middle;
+}
+
+/* ---- De doorhaling ----
+   Cursief, met een rode streep er schuin doorheen (.negation in het deck,
+   bij "Ceci n'est pas …"). De tekst blijft crème en leesbaar; alleen de
+   streep is stempelrood. */
+
+html[data-theme="belgisch-experiment"] .negation {
+  position: relative;
+  display: inline-block;
+  font-style: italic;
+  color: var(--color-text);
+}
+
+html[data-theme="belgisch-experiment"] .negation::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 54%;
+  height: 1.5px;
+  background: var(--color-stamp);
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+
+/* ---- Mobiel ---- */
+
+@media (max-width: 640px) {
+  html[data-theme="belgisch-experiment"] .theme-body h2 {
+    font-size: calc(var(--step-3) * 0.95);
+    column-gap: var(--space-sm);
+  }
+
+  html[data-theme="belgisch-experiment"] .theme-body h2::before {
+    font-size: 2.2em;
+  }
+
+  html[data-theme="belgisch-experiment"] .theme-body .strip {
+    font-size: var(--step-1);
+    padding-left: 2.6em;
+  }
+}

@@ -5,6 +5,13 @@ order: 7
 figure: "23"
 image: /images/belgisch-experiment/broodthaers-aigles-1.jpg
 shortDescription: België bouwde instituten om een volk te smeden. Zijn beste kunstenaars weigerden mee te doen.
+# Het dossier van het Département des Aigles (deck: slides/theme/aigles) als
+# pagina van de site. Messing als accent, het stempelrood alleen voor stempels
+# en doorhalingen (--color-stamp in de stylesheet); de layout zet de
+# dossierkop in plaats van de hoofdstukkop (#125).
+accentColor: "#C9A75A"
+customStyles: "belgisch-experiment.css"
+customLayout: "Aigles"
 
 figures:
     golconde:
@@ -134,7 +141,12 @@ videos:
     end: 180
 ---
 
+import Strip from '../../components/themes/belgisch-experiment/Strip.astro';
+import Tampon from '../../components/themes/belgisch-experiment/Tampon.astro';
+
 # Voor wie maakt België kunst?
+
+<Strip fr="Pour qui la Belgique fait-elle de l'art ?" />
 
 {/* COMPONENT KANDIDAAT: een naam-input bij de opening — leerlingen
     typen namen van Belgische kunstenaars, widget sorteert in Vlaams /
@@ -183,13 +195,13 @@ Het idee dat cultuur een natie smeedt, ontstaat in Europa tussen ongeveer 1830 e
 
 In België werkte dat aanvankelijk via de Koninklijke instellingen in Brussel. Vanaf de jaren zestig van de twintigste eeuw splitste het mechanisme zich op. De staatshervormingen verlegden cultuur naar de gemeenschappen: de Vlaamse Gemeenschap kreeg haar eigen cultureel beleid, de Franstalige Gemeenschap het hare. Vanaf de jaren tachtig — en dan vooral met het Kunstendecreet van 2004 — investeerde elk landsdeel structureel in zijn eigen instituten. Cultuursocioloog Pascal Gielen heeft betoogd dat het Vlaamse cultuurbeleid in die decennia uitgesproken vanuit een logica van natievorming en branding werd opgebouwd — de instituten waren niet alleen ondersteuningsmechanismen voor kunstenaars, ze waren ook identiteitsfabrieken in twintigste-eeuwse stijl. PARTS, Rosas, de Munt, deSingel, Wiels, het Kaaitheater, Vooruit, S.M.A.K., M HKA aan Vlaamse kant. Centre Henri Pousseur in Luik, MAC's Grand-Hornu in de oude Hornu-mijnen, BPS22 in Charleroi, La Monnaie en Bozar aan Franstalige kant. Brussel zat tussen beide netwerken in.
 
-Dat is hoe de Vlaamse Golf van de jaren tachtig — De Keersmaeker, Tuymans, Fabre, Lauwers, Cassiers, Platel, Delvoye — kon ontstaan: een generatie die opgroeide in een ecosysteem dat internationale ambitie veronderstelde en hen de tijd gaf om die te halen. Zonder Kunstendecreet geen Vlaamse Golf.
+Dat is hoe de Vlaamse Golf van de jaren tachtig — De Keersmaeker, Tuymans, Fabre, Lauwers, Cassiers, Platel, Delvoye — kon ontstaan: een generatie die opgroeide in een ecosysteem dat internationale ambitie veronderstelde en hen de tijd gaf om die te halen. Zonder Kunstendecreet geen Vlaamse Golf. <Tampon>subventionné</Tampon>
 
 ## Zes werken die het project ondergraven
 
 En toch — en daar wordt het interessant — heeft de staat iets eigenaardigs gekregen voor zijn geld. De kunstenaars die voortkwamen uit het systeem deden niet wat van hen verwacht werd. Ze maakten geen kunst die de natie bevestigt, ze maakten kunst die de natie ondermijnt. Soms expliciet, soms door eenvoudigweg te weigeren in nationale categorieën te denken.
 
-We beginnen bij Marcel Broodthaers, francofone Brusselaar, dichter en kunstenaar. Op 27 september 1968 hangt hij in zijn eigen appartement in de Brusselse Rue de la Pacification een bordje uit: *Musée d'Art Moderne, Département des Aigles*. Hij verklaart zichzelf directeur van zijn eigen museum. De zalen vullen zich met transportkratten, prentbriefkaarten van canonieke meesterwerken, en een verzameling adelaars: schilderijen, sculpturen, opgezette dieren, postzegels, emblemen. Bij elk een bordje: *Ceci n'est pas une œuvre d'art* — dit is geen kunstwerk.
+We beginnen bij Marcel Broodthaers, francofone Brusselaar, dichter en kunstenaar. Op 27 september 1968 hangt hij in zijn eigen appartement in de Brusselse Rue de la Pacification een bordje uit: *Musée d'Art Moderne, Département des Aigles*. Hij verklaart zichzelf directeur van zijn eigen museum. De zalen vullen zich met transportkratten, prentbriefkaarten van canonieke meesterwerken, en een verzameling adelaars: schilderijen, sculpturen, opgezette dieren, postzegels, emblemen. Bij elk een bordje: <em class="negation">Ceci n'est pas une œuvre d'art</em> — dit is geen kunstwerk.
 
 Het project loopt van 1968 tot 1972, in zeven Europese steden, en eindigt op de Documenta V in Kassel. Wat doet *[het adelaar-museum](fig:aigles)* eigenlijk? Het ontleedt twee ficties tegelijk. De fictie van het museum — die instelling die suggereert dat ze de waarheid van de kunst beheert — en de fictie van de adelaar als symbool van de natie, het keizerlijke, het verhevene. Door alle adelaars in één ruimte op te sluiten en stuk voor stuk te verklaren dat ze géén kunst zijn, laat Broodthaers zien hoe willekeurig de keuzes zijn die het museum en de natie elke dag voor je nemen. Het is een vorm die de kritiek *is*, geen pamflet dat de kritiek vertelt.
 
@@ -207,13 +219,13 @@ Zes werken, één patroon. De staat investeerde in cultuur omdat hij cultuur als
 
 ## De pijplijn
 
-In 2024 kreeg Vlaanderen een nieuwe regering, België in 2025. Beide regeringsakkoorden willen bezuinigen, en niet alleen op cultuur. Vlaanderen knipt 7,4 miljoen euro per jaar in het sportbudget — twee sportcentra dicht, de helft van de subsidies voor sportclubs voor mensen met een handicap. In het hoger onderwijs en het fundamenteel wetenschappelijk onderzoek 49,3 miljoen euro minder; de Vlaamse rectorenconferentie waarschuwt dat de eigen ambitie uit het regeerakkoord — één procent van het BBP voor onderzoek en ontwikkeling — onhaalbaar wordt. In de cultuursector loopt het in dezelfde richting, met structurele subsidieverliezen voor organisaties die te kritisch worden bevonden of te weinig publieksbereik hebben.
+In 2024 kreeg Vlaanderen een nieuwe regering, België in 2025. Beide regeringsakkoorden willen bezuinigen, en niet alleen op cultuur. Vlaanderen knipt 7,4 miljoen euro per jaar in het sportbudget — twee sportcentra dicht, de helft van de subsidies voor sportclubs voor mensen met een handicap. In het hoger onderwijs en het fundamenteel wetenschappelijk onderzoek 49,3 miljoen euro minder; de Vlaamse rectorenconferentie waarschuwt dat de eigen ambitie uit het regeerakkoord — één procent van het BBP voor onderzoek en ontwikkeling — onhaalbaar wordt. In de cultuursector loopt het in dezelfde richting, met structurele subsidieverliezen voor organisaties die te kritisch worden bevonden of te weinig publieksbereik hebben. <Tampon>refusé</Tampon>
 
 De Vlaamse minister bevoegd voor sport verdedigt zijn besparingen door erop te wijzen dat topsport zelf grotendeels buiten schot blijft. Hij voegt eraan toe: *toekomstige topresultaten zijn altijd het gevolg van investeringen in de pijplijn*. Het is een vreemde uitspraak. Ze maakt het probleem net duidelijk. De top is altijd de uitkomst van een pijplijn. Snij je de pijplijn weg, dan houd je voor één generatie misschien de top in stand — dat is wat de cijfers vandaag nog laten zien — en daarna niet meer.
 
 ## De kuil
 
-In een cartoon getiteld *[Geschiedenis van de moderne kunst in België](fig:charlier-geschiedenis)* tekent Jacques Charlier drie kaders na elkaar. In het eerste een leeg veld, met een schop. In het tweede hetzelfde veld, maar nu met een gegraven kuil. In het derde opnieuw het eerste beeld: leeg veld, geen kuil. Iemand heeft gegraven en weer dichtgegooid. Er is niets gebeurd. De geschiedenis van de moderne kunst in België.
+In een cartoon getiteld *[Geschiedenis van de moderne kunst in België](fig:charlier-geschiedenis)* tekent Jacques Charlier drie kaders na elkaar. In het eerste een leeg veld, met een schop. In het tweede hetzelfde veld, maar nu met een gegraven kuil. In het derde opnieuw het eerste beeld: leeg veld, geen kuil. Iemand heeft gegraven en weer dichtgegooid. Er is niets gebeurd. De geschiedenis van de moderne kunst in België. <Tampon>classé sans suite</Tampon>
 
 Het is geen pessimistische grap. Wat Charlier laat zien is dat Belgische kunst zich beweegt in een ruimte waar het monument nooit blijft staan. Geen heroïsche figuur, geen vaderland-canon, geen onverstoorbaar erfgoed. Een kuil graven en weer dichtgooien — dat is de vorm die de Belgische kunst, van Magritte over Broodthaers tot Tuymans en Charlier zelf, telkens opnieuw aanneemt. Een gebaar dat zichzelf wegneemt. Dat is geen falen. Dat is een vorm van kritiek die alleen mogelijk is in een land dat niet gelooft in zijn eigen identiteit.
 

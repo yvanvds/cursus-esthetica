@@ -1,0 +1,16 @@
+---
+/**
+ * Een stempel in de tekst: een klein gedraaid kader in stempelrood, kapitaal,
+ * licht doorschijnend zoals inkt (.tampon in het deck, slides/theme/aigles).
+ * Het staat náást een zin, nooit in de plaats ervan (#125):
+ *
+ *   ... te weinig publieksbereik hebben. <Tampon>refusé</Tampon>
+ *
+ * De stijl staat in src/styles/themes/belgisch-experiment.css, niet scoped
+ * hier: in #124 verloor een scoped stijl daar op specificiteit. Het woord is
+ * Frans, zoals de stempels van de Belgische administratie; `lang` zorgt dat
+ * een schermlezer het zo uitspreekt.
+ */
+---
+
+<span class="tampon" lang="fr"><slot /></span>
