@@ -1,0 +1,79 @@
+---
+/*
+  LightSection — one movement of licht-en-schaduw, with the kind of light it
+  stands in (#127). The model is RegimeSection in perspectief-en-ruimte: a
+  plain wrapper from the movement's h2 to just before the next h2, and one
+  shared IntersectionObserver that writes the movement the reader is in as
+  `data-light` on <html>. Flashlight.astro and licht-en-schaduw.css read that
+  attribute; this component draws nothing itself.
+
+  The kinds follow the penumbra deck (slides/theme/penumbra/styles/layout.css):
+    glass    1 · 2  filtered, in coloured squares
+    raking   3      one hard oblique beam
+    tube     4      a flat, sourceless fluorescent glow
+    diffuse  5      everywhere and nowhere
+    none     6      the light is off
+*/
+interface Props {
+  light: 'glass' | 'raking' | 'tube' | 'diffuse' | 'none';
+}
+const { light } = Astro.props;
+---
+<div class={`light-section light-section--${light}`} data-light={light}>
+  <slot />
+</div>
+
+<script>
+  // On desktop the text column scrolls, not the window; it is then the root.
+  // On mobile the viewport is (root: null). Same test as RegimeSection.
+  const container = document.querySelector<HTMLElement>('.theme-grid__content');
+  const scrollRoot =
+    container && getComputedStyle(container).overflowY === 'auto' ? container : null;
+
+  // "In" a movement means: crossing a thin reading band just above the middle
+  // of the scroll root (#126). The band is 1% high, narrower than the gap
+  // between two movements (the h2's top margin), so at most one movement
+  // crosses it at a time. In such a gap, and below the last movement
+  // (Bronnen, the chapter nav), the attribute keeps its last value: after
+  // movement 6 the light stays off.
+  const sections = [...document.querySelectorAll<HTMLElement>('.light-section[data-light]')];
+  const html = document.documentElement;
+
+  if (sections.length > 0) {
+    const reading = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const light = (entry.target as HTMLElement).dataset.light;
+          if (entry.isIntersecting && light) html.dataset.light = light;
+        }
+      },
+      { root: scrollRoot, rootMargin: '-45% 0px -54% 0px', threshold: 0 },
+    );
+
+    sections.forEach((el) => reading.observe(el));
+
+    // Above the first movement — the intro — the attribute is removed again,
+    // so the top of the page returns to its resting state. The band observer
+    // cannot see that after a jump (Home, a link to the top): the first
+    // movement goes from above the band to below it without ever crossing
+    // the 1% band, and an observer only reports changes. So a second observer
+    // watches the first movement against everything above the band's lower
+    // edge (the root stretched far upwards): it leaves that area exactly when
+    // its top drops below the band, however far it jumped. Same lower edge
+    // as the band, so the two observers never disagree.
+    const intro = new IntersectionObserver(
+      ([entry]) => {
+        if (
+          !entry.isIntersecting &&
+          entry.rootBounds &&
+          entry.boundingClientRect.top >= entry.rootBounds.bottom
+        ) {
+          delete html.dataset.light;
+        }
+      },
+      { root: scrollRoot, rootMargin: '100000px 0px -54% 0px', threshold: 0 },
+    );
+
+    intro.observe(sections[0]);
+  }
+</script>

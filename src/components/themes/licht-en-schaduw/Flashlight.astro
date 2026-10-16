@@ -1,4 +1,36 @@
 ---
+/*
+  Flashlight — the dark room behind licht-en-schaduw. Rembrandt's Belshazzar
+  lies in the dark behind the text; a light source makes it (partly) visible.
+  Since #127 that source changes per movement, after the penumbra deck
+  (slides/theme/penumbra/styles/layout.css): LightSection writes the movement
+  the reader is in as `data-light` on <html>, and each layer below answers to
+  it. Tokens (glass colours, tube, the deep black) live in
+  src/styles/themes/licht-en-schaduw.css.
+
+    absent / glass  the flashlight follows the pointer as before; its spot is
+                    tinted by the four glass colours in squares (absent: the
+                    intro above movement 1)
+    raking          no round spot: one hard oblique beam from the top right;
+                    the pointer only turns it a few degrees around its base
+                    angle (Caravaggio)
+    tube            no spot: a flat lilac glow over the whole layer, the
+                    painting evenly at low opacity (Flavin)
+    diffuse         no spot: the painting evenly and slightly blurred, three
+                    wide glows without a source (Ligeti)
+    none            the light is off: every layer fades out and --color-bg
+                    drops to #050505; only the text remains
+
+  Each state is its own layer, so a change of state is a cross-fade of
+  opacities (1.6 s). A layer that is off is also `visibility: hidden` once its
+  fade has finished, so the masks it carries are not repainted while the
+  pointer moves. Under prefers-reduced-motion there is no spot following the
+  pointer and no transition; the state per movement stays.
+
+  Everything is scoped under html[data-theme="licht-en-schaduw"], also the
+  html/body rules: the component is only placed in this chapter, but its
+  global styles should not depend on that.
+*/
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const bgUrl = `${base}/images/licht-en-schaduw/background.png`;
 ---
@@ -6,79 +38,280 @@ const bgUrl = `${base}/images/licht-en-schaduw/background.png`;
 <div class="flashlight" aria-hidden="true">
   <div class="flashlight__dim"></div>
   <div class="flashlight__spot"></div>
+  <div class="flashlight__glass"></div>
+  <div class="flashlight__beam"></div>
+  <div class="flashlight__tube"></div>
+  <div class="flashlight__haze"></div>
 </div>
 
 <style is:global define:vars={{ bgUrl: `url("${bgUrl}")` }}>
-  /* Body transparent maken zodat de fixed flashlight (z-index: -1) zichtbaar is.
-     html krijgt de page-bg zodat scrollende randen niet wit oplichten. */
-  html {
+  /* Body transparent so the fixed flashlight (z-index: -1) shows through;
+     html carries the page ground so overscroll edges never flash white. */
+  html[data-theme="licht-en-schaduw"] {
     background-color: var(--color-bg);
   }
-  body {
+
+  html[data-theme="licht-en-schaduw"] body {
     background-color: transparent;
   }
 
-  .flashlight {
+  html[data-theme="licht-en-schaduw"] .flashlight {
+    /* Pointer position and beam tilt; the script below writes them inline. */
+    --x: 50vw;
+    --y: 50vh;
+    --tilt: 0deg;
+    --light-fade: 1.6s;
+
+    /* The round spot, shared by the painting and the glass over it. */
+    --spot-mask: radial-gradient(circle 150px at var(--x) var(--y),
+      black 0%,
+      rgb(0 0 0 / 0.85) 35%,
+      rgb(0 0 0 / 0.35) 70%,
+      transparent 100%);
+
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
-    background-color: #000;
+    background-color: var(--color-bg);
   }
 
-  .flashlight__dim,
-  .flashlight__spot {
+  /* ---- Layers: all off unless a state turns them on ---- */
+
+  html[data-theme="licht-en-schaduw"] .flashlight > * {
     position: absolute;
     inset: 0;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  html[data-theme="licht-en-schaduw"] .flashlight__dim,
+  html[data-theme="licht-en-schaduw"] .flashlight__spot,
+  html[data-theme="licht-en-schaduw"] .flashlight__beam {
     background-image: var(--bgUrl);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
   }
 
-  .flashlight__dim {
+  /* The painting, evenly: the faint room you see without a light source. */
+  html[data-theme="licht-en-schaduw"] .flashlight__dim {
     opacity: 0.07;
+    visibility: visible;
   }
 
-  .flashlight__spot {
-    --x: 50vw;
-    --y: 50vh;
-    -webkit-mask-image:
-      radial-gradient(circle 150px at var(--x) var(--y),
-        #000 0%,
-        rgba(0, 0, 0, 0.85) 35%,
-        rgba(0, 0, 0, 0.35) 70%,
-        transparent 100%);
-    mask-image:
-      radial-gradient(circle 150px at var(--x) var(--y),
-        #000 0%,
-        rgba(0, 0, 0, 0.85) 35%,
-        rgba(0, 0, 0, 0.35) 70%,
-        transparent 100%);
+  /* The painting where the flashlight falls. */
+  html[data-theme="licht-en-schaduw"] .flashlight__spot {
+    -webkit-mask-image: var(--spot-mask);
+            mask-image: var(--spot-mask);
     will-change: mask-image;
   }
 
+  /* Glass: coloured squares over the spot, in the four colours of Richter's
+     window (the deck's lit-glass). The bottom layer is a checker of 22px
+     squares in the four glasses (a conic gradient in a 44px tile); over it
+     two blocks of shade and amber in tiles of 66px and 110px, off-centre so
+     their edges still fall on the 22px grid. The three periods only meet
+     again after 660px, so the squares read as scattered, not as a tartan.
+     `color` gives the lit painting the hue of the glass and keeps its own
+     light and dark: a pool of glass-light on the canvas, detail intact.
+     (Tried and dropped: `multiply` darkens the spot to near-black, `screen`
+     paints a plaid over the painting.) */
+  html[data-theme="licht-en-schaduw"] .flashlight__glass {
+    background-image:
+      conic-gradient(at 40% 60%,
+        transparent 0 25%,
+        color-mix(in srgb, var(--color-glass-3) 60%, transparent) 0 50%,
+        transparent 0 75%,
+        rgb(0 0 0 / 0.45) 0),
+      conic-gradient(at 33.333% 66.667%,
+        rgb(0 0 0 / 0.5) 0 25%, transparent 0 50%,
+        rgb(0 0 0 / 0.25) 0 75%, transparent 0),
+      conic-gradient(
+        var(--color-glass-1) 0 25%, var(--color-glass-2) 0 50%,
+        var(--color-glass-4) 0 75%, var(--color-glass-3) 0);
+    background-size: 110px 110px, 66px 66px, 44px 44px;
+    mix-blend-mode: color;
+    -webkit-mask-image: var(--spot-mask);
+            mask-image: var(--spot-mask);
+    will-change: mask-image;
+  }
+
+  /* Raking: one hard beam, steep from the top right down to the left, with
+     the deck's amber film in it. Two masks, intersected: the band itself
+     (hard edges, 1% of the gradient line) and a falloff away from the top
+     right corner, so the beam has a source. The pointer turns the band by
+     at most ±6° around 120° (see the script). */
+  html[data-theme="licht-en-schaduw"] .flashlight__beam {
+    background-image:
+      linear-gradient(var(--color-beam), var(--color-beam)),
+      var(--bgUrl);
+    background-size: 100% 100%, cover;
+    -webkit-mask-image:
+      linear-gradient(calc(120deg + var(--tilt)),
+        transparent 0 47%,
+        rgb(0 0 0 / 0.9) 48%,
+        black 54%,
+        rgb(0 0 0 / 0.9) 60%,
+        transparent 61%),
+      radial-gradient(farthest-corner at 100% 0%,
+        black 0%, black 30%, rgb(0 0 0 / 0.3) 80%, transparent 100%);
+            mask-image:
+      linear-gradient(calc(120deg + var(--tilt)),
+        transparent 0 47%,
+        rgb(0 0 0 / 0.9) 48%,
+        black 54%,
+        rgb(0 0 0 / 0.9) 60%,
+        transparent 61%),
+      radial-gradient(farthest-corner at 100% 0%,
+        black 0%, black 30%, rgb(0 0 0 / 0.3) 80%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+  }
+
+  /* Tube: Flavin's room — flat, without direction or falloff. */
+  html[data-theme="licht-en-schaduw"] .flashlight__tube {
+    background-color: var(--color-tube-wash);
+  }
+
+  /* Diffuse: the deck's three wide glows, overlapping without ever forming
+     a source. */
+  html[data-theme="licht-en-schaduw"] .flashlight__haze {
+    background-image:
+      radial-gradient(ellipse 120% 90% at 22% 30%,
+        color-mix(in srgb, var(--color-accent) 12%, transparent) 0%, transparent 70%),
+      radial-gradient(ellipse 110% 95% at 70% 62%,
+        color-mix(in srgb, var(--color-tube) 9%, transparent) 0%, transparent 72%),
+      radial-gradient(ellipse 130% 80% at 48% 92%,
+        color-mix(in srgb, var(--color-accent) 9%, transparent) 0%, transparent 74%);
+  }
+
+  /* ---- States ---- */
+
+  /* Intro and glass (movements 1 · 2): the flashlight, through glass. */
+  html[data-theme="licht-en-schaduw"]:not([data-light]) .flashlight__spot,
+  html[data-theme="licht-en-schaduw"][data-light="glass"] .flashlight__spot {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  html[data-theme="licht-en-schaduw"]:not([data-light]) .flashlight__glass,
+  html[data-theme="licht-en-schaduw"][data-light="glass"] .flashlight__glass {
+    opacity: 0.85;
+    visibility: visible;
+  }
+
+  /* Raking (3): the rest of the room pressed into the dark. */
+  html[data-theme="licht-en-schaduw"][data-light="raking"] .flashlight__dim {
+    opacity: 0.03;
+  }
+
+  html[data-theme="licht-en-schaduw"][data-light="raking"] .flashlight__beam {
+    opacity: 0.8;
+    visibility: visible;
+  }
+
+  /* Tube (4). */
+  html[data-theme="licht-en-schaduw"][data-light="tube"] .flashlight__dim {
+    opacity: 0.08;
+  }
+
+  html[data-theme="licht-en-schaduw"][data-light="tube"] .flashlight__tube {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Diffuse (5). */
+  html[data-theme="licht-en-schaduw"][data-light="diffuse"] .flashlight__dim {
+    opacity: 0.13;
+    filter: blur(3px);
+  }
+
+  html[data-theme="licht-en-schaduw"][data-light="diffuse"] .flashlight__haze {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* None (6): every layer off; --color-bg drops to #050505 in the chapter
+     stylesheet. */
+  html[data-theme="licht-en-schaduw"][data-light="none"] .flashlight__dim {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* ---- Transitions: only without a reduced-motion preference ----
+     A layer turning off keeps `visibility: visible` until its fade is done
+     (the delayed visibility below); a layer turning on becomes visible at
+     once and then fades in (the rule after it, which wins for visible
+     layers). */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-theme="licht-en-schaduw"],
+    html[data-theme="licht-en-schaduw"] .flashlight {
+      transition: background-color var(--light-fade, 1.6s) ease;
+    }
+
+    html[data-theme="licht-en-schaduw"] .flashlight > * {
+      transition:
+        opacity var(--light-fade) ease,
+        filter var(--light-fade) ease,
+        visibility 0s linear var(--light-fade);
+    }
+
+    html[data-theme="licht-en-schaduw"]:not([data-light]) .flashlight__spot,
+    html[data-theme="licht-en-schaduw"][data-light="glass"] .flashlight__spot,
+    html[data-theme="licht-en-schaduw"]:not([data-light]) .flashlight__glass,
+    html[data-theme="licht-en-schaduw"][data-light="glass"] .flashlight__glass,
+    html[data-theme="licht-en-schaduw"][data-light="raking"] .flashlight__beam,
+    html[data-theme="licht-en-schaduw"][data-light="tube"] .flashlight__tube,
+    html[data-theme="licht-en-schaduw"][data-light="diffuse"] .flashlight__haze,
+    html[data-theme="licht-en-schaduw"]:not([data-light="none"]) .flashlight__dim {
+      transition:
+        opacity var(--light-fade) ease,
+        filter var(--light-fade) ease,
+        visibility 0s;
+    }
+  }
+
+  /* ---- Reduced motion: no spot following the pointer ----
+     As before #127 the spot is gone and the room is a little lighter. Glass
+     keeps its squares, as a still pool at the top right (the deck's
+     lit-glass); the beam stays at its base angle because the script does
+     not run. */
   @media (prefers-reduced-motion: reduce) {
-    .flashlight__spot {
+    html[data-theme="licht-en-schaduw"] .flashlight__spot {
       display: none;
     }
-    .flashlight__dim {
+
+    html[data-theme="licht-en-schaduw"]:not([data-light]) .flashlight__dim,
+    html[data-theme="licht-en-schaduw"][data-light="glass"] .flashlight__dim {
       opacity: 0.18;
+    }
+
+    html[data-theme="licht-en-schaduw"] .flashlight__glass {
+      --spot-mask: radial-gradient(ellipse 62% 78% at 74% 8%,
+        black 0%, rgb(0 0 0 / 0.55) 38%, transparent 76%);
+      will-change: auto;
     }
   }
 </style>
 
 <script>
-  const spot = document.querySelector<HTMLElement>('.flashlight__spot');
+  // The pointer moves the spot (glass) and turns the beam (raking). Both are
+  // eased towards the pointer, so the light drifts rather than jumps. Nothing
+  // follows the pointer under prefers-reduced-motion.
+  const layer = document.querySelector<HTMLElement>('.flashlight');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (spot && !reduceMotion) {
+  if (layer && !reduceMotion) {
+    // Maximum turn of the raking beam either side of its base angle.
+    const MAX_TILT_DEG = 6;
+    const ease = 0.01;
+
     let targetX = window.innerWidth / 2;
     let targetY = window.innerHeight / 2;
     let curX = targetX;
     let curY = targetY;
-    const ease = 0.01;
 
     window.addEventListener('pointermove', (e) => {
       targetX = e.clientX;
@@ -86,10 +319,17 @@ const bgUrl = `${base}/images/licht-en-schaduw/background.png`;
     }, { passive: true });
 
     const tick = () => {
-      curX += (targetX - curX) * ease;
-      curY += (targetY - curY) * ease;
-      spot.style.setProperty('--x', `${curX}px`);
-      spot.style.setProperty('--y', `${curY}px`);
+      const dx = targetX - curX;
+      const dy = targetY - curY;
+      // Skip the style write once the light has caught up with the pointer.
+      if (Math.abs(dx) > 0.05 || Math.abs(dy) > 0.05) {
+        curX += dx * ease;
+        curY += dy * ease;
+        const tilt = (curX / window.innerWidth - 0.5) * 2 * MAX_TILT_DEG;
+        layer.style.setProperty('--x', `${curX}px`);
+        layer.style.setProperty('--y', `${curY}px`);
+        layer.style.setProperty('--tilt', `${tilt.toFixed(2)}deg`);
+      }
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);

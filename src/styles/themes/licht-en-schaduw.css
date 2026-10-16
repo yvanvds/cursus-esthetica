@@ -1,0 +1,234 @@
+/* src/styles/themes/licht-en-schaduw.css
+
+   De onverlichte zaal van het deck (slides/theme/penumbra/styles/layout.css)
+   als pagina: een warmer zwart, amberlicht, Cormorant Garamond als
+   displayletter met haarlijnen die bijna in het donker verdwijnen, het
+   opsommingsteken als lichtpunt en het citaat als lichtstreep. En het motief
+   van het deck: één lichtbron per beweging, telkens een ander soort licht.
+   LightSection zet de beweging als `data-light` op <html>, Flashlight.astro
+   tekent de lagen; hier staan de tokens die ze lezen en de grond van
+   beweging 6 (#127).
+
+   Elke regel staat onder `html[data-theme="licht-en-schaduw"]`: dit bestand
+   zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120) en mag
+   alleen hier gelden. Een `:root`-blok is verboden — `npm run check:chapters`
+   meldt het. */
+
+/* ---- Fonts ----
+   Een `@font-face` heeft geen selector en kan niet gescoped worden, maar een
+   browser haalt een font pas op als een regel die erbij past het gebruikt.
+   Elke `font-family:` die Cormorant noemt staat onder een
+   `html[data-theme]`-selector, dus de bestanden worden alleen opgehaald op de
+   hoofdstukken die hem gebruiken (hier en meerstemmigheid).
+
+   Dezelfde drie bestanden als meerstemmigheid.css (#123), onder
+   src/assets/fonts/, met een eigen declaratie: zo hangt dit hoofdstuk niet af
+   van de stylesheet van een ander. De dubbele declaratie is onschadelijk —
+   Vite levert per bestand één gehasht asset, beide regels wijzen naar
+   dezelfde URL, en de browser haalt die één keer op. Het pad is relatief:
+   een absoluut `url('/fonts/…')` geeft 404 onder /cursus-esthetica
+   (BRIEFING §5). */
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../assets/fonts/cormorant-garamond-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../assets/fonts/cormorant-garamond-latin-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../assets/fonts/cormorant-garamond-latin-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- De zaal ----
+   Grond en vlakken uit het deck. Geen `--color-accent` hier: het amber staat
+   in `accentColor:` in de frontmatter en wordt door ThemeLayout op
+   `html[data-theme]` gezet (#120); `--color-accent-soft` volgt vanzelf.
+
+   Tekst en randen: de waarden van de site, warm gemaakt zodat ze niet koel
+   grijs op het warme zwart liggen. `text` en `muted` komen uit het deck,
+   `dim`, `quiet` en `whisper` houden de helderheid van de site (het deck
+   heeft `dim` en `quiet` donkerder, dat is te zwak voor de TOC en de
+   leestijd). Contrast (WCAG) op #0e0d0b / op #050505 in beweging 6:
+     text    #f4efe4   16.9 / 17.8
+     muted   #cbc3b3   11.1 / 11.6
+     dim     #a8a092    7.5 /  7.9
+     quiet   #8a8274    5.1 /  5.4
+     whisper #6e675b    3.5 /  3.6   (de site: #666 op #1a1a1a, 3.0)
+     accent  #d49a3c    7.9 /  8.2 */
+
+html[data-theme="licht-en-schaduw"] {
+  --color-bg:            #0e0d0b;   /* warmer zwart dan de site (#1a1a1a) */
+  --color-bg-deep:       #050505;   /* beweging 6: het licht is uit */
+  --color-bg-elevated:   #17150f;
+  --color-surface:       #221e16;
+  --color-border:        #4a4438;
+  --color-border-subtle: #2b271f;
+
+  --color-text:          #f4efe4;   /* bot, niet wit */
+  --color-text-muted:    #cbc3b3;
+  --color-text-dim:      #a8a092;
+  --color-text-quiet:    #8a8274;
+  --color-text-whisper:  #6e675b;
+
+  /* Het licht. */
+  --color-accent-line: color-mix(in srgb, var(--color-accent) 32%, transparent);
+  --color-beam:        color-mix(in srgb, var(--color-accent) 13%, transparent);
+
+  /* Gebrandschilderd glas: de vier kleuren van het deck (Richters 72,
+     teruggebracht tot vier), hier dekkend. De sterkte zit in de laag die ze
+     gebruikt (Flashlight.astro), niet in de kleur. */
+  --color-glass-1: rgb(206 84 62);    /* rood */
+  --color-glass-2: rgb(58 106 168);   /* blauw */
+  --color-glass-3: rgb(212 154 60);   /* amber */
+  --color-glass-4: rgb(94 132 96);    /* groen */
+
+  /* Flavin: fluorescent, koel en vlak. `tube` is de buis, `tube-glow` het
+     licht dat ze over de kamer legt (beide uit het deck); `tube-wash` is
+     wat Flashlight over de hele laag legt in beweging 4. */
+  --color-tube:      #e6d8ec;
+  --color-tube-glow: rgb(214 168 214 / 0.22);
+  --color-tube-wash: color-mix(in srgb, var(--color-tube-glow) 75%, transparent);
+
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+
+/* ---- Beweging 6: het licht gaat uit ----
+   De grond zakt naar bijna zwart; Flashlight laat al zijn lagen uitdoven en
+   volgt de grond met dezelfde overgang. De tekst blijft (contrast hierboven).
+   Wie onder de laatste beweging verder leest (Bronnen, de navigatie) blijft
+   in het donker: LightSection houdt de laatste stand vast. */
+
+html[data-theme="licht-en-schaduw"][data-light="none"] {
+  --color-bg: var(--color-bg-deep);
+}
+
+/* ---- Koppen ----
+   Cormorant Garamond voor h1, h2 en h3: extreme stokcontrast, haarlijnen die
+   op de donkere grond bijna wegvallen — het motief, net als in het deck. De
+   lopende tekst blijft Inter. Cormorant valt klein op dezelfde puntgrootte:
+   tien procent erbij, zodat de hiërarchie van ThemeLayout (step-5 / step-3 /
+   step-2) gelijk blijft. Gewichten zoals het deck: h1 en h2 400 (de h1
+   cursief, zoals de site), h3 600. */
+
+html[data-theme="licht-en-schaduw"] .theme-body h1,
+html[data-theme="licht-en-schaduw"] .theme-body h2,
+html[data-theme="licht-en-schaduw"] .theme-body h3 {
+  font-family: var(--font-display);
+  color: var(--color-text);
+}
+
+html[data-theme="licht-en-schaduw"] .theme-body h1 {
+  font-weight: 400;
+  font-style: italic;
+  font-size: calc(var(--step-4) * 1.1);
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+}
+
+@media (min-width: 1024px) {
+  html[data-theme="licht-en-schaduw"] .theme-body h1 {
+    font-size: calc(var(--step-5) * 1.1);
+  }
+}
+
+html[data-theme="licht-en-schaduw"] .theme-body h2 {
+  font-weight: 400;
+  font-size: calc(var(--step-3) * 1.1);
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+}
+
+html[data-theme="licht-en-schaduw"] .theme-body h3 {
+  font-weight: 600;
+  font-style: normal;
+  font-size: calc(var(--step-2) * 1.1);
+  line-height: 1.15;
+}
+
+/* ---- Lijsten: het opsommingsteken is een lichtpunt ----
+   Een kleine amberen stip met een zachte gloed, zoals het deck. Alleen lijsten
+   uit de MDX (die hebben geen klasse); een component met een eigen <ul>
+   houdt zijn eigen tekens. */
+
+html[data-theme="licht-en-schaduw"] .theme-body ul:not([class]) {
+  list-style: none;
+  padding-left: 0;
+}
+
+html[data-theme="licht-en-schaduw"] .theme-body ul:not([class]) > li {
+  position: relative;
+  padding-left: 1.5em;
+}
+
+html[data-theme="licht-en-schaduw"] .theme-body ul:not([class]) > li + li {
+  margin-top: 0.35em;
+}
+
+html[data-theme="licht-en-schaduw"] .theme-body ul:not([class]) > li::before {
+  content: '';
+  position: absolute;
+  left: 0.35em;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px 1px var(--color-accent-line);
+}
+
+/* ---- Citaat: een lichtstreep in de marge ----
+   In plaats van de amberen rand van ThemeLayout een streep van 1px die naar
+   boven en onder uitdooft, met een smalle gloed eromheen (de tweede laag).
+   Het citaat zelf in Cormorant cursief, zoals het deck. */
+
+html[data-theme="licht-en-schaduw"] .theme-body blockquote {
+  position: relative;
+  border-left: none;
+  padding-left: var(--space-md);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: calc(var(--step-1) * 1.1);
+  line-height: 1.4;
+  color: var(--color-text);
+}
+
+/* De alinea in het citaat erft de letter van het citaat, niet de Inter van
+   de prose-regel `.theme-body p`. */
+html[data-theme="licht-en-schaduw"] .theme-body blockquote p {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+html[data-theme="licht-en-schaduw"] .theme-body blockquote::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 0;
+  bottom: 0;
+  width: 9px;
+  background-image:
+    linear-gradient(to right,
+      transparent 4px, var(--color-accent) 4px 5px, transparent 5px),
+    linear-gradient(to right,
+      transparent, var(--color-accent-line) 50%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent, black 25%, black 75%, transparent);
+          mask-image: linear-gradient(to bottom,
+    transparent, black 25%, black 75%, transparent);
+  pointer-events: none;
+}
