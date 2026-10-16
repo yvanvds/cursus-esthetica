@@ -4,11 +4,17 @@ interface Props {
 }
 const { regime } = Astro.props;
 ---
-<div class={`regime regime--${regime}`}>
+<div class={`regime regime--${regime}`} data-regime={regime}>
   <slot />
 </div>
 
 <script>
+  // On desktop the text column scrolls, not the window; it is then the root
+  // for both observers below. On mobile the viewport is (root: null).
+  const container = document.querySelector<HTMLElement>('.theme-grid__content');
+  const scrollRoot =
+    container && getComputedStyle(container).overflowY === 'auto' ? container : null;
+
   // Animate the whole-page background while the reader is in the skyspace section.
   // On exit, manually transition the current colour back to the base dark so the
   // return is smooth rather than a snap.
@@ -18,10 +24,6 @@ const { regime } = Astro.props;
     const BASE_BG = '#1a1a1a';
     const EXIT_DURATION_MS = 8000;
     let exitTimer: ReturnType<typeof setTimeout> | null = null;
-
-    const container = document.querySelector<HTMLElement>('.theme-grid__content');
-    const scrollRoot =
-      container && getComputedStyle(container).overflowY === 'auto' ? container : null;
 
     const obs = new IntersectionObserver(
       ([entry]) => {
@@ -56,5 +58,30 @@ const { regime } = Astro.props;
     );
 
     obs.observe(skyspace);
+  }
+
+  // The regime the reader is in, as `data-regime` on <html>; VanishingGrid
+  // moves its vanishing point from it (#126). "In" means: crossing a thin
+  // reading band just above the middle of the scroll root. The band (1% high)
+  // is narrower than the margin between two regimes, so at most one regime
+  // crosses it at a time; while the band sits in such a gap, or below the last
+  // regime, the attribute keeps its last value. Above the first regime it is
+  // absent, and the grid's default is the renaissance centre.
+  const regimes = document.querySelectorAll<HTMLElement>('.regime[data-regime]');
+
+  if (regimes.length > 0) {
+    const reading = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const name = (entry.target as HTMLElement).dataset.regime;
+          if (entry.isIntersecting && name) {
+            document.documentElement.dataset.regime = name;
+          }
+        }
+      },
+      { root: scrollRoot, rootMargin: '-45% 0px -54% 0px', threshold: 0 },
+    );
+
+    regimes.forEach((el) => reading.observe(el));
   }
 </script>

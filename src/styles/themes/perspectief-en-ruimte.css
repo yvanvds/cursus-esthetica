@@ -12,6 +12,57 @@ html[data-theme="perspectief-en-ruimte"] {
      frontmatter zei #3b85ca, dit bestand #3B4CCA, en de pagina toonde ze
      allebei (#44). */
   --color-bg:          #1a1a1a;
+
+  /* The hairlines of the vanishing-point raster (VanishingGrid, #126).
+     Lighter than the deck's --color-accent-line (30%): behind running text
+     the raster stays a construction you notice, not a pattern you read
+     through. */
+  --color-grid-line: color-mix(in srgb, var(--color-accent) 18%, transparent);
+}
+
+/* ---- Motif: the vanishing point (from the oculus deck, #126) ---- */
+
+/* Every h2 opens on the mark of the deck's section slides: a small circle
+   with a cross, the point where the lines meet. */
+html[data-theme="perspectief-en-ruimte"] .theme-body h2::before {
+  content: '';
+  display: inline-block;
+  box-sizing: border-box;
+  width: 0.6em;
+  height: 0.6em;
+  margin-inline-end: 0.45em;
+  vertical-align: 0.04em;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  background:
+    linear-gradient(var(--color-accent), var(--color-accent)) center / 1px 100% no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) center / 100% 1px no-repeat;
+}
+
+/* A bullet is a vanishing point too: a small accent cross instead of the
+   disc. Only lists written in the MDX (they carry no class), so a component
+   that renders its own <ul> keeps its own markers. */
+html[data-theme="perspectief-en-ruimte"] .theme-body ul:not([class]) {
+  list-style: none;
+  padding-left: 0;
+}
+
+html[data-theme="perspectief-en-ruimte"] .theme-body ul:not([class]) > li {
+  position: relative;
+  padding-left: 1.5em;
+}
+
+html[data-theme="perspectief-en-ruimte"] .theme-body ul:not([class]) > li::before {
+  content: '';
+  position: absolute;
+  left: 0.3em;
+  top: 0.8em;
+  width: 0.55em;
+  height: 0.55em;
+  transform: translateY(-50%);
+  background:
+    linear-gradient(var(--color-accent), var(--color-accent)) center / 1px 100% no-repeat,
+    linear-gradient(var(--color-accent), var(--color-accent)) center / 100% 1px no-repeat;
 }
 
 /* ---- Shared: regime wrapper ---- */

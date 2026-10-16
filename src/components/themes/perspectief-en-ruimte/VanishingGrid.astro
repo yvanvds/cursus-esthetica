@@ -1,0 +1,212 @@
+---
+/*
+  VanishingGrid — the vanishing-point raster of the oculus deck
+  (slides/theme/oculus/styles/layout.css), behind the text column of
+  perspectief-en-ruimte only (#126). Placed once in the MDX.
+
+  Four conic bundles of hairlines, each one quadrant (0°, 90°, 180°, 270°),
+  converging on (--vp-x, --vp-y). Together they draw exactly the deck's single
+  repeating-conic-gradient (one line every 7.5°, and 90° is twelve of those),
+  with the same radial mask that keeps it a construction rather than
+  wallpaper. Splitting it into four is what lets the raster break in the third
+  regime: each bundle then gets its own point and a slight turn, the page's
+  version of the deck's `.vp-scattered`.
+
+  Where the point sits is driven by `data-regime` on <html>, which
+  RegimeSection sets for the regime the reader is in:
+    (none) / renaissance  centre
+    barok                 high
+    gebroken              four points, four slight turns
+    skyspace              raster fades out; the breathing background of
+                          RegimeSection takes over
+  Under prefers-reduced-motion the point stays in the centre, nothing
+  animates, and the skyspace fade-out is instant.
+
+  Geometry: the layer is `position: fixed`, so it stands still while the text
+  scrolls over it — on desktop the column itself scrolls, on mobile the
+  window does. Its box is the column's box clipped to the viewport, measured
+  by the script below; a fixed element has no other way to learn the column's
+  bounds. It stays behind the text through `z-index: -1` inside `.theme-body`,
+  which is isolated for that purpose, and it takes no clicks.
+*/
+---
+
+<div class="vanishing-grid" aria-hidden="true">
+  <span class="vanishing-grid__bundle"></span>
+  <span class="vanishing-grid__bundle"></span>
+  <span class="vanishing-grid__bundle"></span>
+  <span class="vanishing-grid__bundle"></span>
+</div>
+
+<style is:global>
+  /* Registered so the point glides between regimes instead of jumping.
+     These are document-wide by nature; component styles only land on the
+     page that renders the component, so only this chapter registers them. */
+  @property --vp-x {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 50%;
+  }
+
+  @property --vp-y {
+    syntax: '<length-percentage>';
+    inherits: true;
+    initial-value: 50%;
+  }
+
+  @property --vp-turn {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  /* The stacking context the layer sinks into: z-index -1 here means above
+     the page background (and its skyspace breathing) but below every line of
+     text in the column. */
+  html[data-theme="perspectief-en-ruimte"] .theme-body {
+    isolation: isolate;
+  }
+
+  html[data-theme="perspectief-en-ruimte"] .vanishing-grid {
+    --vp-x: 50%;
+    --vp-y: 50%;
+    position: fixed;
+    /* left/top/width/height come from the script: the column's box. */
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  /* Full layer opacity, unlike the deck's 0.55: the lightness lives in the
+     line colour alone (--color-grid-line, 18% instead of the deck's 30%), so
+     the lines are at exactly the decided 0.18. The deck's extra 0.55 on top
+     made them all but vanish here: in a 640px column the 0.1° hairlines are
+     half as wide as on a 1920px slide. Thinner lines at a similar alpha keep
+     the raster lighter than the deck. */
+  html[data-theme="perspectief-en-ruimte"] .vanishing-grid[data-ready] {
+    opacity: 1;
+  }
+
+  html[data-theme="perspectief-en-ruimte"][data-regime="skyspace"] .vanishing-grid {
+    opacity: 0;
+  }
+
+  html[data-theme="perspectief-en-ruimte"] .vanishing-grid__bundle {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-conic-gradient(
+      from calc(var(--bundle-from) + var(--vp-turn)) at var(--vp-x) var(--vp-y),
+      var(--color-grid-line) 0deg 0.10deg,
+      transparent 0.10deg 7.5deg
+    );
+    /* Two masks, intersected: the bundle's own quadrant, and the deck's
+       radial fade (empty at the point, full in the middle ring, gone at the
+       edges). Both follow the bundle's point, also once it has its own. */
+    mask-image:
+      conic-gradient(
+        from calc(var(--bundle-from) + var(--vp-turn)) at var(--vp-x) var(--vp-y),
+        black 0deg 90deg,
+        transparent 90deg
+      ),
+      radial-gradient(
+        circle at var(--vp-x) var(--vp-y),
+        transparent 0, transparent 6%, black 34%, black 62%, transparent 96%
+      );
+    mask-composite: intersect;
+  }
+
+  html[data-theme="perspectief-en-ruimte"] .vanishing-grid__bundle:nth-child(1) { --bundle-from: 0deg; }
+  html[data-theme="perspectief-en-ruimte"] .vanishing-grid__bundle:nth-child(2) { --bundle-from: 90deg; }
+  html[data-theme="perspectief-en-ruimte"] .vanishing-grid__bundle:nth-child(3) { --bundle-from: 180deg; }
+  html[data-theme="perspectief-en-ruimte"] .vanishing-grid__bundle:nth-child(4) { --bundle-from: 270deg; }
+
+  /* Movement only without a reduced-motion preference. With one, the point
+     stays in the centre in every regime and only the skyspace fade-out
+     remains — without transition. */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-theme="perspectief-en-ruimte"] .vanishing-grid {
+      transition: opacity 2.5s ease;
+    }
+
+    /* The bundles transition, not the layer: they inherit the layer's point,
+       and a transition on both would chase a moving target. */
+    html[data-theme="perspectief-en-ruimte"] .vanishing-grid__bundle {
+      transition:
+        --vp-x 3s ease-in-out,
+        --vp-y 3s ease-in-out,
+        --vp-turn 3s ease-in-out;
+    }
+
+    /* Barok: the eye goes up, to Pozzo's ceiling. */
+    html[data-theme="perspectief-en-ruimte"][data-regime="barok"] .vanishing-grid {
+      --vp-y: 16%;
+    }
+
+    /* Gebroken: no single point any more. Each quadrant moves its point
+       towards the opposite side, so the four fans cross instead of meeting,
+       and turns a few degrees. */
+    html[data-theme="perspectief-en-ruimte"][data-regime="gebroken"] .vanishing-grid__bundle:nth-child(1) {
+      --vp-x: 36%;
+      --vp-y: 62%;
+      --vp-turn: 7deg;
+    }
+
+    html[data-theme="perspectief-en-ruimte"][data-regime="gebroken"] .vanishing-grid__bundle:nth-child(2) {
+      --vp-x: 34%;
+      --vp-y: 36%;
+      --vp-turn: -5deg;
+    }
+
+    html[data-theme="perspectief-en-ruimte"][data-regime="gebroken"] .vanishing-grid__bundle:nth-child(3) {
+      --vp-x: 66%;
+      --vp-y: 34%;
+      --vp-turn: 4deg;
+    }
+
+    html[data-theme="perspectief-en-ruimte"][data-regime="gebroken"] .vanishing-grid__bundle:nth-child(4) {
+      --vp-x: 64%;
+      --vp-y: 66%;
+      --vp-turn: -8deg;
+    }
+  }
+</style>
+
+<script>
+  // Fit the fixed layer to the text column, clipped to the viewport. On
+  // desktop the column has a fixed box (its content scrolls inside it), so this
+  // runs once plus on resize. On mobile the window scrolls, the column's top
+  // moves past the site header, and the layer follows until it reaches the top.
+  const grid = document.querySelector<HTMLElement>('.vanishing-grid');
+  const column = grid?.closest<HTMLElement>('.theme-grid__content') ?? null;
+
+  if (grid && column) {
+    let frame = 0;
+
+    const sync = () => {
+      frame = 0;
+      const rect = column.getBoundingClientRect();
+      const top = Math.max(0, rect.top);
+      const bottom = Math.min(window.innerHeight, rect.bottom);
+      grid.style.left = `${rect.left}px`;
+      grid.style.width = `${rect.width}px`;
+      grid.style.top = `${top}px`;
+      grid.style.height = `${Math.max(0, bottom - top)}px`;
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(sync);
+    };
+
+    sync();
+    grid.dataset.ready = '';
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    new ResizeObserver(schedule).observe(column);
+  }
+</script>
