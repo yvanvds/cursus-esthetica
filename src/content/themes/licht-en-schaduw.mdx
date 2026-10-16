@@ -4,6 +4,7 @@ module: kijken-en-luisteren
 order: 3
 figure: "03"
 accentColor: "#d49a3c"
+customStyles: "licht-en-schaduw.css"
 image: /images/licht-en-schaduw/richter-1.jpg
 shortDescription: Een glasraam, een schilderij, een tl-lamp, een koor zonder ritme — vier antwoorden op dezelfde vraag.
 
@@ -111,6 +112,7 @@ videos:
     start: 0
 ---
 import Flashlight from '../../components/themes/licht-en-schaduw/Flashlight.astro';
+import LightSection from '../../components/themes/licht-en-schaduw/LightSection.astro';
 
 <Flashlight />
 
@@ -122,6 +124,8 @@ import Flashlight from '../../components/themes/licht-en-schaduw/Flashlight.astr
     Ook denkbaar: een clair-obscur dimmer voor Belshazzar — schaduwen
     progressief weghalen, de figuur valt uit elkaar. Niet gebouwd. */}
 
+<LightSection light="glass">
+
 ## Een ceremonie in Keulen
 
 Op 25 augustus 2007 werd er in de Dom van Keulen een nieuw glasraam ingewijd, in het zuidertransept. Aartsbisschop Joachim Meisner kwam niet opdagen. Hij had eerder laten weten dat het ontwerp *beter zou passen in een moskee.*
@@ -131,6 +135,10 @@ Het raam is van Gerhard Richter. Het meet 106 vierkante meter en bestaat uit [11
 Doe alle stroom uit, sluit de Dom, en je houdt een grijze plak glas achter gotisch maaswerk over. Doe het licht aan en je hebt — wat? Een raam? Een kunstwerk? Een symfonie van licht, zoals de pastoor het bij de inwijding noemde? Een mozaïek dat in een moskee thuishoort, zoals de aartsbisschop vond?
 
 Dit hoofdstuk gaat over die overgang. Over het moment waarop licht en materiaal elkaar raken en er plots iets ontstaat dat we kunst noemen. Vier voorbeelden — een glasraam, een schilderij uit 1636, een tl-lamp uit 1969, een koorwerk uit 1966 — geven elk een ander antwoord op dezelfde vraag: *wanneer wordt licht zelf het werk?*
+
+</LightSection>
+
+<LightSection light="glass">
 
 ## Het licht door iemand anders
 
@@ -149,6 +157,10 @@ Dat is precies wat kardinaal Meisner stoorde, en zijn bezwaar verdient een eerli
 Voor Richter zelf zat daar het hele punt. Hij zei achteraf: *ik wilde dat het raam iets vanzelfsprekends had, iets alledaags. In geen geval kleurlawaai.* Geen lood om de vierkanten samen te houden — alleen siliconenkit op een drager. Geen hiërarchie, geen verdwijnpunt, geen verhaal. Alleen kleur, licht, en een toeschouwer die mag uitmaken wat ervan komt.
 
 Je telefoonscherm werkt precies zo: een backlight, een gekleurd filter, een beeld dat alleen bestaat zolang de stroom aan staat. Een glasraam is technisch een voorouder van een TFT-paneel — en je hebt er elke dag een in je hand.
+
+</LightSection>
+
+<LightSection light="raking">
 
 ## Het licht als hoofdrolspeler
 
@@ -178,6 +190,10 @@ Rembrandt bouwt diepte met *contrast*: licht hier, donker daar, en in dat versch
 
 Kijk vanavond eens naar je woonkamer met alle lampen aan. Plafondlamp, schemerlamp, leeslamp, het scherm van de tv. Geen enkele hoek heeft nog schaduw. Tanizaki zou zeggen: dat is een westerse keuze. Niemand verplicht je tot een kamer waar elk vlak even helder is. Het is gewoonte, en gewoonte voelt als natuur.
 
+</LightSection>
+
+<LightSection light="tube">
+
 ## Het licht zelf
 
 Tot hier is licht steeds *iets* geweest dat naar iets anders verwijst. Naar God, naar bekering, naar een figuur, naar een atmosfeer. In de tweede helft van de twintigste eeuw zegt iemand: stop. Licht hoeft niet meer te verwijzen. Licht kan gewoon licht zijn.
@@ -196,6 +212,10 @@ Twee tijdgenoten gaan anders om met licht als materiaal. In 2003 vulde Olafur El
 
 Yayoi Kusama doet sinds 1965 weer iets anders. Haar [Infinity Mirror Rooms](video:infinity-rooms) zijn kleine gespiegelde kamers, vol gekleurde lampjes die zich in het oneindige weerkaatsen. Je mag er één voor één in, vaak voor een halve minuut. Het effect is overweldigend, ontroerend, kosmisch — Kusama vertelt in interviews dat ze de hallucinaties toont die haar als kind teisterden. Tate Modern moest officieel waarschuwen dat niet elke bezoeker binnen kon. Op Instagram explodeerden de zoekvelden. Critici merken op dat de pijn waaruit Kusama haar werk maakte, platgewalst wordt onder de hak van de selfie. De ruimte is dezelfde, het licht is hetzelfde, wat de toeschouwer ermee doet niet. De rol van licht in een kunstwerk hangt deels af van wie er mee komt kijken.
 
+</LightSection>
+
+<LightSection light="diffuse">
+
 ## Het licht zonder licht
 
 Eén laatste beweging. Wat als licht niet meer zichtbaar is — wat als het verschuift naar een ander zintuig?
@@ -210,6 +230,10 @@ Kubrick had Ligeti niet om toestemming gevraagd. Toen Ligeti het ontdekte — ee
 
 Op het eerste gezicht een voetnoot. Eigenlijk de pointe van het hoofdstuk. Want zelfs het meest ongrijpbare licht-werk — een koor dat klank tot een gloed maakt — heeft infrastructuur. Een partituur. Zestien zangers. Een zaal. Een copyright. Een advocaat. Een ruzie tussen een filmregisseur en een componist over wat respect betekent. Ook hier bestaat het *licht* alleen wanneer alles tegelijk werkt.
 
+</LightSection>
+
+<LightSection light="none">
+
 ## Wat verdwijnt als jij niet komt opdagen
 
 Vier antwoorden op één vraag. Suger en Richter laten licht érgens doorheen vallen — door glas, door tijd, door een raam. Caravaggio en Rembrandt schilderen het licht zelf en bouwen daarmee figuren op die zonder dat licht uit elkaar zouden vallen. Flavin en zijn opvolgers schaffen de verwijzing af en zetten alleen nog het licht zelf neer. Ligeti zet zelfs dat opzij en geeft je een kwartier waarin licht niet meer zichtbaar is maar nog wel werkt — als klank, als textuur, als ervaring.
@@ -221,6 +245,8 @@ Een reproductie van licht-kunst is altijd een halve leugen, hoe scherp je telefo
 Dit is geen verwijt. Reproducties zijn nuttig — anders had dit hoofdstuk geen enkele afbeelding kunnen tonen. Maar het zijn aanwijzingen, niet meer. De Dom van Keulen staat 350 kilometer verderop. Sainte-Chapelle staat in Parijs. Belshazzar hangt in Londen, Flavin grotendeels in Marfa, Texas. Lux Aeterna wordt komende winter ergens uitgevoerd, of niet. Het is allemaal toegankelijk — alleen niet vanaf je laptop.
 
 Kijk wat verdwijnt als jij niet komt opdagen.
+
+</LightSection>
 
 ## Bronnen
 
