@@ -1,0 +1,150 @@
+---
+/**
+ * Bouwtekening — de eigen layout van "Hoe bouw je wat je niet kunt tekenen?"
+ * (architectuur-en-bouwprincipes). De pagina als bouwtekening: het hoofdstuk
+ * begint bij Gaudí's kettingmodel en eindigt met "Jij staat erin", en elke
+ * tekening heeft rechts onderaan een titelblok (#135).
+ *
+ * De vorm van niveau 3 (BRIEFING §5), naar het model van Patent en Aigles:
+ * deze layout OMHULT ThemeLayout en vult alleen zijn slot `header`. Grid,
+ * sidebar, TOC, dialogs, scripts en prose-regels blijven van ThemeLayout;
+ * alle props en de default slot gaan ongewijzigd door. `[theme].astro` kiest
+ * deze layout op `customLayout: "Bouwtekening"`.
+ *
+ * De kop is de gewone hoofdstukkop (broodkruimel en leestijd, dezelfde
+ * opmaak als de standaardinhoud van de slot in ThemeLayout) met ernaast het
+ * titelblok. De stijlen van de gewone kop staan hieronder opnieuw: die van
+ * ThemeLayout zijn scoped en raken markup uit deze layout niet. Het titelblok
+ * en zijn plaats in de kop staan in
+ * src/styles/themes/architectuur-en-bouwprincipes.css.
+ *
+ * De velden van het titelblok:
+ *   project   Cursus Esthetica (vast)
+ *   blad      het figuurnummer uit de frontmatter "van" het aantal
+ *             hoofdstukken in de collectie; geen van beide hardgecodeerd, de
+ *             nummering kan nog veranderen (#143)
+ *   schaal    1:1 (vast)
+ *   datum     de dag van de laatste commit die het hoofdstukbestand raakte
+ *             (`git log -1 --format=%cs`), zie `sheetDate` hieronder
+ *   getekend  Cursus Esthetica (vast, geen persoonsnaam)
+ * De vaste waarden horen bij dit ene hoofdstuk en staan hier hardgecodeerd.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { execFileSync } from 'node:child_process';
+import ThemeLayout from '../ThemeLayout.astro';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  theme: CollectionEntry<'themes'>;
+  headings: Heading[];
+  readingTime?: string;
+}
+
+const { theme, headings, readingTime } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const allModules = await getCollection('modules');
+const allThemes = await getCollection('themes');
+const currentModule = allModules.find(m => m.id === theme.data.module);
+if (!currentModule) throw new Error(`Module '${theme.data.module}' not found for theme '${theme.id}'`);
+const totalInModule = allThemes.filter(t => t.data.module === theme.data.module).length;
+const totalThemes = allThemes.length;
+
+/**
+ * De datum van de tekening: de committer-datum (jjjj-mm-dd) van de laatste
+ * commit die het hoofdstukbestand raakte. Deterministisch per commit, dus
+ * dezelfde datum bij elke build van dezelfde stand. Zonder git, buiten een
+ * repo of voor een bestand dat nog nooit gecommit is valt hij terug op de
+ * builddatum (UTC); de build faalt er nooit op.
+ *
+ * Let op: in een ondiepe checkout (fetch-depth 1, de standaard van
+ * actions/checkout) kent git maar één commit, en dan is dit de datum van
+ * die commit — de laatste merge op main — in plaats van de laatste wijziging
+ * van dit bestand.
+ */
+function sheetDate(file: string): string {
+  try {
+    const out = execFileSync('git', ['log', '-1', '--format=%cs', '--', file], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+      timeout: 5000,
+    }).trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(out)) return out;
+  } catch {
+    // Geen git of geen repo: de builddatum hieronder.
+  }
+  return new Date().toISOString().slice(0, 10);
+}
+
+const date = sheetDate(theme.filePath ?? `src/content/themes/${theme.id}.mdx`);
+---
+
+<ThemeLayout theme={theme} headings={headings} readingTime={readingTime}>
+  <header slot="header" class="bouwtekening-head">
+    <div class="bouwtekening-head__meta">
+      <p class="bouwtekening-head__breadcrumb">
+        <a href={`${base}/#${currentModule.id}`}>{currentModule.data.title}</a>
+        <span aria-hidden="true">·</span>
+        <span>hoofdstuk {theme.data.order} van {totalInModule}</span>
+      </p>
+      {readingTime && <p class="bouwtekening-head__reading-time">{readingTime}</p>}
+    </div>
+    <dl class="title-block">
+      <div><dt>project</dt><dd>Cursus Esthetica</dd></div>
+      <div><dt>blad</dt><dd>{theme.data.figure} van {totalThemes}</dd></div>
+      <div><dt>schaal</dt><dd>1:1</dd></div>
+      <div><dt>datum</dt><dd><time datetime={date}>{date}</time></dd></div>
+      <div><dt>getekend</dt><dd>Cursus Esthetica</dd></div>
+    </dl>
+  </header>
+  <slot />
+</ThemeLayout>
+
+<style>
+  /* De gewone hoofdstukkop: dezelfde waarden als `.theme-header` en zijn
+     kinderen in ThemeLayout. Wijzigt daar iets, dan hier ook. */
+  .bouwtekening-head {
+    margin-bottom: var(--space-xl);
+  }
+
+  .bouwtekening-head__breadcrumb {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-quiet);
+    margin-bottom: var(--space-sm);
+    max-width: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+  }
+
+  .bouwtekening-head__breadcrumb a {
+    color: var(--color-text-quiet);
+    text-decoration: none;
+    transition: color var(--transition-color);
+  }
+
+  .bouwtekening-head__breadcrumb a:hover {
+    color: var(--color-text-muted);
+  }
+
+  .bouwtekening-head__reading-time {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-whisper);
+    margin-top: var(--space-sm);
+    margin-bottom: 0;
+  }
+</style>

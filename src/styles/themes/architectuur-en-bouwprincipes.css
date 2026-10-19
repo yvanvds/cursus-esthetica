@@ -1,0 +1,241 @@
+/* src/styles/themes/architectuur-en-bouwprincipes.css
+
+   De pagina als bouwtekening (#135). Het hoofdstuk begint bij Gaudí's
+   kettingmodel: een hangende ketting neemt vanzelf de vorm aan waarin alleen
+   trekkracht werkt, en omgekeerd is dat de boog waarin alleen drukkracht
+   werkt. Het eindigt met "Jij staat erin". Drie elementen, in het kraanoranje
+   van de accent:
+
+     titelblok     rechts onderaan de kop, zoals op elke tekening: project,
+                   blad, schaal, datum, getekend (Bouwtekening.astro)
+     bladnummers   `blad 1` tot `blad 7` in mono boven elke beweging
+     kettinglijn   onder elke h2 een haarlijn die doorhangt, per beweging
+                   dieper; bij de laatste beweging klapt ze om tot boog
+
+   Geen eigen fonts: JetBrains Mono uit de basis en haarlijnen zijn de
+   tekentaal. Geen tokens-swap van de grond. Het kraanoranje (#f07a2a), naar
+   de bouwkranen die al generaties bij het silhouet van de Sagrada horen,
+   staat in `accentColor:` in de frontmatter en wordt door ThemeLayout op
+   `html[data-theme]` gezet (#120). Contrast (WCAG) op de grond #1a1a1a: 6.2.
+
+   Elke regel staat onder `html[data-theme="architectuur-en-bouwprincipes"]`:
+   dit bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout,
+   #120) en mag alleen hier gelden. Een `:root`-blok is verboden — `npm run
+   check:chapters` meldt het. */
+
+/* ---- De kettinglijnen ----
+   Maskers, geen beelden: een SVG in een data-URI als `mask-image`, met de
+   accent als `background-color`, zodat de kleur een token blijft (zoals de
+   ornamenten van art-nouveau-en-deco.css, #131).
+
+   Zes varianten van hetzelfde pad, één per doorhang. Een custom property kan
+   niet in een data-URI, en een verticaal geschaald pad zou ook de lijndikte
+   en de ophangpunten mee uitrekken; zes paden houden de haarlijn overal even
+   dun. viewBox 300 × 33, voor alle zes dezelfde, zodat elke kop even hoog
+   blijft en het ritme van de pagina niet verspringt.
+
+     pad           kwadratische Bézier `M4 6 Q150 (6 + 2d) 296 6`: een
+                   parabool met de uiteinden op (4,6) en (296,6) en het
+                   laagste punt op 6 + d. Bij deze doorhang (hoogstens 1:12
+                   van de overspanning) wijkt de echte kettinglijn
+                   y = a·cosh(x/a) er minder dan 0.06 eenheid van af, een
+                   twintigste van de lijndikte.
+     doorhang d    1  4.5  8.5  13  18  24
+     ophanging     twee driehoekjes met de punt op de uiteinden: de haken aan
+                   het plafond van Gaudí's werkplaats. Omgeklapt worden ze
+                   het symbool van een scharnierende oplegging onder een boog. */
+
+html[data-theme="architectuur-en-bouwprincipes"] {
+  --chain-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 33'%3E%3Cpath d='M4 6Q150 8 296 6' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3Cpath d='M1 1H7L4 6ZM293 1H299L296 6Z'/%3E%3C/svg%3E");
+  --chain-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 33'%3E%3Cpath d='M4 6Q150 15 296 6' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3Cpath d='M1 1H7L4 6ZM293 1H299L296 6Z'/%3E%3C/svg%3E");
+  --chain-3: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 33'%3E%3Cpath d='M4 6Q150 23 296 6' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3Cpath d='M1 1H7L4 6ZM293 1H299L296 6Z'/%3E%3C/svg%3E");
+  --chain-4: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 33'%3E%3Cpath d='M4 6Q150 32 296 6' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3Cpath d='M1 1H7L4 6ZM293 1H299L296 6Z'/%3E%3C/svg%3E");
+  --chain-5: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 33'%3E%3Cpath d='M4 6Q150 42 296 6' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3Cpath d='M1 1H7L4 6ZM293 1H299L296 6Z'/%3E%3C/svg%3E");
+  --chain-6: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 33'%3E%3Cpath d='M4 6Q150 54 296 6' fill='none' stroke='%23000' stroke-width='1.1'/%3E%3Cpath d='M1 1H7L4 6ZM293 1H299L296 6Z'/%3E%3C/svg%3E");
+}
+
+/* ---- De bladnummers en de kettinglijn per kop ----
+   Alleen de directe h2's van `.theme-body`: de koppen van de MDX. Er zijn
+   geen wrappers, dus elke kop is een direct kind en print.css houdt zijn
+   paginasprongen (alleen de eerste h2 zonder, #154).
+
+   De kop kiest zijn ketting op zijn plaats, niet op zijn tekst: de doorhang
+   neemt per beweging toe, dus de n-de kop krijgt de n-de doorhang. De
+   laatste beweging is de kop vóór Bronnen (`:nth-last-of-type(2)`, "Jij
+   staat erin"): de diepste ketting, omgeklapt met `scaleY(-1)` tot boog —
+   de omkering van Gaudí's model. Komt er ooit een beweging bij, dan houden
+   de koppen na de zesde de diepste doorhang en blijft de boog op de laatste.
+
+   Bronnen is de laatste h2 (`:last-of-type`): geen bladnummer, telt niet
+   mee, en geen ketting maar een strakke haarlijn: er hangt niets meer aan.
+
+   Het bladnummer is decoratief (de volgorde staat al in de inhoudsopgave)
+   en krijgt een lege alternatieve tekst, zodat een schermlezer de kop leest
+   zonder "blad 3" ervoor. De eerste `content` is de terugval voor een
+   browser zonder die syntaxis. */
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body {
+  counter-reset: blad;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2 {
+  --chain: var(--chain-1);
+  --chain-flip: 1;
+  counter-increment: blad;
+  margin-bottom: var(--space-xs);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2::before {
+  content: 'blad ' counter(blad);
+  content: 'blad ' counter(blad) / '';
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2::after {
+  content: '';
+  display: block;
+  width: min(20rem, 100%);
+  aspect-ratio: 300 / 33;
+  margin-top: 0.3em;
+  background-color: var(--color-accent);
+  -webkit-mask: var(--chain) left top / 100% 100% no-repeat;
+          mask: var(--chain) left top / 100% 100% no-repeat;
+  transform: scaleY(var(--chain-flip));
+  pointer-events: none;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:nth-of-type(2) {
+  --chain: var(--chain-2);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:nth-of-type(3) {
+  --chain: var(--chain-3);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:nth-of-type(4) {
+  --chain: var(--chain-4);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:nth-of-type(5) {
+  --chain: var(--chain-5);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:nth-of-type(n+6) {
+  --chain: var(--chain-6);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:nth-last-of-type(2) {
+  --chain: var(--chain-6);
+  --chain-flip: -1;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:last-of-type {
+  counter-increment: none;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:last-of-type::before {
+  content: none;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2:last-of-type::after {
+  aspect-ratio: auto;
+  height: 1px;
+  -webkit-mask: none;
+          mask: none;
+  transform: none;
+}
+
+/* ---- Het titelblok ----
+   Een raster van mono-regels in haarlijnkaders: label links, waarde rechts,
+   vijf rijen. De buitenrand in de accent, de lijnen binnenin in de
+   randkleur van de site, zoals op een tekening de kader zwaarder is dan de
+   indeling. Labels in `--color-text-quiet` (4.9 op de grond), waarden in
+   `--color-text-muted` (10.1).
+
+   De plaats: een flexrij met de broodkruimel links en het titelblok rechts.
+   Het titelblok is het hoogste element en staat dus rechts onderaan de kop;
+   broodkruimel en leestijd blijven bovenaan. Past het er niet naast (op
+   mobiel, en op desktop tussen 1024 en ±1215px waar de tekstkolom smal is),
+   dan schuift het onder de broodkruimel, boven de h1, en vult het de volle
+   breedte. Dat gebeurt zonder media query: de meta groeit 999 keer harder
+   dan het titelblok, dus naast elkaar houdt het titelblok zijn eigen
+   breedte en op een eigen regel vult het die regel. */
+
+html[data-theme="architectuur-en-bouwprincipes"] .bouwtekening-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-sm) var(--space-md);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .bouwtekening-head__meta {
+  flex: 999 1 18rem;
+  min-width: 0;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .title-block {
+  flex: 1 0 auto;
+  align-self: flex-end;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--color-accent);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .title-block > div {
+  display: contents;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .title-block dt,
+html[data-theme="architectuur-en-bouwprincipes"] .title-block dd {
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  border-top: 1px solid var(--color-border);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .title-block > div:first-child > dt,
+html[data-theme="architectuur-en-bouwprincipes"] .title-block > div:first-child > dd {
+  border-top: 0;
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .title-block dt {
+  color: var(--color-text-quiet);
+  border-right: 1px solid var(--color-border);
+}
+
+html[data-theme="architectuur-en-bouwprincipes"] .title-block dd {
+  color: var(--color-text-muted);
+}
+
+/* ---- Afdruk ----
+   Geen eigen paginasprongen: de koppen zijn directe kinderen van
+   `.theme-body`, dus print.css regelt ze zoals elders (alleen de eerste h2
+   zonder sprong). Twee dingen voor papier: de kettinglijnen zijn een
+   achtergrondkleur en vallen anders weg, en de lichte schermkleuren van het
+   titelblok worden de inktkleur van de pagina. */
+
+@media print {
+  html[data-theme="architectuur-en-bouwprincipes"] .theme-body > h2::after {
+    -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+  }
+
+  html[data-theme="architectuur-en-bouwprincipes"] .title-block,
+  html[data-theme="architectuur-en-bouwprincipes"] .title-block dt,
+  html[data-theme="architectuur-en-bouwprincipes"] .title-block dd {
+    color: inherit;
+    border-color: currentColor;
+  }
+}
