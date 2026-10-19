@@ -55,6 +55,10 @@ skill verwijst hiernaar).
 - **Citaatrecht als uitgangspunt.** De beste foto wint, ook als die
   beschermd is; vrije licentie is geen selectiecriterium. Bron altijd in
   frontmatter `source:`.
+  Ook een expliciete "no reuse"-melding op de bronsite is geen
+  uitsluitingsgrond: dit is een open-source educatieve cursus. (Vastgelegd
+  okt 2026 bij #171, de foto's van Arts et Métiers van On the Luce; de
+  skill zei tot dan "no reuse"-sites vermijden.)
 - **Lange video's (20+ min) alleen als optioneel extraatje** in de
   leerlijn; trailers en korte fragmenten (met start/end) mogen gewoon.
   Geldt ook buiten de skill, bv. bij powerpoints.
