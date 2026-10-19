@@ -1,0 +1,46 @@
+---
+/*
+  WhiteWall — the one section of smaak-klasse-macht that is about the white
+  gallery wall, "De witte muur" (#134), from its h3 to just before the h2
+  "Wie heeft die macht?". While the reader is in it, the whole page turns
+  gallery white: this component writes `data-wall="white"` on <html>, and
+  smaak-klasse-macht.css swaps the tokens under that attribute. The wrapper
+  draws nothing itself.
+
+  Same reading band and scroll root as LightSection in licht-en-schaduw
+  (#127). Unlike there, the attribute mirrors one plain question — is the band
+  inside this section? — so a single observer is enough: an observer reports
+  every change of `isIntersecting`, also after a jump (Home, a TOC link, End)
+  from inside the section to far above or below it. A jump that passes over
+  the section without landing in it changes nothing, which is right too.
+*/
+---
+<div class="white-wall">
+  <slot />
+</div>
+
+<script>
+  // On desktop the text column scrolls, not the window; it is then the root.
+  // On mobile the viewport is (root: null). Same test as LightSection.
+  const container = document.querySelector<HTMLElement>('.theme-grid__content');
+  const scrollRoot =
+    container && getComputedStyle(container).overflowY === 'auto' ? container : null;
+
+  const wall = document.querySelector<HTMLElement>('.white-wall');
+  const html = document.documentElement;
+
+  if (wall) {
+    // "In" the section means: crossing a thin reading band just above the
+    // middle of the scroll root (#126, #127). Several records for the one
+    // target can arrive in a single callback; the last is the current state.
+    const reading = new IntersectionObserver(
+      (entries) => {
+        if (entries[entries.length - 1].isIntersecting) html.dataset.wall = 'white';
+        else delete html.dataset.wall;
+      },
+      { root: scrollRoot, rootMargin: '-45% 0px -54% 0px', threshold: 0 },
+    );
+
+    reading.observe(wall);
+  }
+</script>

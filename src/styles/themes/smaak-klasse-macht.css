@@ -1,0 +1,246 @@
+/* src/styles/themes/smaak-klasse-macht.css
+
+   De veiling als vorm, de witte muur als moment (#134). Het hoofdstuk gaat
+   van het Bulgaarse koor via Duchamp, Warhols dollar en Banksy's
+   versnipperaar naar de witte muur, de curator en de veiling als
+   waarheidsmachine. Drie elementen, in het dollargroen van de accent:
+
+     lotnummers     `lot 1` tot `lot 5` in mono boven de genummerde h2's en
+                    `lot 3.1` enzovoort boven hun h3's: de kavels van een
+                    veilingcatalogus
+     de witte muur  zolang de lezer in de sectie *De witte muur* zit, kantelt
+                    de hele pagina naar galeriewit (WhiteWall.astro zet
+                    `data-wall="white"` op <html>)
+     de versnipperaar
+                    de onderste helft van de kop *Banksy ontmoet de
+                    versnipperaar* in smalle verticale stroken
+
+   Geen eigen fonts. Het dollargroen (#79b86e, naar Warhols *Dollar Sign*)
+   staat in `accentColor:` in de frontmatter en wordt door ThemeLayout op
+   `html[data-theme]` gezet (#120). Contrast op de grond (#1a1a1a): 7.4.
+
+   Elke regel staat onder `html[data-theme="smaak-klasse-macht"]`: dit
+   bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120)
+   en mag alleen hier gelden. Een `:root`-blok is verboden — `npm run
+   check:chapters` meldt het. De uitzondering zijn de `@property`-regels
+   hieronder: die hebben geen selector en kunnen niet gescoped worden. Ze
+   registreren alleen namen die nergens anders voorkomen (`--wall-*`), dus op
+   een andere pagina veranderen ze niets. */
+
+/* ---- De witte muur: tokens die kunnen bewegen ----
+   Een custom property zonder registratie wisselt in één klap: de browser
+   kent er geen type voor en kan er dus niet tussen interpoleren. Daarom
+   staat de grond van deze pagina in een tweede reeks, `--wall-*`, die als
+   `<color>` geregistreerd is en een overgang van twee seconden krijgt.
+
+   De bestaande tokens zelf worden niet geregistreerd: `@property` geldt
+   overal, en `--color-bg` en de rest worden door elk hoofdstuk gebruikt en
+   door sommige overschreven. Een registratie zou hun gedrag op álle
+   hoofdstukpagina's veranderen (getypeerde berekende waarde, een
+   terugvalwaarde bij een ongeldige declaratie).
+
+   De keten:
+     <html>  `--wall-*` krijgt de waarde van het gewone token (tokens.css en
+             de accent van ThemeLayout staan op hetzelfde element), en in de
+             witte stand de galeriewaarde. De overgang staat hier.
+     <body>  zet `--color-*` op `var(--wall-*)`. Alles op de pagina zit in
+             body — header, sidebar, TOC, footer, de dialogs — en leest dus de
+             bewegende waarde, ook wie zelf `transition: color 150ms` heeft.
+   Het kan niet op één element: `--color-bg: var(--wall-bg)` en `--wall-bg:
+   var(--color-bg)` op hetzelfde element is een cyclus. Zo blijft de donkere
+   stand exact de site (geen gekopieerde hexwaarden) en verschuift ze mee als
+   tokens.css ooit verandert.
+
+   De lightbox (PhotoSwipe, eigen `--pswp-bg`) en de video-overlay
+   (hardgecodeerd zwart) lezen deze tokens niet en blijven zwart.
+
+   Componenten met een eigen korte kleurovergang (sidebar, TOC,
+   hoofdstuknav: `transition: color 150ms`) lopen tijdens de omslag een
+   fractie achter de grond aan en eindigen op de juiste waarde (gemeten over
+   drie keer in en uit, alle zichtbare links). */
+
+@property --wall-bg            { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-bg-elevated   { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-surface       { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-border        { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-border-subtle { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-text          { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-text-muted    { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-text-dim      { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-text-quiet    { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-text-whisper  { syntax: '<color>'; inherits: true; initial-value: transparent; }
+@property --wall-accent        { syntax: '<color>'; inherits: true; initial-value: transparent; }
+
+html[data-theme="smaak-klasse-macht"] {
+  --wall-bg:            var(--color-bg);
+  --wall-bg-elevated:   var(--color-bg-elevated);
+  --wall-surface:       var(--color-surface);
+  --wall-border:        var(--color-border);
+  --wall-border-subtle: var(--color-border-subtle);
+  --wall-text:          var(--color-text);
+  --wall-text-muted:    var(--color-text-muted);
+  --wall-text-dim:      var(--color-text-dim);
+  --wall-text-quiet:    var(--color-text-quiet);
+  --wall-text-whisper:  var(--color-text-whisper);
+  --wall-accent:        var(--color-accent);
+
+  transition-property:
+    --wall-bg, --wall-bg-elevated, --wall-surface,
+    --wall-border, --wall-border-subtle,
+    --wall-text, --wall-text-muted, --wall-text-dim,
+    --wall-text-quiet, --wall-text-whisper,
+    --wall-accent;
+  transition-duration: 2s;
+  transition-timing-function: ease;
+}
+
+/* Galeriewit. Elke trede houdt het contrast van de donkere site op haar
+   grond (WCAG, op #f4f4f2; tussen haakjes de site op #1a1a1a):
+     text     #1a1a1a  15.8  (15.7)
+     muted    #3c3c3a  10.0  (10.1)
+     dim      #525250   7.1   (7.1)
+     quiet    #6a6a67   4.9   (4.9)
+     whisper  #8c8c88   3.1   (3.0)
+     border   #b8b8b3   1.8   (1.8)
+     subtle   #d4d4d0   1.4   (1.4)
+     accent   #3a7230   5.3   (het dollargroen haalt hier 2.1)
+   De accent is hetzelfde groen (tint 111°), donkerder: op `bg-elevated`
+   (#ebebe8, de TOC-knop en de mobiele lade) nog 4.8. `bg-elevated` en
+   `surface` liggen zoals in de pilot van #123 iets dieper dan de grond, niet
+   witter. */
+
+html[data-theme="smaak-klasse-macht"][data-wall="white"] {
+  --wall-bg:            #f4f4f2;
+  --wall-bg-elevated:   #ebebe8;
+  --wall-surface:       #e3e3df;
+  --wall-border:        #b8b8b3;
+  --wall-border-subtle: #d4d4d0;
+  --wall-text:          #1a1a1a;
+  --wall-text-muted:    #3c3c3a;
+  --wall-text-dim:      #525250;
+  --wall-text-quiet:    #6a6a67;
+  --wall-text-whisper:  #8c8c88;
+  --wall-accent:        #3a7230;
+}
+
+html[data-theme="smaak-klasse-macht"] body {
+  --color-bg:            var(--wall-bg);
+  --color-bg-elevated:   var(--wall-bg-elevated);
+  --color-surface:       var(--wall-surface);
+  --color-border:        var(--wall-border);
+  --color-border-subtle: var(--wall-border-subtle);
+  --color-text:          var(--wall-text);
+  --color-text-muted:    var(--wall-text-muted);
+  --color-text-dim:      var(--wall-text-dim);
+  --color-text-quiet:    var(--wall-text-quiet);
+  --color-text-whisper:  var(--wall-text-whisper);
+  --color-accent:        var(--wall-accent);
+  /* De afleiding uit tokens.css, opnieuw op body: een `color-mix()` wordt
+     berekend waar hij gedeclareerd staat, en op <html> rekent hij nog met
+     het dollargroen. */
+  --color-accent-soft:   color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+/* Reduced motion: wel de omslag, geen overgang. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="smaak-klasse-macht"] {
+    transition: none;
+  }
+}
+
+/* ---- Lotnummers ----
+   Elke genummerde h2 krijgt boven haar kop `lot 1` tot `lot 5` in mono, in
+   de accent; haar h3's een kleiner `lot 3.1`. Alleen de directe h2's van
+   `.theme-body`, de koppen van de MDX. De eerste h2 (*Voor je begint te
+   lezen*, de opdracht vóór de tekst) en de laatste (*En Nu?*, de vragen
+   erna) zijn geen kavels: geen label, ze tellen niet mee. De h3's met
+   `.theme-body h3`, niet `>`: die van *De witte muur* staan in de wrapper
+   van WhiteWall.
+
+   Beide counters ontstaan één keer, op `.theme-body`; een h2 zet `lot-sub`
+   terug op nul met `counter-set`, niet met `counter-reset`. Een reset op de
+   h2 maakt een nieuwe counter met de h2 als oorsprong, en Chrome nam die niet
+   over voorbij de wrapper: de h3 na *Wie heeft die macht?* telde verder als
+   `lot 4.6`. Met één counter waarvan de oorsprong een voorouder van alles is,
+   speelt de grens van de wrapper geen rol. */
+
+html[data-theme="smaak-klasse-macht"] .theme-body {
+  counter-reset: lot lot-sub;
+}
+
+html[data-theme="smaak-klasse-macht"] .theme-body > h2:not(:first-of-type, :last-of-type) {
+  counter-increment: lot;
+  counter-set: lot-sub 0;
+}
+
+html[data-theme="smaak-klasse-macht"] .theme-body h3 {
+  counter-increment: lot-sub;
+}
+
+html[data-theme="smaak-klasse-macht"] .theme-body > h2:not(:first-of-type, :last-of-type)::before,
+html[data-theme="smaak-klasse-macht"] .theme-body h3::before {
+  display: block;
+  width: max-content;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+html[data-theme="smaak-klasse-macht"] .theme-body > h2:not(:first-of-type, :last-of-type)::before {
+  content: 'lot ' counter(lot);
+  margin-bottom: 0.35rem;
+  font-size: var(--step--1);
+}
+
+html[data-theme="smaak-klasse-macht"] .theme-body h3::before {
+  content: 'lot ' counter(lot) '.' counter(lot-sub);
+  margin-bottom: 0.2rem;
+  font-size: calc(var(--step--1) * 0.9);
+}
+
+/* ---- De versnipperaar ----
+   *Girl with Balloon* schoof halverwege door de versnipperaar in haar lijst;
+   de onderste helft hing in stroken. Hier de onderste helft van de kop: een
+   mask van vijf lagen, opgeteld (de standaard `add`).
+
+     1  dekkend over alles behalve de onderste 0.55em: het label en de
+        bovenste helft van de letters blijven heel
+     2  stroken van 5px met 2px ertussen, tot 0.3em boven de onderrand: net
+        boven de basislijn, de onderkant van de letters rafelt
+     3  elke derde strook langer, tot net onder de basislijn
+     4  elke vierde strook tot halverwege de staarten (p, y)
+     5  elke vijfde strook tot de onderrand
+
+   De perioden zijn veelvouden van 7px en de laag start op een veelvoud van
+   7px, dus elke laag valt precies op de stroken van laag 2; samen geven ze
+   stroken die onderaan verschillend lang zijn (het patroon herhaalt pas na
+   420px). Bij een kop over twee regels geldt het voor de laatste regel. Het
+   mask raakt de opmaak niet: geen verschuiving, geen overloop. */
+
+html[data-theme="smaak-klasse-macht"] #banksy-ontmoet-de-versnipperaar {
+  --shred: linear-gradient(to right, black 5px, transparent 5px);
+
+  -webkit-mask-image:
+    linear-gradient(black 0 0), var(--shred), var(--shred), var(--shred), var(--shred);
+          mask-image:
+    linear-gradient(black 0 0), var(--shred), var(--shred), var(--shred), var(--shred);
+  -webkit-mask-size:
+    100% calc(100% - 0.55em),
+    7px  calc(100% - 0.3em),
+    21px calc(100% - 0.16em),
+    28px calc(100% - 0.08em),
+    35px 100%;
+          mask-size:
+    100% calc(100% - 0.55em),
+    7px  calc(100% - 0.3em),
+    21px calc(100% - 0.16em),
+    28px calc(100% - 0.08em),
+    35px 100%;
+  -webkit-mask-position: 0 0, 0 0, 7px 0, 14px 0, 28px 0;
+          mask-position: 0 0, 0 0, 7px 0, 14px 0, 28px 0;
+  -webkit-mask-repeat: no-repeat, repeat-x, repeat-x, repeat-x, repeat-x;
+          mask-repeat: no-repeat, repeat-x, repeat-x, repeat-x, repeat-x;
+}
