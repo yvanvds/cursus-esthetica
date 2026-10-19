@@ -85,7 +85,7 @@ For each beat that needs a visual or audio anchor, research and acquire the asse
 6. **Filename convention.** Lowercase, hyphenated, identifier-N pattern: `cattelan-1.jpg`, `pozzo-2.png`, `riley-3.png`. The identifier is short — usually artist surname or work-shorthand — and the number disambiguates when multiple images of the same work or artist appear.
 7. **Capture the source URL** that points at the *page* the image came from (the Wikimedia Commons file page, the museum object page) — not the raw image URL. This goes into the frontmatter `source:` field.
 8. **Write the caption.** Format: `<Artist>, <Title>, <year>`. Year format follows existing usage: a single year (`1907`), a range (`1495 tot 1498`), or an approximation (`rond 1290`). Use `,` as separator. Captions are in Dutch.
-9. **Bronbeleid: citaatrecht als uitgangspunt.** Expliciete beslissing van de projecteigenaar (juli 2026): copyright is voor deze educatieve cursus geen selectiecriterium — citaatrecht dekt het gebruik. Beschermde persfoto's zijn toegestaan als ze sterker zijn dan het vrije aanbod. Bron altijd netjes in frontmatter `source:`. Alleen sites met expliciete "no reuse"-notices vermijden.
+9. **Bronbeleid: citaatrecht als uitgangspunt.** Expliciete beslissing van de projecteigenaar (juli 2026): copyright is voor deze educatieve cursus geen selectiecriterium — citaatrecht dekt het gebruik. Beschermde persfoto's zijn toegestaan als ze sterker zijn dan het vrije aanbod. Bron altijd netjes in frontmatter `source:`. Ook een expliciete "no reuse"-notice sluit een beeld niet uit (eigenaar, oktober 2026, bij #171: open-source educatieve cursus); zie `docs/REDACTIE.md` § Media.
 #### Video research
  
 1. **YouTube only** for now (matches existing convention).
