@@ -1,0 +1,25 @@
+---
+/*
+  Tussenstand — "Tussenstand: twee antwoorden op één machine" in two columns
+  (#131). Wraps the two paragraphs under that heading, not the heading itself
+  (that stays a deco h2 of the surrounding Half).
+
+  The first paragraph holds both answers ("Art nouveau antwoordde: … Art deco
+  antwoordde: …") and may not be split or reordered, so art-nouveau-en-deco.css
+  lets it run on in two columns: the nouveau answer falls on the left, the deco
+  answer mostly on the right. The two column heads above it are the only added
+  text and only repeat the names of the styles; they are decorative, hence
+  aria-hidden. The closing paragraph runs at full width.
+
+  Two columns only when the wrapper is wide enough (a container query in the
+  stylesheet), so one column on mobile and on narrow desktop windows, with the
+  heads hidden.
+*/
+---
+<div class="tussenstand">
+  <div class="tussenstand__heads" aria-hidden="true">
+    <span class="tussenstand__head tussenstand__head--nouveau">art nouveau</span>
+    <span class="tussenstand__head tussenstand__head--deco">art deco</span>
+  </div>
+  <slot />
+</div>

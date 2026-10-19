@@ -1,0 +1,20 @@
+---
+/*
+  Half — one of the two halves of art-nouveau-en-deco (#131). The chapter is
+  one long comparison and the page turns where the text turns: movements 1–3
+  (De afdaling to Het volkshuis) are nouveau, from De machine wint up to and
+  including Twee steden, twee stijlen it is deco. Bronnen stays outside both.
+
+  A plain wrapper, like Section in beweging-en-dynamiek: the h2's sit inside
+  it and art-nouveau-en-deco.css draws them per half (letter, colour and the
+  ornament under the heading). No counters and no `:last-of-type` on the
+  h2's, so the wrapper changes nothing in how they are counted or matched.
+*/
+interface Props {
+  kind: 'nouveau' | 'deco';
+}
+const { kind } = Astro.props;
+---
+<div class={`style-half style-half--${kind}`} data-style-half={kind}>
+  <slot />
+</div>

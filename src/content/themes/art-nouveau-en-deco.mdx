@@ -4,6 +4,7 @@ module: ornament-en-stijl
 order: 1
 figure: "15"
 accentColor: "#c9a227"
+customStyles: "art-nouveau-en-deco.css"
 image: /images/art-nouveau-en-deco/arcane-titelkaart.jpg
 shortDescription: Twee stijlen, één fantasiegenre en een Netflix-serie geven hetzelfde antwoord — ornament is nooit onschuldig.
 
@@ -217,6 +218,9 @@ videos:
     start: 0
 ---
 
+import Half from '../../components/themes/art-nouveau-en-deco/Half.astro';
+import Tussenstand from '../../components/themes/art-nouveau-en-deco/Tussenstand.astro';
+
 # Voor wie is de toekomst gebouwd?
 
 {/* COMPONENT KANDIDAAT: stijl-comparator — hetzelfde bouwelement
@@ -228,6 +232,8 @@ videos:
     één van Zaun met hotspots die de stijlelementen benoemen
     (zonnestraal, zigzag, verticaal accent vs. zweepslag, waaiervenster,
     asymmetrie). Niet gebouwd. */}
+
+<Half kind="nouveau">
 
 ## De afdaling
 
@@ -259,6 +265,10 @@ Maar kijk naar de rest van het klantenboek van de stijl. Tassel: professor en in
 
 Rond 1910 is het voorbij. Te duur, te eigenzinnig, te veel kruller voor een wereld die richting oorlog dendert. Wat er daarna met het Volkshuis gebeurde, hoort bij het tweede deel van dit verhaal. Onthoud alleen: het loopt niet goed af.
 
+</Half>
+
+<Half kind="deco">
+
 ## De machine wint
 
 Parijs, april 1925. De *Exposition internationale des arts décoratifs et industriels modernes* opent haar poorten; miljoenen bezoekers schuiven langs paviljoenen vol gestileerde [fonteinen, zigzagmotieven en verguld lakwerk](fig:expo-1925). Uit de naam van die tentoonstelling zal pas in 1968 — bijna een halve eeuw later — de term *art deco* worden gedistilleerd, door de Britse kunsthistoricus Bevis Hillier. De mensen van 1925 zelf zeiden gewoon: modern.
@@ -275,9 +285,13 @@ Daarmee loste art deco, zonder het ooit zo te bedoelen, de belofte van art nouve
 
 ## Tussenstand: twee antwoorden op één machine
 
+<Tussenstand>
+
 Twee stijlen, veertig jaar, één vraag: wat doen we met de machine? Art nouveau antwoordde: verberg haar onder een bladerdek, geef het industriële tijdperk een ziel van handwerk en natuur. Art deco antwoordde: zet haar op een sokkel en poets haar op. De eerste droom stierf aan haar eigen prijskaartje. De tweede won — en werd de huisstijl van iedereen die macht had: concerns, staten, elites.
 
 Maar een vraag bleef onbeantwoord, en ze zindert onder alles wat hierna komt. De machine won. Goed. *Wie won er mét de machine — en wie verloor?* Daarover gaat het tweede deel.
+
+</Tussenstand>
 
 ## De toekomst van gisteren
 
@@ -306,6 +320,8 @@ Het systeem zit tot in de kostuums. [Caitlyn](fig:caitlyn), telg van een rijke f
 Dat alles is bovendien *geschilderd*. Fortiche legt over zijn 3D-modellen handgeschilderde texturen; in de [making-of](video:bridging-the-rift) zie je hoe elke gevel en elk gezicht penseelstreken draagt. Een serie over de strijd tussen machine-orde en handwerk, gemaakt in een techniek die machine-animatie en handwerk versmelt — vorm en verhaal vallen samen tot in de pixels.
 
 Kijk de eerste aflevering dus nog eens, maar nu zoals je naar een gebouw van Horta of een gevel van Van Alen kijkt: niet als decor, maar als argument. En neem die blik daarna mee naar buiten. Loop door Brussel en zie hoe een stad haar mooiste belofte sloopte voor kantoorruimte. Sta stil bij wat er vandaag in jouw straat wordt gebouwd, en in welke stijl, en wie daar beter van wordt. Voor wie is de toekomst gebouwd? Stijlen geven antwoord voor wie leert kijken — gevels liegen trager dan persberichten.
+
+</Half>
 
 ## Bronnen
 
