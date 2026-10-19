@@ -29,7 +29,12 @@ const {
   themeId,
 } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
+// Without the trailing slash, like every other component: `astro.config.mjs`
+// sets `base: '/cursus-esthetica'`, and BASE_URL keeps or drops the slash
+// depending on dev or build. Concatenating `${base}fonts/…` therefore produced
+// `/cursus-estheticafonts/…` in the build, a 404 for every base font and the
+// favicon (#118). Normalise once and always write `${base}/…`.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!doctype html>
@@ -38,18 +43,18 @@ const base = import.meta.env.BASE_URL;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-    <link rel="icon" href={`${base}favicon.ico`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="icon" href={`${base}/favicon.ico`} />
     <link
       rel="preload"
-      href={`${base}fonts/fraunces-latin-wght-normal.woff2`}
+      href={`${base}/fonts/fraunces-latin-wght-normal.woff2`}
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href={`${base}fonts/inter-latin-wght-normal.woff2`}
+      href={`${base}/fonts/inter-latin-wght-normal.woff2`}
       as="font"
       type="font/woff2"
       crossorigin
@@ -59,28 +64,28 @@ const base = import.meta.env.BASE_URL;
     <style set:html={`
       @font-face {
         font-family: 'Fraunces';
-        src: url('${base}fonts/fraunces-latin-wght-normal.woff2') format('woff2-variations');
+        src: url('${base}/fonts/fraunces-latin-wght-normal.woff2') format('woff2-variations');
         font-weight: 100 900;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: 'Fraunces';
-        src: url('${base}fonts/fraunces-latin-wght-italic.woff2') format('woff2-variations');
+        src: url('${base}/fonts/fraunces-latin-wght-italic.woff2') format('woff2-variations');
         font-weight: 100 900;
         font-style: italic;
         font-display: swap;
       }
       @font-face {
         font-family: 'Inter';
-        src: url('${base}fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
+        src: url('${base}/fonts/inter-latin-wght-normal.woff2') format('woff2-variations');
         font-weight: 100 900;
         font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: 'JetBrains Mono';
-        src: url('${base}fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations');
+        src: url('${base}/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations');
         font-weight: 100 800;
         font-style: normal;
         font-display: swap;
