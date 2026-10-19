@@ -1,0 +1,835 @@
+/* ────────────────────────────────────────────────────────────────────
+   Legering — Cursus Esthetica, hoofdstuk 15 "Voor wie is de toekomst
+   gebouwd?"
+
+   Het hoofdstuk is één lange vergelijking die halverwege omslaat: Horta's
+   zweepslag tegenover de zonnestraal van de deco, Zaun tegenover Piltover.
+   Daarna komt steampunk, het genre dat beide stijlen plundert. Drie metalen
+   in één thema, vandaar de naam:
+
+     nouveau   groen geverfd gietijzer — Guimards métro-ingangen, Horta's
+               traphal, het licht van Zaun dat "alleen tweedehands
+               binnenvalt"                                  (beweging 1–3)
+     deco      chroomnikkelstaal en goud op zwart lak — de kroon van het
+               Chrysler Building, de raadzaal van Piltover   (4 · 5 · 7)
+     messing   koper en messing met klinknagels, tandwielen en wijzers op
+               de grond van de deco — de machine die je kan begrijpen (6)
+
+   Het register is een klasse op de slide, zoals de lichtbronnen van
+   penumbra:
+
+     ---
+     layout: triptych
+     class: nouveau
+     ---
+
+   Elk register zet alleen tokens: grond, tekst, metaal, de letter van de
+   koppen, het ornament onder een h2 en de lijst rond een beeld. Alle regels
+   hieronder lezen die tokens, en de gedeelde layouts uit layouts-base lezen
+   ze ook (`--color-bg`, `--color-accent`, `--color-rule`, …). Daardoor
+   bereikt het register élke layout, ook de ingebouwde van Slidev en de
+   teksthelft van `image-left`/`image-right` (daar landt de klasse, zie
+   layouts-base en skill `slidev` §5.2).
+
+   De tokenklassen werken op elk element, niet alleen op een
+   `.slidev-layout`. Zo kan een layout die twee registers op één slide zet
+   (tussenstand, boven-beneden, afdaling) een helft `.nouveau` en een helft
+   `.deco` maken. Het grondornament (zweepslag, zonnestraal, klinknagels)
+   hoort alleen op de root van een layout: `.slidev-layout.<register>`.
+
+   Zonder klasse staat de slide op een neutrale grond in Inter, zonder
+   ornament. Dat is opzet: een vergeten register valt bij het doorklikken
+   meteen op als een kale slide, in plaats van stil het verkeerde register
+   te dragen.
+
+   Familie met de hoofdstukpagina (src/styles/themes/art-nouveau-en-deco.css):
+   hetzelfde Zaun-groen en goud, dezelfde twee letters, dezelfde zweepslag
+   en zonnestraal (die twee maskers zijn er letterlijk uit overgenomen).
+   De site deelt geen CSS met het deck.
+
+   Contrast van tekst op de grond (WCAG, gemeten in #159):
+     nouveau   tekst 15.4 · groen 7.0 · kop 8.6 · stil 6.3   op #0e1511
+     deco      tekst 16.3 · goud 7.9 · kop 9.7 · stil 6.5    op #0c0f15
+     messing   tekst 15.1 · koper 6.7 · messing 7.3 · stil 6.4 op #0c0f15
+   Op de zwakste plek van elk grondornament (groene waas 28%, zweepslag
+   13%, zonnestraal 11%, tandwiel 16%) zakt de stille tekst tot 4.95, 5.23,
+   5.58 en 5.05; de cartouches van de afdaling halen boven een wit beeld
+   nog 4.74 (deco) en 4.55 (nouveau). Wie een ornament sterker zet, meet
+   opnieuw.
+
+   Thema-eigen layouts (slides/theme/legering/layouts/):
+     afdaling      de titelslide: per klik zakt het beeld van Piltover
+                   naar Zaun, en de titel slaat om van deco naar nouveau
+     section       de sectieslide, met het ornament van het register: de
+                   zweepslag tekent zich, de zonnestraal waaiert open, de
+                   wijzer slaat uit naar het nummer van de beweging
+     tussenstand   gesplitst: nouveau links, deco rechts, een naad in de
+                   mengkleur ertussen
+     boven-beneden deco-kader boven, nouveau-kader onder — Metropolis en
+                   Piltover/Zaun, dezelfde vorm twee keer
+     plaat         één beeld zo groot als het past, in het kader van het
+                   register, met het bijschrift eronder of (bij een smal
+                   beeld) ernaast; `crop` snijdt alleen de weergave bij
+     vitrine       twee tot vier objecten in kasten met een naamplaatje:
+                   titel, herkomst, en waar nodig een waarschuwing in beeld
+                   (`badge`) — voor de deck-eigen beelden bij steampunk
+     end           de slotslide; Slidevs ingebouwde zet een scoped
+                   `bg-black` die het register zou overschrijven
+
+   `plaat` en `vitrine` delen ../parts/CropFigure.vue (beeld passen,
+   bijsnijden, kader strak om het getoonde deel) en ../parts/register.ts.
+
+   Elke slide draagt een register-klasse, behalve de titelslide
+   (`afdaling`): die zet zelf een deco- en een nouveau-helft.
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500;1,600&family=Poiret+One&family=Alfa+Slab+One&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Palet nouveau — Zaun ──────────────────────────────────────────
+     Het groen van de site (#8ca86a), gedempt en een beetje ziek, op een
+     grond die naar flessengroen trekt in plaats van neutraal zwart. */
+  --nouveau-ground:    #0e1511;
+  --nouveau-elevated:  #16201a;
+  --nouveau-text:      #e8ecdc;
+  --nouveau-muted:     #bcc6ae;
+  --nouveau-quiet:     #8f9b85;
+  --nouveau-green:     #8ca86a;
+  --nouveau-heading:   #9cbb78;
+  --nouveau-rule:      #2e3d31;
+  --nouveau-glow:      #4f6b3a;   /* het tweedehands licht, alleen als waas */
+
+  /* ── Palet deco — Piltover, Chrysler ───────────────────────────────
+     Goud op zwart lak met een zweem blauw: het goud van de site
+     (#c9a227), een lichter goud voor koppen, en chroom voor de tweede
+     lijn. */
+  --deco-ground:       #0c0f15;
+  --deco-elevated:     #141a24;
+  --deco-text:         #f2ecdc;
+  --deco-muted:        #cbc5b6;
+  --deco-quiet:        #9a968b;
+  --deco-gold:         #c9a227;
+  --deco-heading:      #d9b44a;
+  --deco-chrome:       #b9c0c9;
+  --deco-rule:         #3a3322;
+
+  /* ── Palet messing — de toekomst van gisteren ──────────────────────
+     Op de grond van de deco (beslissing eigenaar, #159): koper als kleur
+     van tekst en lijn, messing voor klinknagels en tandwielen,
+     perkament voor de lopende tekst. */
+  --messing-ground:      var(--deco-ground);
+  --messing-elevated:    #1d140d;
+  --messing-text:        #f1e3c8;
+  --messing-muted:       #cdbd9f;
+  --messing-quiet:       #a3927a;
+  --messing-copper:      #d4864a;
+  --messing-copper-dark: #6a3a1c;
+  --messing-brass:       #c09a4a;
+  --messing-brass-hi:    #f2dda2;
+  --messing-brass-dark:  #5e4718;
+  --messing-rule:        #4a3220;
+
+  /* ── Neutraal — geen register gezet ──────────────────────────────── */
+  --neutral-ground:    #161616;
+  --neutral-text:      #ecebe6;
+  --neutral-muted:     #c4c2bb;
+  --neutral-quiet:     #94918a;
+  --neutral-rule:      #333333;
+
+  /* ── Ornamenten als maskers ──────────────────────────────────────────
+     Een SVG in een data-URI als `mask-image`, de kleur als
+     `background-color`: zo blijft de kleur een token. Zweepslag en
+     zonnestraal zijn letterlijk die van de hoofdstukpagina. */
+  --ornament-whiplash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 40'%3E%3Cpath d='M2 30.4L6.1 30.8L10.3 31.1L14.4 31.2L18.5 31L22.6 30.7L26.7 30.3L30.8 29.7L34.8 29L38.8 28.2L42.9 27.3L46.9 26.3L50.9 25.2L54.9 24.1L58.8 23L62.8 21.8L66.7 20.6L70.7 19.4L74.6 18.2L78.5 17.1L82.4 16L86.3 15L90.2 14L94.1 13.1L98 12.4L101.9 11.7L105.7 11.2L109.6 10.8L113.4 10.6L117.3 10.5L121.1 10.7L124.9 11L129.3 11.7L133.4 12.8L137.2 14.3L140.9 16.1L144.4 18L147.7 20.1L151 22.3L154.3 24.5L157.6 26.6L161 28.6L164.5 30.3L168.2 31.8L172.1 32.9L176.2 33.5L180.5 33.6L185.2 33.2L188.2 32.2L191.2 30.6L194.2 28.5L197.2 26.1L200.3 23.4L203.5 20.5L206.8 17.7L210.2 15L213.8 12.5L217.5 10.4L221.5 8.8L225.6 7.9L230 7.7L232.8 8.1L235.6 9.1L238.1 10.6L240.3 12.5L242 14.6L243.2 16.8L243.6 19L243.3 21.1L242.1 23L239.8 24.6L237.5 25.3L235.4 25.3L233.4 24.8L231.7 23.7L230.3 22.4L229.4 20.8L229.1 19.2L229.4 17.7L230.3 16.4L232.1 15.4L233.2 15.1L234.3 15.1L235.3 15.4L236.1 15.8L236.9 16.3L237.4 16.9L237.6 17.5L237.6 18L237.4 18.3L236.9 18.6L237.1 19.4L238 18.9L238.4 18.1L238.4 17.3L238 16.5L237.4 15.8L236.6 15.1L235.5 14.6L234.4 14.4L233.2 14.3L231.9 14.6L229.8 15.8L228.6 17.4L228.3 19.3L228.7 21.1L229.7 22.9L231.2 24.4L233.1 25.6L235.3 26.2L237.7 26.2L240.2 25.4L242.8 23.6L244.2 21.4L244.6 19L244.2 16.5L243 14L241.1 11.7L238.8 9.7L236.1 8L233.1 6.9L230 6.3L225.4 6.5L221 7.4L216.9 9L212.9 11.1L209.2 13.6L205.6 16.3L202.2 19.1L199 21.8L195.9 24.5L192.9 26.8L190 28.7L187.3 30.1L184.8 30.8L180.4 31.2L176.4 31.1L172.6 30.5L169 29.4L165.6 28L162.2 26.4L158.9 24.5L155.7 22.4L152.4 20.3L149 18.1L145.6 16L141.9 14L138.1 12.3L134.1 10.8L129.7 9.7L125.1 9L121.2 8.8L117.3 8.7L113.3 8.9L109.4 9.2L105.5 9.7L101.6 10.3L97.7 11L93.8 11.8L89.9 12.8L86 13.8L82.1 14.9L78.2 16.1L74.3 17.3L70.4 18.5L66.5 19.7L62.5 20.9L58.6 22.1L54.6 23.3L50.7 24.5L46.7 25.5L42.7 26.5L38.7 27.5L34.7 28.3L30.6 29L26.6 29.6L22.6 30L18.5 30.3L14.4 30.4L10.3 30.4L6.2 30.1L2 29.6Z'/%3E%3C/svg%3E");
+  --ornament-sunburst: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 36'%3E%3Cpath d='M9 35L239 35M8.9 34L135.5 17.3M8.7 32.9L127.9 1M8.4 31.9L49.5 14.9M7.9 31L59.9 1M7.3 30.1L28.2 14.1M6.7 29.3L35 1M5.9 28.7L17.5 13.4M5 28.1L20.6 1M4.1 27.6L10.1 13M3.1 27.3L10.1 1M2 27.1L3.9 12.7M1 27L1 1' fill='none' stroke='%23000' stroke-width='0.8' stroke-linecap='round'/%3E%3Cpath d='M1 30A5 5 0 0 1 6 35L1 35Z'/%3E%3C/svg%3E");
+  /* De zonnestraal symmetrisch: dezelfde waaier twee keer, gespiegeld om
+     het midden, met een halve zon in het midden. Voor gecentreerde koppen.
+     480 × 36. */
+  --ornament-sunburst-sym: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 36'%3E%3Cg id='f'%3E%3Cpath transform='translate(239 0)' d='M9 35L239 35M8.9 34L135.5 17.3M8.7 32.9L127.9 1M8.4 31.9L49.5 14.9M7.9 31L59.9 1M7.3 30.1L28.2 14.1M6.7 29.3L35 1M5.9 28.7L17.5 13.4M5 28.1L20.6 1M4.1 27.6L10.1 13M3.1 27.3L10.1 1M2 27.1L3.9 12.7M1 27L1 1' fill='none' stroke='black' stroke-width='0.8' stroke-linecap='round'/%3E%3C/g%3E%3Cuse href='%23f' transform='matrix(-1 0 0 1 480 0)'/%3E%3Ccircle cx='240' cy='35' r='6'/%3E%3C/svg%3E");
+  /* Een riem met klinknagels: twee lijnen, zeven nagels ertussen. 240 × 16. */
+  --ornament-strap: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 16'%3E%3Cpath d='M0 2.5H240M0 13.5H240' stroke='black' stroke-width='1.4'/%3E%3Cg%3E%3Ccircle cx='6' cy='8' r='2.8'/%3E%3Ccircle cx='42' cy='8' r='2.8'/%3E%3Ccircle cx='78' cy='8' r='2.8'/%3E%3Ccircle cx='114' cy='8' r='2.8'/%3E%3Ccircle cx='150' cy='8' r='2.8'/%3E%3Ccircle cx='186' cy='8' r='2.8'/%3E%3Ccircle cx='222' cy='8' r='2.8'/%3E%3C/g%3E%3C/svg%3E");
+  /* Een tandwiel van veertien tanden met zes spaken. 100 × 100. */
+  --ornament-gear: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill-rule='evenodd' d='M90 50L89.87 53.23L96.57 56.31L95.19 62.91L87.81 63.04L86.04 67.36L84.52 70.21L89.22 75.89L85.12 81.24L78.41 78.16L74.94 81.27L72.33 83.18L74.11 90.35L68.08 93.38L63.38 87.7L58.9 89L55.72 89.59L54.21 96.81L47.47 96.93L45.7 89.77L41.1 89L37.98 88.15L33.49 94L27.36 91.19L28.87 83.96L25.06 81.27L22.62 79.16L16.03 82.48L11.73 77.28L16.23 71.43L13.96 67.36L12.68 64.39L5.3 64.52L3.68 57.98L10.27 54.66L10 50L10.13 46.77L3.43 43.69L4.81 37.09L12.19 36.96L13.96 32.64L15.48 29.79L10.78 24.11L14.88 18.76L21.59 21.84L25.06 18.73L27.67 16.82L25.89 9.65L31.92 6.62L36.62 12.3L41.1 11L44.28 10.41L45.79 3.19L52.53 3.07L54.3 10.23L58.9 11L62.02 11.85L66.51 6L72.64 8.81L71.13 16.04L74.94 18.73L77.38 20.84L83.97 17.52L88.27 22.72L83.77 28.57L86.04 32.64L87.32 35.61L94.7 35.48L96.32 42.02L89.73 45.34Z M66.79 52.66L82.59 55.16A33 33 0 0 1 70.77 75.65L60.7 63.21A17 17 0 0 0 66.79 52.66Z M56.09 65.87L61.83 80.81A33 33 0 0 1 38.17 80.81L43.91 65.87A17 17 0 0 0 56.09 65.87Z M39.3 63.21L29.23 75.65A33 33 0 0 1 17.41 55.16L33.21 52.66A17 17 0 0 0 39.3 63.21Z M33.21 47.34L17.41 44.84A33 33 0 0 1 29.23 24.35L39.3 36.79A17 17 0 0 0 33.21 47.34Z M43.91 34.13L38.17 19.19A33 33 0 0 1 61.83 19.19L56.09 34.13A17 17 0 0 0 43.91 34.13Z M60.7 36.79L70.77 24.35A33 33 0 0 1 82.59 44.84L66.79 47.34A17 17 0 0 0 60.7 36.79Z M39 50A11 11 0 1 0 61 50A11 11 0 1 0 39 50Z'/%3E%3C/svg%3E");
+  /* De getrapte hoek van de deco-lijst, vier keer gespiegeld. 40 × 40. */
+  --corner-step-tl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M40 .5H28.5V8.5H18.5V18.5H8.5V28.5H.5V40' fill='none' stroke='black'/%3E%3C/svg%3E");
+  --corner-step-tr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath transform='matrix(-1 0 0 1 40 0)' d='M40 .5H28.5V8.5H18.5V18.5H8.5V28.5H.5V40' fill='none' stroke='black'/%3E%3C/svg%3E");
+  --corner-step-bl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath transform='matrix(1 0 0 -1 0 40)' d='M40 .5H28.5V8.5H18.5V18.5H8.5V28.5H.5V40' fill='none' stroke='black'/%3E%3C/svg%3E");
+  --corner-step-br: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath transform='matrix(-1 0 0 -1 40 40)' d='M40 .5H28.5V8.5H18.5V18.5H8.5V28.5H.5V40' fill='none' stroke='black'/%3E%3C/svg%3E");
+
+  /* De gouden lijst van deco als masker van acht lagen: vier getrapte
+     hoeken en vier lijnen ertussen. Op een vlak in goud gelegd geeft dat
+     een haarlijn met getrapte hoeken, op elke maat. */
+  --deco-lijst-mask:
+    var(--corner-step-tl) top left / 40px 40px no-repeat,
+    var(--corner-step-tr) top right / 40px 40px no-repeat,
+    var(--corner-step-bl) bottom left / 40px 40px no-repeat,
+    var(--corner-step-br) bottom right / 40px 40px no-repeat,
+    linear-gradient(black, black) top center / calc(100% - 80px) 1px no-repeat,
+    linear-gradient(black, black) bottom center / calc(100% - 80px) 1px no-repeat,
+    linear-gradient(black, black) left center / 1px calc(100% - 80px) no-repeat,
+    linear-gradient(black, black) right center / 1px calc(100% - 80px) no-repeat;
+
+  /* ── Typografie ────────────────────────────────────────────────────
+     Drie letters voor de drie registers; de lopende tekst blijft Inter
+     en de bijschriften JetBrains Mono, in elk register dezelfde — op een
+     slide moet een bijschrift vooral leesbaar zijn. */
+  --font-nouveau: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-deco:    'Poiret One', 'Century Gothic', Futura, sans-serif;
+  --font-messing: 'Alfa Slab One', Rockwell, 'Courier New', serif;
+  --font-sans:    'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, ui-monospace, monospace;
+
+  /* Modulaire schaal (1.2), dezelfde als de site */
+  --step--1: 0.833rem;
+  --step-0:  1rem;
+  --step-1:  1.2rem;
+  --step-2:  1.44rem;
+  --step-3:  1.728rem;
+  --step-4:  2.488rem;
+  --step-5:  3.583rem;
+  --step-6:  4.8rem;
+
+  /* Spacing */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  --radius: 0;
+
+  /* ── De actieve tokens — neutraal tot een register ze overschrijft ── */
+  --color-bg:          var(--neutral-ground);
+  --color-bg-elevated: #1f1f1f;
+  --color-text:        var(--neutral-text);
+  --color-text-muted:  var(--neutral-muted);
+  --color-text-quiet:  var(--neutral-quiet);
+  --color-heading:     var(--neutral-text);
+  --color-accent:      var(--deco-gold);   /* accentColor van het hoofdstuk */
+  --color-rule:        var(--neutral-rule);
+  --color-junction:    color-mix(in srgb, var(--nouveau-green) 50%, var(--deco-gold));
+
+  --font-display:      var(--font-sans);
+  --display-style:     normal;
+  --display-weight:    500;
+  --display-transform: none;
+  --display-tracking:  -0.01em;
+  --display-scale:     1;
+  --display-leading:   1.05;
+
+  /* Ornamenten van het register — zie de kop van het registerblok. */
+  --rule-display:   none;
+  --rule-mask:      none;
+  --rule-ratio:     240 / 36;
+  --rule-width:     14rem;
+  --bullet-radius:  0;
+  --bullet-turn:    none;
+  --bullet-bg:      initial;
+  --image-frame:    none;
+
+  /* Slidev hooks */
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-sans);
+  --slidev-font-serif: var(--font-nouveau);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+/* ── De drie registers — alleen tokens ───────────────────────────────
+   Op elk element te zetten (zie de kop). `--display-scale` vangt het
+   verschil in oogmaat op: Cormorant cursief valt klein uit op dezelfde
+   puntgrootte, Poiret One-kapitaal en Alfa Slab groot.
+
+   Ook de ornamenten zijn tokens (`--rule-*` onder een kop, `--bullet-*`
+   voor het opsommingsteken, `--image-frame` voor de lijst rond een beeld)
+   en geen selectors als `.nouveau h2::after`. De reden is nesting: op een
+   gesplitste slide staat een `.nouveau`-helft binnen een root met
+   `class: deco`, en dan zouden beide selectors raken en wint de laatste in
+   het bestand. Een custom property erft van de dichtstbijzijnde voorouder,
+   dus het binnenste register wint altijd. Daarom zet elk register álle
+   ornamenttokens, ook de lege (`--bullet-bg: initial`). */
+.nouveau {
+  --color-bg:          var(--nouveau-ground);
+  --color-bg-elevated: var(--nouveau-elevated);
+  --color-text:        var(--nouveau-text);
+  --color-text-muted:  var(--nouveau-muted);
+  --color-text-quiet:  var(--nouveau-quiet);
+  --color-heading:     var(--nouveau-heading);
+  --color-accent:      var(--nouveau-green);
+  --color-rule:        var(--nouveau-rule);
+
+  --font-display:      var(--font-nouveau);
+  --display-style:     italic;
+  --display-weight:    500;
+  --display-transform: none;
+  --display-tracking:  0;
+  --display-scale:     1.3;
+  --display-leading:   1.0;
+
+  --rule-display:   block;
+  --rule-mask:      var(--ornament-whiplash);
+  --rule-ratio:     252 / 40;
+  --rule-width:     14rem;
+  --bullet-radius:  0 70% 0 70%;          /* een blad */
+  --bullet-turn:    none;
+  --bullet-bg:      initial;
+  --image-frame:    drop-shadow(0 0 1px color-mix(in srgb, var(--nouveau-green) 70%, transparent))
+                    drop-shadow(0 0 14px color-mix(in srgb, var(--nouveau-glow) 55%, transparent));
+
+  --breathe-from:  var(--nouveau-ground);
+  --breathe-to:    var(--nouveau-elevated);
+}
+
+.deco {
+  --color-bg:          var(--deco-ground);
+  --color-bg-elevated: var(--deco-elevated);
+  --color-text:        var(--deco-text);
+  --color-text-muted:  var(--deco-muted);
+  --color-text-quiet:  var(--deco-quiet);
+  --color-heading:     var(--deco-heading);
+  --color-accent:      var(--deco-gold);
+  --color-rule:        var(--deco-rule);
+
+  --font-display:      var(--font-deco);
+  --display-style:     normal;
+  --display-weight:    400;
+  --display-transform: uppercase;
+  --display-tracking:  0.09em;
+  --display-scale:     0.86;
+  --display-leading:   1.15;
+
+  --rule-display:   block;
+  --rule-mask:      var(--ornament-sunburst);
+  --rule-ratio:     240 / 36;
+  --rule-width:     14rem;
+  --bullet-radius:  0;
+  --bullet-turn:    rotate(45deg) scale(0.85);   /* een ruit */
+  --bullet-bg:      initial;
+  --image-frame:    drop-shadow(1px 0 0 var(--deco-gold)) drop-shadow(-1px 0 0 var(--deco-gold))
+                    drop-shadow(0 1px 0 var(--deco-gold)) drop-shadow(0 -1px 0 var(--deco-gold));
+
+  --breathe-from:  var(--deco-ground);
+  --breathe-to:    var(--deco-elevated);
+}
+
+.messing {
+  --color-bg:          var(--messing-ground);
+  --color-bg-elevated: var(--messing-elevated);
+  --color-text:        var(--messing-text);
+  --color-text-muted:  var(--messing-muted);
+  --color-text-quiet:  var(--messing-quiet);
+  --color-heading:     var(--messing-copper);
+  --color-accent:      var(--messing-copper);
+  --color-rule:        var(--messing-rule);
+
+  --font-display:      var(--font-messing);
+  --display-style:     normal;
+  --display-weight:    400;
+  --display-transform: none;
+  --display-tracking:  0.01em;
+  --display-scale:     0.84;
+  --display-leading:   1.1;
+
+  --rule-display:   block;
+  --rule-mask:      var(--ornament-strap);
+  --rule-ratio:     240 / 16;
+  --rule-width:     12rem;
+  --bullet-radius:  50%;                   /* een klinknagel */
+  --bullet-turn:    none;
+  --bullet-bg:      radial-gradient(circle at 35% 35%, var(--messing-brass-hi), var(--messing-brass) 45%, var(--messing-brass-dark));
+  --image-frame:    drop-shadow(2px 0 0 var(--messing-copper)) drop-shadow(-2px 0 0 var(--messing-copper))
+                    drop-shadow(0 2px 0 var(--messing-copper)) drop-shadow(0 -2px 0 var(--messing-copper))
+                    drop-shadow(4px 6px 0 color-mix(in srgb, black 55%, transparent));
+
+  --breathe-from:  var(--messing-ground);
+  --breathe-to:    var(--messing-elevated);
+}
+
+/* ── Basis ───────────────────────────────────────────────────────────
+   `isolation: isolate` maakt van elke slide een eigen stapel: de
+   grondornamenten op ::before en ::after staan op z-index −1, dus boven de
+   achtergrond van de slide en onder alle inhoud, zonder dat de inhoud een
+   z-index nodig heeft. Een regel als `.slidev-layout > * { position:
+   relative }` zou layouts breken die hun kinderen absoluut zetten
+   (breathe). */
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  padding: var(--space-lg) var(--space-xl);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  font-feature-settings: "kern", "liga";
+}
+
+.slidev-layout::before,
+.slidev-layout::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── Nouveau — de grond ──────────────────────────────────────────────
+   Groen licht dat van boven links binnenvalt, en één grote zweepslag die
+   onderaan door de slide slaat, zo vaag dat hij alleen als richting leest.
+   Asymmetrisch, zoals alles in dit register. */
+.slidev-layout.nouveau {
+  background:
+    radial-gradient(ellipse 75% 60% at 12% -8%,
+      color-mix(in srgb, var(--nouveau-glow) 28%, transparent), transparent 70%),
+    var(--color-bg);
+}
+.slidev-layout.nouveau::before {
+  left: -6%;
+  bottom: -4%;
+  width: 118%;
+  aspect-ratio: 252 / 40;
+  background-color: color-mix(in srgb, var(--nouveau-green) 13%, transparent);
+  -webkit-mask: var(--ornament-whiplash) center / contain no-repeat;
+          mask: var(--ornament-whiplash) center / contain no-repeat;
+  transform: rotate(-4deg);
+  transform-origin: 0 100%;
+}
+
+/* ── Deco — de grond ─────────────────────────────────────────────────
+   Een zonnestraal die van onder het midden openwaaiert, en een lijst van
+   één gouden haarlijn met getrapte hoeken, rondom: symmetrisch, zoals de
+   kroon van het Chrysler Building. De lijst is een masker van acht lagen —
+   vier hoeken en vier lijnen — op een vlak in goud. */
+.slidev-layout.deco::before {
+  inset: 0;
+  background: repeating-conic-gradient(from -90deg at 50% 118%,
+    color-mix(in srgb, var(--deco-gold) 11%, transparent) 0deg 0.7deg,
+    transparent 0.7deg 5deg);
+  -webkit-mask-image: radial-gradient(ellipse 80% 95% at 50% 118%, black 30%, transparent 78%);
+          mask-image: radial-gradient(ellipse 80% 95% at 50% 118%, black 30%, transparent 78%);
+}
+.slidev-layout.deco::after {
+  inset: 14px;
+  background-color: color-mix(in srgb, var(--deco-gold) 55%, transparent);
+  -webkit-mask: var(--deco-lijst-mask);
+          mask: var(--deco-lijst-mask);
+}
+
+/* ── Messing — de grond ──────────────────────────────────────────────
+   Boven en onder een koperen strip met messing klinknagels, en een groot
+   tandwiel dat traag draait in de hoek rechtsonder, half buiten beeld.
+   Zichtbare mechaniek: je ziet waar de slide aan vastgeklonken zit. */
+.slidev-layout.messing::before {
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%,
+      var(--messing-brass-hi) 0 0.9px, var(--messing-brass) 1.6px 2.6px,
+      var(--messing-brass-dark) 3px, transparent 3.6px)
+      13px 2px / 30px 10px repeat-x,
+    radial-gradient(circle at 50% 50%,
+      var(--messing-brass-hi) 0 0.9px, var(--messing-brass) 1.6px 2.6px,
+      var(--messing-brass-dark) 3px, transparent 3.6px)
+      13px calc(100% - 2px) / 30px 10px repeat-x,
+    linear-gradient(to bottom, var(--messing-copper-dark), var(--messing-copper) 45%, var(--messing-copper-dark))
+      top / 100% 14px no-repeat,
+    linear-gradient(to bottom, var(--messing-copper-dark), var(--messing-copper) 55%, var(--messing-copper-dark))
+      bottom / 100% 14px no-repeat;
+}
+.slidev-layout.messing::after {
+  right: -9rem;
+  bottom: -11rem;
+  width: 26rem;
+  aspect-ratio: 1;
+  background-color: color-mix(in srgb, var(--messing-brass) 16%, transparent);
+  -webkit-mask: var(--ornament-gear) center / contain no-repeat;
+          mask: var(--ornament-gear) center / contain no-repeat;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slidev-layout.messing::after {
+    animation: legering-turn 140s linear infinite;
+  }
+}
+@keyframes legering-turn {
+  to { transform: rotate(360deg); }
+}
+
+/* Op een halve slide (de teksthelft van image-left/-right) is het
+   tandwiel kleiner en stiller: het zit anders achter de tekst. */
+.slidev-layout.messing:is(.image-left, .image-right)::after {
+  width: 17rem;
+  right: -7rem;
+  bottom: -8rem;
+  background-color: color-mix(in srgb, var(--messing-brass) 11%, transparent);
+}
+
+/* De gouden lijst van deco ligt 14px binnen de rand. De gedeelde layouts
+   met een smalle zijmarge (triptych, detail, …: `--space-md`) zetten hun
+   kop er anders tegenaan. */
+.slidev-layout.deco:is(.triptych, .detail, .compare, .spotlight, .scale, .duet) {
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+/* ── Beeldlayouts — het grondornament gaat uit ───────────────────────
+   Op `image` ligt het beeld over de hele slide; een zweepslag of een
+   tandwiel erover leest als vuil op de lens. Bij `image-left/-right` landt
+   de klasse op de teksthelft (layouts-base), en die houdt zijn grond. */
+.slidev-layout.image::before,
+.slidev-layout.image::after,
+.slidev-layout.compare::before,
+.slidev-layout.breathe::before,
+.slidev-layout.breathe::after {
+  display: none;
+}
+
+/* ── Koppen ──────────────────────────────────────────────────────────
+   Eén regel voor alle drie de registers: letter, stand, kast en
+   spatiëring komen uit de tokens. */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-weight: var(--display-weight);
+  text-transform: var(--display-transform);
+  letter-spacing: var(--display-tracking);
+  line-height: var(--display-leading);
+  color: var(--color-heading);
+}
+.slidev-layout h1 {
+  font-size: calc(var(--step-5) * var(--display-scale));
+  margin-bottom: var(--space-md);
+}
+.slidev-layout h2 {
+  font-size: calc(var(--step-4) * var(--display-scale));
+  margin-bottom: var(--space-md);
+}
+.slidev-layout h3 {
+  font-size: calc(var(--step-2) * var(--display-scale));
+  margin-bottom: var(--space-sm);
+}
+.slidev-layout h4 {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+
+/* Het ornament onder een h2: de zweepslag, de zonnestraal of de riem met
+   klinknagels, uit de tokens van het dichtstbijzijnde register. Zonder
+   register staat het uit (`--rule-display: none`). */
+.slidev-layout h2::after {
+  content: '';
+  display: var(--rule-display);
+  width: min(var(--rule-width), 60%);
+  aspect-ratio: var(--rule-ratio);
+  margin-top: 0.3em;
+  background-color: var(--color-accent);
+  -webkit-mask: var(--rule-mask) left center / contain no-repeat;
+          mask: var(--rule-mask) left center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Gecentreerde koppen: het ornament mee naar het midden. */
+.slidev-layout.center h2::after { margin-inline: auto; }
+
+/* ── Lopende tekst ───────────────────────────────────────────────── */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--step-1);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+.slidev-layout li + li { margin-top: 0.35em; }
+.slidev-layout strong { color: var(--color-text); font-weight: 500; }
+.slidev-layout em {
+  font-style: italic;
+  color: var(--color-accent);
+}
+.slidev-layout a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.slidev-layout blockquote {
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  font-size: calc(var(--step-3) * var(--display-scale));
+  line-height: 1.3;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-left: 1px solid var(--color-accent);
+  padding: 0 0 0 var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.slidev-layout ul { list-style: none; padding-left: 0; }
+.slidev-layout ul > li { position: relative; padding-left: 1.4em; }
+.slidev-layout ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.3em;
+  top: 0.7em;
+  width: 0.38em;
+  height: 0.38em;
+  border-radius: var(--bullet-radius);
+  transform: var(--bullet-turn);
+  background: var(--bullet-bg, var(--color-accent));
+}
+.slidev-layout ol { padding-left: 1.8em; }
+.slidev-layout ol > li::marker {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.slidev-layout code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--color-bg-elevated);
+  padding: 0.1em 0.4em;
+  color: var(--color-text);
+}
+
+/* ── Meta-regels — jaartallen, plaatsnamen, rubrieken ────────────── */
+.slidev-layout .meta,
+.slidev-layout .meta-quiet {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.slidev-layout .meta { color: var(--color-accent); }
+.slidev-layout .meta-quiet { color: var(--color-text-quiet); }
+
+/* ── Ingebouwde layouts van Slidev ───────────────────────────────── */
+.slidev-layout.cover,
+.slidev-layout.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-2xl);
+}
+.slidev-layout.cover h1 { font-size: calc(var(--step-6) * var(--display-scale)); }
+
+.slidev-layout.center {
+  text-align: center;
+}
+.slidev-layout.center ul { display: inline-block; text-align: left; }
+
+/* ── image-left / image-right — de teksthelft ────────────────────────
+   Daar landt de klasse (layouts-base). Verticaal gecentreerd, met de
+   padding van een gewone slide. */
+.slidev-layout.image-left,
+.slidev-layout.image-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-lg) var(--space-xl);
+}
+
+/* ── Haken voor layouts-base ─────────────────────────────────────────
+   De lijst rond een beeld, per register. Een `border` of `border-radius`
+   op een <img> met `object-fit: contain` grijpt het vak van het element,
+   niet het getoonde beeld (zie useContainBox in layouts-base/utils.ts).
+   Een `drop-shadow` volgt wél het getoonde beeld: de letterbox is
+   doorzichtig. Vier verschoven schaduwen van 1px maken een lijn die strak
+   om het beeld ligt, welke verhouding het ook heeft.
+
+     nouveau   een zachte groene gloed, geen harde rand
+     deco      een gouden haarlijn
+     messing   een koperen rand van twee pixels en een slagschaduw */
+.slidev-layout :is(.triptych-panel img, .detail-whole img, .detail-crop img,
+                  .paired-reveal-image img, .scale-panel img) {
+  filter: var(--image-frame);
+}
+/* Bij detail en paired-reveal staat er al een rand op het element zelf;
+   die zou naast de schaduwlijn een tweede, verkeerd passende lijst geven. */
+:is(.nouveau, .deco, .messing) :is(.detail-crop img, .paired-reveal-image img) {
+  border: none;
+}
+
+/* Bijschriften in de kleur van het register; de letter blijft mono. */
+:is(.nouveau, .deco, .messing) :is(.triptych-panel figcaption, .detail figcaption, .scale-panel figcaption) {
+  color: var(--color-text-quiet);
+}
+
+.slidev-layout.quadrants .quadrant { background: var(--color-bg-elevated); }
+.slidev-layout.quadrants .quadrant h3 { color: var(--color-accent); }
+
+/* ── Kaders voor de thema-eigen layouts ──────────────────────────────
+   Een <figure class="frame frame--deco"> met een <img> erin. Hier kan de
+   lijst wél op het vak, want deze layouts zetten het beeld met `cover`
+   in een vak dat ze zelf bepalen (tussenstand) of laten het vak het beeld
+   omsluiten (boven-beneden: hoogte vast, breedte uit de verhouding).
+
+     deco      getrapte hoeken, een gouden band van 3px — de setbacks van
+               een wolkenkrabber, symmetrisch
+     nouveau   asymmetrisch afgerond: één grote boog linksboven, een
+               kleinere rechtsonder, twee bijna rechte hoeken — Guimards
+               boog, Horta's ijzer; een groene lijn met een tweede lijn
+               erachter, op afstand
+     messing   een koperen rand met een klinknagel in elke hoek en een
+               harde slagschaduw, als een plaat op een ketel */
+.frame {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+}
+.frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frame--deco {
+  --step: 13px;
+  padding: 3px;
+  background: linear-gradient(160deg, var(--deco-heading), var(--deco-gold) 45%, var(--deco-rule));
+  clip-path: polygon(
+    0 calc(2 * var(--step)), var(--step) calc(2 * var(--step)), var(--step) var(--step),
+    calc(2 * var(--step)) var(--step), calc(2 * var(--step)) 0,
+    calc(100% - 2 * var(--step)) 0, calc(100% - 2 * var(--step)) var(--step),
+    calc(100% - var(--step)) var(--step), calc(100% - var(--step)) calc(2 * var(--step)),
+    100% calc(2 * var(--step)), 100% calc(100% - 2 * var(--step)),
+    calc(100% - var(--step)) calc(100% - 2 * var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
+    calc(100% - 2 * var(--step)) calc(100% - var(--step)), calc(100% - 2 * var(--step)) 100%,
+    calc(2 * var(--step)) 100%, calc(2 * var(--step)) calc(100% - var(--step)),
+    var(--step) calc(100% - var(--step)), var(--step) calc(100% - 2 * var(--step)),
+    0 calc(100% - 2 * var(--step)));
+}
+.frame--deco img {
+  --step: 12px;
+  clip-path: polygon(
+    0 calc(2 * var(--step)), var(--step) calc(2 * var(--step)), var(--step) var(--step),
+    calc(2 * var(--step)) var(--step), calc(2 * var(--step)) 0,
+    calc(100% - 2 * var(--step)) 0, calc(100% - 2 * var(--step)) var(--step),
+    calc(100% - var(--step)) var(--step), calc(100% - var(--step)) calc(2 * var(--step)),
+    100% calc(2 * var(--step)), 100% calc(100% - 2 * var(--step)),
+    calc(100% - var(--step)) calc(100% - 2 * var(--step)), calc(100% - var(--step)) calc(100% - var(--step)),
+    calc(100% - 2 * var(--step)) calc(100% - var(--step)), calc(100% - 2 * var(--step)) 100%,
+    calc(2 * var(--step)) 100%, calc(2 * var(--step)) calc(100% - var(--step)),
+    var(--step) calc(100% - var(--step)), var(--step) calc(100% - 2 * var(--step)),
+    0 calc(100% - 2 * var(--step)));
+}
+
+.frame--nouveau {
+  border-radius: 42% 0.6rem 20% 0.6rem / 34% 0.6rem 18% 0.6rem;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 2px var(--nouveau-green),
+    0 0 0 7px var(--nouveau-ground),
+    0 0 0 8px color-mix(in srgb, var(--nouveau-green) 50%, transparent),
+    0 0 26px 8px color-mix(in srgb, var(--nouveau-glow) 45%, transparent);
+}
+
+.frame--messing {
+  border: 3px solid var(--messing-copper);
+  box-shadow:
+    0 0 0 1px var(--messing-copper-dark),
+    7px 9px 0 color-mix(in srgb, black 55%, transparent);
+}
+.frame--messing::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.8px 3px, var(--messing-brass-dark) 3.4px, transparent 4px)
+      top left / 10px 10px no-repeat,
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.8px 3px, var(--messing-brass-dark) 3.4px, transparent 4px)
+      top right / 10px 10px no-repeat,
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.8px 3px, var(--messing-brass-dark) 3.4px, transparent 4px)
+      bottom left / 10px 10px no-repeat,
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.8px 3px, var(--messing-brass-dark) 3.4px, transparent 4px)
+      bottom right / 10px 10px no-repeat;
+}
+
+/* Het label van een register in zijn eigen letter, met zijn ornament
+   eronder — voor de koppen binnen een gesplitste slide. */
+.slidev-layout .register-label {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  text-transform: var(--display-transform);
+  letter-spacing: var(--display-tracking);
+  line-height: 1;
+  color: var(--color-heading);
+}
+.slidev-layout .nouveau .register-label,
+.slidev-layout .register-label.nouveau { font-size: 2.6rem; }
+.slidev-layout .deco .register-label,
+.slidev-layout .register-label.deco { font-size: 1.7rem; letter-spacing: 0.16em; }
+.slidev-layout .messing .register-label,
+.slidev-layout .register-label.messing { font-size: 1.8rem; }
+.slidev-layout .register-label::after {
+  content: '';
+  display: var(--rule-display);
+  width: 9rem;
+  aspect-ratio: var(--rule-ratio);
+  margin-top: 0.3em;
+  background-color: var(--color-accent);
+  -webkit-mask: var(--rule-mask) left center / contain no-repeat;
+          mask: var(--rule-mask) left center / contain no-repeat;
+}
+
+/* ── EINDE ───────────────────────────────────────────────────────────
+   De slotslide herhaalt de vraag van de titel; "Volgende keer" staat
+   eronder in mono. Gecentreerd, zoals de deco van de laatste beweging. */
+.slidev-layout.end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-xl) var(--space-2xl);
+}
+.slidev-layout.end h1 {
+  max-width: 16em;
+}
+.slidev-layout.end p {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+.slidev-layout.end p strong {
+  display: block;
+  margin-top: 0.6em;
+  font-family: var(--font-display);
+  font-style: var(--display-style);
+  text-transform: var(--display-transform);
+  letter-spacing: var(--display-tracking);
+  font-size: calc(var(--step-3) * var(--display-scale));
+  font-weight: var(--display-weight);
+  color: var(--color-heading);
+}
+
+/* ── Fragmenten ──────────────────────────────────────────────────────
+   Een `<CourseVideo>` in een `<div class="video-cta">`: de klikbare titel
+   groot, in de kleur van de koppen van het register, met een lijn in het
+   accent eronder. De speler zelf (de overlay) blijft die van layouts-base. */
+.slidev-layout .video-cta {
+  margin-top: var(--space-lg);
+  font-family: var(--font-sans);
+  font-size: var(--step-2);
+  font-weight: 400;
+  color: var(--color-heading);
+}
+.slidev-layout .video-cta button {
+  border-bottom-color: var(--color-accent);
+}
+.slidev-layout .video-cta + p {
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
