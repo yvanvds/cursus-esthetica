@@ -3,6 +3,8 @@ title: Kan een machine kunst maken?
 module: kunst-en-wetenschap
 order: 3
 figure: "12"
+accentColor: "#8fa9c4"
+customStyles: "fotografie.css"
 shortDescription: In 1839 stelde men de vraag voor het eerst — over de camera. Alles wat we vandaag over AI zeggen, is toen al één keer gezegd.
 image: /images/fotografie/daguerre-1.jpg
 figures:
@@ -103,6 +105,13 @@ videos:
 ---
 
 import TimedViewer from '../../components/interactive/TimedViewer.astro';
+import Develop from '../../components/themes/fotografie/Develop.astro';
+import SpecSheet from '../../components/base/SpecSheet.astro';
+
+<Develop
+  image={frontmatter.figures.daguerre.images[0]}
+  alt="De Boulevard du Temple van bovenaf, vanuit een hoog raam: een brede boulevard met bomen en huizenrijen, zonder koetsen of voetgangers. Op het trottoir linksonder staat één man die zijn schoenen laat poetsen."
+/>
 
 # Kan een machine kunst maken?
 
@@ -111,6 +120,8 @@ import TimedViewer from '../../components/interactive/TimedViewer.astro';
 Ergens tussen eind april en begin mei 1838 zette Louis Daguerre een camera voor het raam van zijn atelier en richtte hem op de Boulevard du Temple. Dit was niet zomaar een straat. Parijzenaars noemden haar de *Boulevard du Crime* — een straat vol schouwburgen, koetsen en voetgangers. En toch toont de plaat die Daguerre die ochtend maakte een [bijna lege straat](fig:daguerre).
 
 De verklaring zit in de chemie. Daguerres verzilverde koperplaat, gevoelig gemaakt met jodiumdampen en ontwikkeld met kwikdamp, had minutenlang licht nodig om een afbeelding te bewaren. Alles wat in die minuten bewoog — elke koets, elke wandelaar — loste op in het niets. Eén man bleef staan. Hij liet zijn schoenen poetsen, lang genoeg om als donkere vlek in de linkerbenedenhoek te stollen. Zo werd hij, per ongeluk en anoniem, de eerste mens op een foto. Niet omdat hij belangrijk was, maar omdat hij stilstond.
+
+<SpecSheet leaders items={["jaar: 1838", "plaat: verzilverde koperplaat", "gevoelig: jodiumdampen", "ontwikkeld: kwikdamp", "belichting: minutenlang"]} />
 
 Het eerste wat de fotografie ons leert, is dat een camera niet de werkelijkheid vastlegt, maar dat wat de techniek toelaat. De machine kijkt — en de machine selecteert, vervormt, wist. Vanaf de allereerste foto.
 
@@ -128,9 +139,13 @@ Maar terwijl de kritiek klonk, verloor de schilderkunst iets dat ze eeuwenlang v
 
 Palo Alto, Californië, 19 juni 1878. Langs een renbaan staan twaalf camera's op een rij, elk verbonden met een draad die over de baan gespannen is. De merrie Sallie Gardner galoppeert voorbij en breekt draad na draad; elke breuk opent een sluiter, telkens ongeveer een duizendste van een seconde. Eadweard Muybridge, de fotograaf die deze machine bouwde in opdracht van spoorwegmagnaat Leland Stanford, wilde een vraag beantwoorden die het menselijk oog niet kón beantwoorden: zweeft een galopperend paard ooit volledig in de lucht?
 
+<SpecSheet leaders items={["plaats: Palo Alto, Californië", "datum: 19 juni 1878", "camera's: twaalf", "sluiter: ongeveer een duizendste van een seconde"]} />
+
 [Het antwoord was ja](fig:muybridge) — maar anders dan iedereen dacht. Niet met gestrekte benen, zoals paarden al eeuwen op schilderijen afgebeeld werden, maar met de hoeven onder de buik gevouwen. De "zwevende galop" die schilders van generatie op generatie hadden doorgegeven, bestond gewoonweg niet. Hij verdween vrijwel meteen uit de schilderkunst.
 
 De Franse fysioloog Étienne-Jules Marey ging een stap verder. Marey was geen fotograaf maar een wetenschapper die hartslag en spierbeweging bestudeerde, en hij behandelde de camera als het volgende meetinstrument. In 1882 bouwde hij een *fusil photographique*, een fotografisch geweer waarmee hij vogels in volle vlucht "neerschoot" — twaalf beelden per seconde op een draaiende plaat. Daarna volgde zijn eigenlijke vondst: waar Muybridge beweging in losse frames hakte, legde Marey [meerdere fasen op één plaat](fig:marey), chronofotografie. Een springer verschijnt vijf, tien keer in hetzelfde beeld, als een uitgevouwen waaier van lichamen. Het resultaat is geen moment maar een analyse — bijna abstract, eerder een grafiek dan een foto. En dan begonnen kunstenaars mee te kijken. De futuristen schilderden snelheid als trillende herhaling. Marcel Duchamp — geen futurist, wel een aandachtige kijker — liet in *Nu descendant un escalier* (1912) een lichaam in fasen de trap af komen: chronofotografie, vertaald in verf.
+
+<SpecSheet leaders items={["toestel: fusil photographique", "jaar: 1882", "snelheid: twaalf beelden per seconde", "drager: draaiende plaat"]} />
 
 {/* COMPONENT KANDIDAAT: frame-scrubber voor de twaalf Muybridge-frames —
     sleep door de beelden en zie de galop ontleed; frames zijn publiek
