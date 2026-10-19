@@ -1,0 +1,17 @@
+---
+/*
+  GoldGround — the gold ground of the icon, around the one movement of
+  onderwerpen-en-themas that is about it: "Toen alleen het goddelijke mocht"
+  (#133), from its h2 to just before the next h2. The Pantocrator of Sinai
+  stands on gold, and for a thousand years only the divine was allowed a
+  painting; onderwerpen-en-themas.css draws a narrow vertical band in old gold
+  beside the column, over the height of this movement.
+
+  A plain wrapper, like Half in art-nouveau-en-deco: no props, no script. The
+  h2 sits inside it, so print.css's `.theme-body h2:first-of-type` would match
+  it and drop its page break; the stylesheet restores the break (issue #154).
+*/
+---
+<div class="gold-ground">
+  <slot />
+</div>
