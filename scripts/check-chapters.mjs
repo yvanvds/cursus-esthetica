@@ -24,14 +24,22 @@
 //      `:root`-blok geldt dus overal én verliest van tokens.css, dat met
 //      dezelfde selector later in de bundel staat. Elke regel hoort onder
 //      `html[data-theme="<id>"]`.
+//   7. geen beeld onder `public/images/` met een EXIF-oriëntatietag ≠ 1 (#70).
+//      De browser volgt die tag, maar elk gereedschap dat het beeld later
+//      verkleint of herschrijft zonder hem toe te passen, laat gedraaide
+//      pixels achter zonder tag. Zo zijn de beelden van #70 ontstaan: camera-
+//      JPEG's met oriëntatie 6 op Commons, bij het downloaden verkleind en van
+//      hun EXIF ontdaan. Een beeld hoort met rechtopstaande pixels in de repo
+//      te staan. Wat deze controle níet ziet, is precies die eindtoestand:
+//      gedraaide pixels zonder tag. Dat vangt alleen het oog.
 //
 // Aanroep: `npm run check:chapters` (alle hoofdstukken) of
 // `npm run check:chapters -- belgisch-experiment` (één of meer thema's).
 //
 // Exitcode 0 als alles klopt, 1 als er iets mis is.
 
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { closeSync, existsSync, openSync, readdirSync, readFileSync, readSync } from 'node:fs';
+import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
 
@@ -40,6 +48,7 @@ const projectRoot = resolve(scriptsDir, '..');
 const themesDir = join(projectRoot, 'src', 'content', 'themes');
 const themeStylesDir = join(projectRoot, 'src', 'styles', 'themes');
 const publicDir = join(projectRoot, 'public');
+const imagesDir = join(publicDir, 'images');
 
 // `[tekst](fig:key)` en `[tekst](video:key)`. De figuurvariant mag een query
 // dragen (`fig:key?icon=film`, zie src/lib/remark-figure-links.ts); die hoort
@@ -116,6 +125,103 @@ function rootSelectorLinesIn(css) {
     if (/:root\b/.test(line)) lines.push(index + 1);
   });
   return lines;
+}
+
+// ---- EXIF-oriëntatie (punt 7) ----
+// Een eigen lezer in plaats van sharp: sharp zit alleen transitief in het
+// project (een optionele dependency van astro), en voor één tag uit de kop van
+// een bestand is dat geen afhankelijkheid waard. De lezer herkent het formaat
+// aan de magische bytes, niet aan de extensie, en leest alleen de koppen van
+// de segmenten of chunks, niet de beelddata.
+
+function readAt(fd, position, length) {
+  const buffer = Buffer.alloc(Math.max(0, length));
+  return buffer.subarray(0, readSync(fd, buffer, 0, buffer.length, position));
+}
+
+// Tag 0x0112 uit IFD0 van een TIFF-blok (de vorm waarin EXIF in alle drie de
+// formaten zit), of null als hij ontbreekt.
+function orientationInTiff(tiff) {
+  if (tiff.length < 8) return null;
+  const order = tiff.toString('latin1', 0, 2);
+  if (order !== 'II' && order !== 'MM') return null;
+  const u16 = offset => (order === 'II' ? tiff.readUInt16LE(offset) : tiff.readUInt16BE(offset));
+  const u32 = offset => (order === 'II' ? tiff.readUInt32LE(offset) : tiff.readUInt32BE(offset));
+  const ifd = u32(4);
+  if (ifd + 2 > tiff.length) return null;
+  for (let i = 0, count = u16(ifd); i < count; i++) {
+    const entry = ifd + 2 + i * 12;
+    if (entry + 12 > tiff.length) break;
+    if (u16(entry) === 0x0112) return u16(entry + 8);
+  }
+  return null;
+}
+
+// JPEG: APP1-segment met `Exif\0\0`, vóór de start of scan.
+function exifOfJpeg(fd) {
+  for (let offset = 2; ; ) {
+    const head = readAt(fd, offset, 4);
+    if (head.length < 4 || head[0] !== 0xff) return null;
+    if (head[1] === 0xff) { offset++; continue; } // opvulbyte
+    if (head[1] === 0xda || head[1] === 0xd9) return null;
+    const length = head.readUInt16BE(2);
+    if (length < 2) return null;
+    if (head[1] === 0xe1) {
+      const payload = readAt(fd, offset + 4, length - 2);
+      if (payload.toString('latin1', 0, 6) === 'Exif\0\0') return payload.subarray(6);
+    }
+    offset += 2 + length;
+  }
+}
+
+// PNG: `eXIf`-chunk, waar ook vóór IEND.
+function exifOfPng(fd) {
+  for (let offset = 8; ; ) {
+    const head = readAt(fd, offset, 8);
+    if (head.length < 8) return null;
+    const length = head.readUInt32BE(0);
+    const type = head.toString('latin1', 4, 8);
+    if (type === 'eXIf') return readAt(fd, offset + 8, length);
+    if (type === 'IEND') return null;
+    offset += 12 + length;
+  }
+}
+
+// WebP: `EXIF`-chunk in de RIFF-container, soms met `Exif\0\0` ervoor.
+function exifOfWebp(fd) {
+  for (let offset = 12; ; ) {
+    const head = readAt(fd, offset, 8);
+    if (head.length < 8) return null;
+    const length = head.readUInt32LE(4);
+    if (head.toString('latin1', 0, 4) === 'EXIF') {
+      const payload = readAt(fd, offset + 8, length);
+      return payload.toString('latin1', 0, 6) === 'Exif\0\0' ? payload.subarray(6) : payload;
+    }
+    offset += 8 + length + (length % 2);
+  }
+}
+
+function exifOrientationOf(file) {
+  const fd = openSync(file, 'r');
+  try {
+    const magic = readAt(fd, 0, 12);
+    let tiff = null;
+    if (magic[0] === 0xff && magic[1] === 0xd8) tiff = exifOfJpeg(fd);
+    else if (magic.toString('latin1', 1, 4) === 'PNG') tiff = exifOfPng(fd);
+    else if (magic.toString('latin1', 0, 4) === 'RIFF' && magic.toString('latin1', 8, 12) === 'WEBP') tiff = exifOfWebp(fd);
+    return tiff ? orientationInTiff(tiff) : null;
+  } finally {
+    closeSync(fd);
+  }
+}
+
+function* imagesUnder(dir) {
+  const entries = readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
+  for (const entry of entries) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) yield* imagesUnder(path);
+    else if (/\.(jpe?g|png|webp)$/i.test(entry.name)) yield path;
+  }
 }
 
 const requested = process.argv.slice(2).filter(arg => !arg.startsWith('-'));
@@ -256,13 +362,47 @@ for (const file of stylesheets) {
   }
 }
 
+// ---- Beeldoriëntatie (punt 7) ----
+// Altijd over alle beelden: de mappen onder public/images/ lopen niet één op
+// één gelijk met de hoofdstuk-id's.
+const images = existsSync(imagesDir) ? [...imagesUnder(imagesDir)] : [];
+const orientationProblems = [];
+
+for (const file of images) {
+  const path = relative(projectRoot, file).split(sep).join('/');
+  let orientation;
+  try {
+    orientation = exifOrientationOf(file);
+  } catch (error) {
+    orientationProblems.push(`${path}: kop niet te lezen — ${error.message}`);
+    continue;
+  }
+  if (orientation !== null && orientation !== 1) {
+    orientationProblems.push(
+      `${path}: EXIF-oriëntatie ${orientation} — roteer de pixels (sharp().rotate() zonder argument) en schrijf zonder tag (#70)`
+    );
+  }
+}
+
 console.log('');
-if (chaptersWithProblems === 0 && stylesheetProblems === 0) {
+const imagesLabel = 'public/images/'.padEnd(28);
+console.log(
+  orientationProblems.length === 0
+    ? `${imagesLabel}  ${images.length} beeld(en), oriëntatie in orde`
+    : `${imagesLabel}  ${orientationProblems.length} probleem/problemen`
+);
+for (const problem of orientationProblems) {
+  console.log(`    ${problem}`);
+}
+
+console.log('');
+if (chaptersWithProblems === 0 && stylesheetProblems === 0 && orientationProblems.length === 0) {
   const aanvaardTotaal = Object.values(AANVAARD).flat().length;
+  const geheel = `Alle ${themes.length} hoofdstuk(ken), ${stylesheets.length} stylesheet(s) en ${images.length} beeld(en) in orde`;
   console.log(
     aanvaardTotaal === 0
-      ? `Alle ${themes.length} hoofdstuk(ken) en ${stylesheets.length} stylesheet(s) in orde.`
-      : `Alle ${themes.length} hoofdstuk(ken) en ${stylesheets.length} stylesheet(s) in orde — ${aanvaardTotaal} aanvaarde uitzondering(en), zie AANVAARD in dit script.`
+      ? `${geheel}.`
+      : `${geheel} — ${aanvaardTotaal} aanvaarde uitzondering(en), zie AANVAARD in dit script.`
   );
   process.exit(0);
 }
@@ -273,6 +413,9 @@ if (chaptersWithProblems > 0) {
 }
 if (stylesheetProblems > 0) {
   summary.push(`${stylesheetProblems} \`:root\` in src/styles/themes/`);
+}
+if (orientationProblems.length > 0) {
+  summary.push(`${orientationProblems.length} beeld(en) met een EXIF-oriëntatie ≠ 1 onder public/images/`);
 }
 console.log(`${summary.join('; ')}.`);
 process.exit(1);
