@@ -1,0 +1,76 @@
+/* src/styles/themes/fotografie.css
+
+   De pagina als plaat (#132). Het hoofdstuk begint bij de daguerreotype: een
+   verzilverde koperplaat die minutenlang licht nodig had, en een straat die
+   daardoor leeg lijkt. Vier elementen, allemaal in het zilverstaal van de
+   accent:
+
+     het negatief   Daguerres boulevard boven de h1 ontwikkelt van negatief
+                    naar positief wanneer hij in beeld komt (Develop.astro,
+                    met zijn eigen scoped stijl)
+     platen         `plaat I` tot `plaat VI` in mono boven elke beweging
+     de rand        een haarlijn boven de h1 en boven elke h2: de rand van
+                    de plaat
+     belichting     SpecSheets met leaders onder de bewegingen over de
+                    techniek (src/components/base/SpecSheet.astro); hun
+                    stippellijn staat op `--color-accent` en wordt vanzelf
+                    zilverstaal
+
+   De TimedViewer bij The Steerage verandert niet: zijn knop, teller en balk
+   staan al op `--color-accent`.
+
+   Geen eigen fonts, geen tokens-swap van de grond. Het zilverstaal (#8fa9c4)
+   staat in `accentColor:` in de frontmatter en wordt door ThemeLayout op
+   `html[data-theme]` gezet (#120). Contrast op de grond (#1a1a1a): 7.2.
+
+   Elke regel staat onder `html[data-theme="fotografie"]`: dit bestand zit in
+   de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120) en mag alleen
+   hier gelden. Een `:root`-blok is verboden — `npm run check:chapters` meldt
+   het. */
+
+/* ---- De rand van de plaat ----
+   Een haarlijn in de accent boven de h1 en boven elke h2, ook Bronnen, over
+   de volle kolombreedte. De h1 staat direct onder het bijschrift van het
+   kopbeeld; de lijn scheidt beeld en titel. */
+
+html[data-theme="fotografie"] .theme-body > h1,
+html[data-theme="fotografie"] .theme-body > h2 {
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-accent);
+}
+
+/* ---- De platen ----
+   Elke beweging krijgt boven haar kop een label in mono, `plaat I` tot
+   `plaat VI`, in de accent: de nummering van een reeks platen. Alleen de
+   directe h2's van `.theme-body`, de koppen van de MDX. Bronnen is de laatste
+   h2 (`:last-of-type`): geen label en telt niet mee, wel de haarlijn. */
+
+html[data-theme="fotografie"] .theme-body {
+  counter-reset: plaat;
+}
+
+html[data-theme="fotografie"] .theme-body > h2 {
+  counter-increment: plaat;
+}
+
+html[data-theme="fotografie"] .theme-body > h2::before {
+  content: 'plaat ' counter(plaat, upper-roman);
+  display: block;
+  width: max-content;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+html[data-theme="fotografie"] .theme-body > h2:last-of-type {
+  counter-increment: none;
+}
+
+html[data-theme="fotografie"] .theme-body > h2:last-of-type::before {
+  content: none;
+}

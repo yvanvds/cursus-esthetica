@@ -1,0 +1,139 @@
+---
+/*
+  Develop — the head image of fotografie as a plate that develops (#132).
+  Daguerre's Boulevard du Temple stands above the h1 as a negative and turns
+  positive once, over three seconds, when it comes into view: the chapter
+  opens on the plate that needed minutes of light.
+
+  In MDX, directly before the h1, with the first image of the `daguerre`
+  figure group from the frontmatter (src and caption stay in one place):
+
+    <Develop image={frontmatter.figures.daguerre.images[0]} alt="…" />
+
+  The negative start state hangs on `develop--js`, which the inline script
+  below sets synchronously, and only when the reader has not asked for
+  reduced motion. Without JS, under prefers-reduced-motion and in print the
+  plate is positive from the start. The module script adds
+  `develop--developed` when at least half of the figure is inside the scroll
+  root and the image has loaded, so the reader never watches an empty box
+  develop.
+
+  The filter goes from `invert(1) grayscale(1)` to `none`. Halfway (invert
+  0.5) every pixel is the same grey: the image fades out of the negative and
+  comes back up out of flat silver, as on a plate in the developer. The
+  easing is ease-in-out, so the grey moment is the shortest part.
+
+  The styles are scoped: the prose rules of ThemeLayout (`.theme-body img`,
+  margin and radius) sit in the cascade layer `layout`, and an unlayered
+  scoped rule wins over them whatever its specificity.
+*/
+interface Props {
+  image: { src: string; caption: string };
+  alt: string;
+}
+
+const { image, alt } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const src = image.src.startsWith('/') ? base + image.src : image.src;
+---
+
+<figure class="develop">
+  <img class="develop__plate" src={src} alt={alt} width="2000" height="1437" decoding="async" />
+  <figcaption class="develop__caption">{image.caption}</figcaption>
+</figure>
+<script is:inline>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.currentScript.previousElementSibling.classList.add('develop--js');
+  }
+</script>
+
+<script>
+  // On desktop the text column scrolls, not the window; it is then the root.
+  // On mobile the viewport is (root: null). Same test as LightSection.
+  const plates = [...document.querySelectorAll<HTMLElement>('.develop.develop--js')];
+
+  if (plates.length > 0) {
+    const container = document.querySelector<HTMLElement>('.theme-grid__content');
+    const scrollRoot =
+      container && getComputedStyle(container).overflowY === 'auto' ? container : null;
+
+    // Develop only once the image is there; a failed load still ends
+    // positive (the alt text and caption remain, without a negative state).
+    const develop = (figure: HTMLElement) => {
+      const img = figure.querySelector('img');
+      const go = () => figure.classList.add('develop--developed');
+      if (!img || img.complete) {
+        go();
+      } else {
+        img.addEventListener('load', go, { once: true });
+        img.addEventListener('error', go, { once: true });
+      }
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      plates.forEach(develop);
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            develop(entry.target as HTMLElement);
+            observer.unobserve(entry.target);
+          }
+        },
+        { root: scrollRoot, threshold: 0.5 },
+      );
+      plates.forEach((plate) => observer.observe(plate));
+    }
+  }
+</script>
+
+<style>
+  .develop {
+    margin: 0 0 var(--space-md);
+  }
+
+  .develop__plate {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  /* The negative: only with JS and without reduced motion (the inline
+     script). The transition sits on the developed state, so it runs on the
+     way to positive and never back. */
+  .develop--js .develop__plate {
+    filter: invert(1) grayscale(1);
+  }
+
+  .develop--js.develop--developed .develop__plate {
+    filter: none;
+    transition: filter 3s ease-in-out 0.4s;
+  }
+
+  .develop__caption {
+    margin-top: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    color: var(--color-text-quiet);
+  }
+
+  /* Also for a reader who switches reduced motion on after the inline
+     script ran: both states, so the developed rule cannot outrank it. */
+  @media (prefers-reduced-motion: reduce) {
+    .develop--js .develop__plate,
+    .develop--js.develop--developed .develop__plate {
+      filter: none;
+      transition: none;
+    }
+  }
+
+  @media print {
+    .develop--js .develop__plate {
+      filter: none;
+    }
+  }
+</style>
