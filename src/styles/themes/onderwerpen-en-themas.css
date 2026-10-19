@@ -1,0 +1,234 @@
+/* src/styles/themes/onderwerpen-en-themas.css
+
+   De rangorde van de genres als vorm (#133). Het hoofdstuk vraagt wat een
+   schilderij "verdient" en loopt de academische hiërarchie af, van het
+   goddelijke bovenaan tot de keuken en de polder onderaan, breekt ze bij het
+   anti-onderwerp en eindigt bij vandaag: alles. De pagina maakt die trap
+   zichtbaar en breekt ze op dezelfde plek als de tekst. Drie elementen:
+
+     ranglabels   `rang 1 · het goddelijke` tot `rang 4 · de politiek` in
+                  mono boven de koppen, `buiten de rangorde` boven het
+                  anti-onderwerp; de proloog, Vandaag en Bronnen zonder label
+     de trap      de h2's krimpen met hun rang: rang 1 op step-4 tot rang 4
+                  op step-1. Het anti-onderwerp springt terug naar step-3,
+                  cursief en uit de kolom geschoven; Vandaag staat op step-5,
+                  groter dan de h1
+     gouden grond een smalle band in oud goud naast de kolom, alleen bij Toen
+                  alleen het goddelijke mocht: de gouden achtergrond van het
+                  icoon (GoldGround.astro)
+
+   Geen eigen fonts: Fraunces op zes groottes is het hele idee. Geen
+   tokens-swap van de grond. De ultramarijn (#6f80f1) staat in `accentColor:`
+   in de frontmatter en wordt door ThemeLayout op `html[data-theme]` gezet
+   (#120): het pigment dat alleen het waardigste onderwerp kreeg, de mantel
+   van Maria. Verzadigd en iets violet (hsl 232° 82% 69%), weg van het
+   hemelsblauw van perspectief (#3b85ca, 209°) en het zilverstaal van
+   fotografie (#8fa9c4). Contrast op de grond (#1a1a1a): 5.0. Figuurlinks,
+   `em` en gewone links nemen de accent vanzelf over.
+
+   Elke regel staat onder `html[data-theme="onderwerpen-en-themas"]`: dit
+   bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120)
+   en mag alleen hier gelden. Een `:root`-blok is verboden — `npm run
+   check:chapters` meldt het. */
+
+/* ---- De schaal van de trap ----
+   Eén plek voor de groottes, zodat mobiel ze in één keer kan terugschalen.
+   Oud goud (#8a6d2f) is de grond van het icoon, niet het goud van
+   art-nouveau-en-deco (#c9a227): dieper en bruiner, bladgoud op een paneel.
+   Het draagt geen tekst. */
+
+html[data-theme="onderwerpen-en-themas"] {
+  --rank-1:     var(--step-4);
+  --rank-2:     var(--step-3);
+  --rank-3:     var(--step-2);
+  --rank-4:     var(--step-1);
+  --rank-out:   var(--step-3);
+  --rank-today: var(--step-5);
+
+  --color-gold-ground: #8a6d2f;
+  --gold-width: 4px;
+  --gold-gap:   6px;
+}
+
+/* ---- De ranglabels ----
+   Mono, klein, in de accent, boven de kop; dezelfde vorm als de platen van
+   fotografie (#132) en de Fig.-labels van instrumentontwikkeling (#129). Geen
+   teller: de rang is geen volgnummer, want het anti-onderwerp en Vandaag
+   tellen niet mee.
+
+   De koppen worden op hun id aangesproken: de slug die Astro uit de koptekst
+   maakt. Een tekstwijziging in een kop verandert de id en laat de regel stil
+   wegvallen; pas dan de selector hier mee aan. Afstammeling, niet direct
+   kind: de kop van rang 1 staat in de GoldGround-wrapper. */
+
+html[data-theme="onderwerpen-en-themas"] .theme-body :is(
+  h2[id="toen-alleen-het-goddelijke-mocht"],
+  h2[id="de-mens-en-de-mythe"],
+  h2[id="de-keuken-de-polder-de-kreeft"],
+  h2[id="politiek-wordt-schilderbaar"],
+  h2[id="het-anti-onderwerp"]
+)::before {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+/* ---- De trap ----
+   Hoe lager het onderwerp, hoe kleiner de kop. De proloog (Een muur in New
+   York, 1934) en Bronnen blijven gewone h2's op step-3. */
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="toen-alleen-het-goddelijke-mocht"] {
+  font-size: var(--rank-1);
+  line-height: 1.1;
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="toen-alleen-het-goddelijke-mocht"]::before {
+  content: 'rang 1 · het goddelijke';
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="de-mens-en-de-mythe"] {
+  font-size: var(--rank-2);
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="de-mens-en-de-mythe"]::before {
+  content: 'rang 2 · de mens en de mythe';
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="de-keuken-de-polder-de-kreeft"] {
+  font-size: var(--rank-3);
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="de-keuken-de-polder-de-kreeft"]::before {
+  content: 'rang 3 · het dagelijkse';
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="politiek-wordt-schilderbaar"] {
+  font-size: var(--rank-4);
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="politiek-wordt-schilderbaar"]::before {
+  content: 'rang 4 · de politiek';
+}
+
+/* Het anti-onderwerp breekt de reeks: terug naar step-3, cursief, en uit de
+   kolom geschoven, met label en al. Een marge en geen transform: de kop
+   wordt smaller en breekt eerder, en steekt nooit rechts uit de kolom
+   (geen horizontale scroll in `.theme-grid__content`). */
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="het-anti-onderwerp"] {
+  font-size: var(--rank-out);
+  font-style: italic;
+  margin-left: clamp(var(--space-md), 16%, 6rem);
+}
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="het-anti-onderwerp"]::before {
+  content: 'buiten de rangorde';
+}
+
+/* Vandaag: alles. Geen label, de grootste kop van de pagina. */
+
+html[data-theme="onderwerpen-en-themas"] .theme-body h2[id="vandaag-alles-niets-jij"] {
+  font-size: var(--rank-today);
+  line-height: 1.05;
+  margin-bottom: var(--space-md);
+}
+
+/* De h1 staat in ThemeLayout op step-4, en vanaf 1024px op step-5: daar
+   zou Vandaag even groot zijn als de titel. Op deze pagina blijft de h1 ook
+   op desktop op step-4, zodat Vandaag er bovenuit komt en de titel even hoog
+   staat als rang 1. Alleen op het scherm: op papier geldt print.css. */
+
+@media screen and (min-width: 1024px) {
+  html[data-theme="onderwerpen-en-themas"] .theme-body h1 {
+    font-size: var(--step-4);
+  }
+}
+
+/* Mobiel: dezelfde volgorde, de twee grootste stappen teruggeschaald. Op 390
+   breed: Vandaag 45.9px boven de h1 (39.8px), rang 1 33.8px boven rang 2
+   (27.6px). */
+
+@media (max-width: 639.98px) {
+  html[data-theme="onderwerpen-en-themas"] {
+    --rank-1:     calc(var(--step-4) * 0.85);
+    --rank-today: calc(var(--step-5) * 0.8);
+  }
+}
+
+/* ---- De gouden grond ----
+   Een smalle verticale band in oud goud naast de tekstkolom, over de hoogte
+   van de beweging: van het label van rang 1 tot de laatste alinea. De
+   wrapper heeft geen padding of rand, dus de bovenmarge van de h2 klapt erdoor
+   en de band begint bij het label. Hij staat in de goot links van de kolom,
+   zodat de tekst blijft staan waar hij stond:
+
+     mobiel   goot 16px   band 4px, 6px van de tekst
+     tablet   goot 24px   band 6px, 9px van de tekst
+     desktop  goot 40px   band 8px, 14px van de tekst
+
+   Op mobiel en tablet is de goot de padding van `.theme-grid`; desktop: zie
+   hieronder. De band vangt geen klikken. */
+
+html[data-theme="onderwerpen-en-themas"] .gold-ground {
+  position: relative;
+}
+
+html[data-theme="onderwerpen-en-themas"] .gold-ground::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: calc(100% + var(--gold-gap));
+  width: var(--gold-width);
+  background: var(--color-gold-ground);
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  html[data-theme="onderwerpen-en-themas"] {
+    --gold-width: 6px;
+    --gold-gap:   9px;
+  }
+}
+
+/* Desktop: `.theme-grid__content` is een scrollcontainer (overflow-y: auto
+   in ThemeLayout) en knipt alles af wat links buiten zijn rand valt. Zoals
+   in inleiding.css (#128), instrumentontwikkeling.css (#129) en
+   beweging-en-dynamiek.css (#130) schuift de container één goot naar links,
+   met evenveel padding: tekst en scrollbalk blijven waar ze waren, en de
+   goot hoort nu bij de container, waar de band staat. */
+
+@media (min-width: 1024px) {
+  html[data-theme="onderwerpen-en-themas"] {
+    --gold-width: 8px;
+    --gold-gap:   14px;
+  }
+
+  html[data-theme="onderwerpen-en-themas"] .theme-grid__content {
+    width: calc(100% + var(--space-lg));
+    max-width: calc(68ch + var(--space-lg));
+    margin-left: calc(-1 * var(--space-lg));
+    padding-left: var(--space-lg);
+  }
+}
+
+/* ---- Afdruk ----
+   print.css begint elke h2 op een nieuwe pagina, behalve
+   `.theme-body h2:first-of-type`. De kop van rang 1 is de eerste h2 in zijn
+   wrapper en zou zo zijn paginasprong verliezen (issue #154); alleen de
+   proloog, de eerste h2 van het hoofdstuk, hoort zonder sprong. De trap
+   blijft op papier staan; de band is een achtergrond en valt bij een gewone
+   afdruk weg. */
+
+@media print {
+  html[data-theme="onderwerpen-en-themas"] .gold-ground > h2:first-of-type {
+    break-before: page;
+    page-break-before: always;
+  }
+}
