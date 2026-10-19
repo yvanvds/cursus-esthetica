@@ -187,16 +187,16 @@ const needle = computed(() => {
 .slidev-layout.section.nouveau .orn-whiplash {
   display: block;
   left: 3%;
-  top: 15%;
+  top: 7%;
   width: 92%;
   color: var(--nouveau-green);
   fill: currentColor;
   transform: rotate(-4deg);
 }
 .slidev-layout.section.nouveau .section-body :deep(h1) {
-  font-size: calc(var(--step-6) * 1.25);
+  font-size: calc(var(--step-6) * 1.15);
   line-height: 0.95;
-  max-width: 11em;
+  max-width: 15em;
 }
 @media (prefers-reduced-motion: no-preference) {
   .slidev-layout.section.nouveau .orn-whiplash {
