@@ -59,9 +59,11 @@ the `work-issues` skill for the full procedure. In short:
 - Issue templates live in `.github/ISSUE_TEMPLATE/`; the label
   (`hoofdstuk`, `beeld`, `component`, `slides`, `redactie`, `site`) picks
   the working method and the branch name (`<label>/issue-<N>-<slug>`).
-- The gates are `npx astro check` and `npm run build` (site **and**
-  slides), plus a render check in `npm run dev` — there is no test suite.
-  `.github/workflows/pr-check.yml` runs the first two on every PR.
+- The gates are `npx astro check`, `npm run check:vue` (vue-tsc over the
+  Slidev layouts in `slides/theme/`, which `astro check` does not see) and
+  `npm run build` (site **and** slides), plus a render check in
+  `npm run dev` — there is no test suite.
+  `.github/workflows/pr-check.yml` runs the first three on every PR.
 - A merge to `main` deploys to GitHub Pages. There is no review step after
   the merge, so the review moments are the checkpoints *during* the work.
 - **`/work-batch` in this project means `/work-issues`.** The global

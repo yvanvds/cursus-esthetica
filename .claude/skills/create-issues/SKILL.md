@@ -139,8 +139,9 @@ delegeren:
   berekende waarden, screenshots van benoemde toestanden, de uitvoer van een
   commando. Benoem de faalmodus die geen foutmelding geeft en vraag het bewijs
   dat hij zich niet voordoet (zie `work-issues` § Bewijslast). Sluit af met de
-  gates: `npx astro check`, `npm run build`, en `npm run check:chapters` als
-  er frontmatter of beelden in het spel zijn.
+  gates: `npx astro check`, `npm run build`, `npm run check:chapters` als
+  er frontmatter of beelden in het spel zijn, en `npm run check:vue` als er
+  iets onder `slides/theme/` verandert.
 - **Zichtbaarheid** (bij `site`): ja of nee, en of er een ontwerp-checkpoint
   komt.
 

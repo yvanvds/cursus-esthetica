@@ -11,6 +11,7 @@
     "sync:videos": "node slides/sync-videos.mjs",
     "check:slides": "node slides/check-coverage.mjs",
     "check:chapters": "node scripts/check-chapters.mjs",
+    "check:vue": "vue-tsc --noEmit -p slides/tsconfig.json",
     "build:slides": "npm run sync:videos && node slides/build-all.mjs",
     "build": "npm run build:site && npm run build:slides",
     "preview": "astro preview",
@@ -49,6 +50,7 @@
     "@slidev/theme-default": "^0.25.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "unist-util-visit": "^5.1.0",
+    "vue-tsc": "^3.3.13",
     "yaml": "^2.9.0"
   }
 }
