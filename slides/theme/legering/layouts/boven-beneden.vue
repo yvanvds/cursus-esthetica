@@ -42,10 +42,19 @@
   `v-click`: de klas ziet eerst alleen boven, en daalt dan af. Twee takken
   in de template, omdat `v-click` geen waarde kent die hem uitschakelt
   (zelfde reden als in triptych.vue). Beeldpaden door `resolveAsset`.
+
+  `magnify: true` (#170): klik 1 zet het beeld boven groot, klik 2 het beeld
+  beneden, zonder label en bijschrift, met het andere als strook aan de rand;
+  klik 3 keert terug naar beide helften. Elk beeld beweegt als zijn eigen
+  helft (registerklasse op het vergrote kader: deco boven, nouveau beneden).
+  Gedeeld met triptych: `useMagnify` en MagnifyLayer uit layouts-base.
+  `magnify` vervangt `reveal`.
 -->
 <script setup lang="ts">
 import { computed, useSlots } from 'vue'
-import { resolveAsset } from '../../layouts-base/utils'
+import { resolveAsset, useMagnify } from '../../layouts-base/utils'
+import type { MagnifyItem } from '../../layouts-base/utils'
+import MagnifyLayer from '../../layouts-base/parts/MagnifyLayer.vue'
 
 interface Half {
   image?: string
@@ -58,8 +67,9 @@ const props = withDefaults(
     top?: Half
     bottom?: Half
     reveal?: boolean
+    magnify?: boolean
   }>(),
-  { top: () => ({}), bottom: () => ({}), reveal: false },
+  { top: () => ({}), bottom: () => ({}), reveal: false, magnify: false },
 )
 
 const slots = useSlots()
@@ -74,12 +84,19 @@ function half(h: Half, fallback: string) {
 }
 const boven = computed(() => half(props.top, 'boven'))
 const beneden = computed(() => half(props.bottom, 'beneden'))
+
+/* Alleen de helften met een beeld; de index is die van de bron in de slide. */
+const magnifyItems = computed<MagnifyItem[]>(() => [
+  ...(props.top.image ? [{ src: props.top.image, alt: boven.value.caption, register: 'deco' }] : []),
+  ...(props.bottom.image ? [{ src: props.bottom.image, alt: beneden.value.caption, register: 'nouveau' }] : []),
+])
+const { active, rootAttrs } = useMagnify(() => props.magnify, () => magnifyItems.value.length)
 </script>
 
 <template>
-  <div class="slidev-layout boven-beneden">
+  <div class="slidev-layout boven-beneden" v-bind="rootAttrs">
     <section class="bb-band bb-band--boven deco">
-      <figure v-if="boven.src" class="frame frame--deco bb-frame">
+      <figure v-if="boven.src" class="frame frame--deco bb-frame" :data-magnify-source="magnify ? 0 : undefined">
         <img :src="boven.src" :alt="boven.caption" />
       </figure>
       <div class="bb-text">
@@ -92,7 +109,7 @@ const beneden = computed(() => half(props.bottom, 'beneden'))
       <div v-if="hasSeam" class="bb-ground-text"><slot /></div>
     </div>
 
-    <template v-if="reveal">
+    <template v-if="reveal && !magnify">
       <section v-click class="bb-band bb-band--beneden nouveau">
         <div class="bb-text">
           <p class="register-label">{{ beneden.label }}</p>
@@ -109,11 +126,17 @@ const beneden = computed(() => half(props.bottom, 'beneden'))
           <p class="register-label">{{ beneden.label }}</p>
           <p v-if="beneden.caption" class="bb-caption">{{ beneden.caption }}</p>
         </div>
-        <figure v-if="beneden.src" class="frame frame--nouveau bb-frame">
+        <figure
+          v-if="beneden.src"
+          class="frame frame--nouveau bb-frame"
+          :data-magnify-source="magnify ? (boven.src ? 1 : 0) : undefined"
+        >
           <img :src="beneden.src" :alt="beneden.caption" />
         </figure>
       </section>
     </template>
+
+    <MagnifyLayer v-if="magnify" :items="magnifyItems" :active="active" />
   </div>
 </template>
 

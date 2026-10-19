@@ -778,6 +778,222 @@
           mask: var(--rule-mask) left center / contain no-repeat;
 }
 
+/* ── Inzoomen per klik (`magnify: true`, #170) ───────────────────────
+   Het mechanisme komt uit layouts-base (useMagnify, parts/MagnifyLayer):
+   klik 1 … n zet één beeld groot, klik n + 1 keert terug. Hier staat alleen
+   hoe het beweegt en welk kader het vergrote beeld draagt. Alles als tokens
+   op de drie registers (zie de kop van het registerblok: het binnenste
+   register wint), zodat op de tussenstand en boven-beneden elk beeld
+   beweegt als zijn eigen helft — de layout zet daar het register op het
+   vergrote kader zelf.
+
+     nouveau   groeit zacht uit zijn plek in het overzicht, schiet licht
+               door en zakt terug (820 ms); de groene lijn eromheen rondt
+               mee af naarmate het beeld opengaat, als een knop die opengaat
+     deco      vouwt open vanuit de middenas: eerst een verticale lijn,
+               dan symmetrisch naar links en rechts (520 ms), met het
+               getrapte gouden kader; terug vouwt het weer dicht
+     messing   ratelt in zes schokken van zijn plek naar het podium, in een
+               messing loepring met klinknagels; het tandwiel in de hoek
+               draait per klik één tand (een veertiende slag)
+
+   Het kader ligt búíten het beeld (`--magnify-bleed`): ::before is de ring,
+   ::after de binnenrand ertussen. Het beeld zelf wordt niet bijgesneden —
+   daarom geen getrapte hoeken op het beeld zoals bij `.frame--deco`, maar
+   een passe-partout met de trap erin. Waarom geen `transform` die op een
+   schaal eindigt: zie de kop van MagnifyLayer.vue (scherpte). */
+:root {
+  --magnify-inset:       1.5rem;
+  --magnify-strip-width: 5rem;
+  --magnify-strip-gap:   1.5rem;
+  --magnify-thumb-dim:   0.42;
+
+  /* De trap van de deco-lijst, als clip-path op een doos: treden van 8px.
+     Ring (::before) en binnenrand (::after) gebruiken dezelfde vorm op hun
+     eigen doos, 3px uit elkaar; zo blijft de gouden band overal 3px. */
+  --legering-step-clip: polygon(
+    0 16px, 8px 16px, 8px 8px, 16px 8px, 16px 0,
+    calc(100% - 16px) 0, calc(100% - 16px) 8px, calc(100% - 8px) 8px, calc(100% - 8px) 16px, 100% 16px,
+    100% calc(100% - 16px), calc(100% - 8px) calc(100% - 16px), calc(100% - 8px) calc(100% - 8px),
+    calc(100% - 16px) calc(100% - 8px), calc(100% - 16px) 100%,
+    16px 100%, 16px calc(100% - 8px), 8px calc(100% - 8px), 8px calc(100% - 16px), 0 calc(100% - 16px));
+}
+
+.nouveau {
+  --magnify-keyframes:       layouts-base-magnify-grow;
+  --magnify-duration:        820ms;
+  --magnify-easing:          cubic-bezier(0.34, 1.3, 0.64, 1);
+  --magnify-leave-keyframes: layouts-base-magnify-shrink;
+  --magnify-leave-duration:  440ms;
+  --magnify-leave-easing:    cubic-bezier(0.5, 0, 0.75, 0);
+  --magnify-fade-duration:   520ms;
+  --magnify-fade-easing:     ease;
+  --magnify-bleed:           12px;
+
+  --magnify-ring-bg:     none;
+  --magnify-ring-clip:   none;
+  --magnify-ring-width:  0px;
+  --magnify-ring-shadow:
+    0 0 0 2px var(--nouveau-green),
+    0 0 0 7px var(--nouveau-ground),
+    0 0 0 8px color-mix(in srgb, var(--nouveau-green) 50%, transparent),
+    0 0 26px 8px color-mix(in srgb, var(--nouveau-glow) 45%, transparent);
+  /* Eén grote boog linksboven, een kleinere rechtsonder (de vorm van
+     `.frame--nouveau`). Hooguit 2.5rem: bij 12px ruimte raakt een grotere
+     boog de hoek van het beeld. */
+  --magnify-ring-tl:     2.5rem;
+  --magnify-ring-tr:     0.4rem;
+  --magnify-ring-br:     1.5rem;
+  --magnify-ring-bl:     0.4rem;
+  --magnify-lip-bg:      none;
+  --magnify-lip-clip:    none;
+  --magnify-lip-radius:  0px;
+  --magnify-lip-shadow:  none;
+}
+
+.deco {
+  --magnify-keyframes:       legering-magnify-unfold;
+  --magnify-duration:        520ms;
+  --magnify-easing:          cubic-bezier(0.65, 0, 0.35, 1);
+  --magnify-leave-keyframes: legering-magnify-fold;
+  --magnify-leave-duration:  340ms;
+  --magnify-leave-easing:    cubic-bezier(0.65, 0, 0.35, 1);
+  --magnify-fade-duration:   300ms;
+  --magnify-fade-easing:     linear;
+  --magnify-bleed:           12px;
+
+  --magnify-ring-bg:     linear-gradient(160deg, var(--deco-heading), var(--deco-gold) 45%, var(--deco-rule));
+  --magnify-ring-clip:   var(--legering-step-clip);
+  --magnify-ring-width:  3px;
+  --magnify-ring-shadow: none;
+  --magnify-ring-tl:     0px;
+  --magnify-ring-tr:     0px;
+  --magnify-ring-br:     0px;
+  --magnify-ring-bl:     0px;
+  --magnify-lip-bg:      var(--deco-ground);
+  --magnify-lip-clip:    var(--legering-step-clip);
+  --magnify-lip-radius:  0px;
+  --magnify-lip-shadow:  none;
+}
+
+.messing {
+  --magnify-keyframes:       layouts-base-magnify-grow;
+  --magnify-duration:        720ms;
+  --magnify-easing:          steps(6, jump-end);
+  --magnify-leave-keyframes: layouts-base-magnify-shrink;
+  --magnify-leave-duration:  480ms;
+  --magnify-leave-easing:    steps(4, jump-start);
+  --magnify-fade-duration:   360ms;
+  --magnify-fade-easing:     steps(3, jump-end);
+  --magnify-bleed:           14px;
+
+  /* De loepring: messing met een glans die rondloopt, vier klinknagels op
+     het midden van elke zijde, een donkere rand en een harde slagschaduw,
+     zoals de koperen platen elders in dit register. */
+  --magnify-ring-bg:
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.6px 2.4px, var(--messing-brass-dark) 2.8px, transparent 3.3px)
+      top 0.5px center / 7px 7px no-repeat,
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.6px 2.4px, var(--messing-brass-dark) 2.8px, transparent 3.3px)
+      bottom 0.5px center / 7px 7px no-repeat,
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.6px 2.4px, var(--messing-brass-dark) 2.8px, transparent 3.3px)
+      left 0.5px center / 7px 7px no-repeat,
+    radial-gradient(circle, var(--messing-brass-hi) 0 1px, var(--messing-brass) 1.6px 2.4px, var(--messing-brass-dark) 2.8px, transparent 3.3px)
+      right 0.5px center / 7px 7px no-repeat,
+    conic-gradient(from 210deg, var(--messing-brass-dark), var(--messing-brass-hi) 12%, var(--messing-brass) 25%,
+      var(--messing-copper-dark) 45%, var(--messing-brass) 62%, var(--messing-brass-hi) 75%, var(--messing-brass-dark));
+  --magnify-ring-clip:   none;
+  --magnify-ring-width:  8px;
+  --magnify-ring-shadow:
+    0 0 0 1px var(--messing-brass-dark),
+    6px 8px 0 color-mix(in srgb, black 55%, transparent);
+  --magnify-ring-tl:     18px;
+  --magnify-ring-tr:     18px;
+  --magnify-ring-br:     18px;
+  --magnify-ring-bl:     18px;
+  --magnify-lip-bg:      var(--messing-elevated);
+  --magnify-lip-clip:    none;
+  --magnify-lip-radius:  10px;
+  --magnify-lip-shadow:  inset 0 0 0 1px var(--messing-brass-dark), inset 2px 3px 6px color-mix(in srgb, black 60%, transparent);
+}
+
+/* Het kader rond het vergrote beeld, uit de tokens hierboven. De boog van
+   de ring groeit met `--magnify-open` mee (0 → 1 tijdens het inzoomen,
+   layouts-base); in nouveau is dat de knop die opengaat, in messing
+   klikt hij in dezelfde schokken mee. */
+.magnify-frame::before,
+.magnify-frame::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+.magnify-frame::before {
+  inset: calc(-1 * var(--magnify-bleed, 0px));
+  background: var(--magnify-ring-bg, none);
+  clip-path: var(--magnify-ring-clip, none);
+  box-shadow: var(--magnify-ring-shadow, none);
+  border-radius:
+    calc(var(--magnify-ring-tl, 0px) * var(--magnify-open))
+    calc(var(--magnify-ring-tr, 0px) * var(--magnify-open))
+    calc(var(--magnify-ring-br, 0px) * var(--magnify-open))
+    calc(var(--magnify-ring-bl, 0px) * var(--magnify-open));
+}
+.magnify-frame::after {
+  inset: calc(var(--magnify-ring-width, 0px) - var(--magnify-bleed, 0px));
+  background: var(--magnify-lip-bg, none);
+  clip-path: var(--magnify-lip-clip, none);
+  box-shadow: var(--magnify-lip-shadow, none);
+  border-radius: calc(var(--magnify-lip-radius, 0px) * var(--magnify-open));
+}
+
+/* Deco: openvouwen langs de middenas. Eerst groeit een lijn van 2px uit
+   het midden naar boven en beneden, dan gaan beide helften symmetrisch
+   open. De clip reikt 40px buiten het beeld, zodat het kader meekomt.
+   Geen transform: het beeld staat de hele tijd op zijn echte maat. */
+@keyframes legering-magnify-unfold {
+  from {
+    clip-path: polygon(calc(50% - 1px) 50%, calc(50% + 1px) 50%, calc(50% + 1px) 50%, calc(50% - 1px) 50%);
+  }
+  38% {
+    clip-path: polygon(calc(50% - 1px) -40px, calc(50% + 1px) -40px,
+                       calc(50% + 1px) calc(100% + 40px), calc(50% - 1px) calc(100% + 40px));
+  }
+  to {
+    clip-path: polygon(-40px -40px, calc(100% + 40px) -40px,
+                       calc(100% + 40px) calc(100% + 40px), -40px calc(100% + 40px));
+  }
+}
+@keyframes legering-magnify-fold {
+  from {
+    opacity: 1;
+    clip-path: polygon(-40px -40px, calc(100% + 40px) -40px,
+                       calc(100% + 40px) calc(100% + 40px), -40px calc(100% + 40px));
+  }
+  85% { opacity: 1; }
+  to {
+    opacity: 0;
+    clip-path: polygon(calc(50% - 1px) -40px, calc(50% + 1px) -40px,
+                       calc(50% + 1px) calc(100% + 40px), calc(50% - 1px) calc(100% + 40px));
+  }
+}
+
+/* De strook: het actieve beeld in de kleur van het register; in nouveau
+   met de boog van de lijst. */
+.nouveau .magnify-thumb.is-active { border-radius: 0.6rem 0.15rem 0.4rem 0.15rem; }
+
+/* Messing: het tandwiel in de hoek draait per klik één tand verder,
+   bovenop zijn trage draai (`rotate` telt op bij de `transform` van de
+   animatie). Veertien tanden, dus 360° / 14 per stap; terugklikken draait
+   terug. Het klikt vast met een korte terugslag, als een pal. */
+.slidev-layout.messing[data-magnify]::after {
+  rotate: calc(var(--magnify-step, 0) * 360deg / 14);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slidev-layout.messing[data-magnify]::after {
+    transition: rotate 380ms cubic-bezier(0.3, 1.7, 0.55, 1);
+  }
+}
+
 /* ── EINDE ───────────────────────────────────────────────────────────
    De slotslide herhaalt de vraag van de titel; "Volgende keer" staat
    eronder in mono. Gecentreerd, zoals de deco van de laatste beweging. */

@@ -9,6 +9,8 @@
      layout: breathe        (full-bleed beeld op een ademende grond)
      layout: scale          (beelden op één rij als schaal, met een as eronder)
      layout: spotlight      (één beeld, per klik licht een zone op)
+   plus het inzoomen per klik (`magnify: true`) dat triptych, compare,
+   detail en thema-layouts delen — zie MAGNIFY onderaan.
 
    Geen kleuren of fonts hier — alleen layout. Het thema levert tokens:
      --color-text, --color-text-quiet, --color-rule (optioneel),
@@ -581,4 +583,155 @@
   line-height: 1.4;
   color: var(--color-text);
   background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+}
+
+/* ── MAGNIFY — per klik één beeld groot (`magnify: true`, #170) ───────
+     Gedeeld door triptych, compare, detail en elke thema-layout die
+     parts/MagnifyLayer.vue gebruikt. De layout zet `data-magnify="k"` op
+     zijn root (k = het vergrote beeld, 0 = overzicht) en `--magnify-step`
+     (de klikstand, 0 … n + 1). Zonder `magnify` staat geen van beide er,
+     en raakt niets hieronder de slide.
+
+     Alleen vorm en een neutrale beweging. Het thema stuurt met tokens, die
+     op het kader erven van de slide (of van een registerklasse op het
+     kader zelf, zie MagnifyItem.register):
+       --magnify-keyframes, --magnify-duration, --magnify-easing   inzoomen
+       --magnify-leave-keyframes, -duration, -easing               uitzoomen
+       --magnify-fade-duration, --magnify-fade-easing   overzicht en strook
+       --magnify-inset          afstand tot de rand van de slide
+       --magnify-bleed          ruimte rond het beeld voor een kader
+       --magnify-strip-width, --magnify-strip-gap, --magnify-thumb-dim
+     De keyframes lezen --magnify-dx / -dy / -s: de plek waar het beeld
+     vandaan komt (inzoomen) of naartoe gaat (uitzoomen), gezet door de
+     laag. --magnify-open loopt van 0 naar 1 met de beweging mee, voor een
+     kader dat meegroeit. ──────────────────────────────────────────── */
+@property --magnify-open {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+.slidev-layout[data-magnify] {
+  position: relative;
+}
+/* Het overzicht wijkt voor het vergrote beeld: kop, beelden, bijschriften. */
+.slidev-layout[data-magnify] > :not(.magnify-layer) {
+  transition: opacity var(--magnify-fade-duration, 300ms) var(--magnify-fade-easing, ease);
+}
+.slidev-layout[data-magnify]:not([data-magnify="0"]) > :not(.magnify-layer) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.magnify-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.magnify-stage {
+  position: absolute;
+  top: calc(var(--magnify-inset, var(--space-md, 1.5rem)) + var(--magnify-bleed, 0px));
+  bottom: calc(var(--magnify-inset, var(--space-md, 1.5rem)) + var(--magnify-bleed, 0px));
+  left: calc(var(--magnify-inset, var(--space-md, 1.5rem)) + var(--magnify-bleed, 0px));
+  right: calc(var(--magnify-inset, var(--space-md, 1.5rem)) + var(--magnify-strip-width, 5.5rem)
+              + var(--magnify-strip-gap, var(--space-md, 1.5rem)) + var(--magnify-bleed, 0px));
+}
+.magnify-frame {
+  position: absolute;
+  margin: 0;
+  isolation: isolate;
+  transform-origin: 50% 50%;
+  visibility: hidden;
+  opacity: 0;
+}
+.magnify-frame.is-active {
+  visibility: visible;
+  opacity: 1;
+  z-index: 2;
+}
+.magnify-frame.is-leaving {
+  z-index: 1;
+}
+.magnify-window {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.magnify-window img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  max-height: none;
+}
+
+/* De strook: alle beelden klein aan de rechterrand, het vergrote
+   gemarkeerd. Rechts en niet onder: een slide is 16:9, dus de hoogte is
+   bijna altijd de krappe maat, en een staande kolom kost het beeld dan
+   niets. */
+.magnify-strip {
+  position: absolute;
+  top: var(--magnify-inset, var(--space-md, 1.5rem));
+  bottom: var(--magnify-inset, var(--space-md, 1.5rem));
+  right: var(--magnify-inset, var(--space-md, 1.5rem));
+  width: var(--magnify-strip-width, 5.5rem);
+  opacity: 0;
+  transform: translateX(1rem);
+  transition:
+    opacity var(--magnify-fade-duration, 300ms) var(--magnify-fade-easing, ease),
+    transform var(--magnify-fade-duration, 300ms) var(--magnify-fade-easing, ease);
+}
+.magnify-layer.is-open .magnify-strip {
+  opacity: 1;
+  transform: none;
+}
+.magnify-thumb {
+  position: absolute;
+  opacity: var(--magnify-thumb-dim, 0.4);
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition: opacity 200ms ease, outline-color 200ms ease;
+}
+.magnify-thumb.is-active {
+  opacity: 1;
+  outline-color: var(--color-accent, currentColor);
+}
+
+/* De neutrale beweging: het beeld groeit uit zijn plek in het overzicht
+   (of in de strook) naar zijn plek op het podium, en krimpt terug. */
+@keyframes layouts-base-magnify-grow {
+  from {
+    transform: translate(var(--magnify-dx, 0px), var(--magnify-dy, 0px)) scale(var(--magnify-s, 0.92));
+    --magnify-open: 0;
+  }
+  to {
+    transform: none;
+    --magnify-open: 1;
+  }
+}
+@keyframes layouts-base-magnify-shrink {
+  from { opacity: 1; --magnify-open: 1; }
+  60%  { opacity: 1; }
+  to {
+    transform: translate(var(--magnify-dx, 0px), var(--magnify-dy, 0px)) scale(var(--magnify-s, 0.92));
+    opacity: 0;
+    --magnify-open: 0;
+  }
+}
+
+/* `backwards`, niet `both`: na de animatie geldt de gewone stijl
+   (`transform: none`), zodat het beeld op zijn echte maat gerasterd wordt. */
+@media (prefers-reduced-motion: no-preference) {
+  .magnify-layer.is-live .magnify-frame.is-active {
+    animation: var(--magnify-keyframes, layouts-base-magnify-grow)
+               var(--magnify-duration, 450ms)
+               var(--magnify-easing, cubic-bezier(0.2, 0.7, 0.2, 1)) backwards;
+  }
+  .magnify-layer.is-live .magnify-frame.is-leaving {
+    visibility: visible;
+    animation: var(--magnify-leave-keyframes, layouts-base-magnify-shrink)
+               var(--magnify-leave-duration, 300ms)
+               var(--magnify-leave-easing, cubic-bezier(0.4, 0, 1, 1)) forwards;
+  }
 }

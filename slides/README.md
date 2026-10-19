@@ -72,6 +72,63 @@ custom properties op `:root` definiëren wil het addon correct renderen:
 | `--space-sm`, `--space-md`, `--space-lg`, `--space-xl` | gaps en padding |
 | `--font-mono`, `--step--1` | meta-regel in quadrant, bijschriften in triptych en detail, labels in duet |
 | `--breathe-from`, `--breathe-to` *(optioneel)* | begin- en eindkleur van de grond onder `layout: breathe`; optioneel `--breathe-via-1` / `--breathe-via-2` voor de tussenstanden en `--breathe-duration` (standaard 75s). Zonder deze tokens staat de grond stil op `--color-bg` — geen effect in plaats van een verkeerd effect |
+| `--magnify-*` *(optioneel)* | de beweging en maat van het inzoomen (`magnify: true`, zie hieronder); zonder deze tokens een neutrale groei van 450 ms |
+
+### Inzoomen per klik: `magnify: true`
+
+Op een slide met meer dan één beeld zet `magnify: true` in de frontmatter elk
+beeld om de beurt groot (#170). Het werkt op `triptych`, `compare` en `detail`,
+en op elke thema-layout die het gedeelde stuk gebruikt (in `legering`:
+`vitrine`, `tussenstand`, `boven-beneden`).
+
+```yaml
+---
+layout: triptych
+class: deco
+magnify: true
+images: [ … ]
+captions: [ … ]
+---
+```
+
+- **Klik 0** — het overzicht, zoals zonder `magnify`.
+- **Klik 1 … n** — beeld k zo groot als de slide toelaat (`contain`, niets
+  bijgesneden), zonder bijschrift; de andere beelden staan als smalle strook
+  aan de rechterrand, het vergrote gemarkeerd.
+- **Klik n + 1** — terug naar het overzicht. Een `v-click` in de slot-inhoud
+  komt daarna (op de tussenstand: de vraag op klik 4).
+
+De sleutel heet niet `zoom`: die naam is van Slidev zelf (`zoom: 0.8` schaalt de
+inhoud van een slide). `magnify` vervangt `reveal`; staan ze allebei aan, dan
+staat het overzicht er meteen volledig. Een slide zonder `magnify` verandert
+niet: geen extra klikken, geen extra DOM.
+
+Het mechanisme zit in `layouts-base`: `useMagnify` in `utils.ts` (klikstappen,
+registratie via `useOwnClicks` met `leading`, de staat) en
+`parts/MagnifyLayer.vue` (het vergrote beeld, de strook, de beweging). De layout
+zet `data-magnify="k"` op zijn root (k = het vergrote beeld, `0` = overzicht) en
+`--magnify-step` (de klikstand); een eigen layout markeert de plek van beeld i
+in het overzicht met `data-magnify-source="i"`, zodat het beeld daaruit groeit.
+
+Hoe het beweegt bepaalt het thema, met tokens die op het vergrote kader erven
+(van de slide, of van een registerklasse op het kader zelf):
+
+| Token | Standaard | Waarvoor |
+|---|---|---|
+| `--magnify-keyframes`, `--magnify-duration`, `--magnify-easing` | `layouts-base-magnify-grow`, 450ms, ease-out | inzoomen; de keyframes lezen `--magnify-dx` / `-dy` / `-s`, de plek waar het beeld vandaan komt, en zetten `--magnify-open` van 0 naar 1 |
+| `--magnify-leave-keyframes`, `-duration`, `-easing` | `layouts-base-magnify-shrink`, 300ms, ease-in | uitzoomen, naar de strook of terug naar het overzicht |
+| `--magnify-fade-duration`, `--magnify-fade-easing` | 300ms, ease | het overzicht dat wijkt, de strook die inschuift |
+| `--magnify-inset` | `--space-md` | afstand tot de rand van de slide |
+| `--magnify-bleed` | 0px | ruimte rond het beeld voor een kader dat het thema tekent |
+| `--magnify-strip-width`, `--magnify-strip-gap` | 5.5rem, `--space-md` | de strook |
+| `--magnify-thumb-dim` | 0.4 | dekking van de niet-actieve kleine beelden |
+
+Een animatie eindigt altijd op `transform: none` (fill `backwards`): het beeld
+staat op zijn echte maat in de DOM en wordt na de beweging op die maat
+gerasterd, dus het blijft niet wazig zoals een vergroting die op `scale()`
+eindigt. `legering` zet per register eigen keyframes en een kader rond het
+vergrote beeld (`--magnify-ring-*`, `--magnify-lip-*`); zie het blok *Inzoomen
+per klik* in `theme/legering/styles/layout.css`.
 
 Het basis-tokenset (`--color-bg`, `--color-text`, typografie-stapel,
 spacing-stapel, `--step-*`, `--slidev-*`-hooks) hoort sowieso in elk thema —

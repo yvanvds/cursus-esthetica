@@ -16,24 +16,33 @@
       - /cursus-esthetica/images/perspectief/klint-3.png
     captions: [installatiezicht, 'nr 7', 'nr 1']   # optioneel
     reveal: true                                   # optioneel: één per klik
+    magnify: true                                  # optioneel: per klik één groot
     ---
 
     ## Optionele titel
 
   Werkt met twee, drie of vier beelden — de rij verdeelt de breedte gelijk.
   `captions` mag korter zijn dan `images`; ontbrekende bijschriften blijven leeg.
+
+  `magnify: true` (#170): klik 1 … n zet beeld k zo groot als de slide toelaat,
+  zonder bijschrift, met de andere als strook aan de rand; klik n + 1 keert
+  terug naar het overzicht. Zie `useMagnify` in ../utils en
+  ../parts/MagnifyLayer.vue. `magnify` vervangt `reveal`: staan ze allebei aan,
+  dan staat het overzicht er meteen volledig.
 -->
 <script setup lang="ts">
 import { computed, useSlots } from 'vue'
-import { resolveAsset } from '../utils'
+import { resolveAsset, useMagnify } from '../utils'
+import MagnifyLayer from '../parts/MagnifyLayer.vue'
 
 const props = withDefaults(
   defineProps<{
     images?: string[]
     captions?: string[]
     reveal?: boolean
+    magnify?: boolean
   }>(),
-  { images: () => [], captions: () => [], reveal: false },
+  { images: () => [], captions: () => [], reveal: false, magnify: false },
 )
 
 const slots = useSlots()
@@ -45,10 +54,13 @@ const panels = computed(() =>
     caption: props.captions[i] ?? '',
   })),
 )
+
+const magnifyItems = computed(() => props.images.map((src, i) => ({ src, alt: props.captions[i] ?? '' })))
+const { active, rootAttrs } = useMagnify(() => props.magnify, () => props.images.length)
 </script>
 
 <template>
-  <div class="slidev-layout triptych" :class="{ 'triptych--headed': hasHeader }">
+  <div class="slidev-layout triptych" :class="{ 'triptych--headed': hasHeader }" v-bind="rootAttrs">
     <header v-if="hasHeader" class="triptych-header">
       <slot />
     </header>
@@ -56,7 +68,7 @@ const panels = computed(() =>
          waarde die hem uitschakelt, dus een `reveal ? … : false` zou stil elke
          paneel-klik aanzetten. -->
     <div class="triptych-row" :style="{ '--triptych-count': panels.length }">
-      <template v-if="reveal">
+      <template v-if="reveal && !magnify">
         <figure v-for="(panel, i) in panels" :key="i" class="triptych-panel" v-click>
           <img :src="panel.src" :alt="panel.caption" />
           <figcaption v-if="panel.caption">{{ panel.caption }}</figcaption>
@@ -64,10 +76,11 @@ const panels = computed(() =>
       </template>
       <template v-else>
         <figure v-for="(panel, i) in panels" :key="i" class="triptych-panel">
-          <img :src="panel.src" :alt="panel.caption" />
+          <img :src="panel.src" :alt="panel.caption" :data-magnify-source="magnify ? i : undefined" />
           <figcaption v-if="panel.caption">{{ panel.caption }}</figcaption>
         </figure>
       </template>
     </div>
+    <MagnifyLayer v-if="magnify" :items="magnifyItems" :active="active" />
   </div>
 </template>

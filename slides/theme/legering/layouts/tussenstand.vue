@@ -39,10 +39,20 @@
   standaardslot is de regel over de naad; leeg laten mag. Klikken komen uit
   de slot-inhoud (`v-click`), de layout heeft er zelf geen. Beeldpaden door
   `resolveAsset`.
+
+  `magnify: true` (#170): klik 1 zet het nouveau-beeld groot, klik 2 het
+  deco-beeld, elk volledig (`contain`, niet de `cover`-uitsnede van het
+  kader), zonder bijschrift, met het andere als strook aan de rand; klik 3
+  keert terug naar het overzicht. Elk beeld beweegt als zijn eigen helft
+  (registerklasse op het vergrote kader). De layout registreert die drie
+  klikken `leading` (zie `useOwnClicks`), dus een `<v-click>` in de
+  standaardslot valt pas daarna: op klik 4, ná de terugkeer.
 -->
 <script setup lang="ts">
 import { computed, useSlots } from 'vue'
-import { resolveAsset } from '../../layouts-base/utils'
+import { resolveAsset, useMagnify } from '../../layouts-base/utils'
+import type { MagnifyItem } from '../../layouts-base/utils'
+import MagnifyLayer from '../../layouts-base/parts/MagnifyLayer.vue'
 
 interface Side {
   image?: string
@@ -55,8 +65,9 @@ const props = withDefaults(
   defineProps<{
     left?: Side
     right?: Side
+    magnify?: boolean
   }>(),
-  { left: () => ({}), right: () => ({}) },
+  { left: () => ({}), right: () => ({}), magnify: false },
 )
 
 const slots = useSlots()
@@ -72,13 +83,20 @@ function side(s: Side, fallback: string) {
 }
 const nouveau = computed(() => side(props.left, 'art nouveau'))
 const deco = computed(() => side(props.right, 'art deco'))
+
+/* Alleen de helften met een beeld; de index is die van de bron in de slide. */
+const magnifyItems = computed<MagnifyItem[]>(() => [
+  ...(props.left.image ? [{ src: props.left.image, alt: nouveau.value.caption, register: 'nouveau' }] : []),
+  ...(props.right.image ? [{ src: props.right.image, alt: deco.value.caption, register: 'deco' }] : []),
+])
+const { active, rootAttrs } = useMagnify(() => props.magnify, () => magnifyItems.value.length)
 </script>
 
 <template>
-  <div class="slidev-layout tussenstand" :class="{ 'tussenstand--seamed': hasSeam }">
+  <div class="slidev-layout tussenstand" :class="{ 'tussenstand--seamed': hasSeam }" v-bind="rootAttrs">
     <section class="ts-half ts-half--nouveau nouveau">
       <p class="register-label">{{ nouveau.label }}</p>
-      <figure v-if="nouveau.src" class="frame frame--nouveau ts-frame">
+      <figure v-if="nouveau.src" class="frame frame--nouveau ts-frame" :data-magnify-source="magnify ? 0 : undefined">
         <img :src="nouveau.src" :alt="nouveau.caption" :style="{ objectPosition: nouveau.focus }" />
       </figure>
       <div class="ts-statement"><slot name="nouveau" /></div>
@@ -89,7 +107,11 @@ const deco = computed(() => side(props.right, 'art deco'))
 
     <section class="ts-half ts-half--deco deco">
       <p class="register-label">{{ deco.label }}</p>
-      <figure v-if="deco.src" class="frame frame--deco ts-frame">
+      <figure
+        v-if="deco.src"
+        class="frame frame--deco ts-frame"
+        :data-magnify-source="magnify ? (nouveau.src ? 1 : 0) : undefined"
+      >
         <img :src="deco.src" :alt="deco.caption" :style="{ objectPosition: deco.focus }" />
       </figure>
       <div class="ts-statement"><slot name="deco" /></div>
@@ -99,6 +121,8 @@ const deco = computed(() => side(props.right, 'art deco'))
     <div v-if="hasSeam" class="ts-seam">
       <slot />
     </div>
+
+    <MagnifyLayer v-if="magnify" :items="magnifyItems" :active="active" />
   </div>
 </template>
 
