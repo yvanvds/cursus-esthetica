@@ -29,12 +29,27 @@ const MIME: Record<string, string> = {
  * Slidev/Vite prefixen `BASE_URL` aan elk `/`-pad in templates wat in
  * production een dubbele prefix oplevert; die wordt na de slidev-build
  * weggepatched.
+ *
+ * Omdat elk deck deze plugin laadt, draagt hij ook één dev-server-fix voor
+ * Slidev zelf: `@fix-webm-duration/fix` (CommonJS, uit Slidevs opnamefunctie)
+ * moet door Vite voorgebundeld worden, anders logt elke paginalading
+ * "does not provide an export named 'fixWebmDuration'" (#105). Slidev doet
+ * dat zelf vanaf 52.17.0 (slidevjs/slidev#2657); bij die upgrade (#161) mag
+ * de `config`-hook weg.
  */
 export function siteAssetsPlugin(siteBase = '/cursus-esthetica') {
   const devPrefix = siteBase.replace(/\/$/, '') + '/';
 
   return {
     name: 'cursus-esthetica:serve-site-public',
+
+    config() {
+      return {
+        optimizeDeps: {
+          include: ['@slidev/cli > @slidev/client > @fix-webm-duration/fix'],
+        },
+      };
+    },
 
     configureServer(server: {
       middlewares: {
