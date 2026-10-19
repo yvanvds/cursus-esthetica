@@ -17,7 +17,7 @@ code-issues), [[draft-theme-chapter]], [[add-interactive-component]], [[slidev]]
 | | work-batch | work-issues |
 |---|---|---|
 | PR's | gechunkt, 4–7 issues per PR | **één issue per PR** |
-| Gate | testsuite | `astro check` + `npm run build` + render-check |
+| Gate | testsuite | `astro check` + `check:vue` + `npm run build` + render-check |
 | Reviewmoment | de PR | **de checkpoints tijdens het werk** |
 | Werkers | altijd een subagent per issue | subagent zodra de keuzes gemaakt zijn |
 
@@ -140,7 +140,7 @@ de issuetekst en zet het label alsnog (`gh issue edit N --add-label ...`).
 | `hoofdstuk` | `draft-theme-chapter`, volledig | **3**: skelet+bronnen → assetlijst → concepttekst | woordbudget (leestijd × 190), registercheck, `## Bronnen`, alle `fig:`/`video:`-refs |
 | `beeld` | `draft-theme-chapter` fase 2 | **1**: assetlijst vóór downloaden | bestanden bestaan, `source:` ingevuld, ~2000px lange zijde |
 | `component` | `add-interactive-component` | **1**: interactie-ontwerp vóór de bouw | island rendert in `npm run dev`, geen hardcoded kleuren/fonts |
-| `slides` | `slidev` + `docs/`-conventies | **1**: slide-outline vóór het uitschrijven | `npm run build:slides` groen, deck opent op `/slides/<id>/` |
+| `slides` | `slidev` + `docs/`-conventies | **1**: slide-outline vóór het uitschrijven | `npm run build:slides` en `npm run check:vue` groen, deck opent op `/slides/<id>/` |
 | `redactie` | geen | geen | build + toon de diff in het rapport |
 | `site` | geen | geen, tenzij het zichtbare vormgeving verandert — dan 1 | build + pagina bekeken in `npm run dev` |
 
@@ -188,10 +188,20 @@ Deze vervangen de testsuite. Draai ze in deze volgorde en ga niet naar de PR
 tot ze groen zijn.
 
 1. **`npx astro check`** — 0 errors, 0 warnings. Vangt frontmatter die niet aan
-   `src/content.config.ts` voldoet en TypeScript in componenten.
-2. **`npm run build`** — site én slides. De slidebuild hoort erbij: een kapot
+   `src/content.config.ts` voldoet en TypeScript in componenten. `slides/` valt
+   erbuiten (uitgesloten in de root-`tsconfig.json`).
+2. **`npm run check:vue`** — `vue-tsc` in strict mode, met `strictTemplates`,
+   over alle layouts en componenten onder `slides/theme/` en de `.ts` die ze
+   importeren (`slides/tsconfig.json`). Relevant bij elke wijziging onder
+   `slides/theme/`; het duurt een paar seconden en CI draait het altijd.
+   `slidev build` compileert templates zonder typecontrole, dus een verkeerd
+   proptype, een tikfout in `v-click` of in een propnaam valt anders pas in de
+   browser op. Een Slidev-ingebouwde export, directive of component die nog
+   niet in `slides/types/slidev-client.d.ts` staat geeft hier een fout: voeg
+   hem daar toe, met het echte type.
+3. **`npm run build`** — site én slides. De slidebuild hoort erbij: een kapot
    deck breekt de deploy van de hele site.
-3. **`npm run check:chapters`** — referentie- en bestandscheck over alle
+4. **`npm run check:chapters`** — referentie- en bestandscheck over alle
    hoofdstukken. `remark-figure-links` faalt stil op een onbekende key en de
    build controleert geen bestaan van beeldbestanden, dus dit is de enige plek
    waar het opvalt. Het script (`scripts/check-chapters.mjs`) controleert per
@@ -206,7 +216,7 @@ tot ze groen zijn.
    Eén hoofdstuk nakijken kan met `npm run check:chapters -- <theme-id>`. Dit
    werd tot #43 met de hand gedaan en is toen drie keer gemist — draai het
    commando, ook als de wijziging klein lijkt.
-4. **Render-check** — voor alles wat de lezer ziet (hoofdstuk, component,
+5. **Render-check** — voor alles wat de lezer ziet (hoofdstuk, component,
    slides, vormgeving). Start `npm run dev` en open de gewijzigde pagina op
    `http://localhost:4321/cursus-esthetica/<theme-id>/` (routes staan in
    `src/pages/[theme].astro`). Kijk of beelden laden, of een interactieve

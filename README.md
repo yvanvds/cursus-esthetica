@@ -93,6 +93,7 @@ verschijnt automatisch zodra het bestand bestaat.
 | :----------------------------------------------- | :------------------------------------------------ |
 | `npx slidev slides/<theme-id>/slides.md`         | Dev-server voor één deck (http://localhost:3030)  |
 | `npm run build:slides`                           | Bouw alle decks naar `dist/slides/<theme-id>/`    |
+| `npm run check:vue`                              | Typecheck de layouts en componenten onder `slides/theme/` (vue-tsc, strict) |
 | `npx slidev export slides/<theme-id>/slides.md`  | Export naar PDF (vereist `playwright-chromium`)   |
 
 Een nieuw deck toevoegen:

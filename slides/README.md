@@ -14,6 +14,8 @@ slides/
     layouts-base/                        # gedeeld addon met extra layouts
   <theme-id>/slides.md            # één map per deck
   build-all.mjs                   # bouwt alle decks naar dist/slides/<id>/
+  tsconfig.json                   # typecheck van theme/ voor `npm run check:vue`
+  types/slidev-client.d.ts        # de types van @slidev/client voor die check
 ```
 
 ## Thema's en de gedeelde layouts
@@ -99,6 +101,26 @@ Alleen decks bouwen:
 ```bash
 npm run build:slides
 ```
+
+## Typecheck
+
+```bash
+npm run check:vue
+```
+
+`vue-tsc` in strict mode, met `strictTemplates`, over alle `.vue` en `.ts` onder
+`theme/` en de `vite.config.ts` van elk deck (`slides/tsconfig.json`). De build
+doet dat niet: `slidev build` compileert templates zonder typecontrole. De
+root-`tsconfig.json` sluit `slides/` uit, zodat `astro check` alleen de site
+controleert. CI draait beide.
+
+`@slidev/client` wordt in deze check niet uit het pakket getypeerd: dat levert
+ruwe `.ts`-bron die alleen in Slidevs eigen monorepo typecheckt (globals als
+`__DEV__`, een ongetypeerde `file-saver`). `types/slidev-client.d.ts` declareert
+wat de layouts gebruiken, met de echte types uit `@slidev/types`, plus de
+Slidev-directives en -componenten die zonder import in de templates staan
+(`v-click`, `<v-clicks>`). Gebruikt een layout iets wat daar nog niet staat, dan
+wordt de check rood; voeg het daar toe. De build ziet dat bestand niet.
 
 ## Een nieuw deck toevoegen
 

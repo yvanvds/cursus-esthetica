@@ -398,6 +398,18 @@ erin (`.triptych-panel`, `.vp-rays`) en nul `resolveComponent(...)` in `dist/`.
 Een niet-gevonden layout laat precies dat achterwege, dus het onderscheid is
 hard. Wat het níét bewijst is of het er goed uitziet; zeg dat er dan ook bij.
 
+**Typecheck.** Raak je iets aan onder `slides/theme/` (een layout, een component,
+`layouts-base/utils.ts`), draai dan `npm run check:vue`: `vue-tsc` in strict mode,
+met `strictTemplates`, over alle `.vue` en de `.ts` die ze importeren. Het vangt
+wat de build doorlaat: een prop van het verkeerde type, een tikfout in `v-click`
+of in een propnaam (die negeert Vue stil), een component die niet geïmporteerd
+is. Bij #101 ging `raking.vue` nog met de hand door `tsc --strict`; dat is nu dit
+commando. `@slidev/client` is daarbij getypeerd via `slides/types/slidev-client.d.ts`,
+niet via het pakket zelf: dat levert ruwe bron die buiten Slidevs eigen monorepo
+niet typecheckt. Gebruikt een layout een export, directive of ingebouwde component
+die daar nog niet staat (`onSlideEnter`, `v-after`, `<Arrow>`), dan wordt de check
+rood; voeg hem toe in dat bestand, met het echte type.
+
 Zet de echte uitkomsten in de PR-body, inclusief de telling vóór en na.
 
 ## Naslag
