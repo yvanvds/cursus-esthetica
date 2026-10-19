@@ -1,0 +1,239 @@
+/* src/styles/themes/art-nouveau-en-deco.css
+
+   De pagina slaat om waar de tekst omslaat (#131). Het hoofdstuk is één lange
+   vergelijking: Horta's zweepslag tegenover de zonnestraal van de deco, Zaun
+   tegenover Piltover, het Volkshuis tegenover de machine die wint. Beweging 1
+   tot 3 (De afdaling, Een huis dat groeit, Het volkshuis) zijn nouveau; vanaf
+   De machine wint tot en met Twee steden, twee stijlen is het deco. De
+   helften staan in de MDX als <Half kind="nouveau"> en <Half kind="deco">
+   (src/components/themes/art-nouveau-en-deco/); Bronnen staat erbuiten en
+   blijft zoals de site.
+
+     nouveau   h2 in Cormorant Garamond cursief, Zaun-groen, met een
+               zweepslag eronder (naar Obrists Cyclamen)
+     deco      h2 in Poiret One, kapitaal en ruim gespatieerd, goud, met een
+               zonnestraal eronder (haarlijnen uit de linkerbenedenhoek)
+     tussen-   "Tussenstand: twee antwoorden op één machine": de eerste alinea
+     stand     loopt in twee kolommen, nouveau links, deco rechts, met een
+               kolomkop in elke letter (<Tussenstand>)
+
+   De h1 blijft Fraunces cursief zoals de site: hij staat boven beide helften,
+   en een van de twee letters zou de omslag al in de titel beslissen.
+
+   Elke regel staat onder `html[data-theme="art-nouveau-en-deco"]`: dit
+   bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120)
+   en mag alleen hier gelden. Een `:root`-blok is verboden — `npm run
+   check:chapters` meldt het. */
+
+/* ---- Fonts ----
+   Twee eigen letters (BRIEFING §5), de lopende tekst blijft Inter.
+
+   Cormorant Garamond cursief: hetzelfde bestand onder src/assets/fonts/ als
+   licht-en-schaduw.css (#127) en meerstemmigheid.css (#123), met een eigen
+   declaratie zodat dit hoofdstuk niet van hun stylesheet afhangt. Alleen het
+   cursief: meer gebruikt deze pagina niet. De dubbele declaratie is
+   onschadelijk, Vite levert één gehasht asset en de browser haalt het één keer
+   op.
+
+   Poiret One: rechtstreeks uit het fontsource-pakket, zoals
+   belgisch-experiment.css (#125). Vite lost de kale module-id in `url()` op en
+   levert het bestand gehasht onder `base` uit; een kopie naar
+   src/assets/fonts/ kon in deze sessie niet gemaakt worden. Terug naar de
+   conventie: het bestand kopiëren en het pad vervangen door
+   `../../assets/fonts/poiret-one-latin-400-normal.woff2`.
+
+   Een `@font-face` kan niet gescoped worden, maar de browser haalt een font
+   pas op als een regel het gebruikt; elke `font-family:` met deze namen staat
+   hieronder onder de scope. */
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('../../assets/fonts/cormorant-garamond-latin-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poiret One';
+  src: url('@fontsource/poiret-one/files/poiret-one-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Twee kleuren, twee letters, twee ornamenten ----
+   Het goud (#c9a227) is de accent en de deco-kleur: het staat in
+   `accentColor:` in de frontmatter en ThemeLayout zet het op
+   `html[data-theme]` (#120). Daarnaast `--color-nouveau`: Zaun-groen,
+   gedempt en een beetje ziek, het groen van het licht dat in Arcane "alleen
+   tweedehands binnenvalt". Het draagt tekst (de h2's van de eerste helft),
+   dus het contrast telt. WCAG op de grond #1a1a1a:
+     nouveau  #8ca86a   6.6
+     goud     #c9a227   7.2
+   `--color-junction` is de helft van elk, alleen voor de haarlijnen in de
+   tussenstand: de naad tussen de twee stijlen.
+
+   De ornamenten zijn maskers, geen beelden: een SVG in een data-URI als
+   `mask-image`, met de kleur als `background-color`. Zo blijft de kleur een
+   token. Beide in de verhouding van hun viewBox.
+     zweepslag   één gevuld pad, een lange S-lijn die aanzwelt in de slag en
+                 dun uitloopt in een krul: Obrists Cyclamen (1895), de lijn
+                 die "coup de fouet" heette. 252 × 40.
+     zonnestraal dertien haarlijnen om de 7.5° uit de linkerbenedenhoek,
+                 bijgesneden tot het vak, om de andere ingekort, met een
+                 kwartschijf als zon; de horizontale straal is de basislijn.
+                 De kroon van het Chrysler Building, plat gelegd. 240 × 36. */
+
+html[data-theme="art-nouveau-en-deco"] {
+  --color-nouveau:  #8ca86a;
+  --color-junction: color-mix(in srgb, var(--color-nouveau) 50%, var(--color-accent));
+
+  --font-nouveau: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-deco:    'Poiret One', 'Century Gothic', Futura, sans-serif;
+
+  --ornament-whiplash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 252 40'%3E%3Cpath d='M2 30.4L6.1 30.8L10.3 31.1L14.4 31.2L18.5 31L22.6 30.7L26.7 30.3L30.8 29.7L34.8 29L38.8 28.2L42.9 27.3L46.9 26.3L50.9 25.2L54.9 24.1L58.8 23L62.8 21.8L66.7 20.6L70.7 19.4L74.6 18.2L78.5 17.1L82.4 16L86.3 15L90.2 14L94.1 13.1L98 12.4L101.9 11.7L105.7 11.2L109.6 10.8L113.4 10.6L117.3 10.5L121.1 10.7L124.9 11L129.3 11.7L133.4 12.8L137.2 14.3L140.9 16.1L144.4 18L147.7 20.1L151 22.3L154.3 24.5L157.6 26.6L161 28.6L164.5 30.3L168.2 31.8L172.1 32.9L176.2 33.5L180.5 33.6L185.2 33.2L188.2 32.2L191.2 30.6L194.2 28.5L197.2 26.1L200.3 23.4L203.5 20.5L206.8 17.7L210.2 15L213.8 12.5L217.5 10.4L221.5 8.8L225.6 7.9L230 7.7L232.8 8.1L235.6 9.1L238.1 10.6L240.3 12.5L242 14.6L243.2 16.8L243.6 19L243.3 21.1L242.1 23L239.8 24.6L237.5 25.3L235.4 25.3L233.4 24.8L231.7 23.7L230.3 22.4L229.4 20.8L229.1 19.2L229.4 17.7L230.3 16.4L232.1 15.4L233.2 15.1L234.3 15.1L235.3 15.4L236.1 15.8L236.9 16.3L237.4 16.9L237.6 17.5L237.6 18L237.4 18.3L236.9 18.6L237.1 19.4L238 18.9L238.4 18.1L238.4 17.3L238 16.5L237.4 15.8L236.6 15.1L235.5 14.6L234.4 14.4L233.2 14.3L231.9 14.6L229.8 15.8L228.6 17.4L228.3 19.3L228.7 21.1L229.7 22.9L231.2 24.4L233.1 25.6L235.3 26.2L237.7 26.2L240.2 25.4L242.8 23.6L244.2 21.4L244.6 19L244.2 16.5L243 14L241.1 11.7L238.8 9.7L236.1 8L233.1 6.9L230 6.3L225.4 6.5L221 7.4L216.9 9L212.9 11.1L209.2 13.6L205.6 16.3L202.2 19.1L199 21.8L195.9 24.5L192.9 26.8L190 28.7L187.3 30.1L184.8 30.8L180.4 31.2L176.4 31.1L172.6 30.5L169 29.4L165.6 28L162.2 26.4L158.9 24.5L155.7 22.4L152.4 20.3L149 18.1L145.6 16L141.9 14L138.1 12.3L134.1 10.8L129.7 9.7L125.1 9L121.2 8.8L117.3 8.7L113.3 8.9L109.4 9.2L105.5 9.7L101.6 10.3L97.7 11L93.8 11.8L89.9 12.8L86 13.8L82.1 14.9L78.2 16.1L74.3 17.3L70.4 18.5L66.5 19.7L62.5 20.9L58.6 22.1L54.6 23.3L50.7 24.5L46.7 25.5L42.7 26.5L38.7 27.5L34.7 28.3L30.6 29L26.6 29.6L22.6 30L18.5 30.3L14.4 30.4L10.3 30.4L6.2 30.1L2 29.6Z'/%3E%3C/svg%3E");
+  --ornament-sunburst: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 36'%3E%3Cpath d='M9 35L239 35M8.9 34L135.5 17.3M8.7 32.9L127.9 1M8.4 31.9L49.5 14.9M7.9 31L59.9 1M7.3 30.1L28.2 14.1M6.7 29.3L35 1M5.9 28.7L17.5 13.4M5 28.1L20.6 1M4.1 27.6L10.1 13M3.1 27.3L10.1 1M2 27.1L3.9 12.7M1 27L1 1' fill='none' stroke='%23000' stroke-width='0.8' stroke-linecap='round'/%3E%3Cpath d='M1 30A5 5 0 0 1 6 35L1 35Z'/%3E%3C/svg%3E");
+}
+
+/* ---- Nouveau: de zweepslag ----
+   Cormorant valt klein op dezelfde puntgrootte en het cursief nog kleiner:
+   dertig procent boven step-3. Gewicht 400, zoals de haarlijnen van Horta. */
+
+html[data-theme="art-nouveau-en-deco"] .style-half--nouveau h2 {
+  font-family: var(--font-nouveau);
+  font-style: italic;
+  font-weight: 400;
+  font-size: calc(var(--step-3) * 1.3);
+  line-height: 1.05;
+  color: var(--color-nouveau);
+}
+
+html[data-theme="art-nouveau-en-deco"] .style-half--nouveau h2::after {
+  content: '';
+  display: block;
+  width: min(18rem, 100%);
+  aspect-ratio: 252 / 40;
+  margin-top: 0.2em;
+  background-color: var(--color-nouveau);
+  -webkit-mask: var(--ornament-whiplash) left center / contain no-repeat;
+          mask: var(--ornament-whiplash) left center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* ---- Deco: de zonnestraal ----
+   Poiret One is een dunne letter. Kapitaal met ruime spatiëring, en een
+   twintigste boven step-3 (29px): de kapitaalhoogte komt rond 20px en de
+   streek blijft dik genoeg om het contrast van het goud (7.2) te halen. */
+
+html[data-theme="art-nouveau-en-deco"] .style-half--deco h2 {
+  font-family: var(--font-deco);
+  font-style: normal;
+  font-weight: 400;
+  font-size: calc(var(--step-3) * 1.05);
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+html[data-theme="art-nouveau-en-deco"] .style-half--deco h2::after {
+  content: '';
+  display: block;
+  width: min(18rem, 100%);
+  aspect-ratio: 240 / 36;
+  margin-top: 0.3em;
+  background-color: var(--color-accent);
+  -webkit-mask: var(--ornament-sunburst) left center / contain no-repeat;
+          mask: var(--ornament-sunburst) left center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* ---- De tussenstand: twee antwoorden naast elkaar ----
+   De eerste alinea bevat beide antwoorden ("Art nouveau antwoordde: … Art deco
+   antwoordde: …") en mag niet gesplitst worden. Ze loopt daarom in twee
+   kolommen door; de balans van de kolommen legt het nouveau-antwoord links en
+   het deco-antwoord grotendeels rechts. Erboven twee kolomkoppen, elk in zijn
+   letter en kleur, met een haarlijn ertussen die in de `column-rule` van de
+   alinea overloopt (zelfde midden: twee gelijke kolommen met dezelfde goot).
+   De slotalinea loopt over de volle breedte.
+
+   Twee kolommen alleen als de wrapper minstens 34rem breed is: een container
+   query, geen viewport-query, want op desktop tussen 1024 en ±1180px is de
+   tekstkolom smaller dan op een tablet. Daaronder één kolom (expliciet
+   `column-count: 1`) en geen koppen. De wrapper is daarvoor een
+   size-container; daardoor klapt de ondermarge van de slotalinea niet meer
+   samen met de bovenmarge van de volgende h2, dus die marge gaat eraf. (Een
+   container is ook het bevattende blok voor `position: fixed`; er staat geen
+   figuurdialoog in deze twee alinea's.) */
+
+html[data-theme="art-nouveau-en-deco"] .tussenstand {
+  container: tussenstand / inline-size;
+}
+
+html[data-theme="art-nouveau-en-deco"] .tussenstand > :last-child {
+  margin-bottom: 0;
+}
+
+html[data-theme="art-nouveau-en-deco"] .tussenstand__heads {
+  display: none;
+}
+
+html[data-theme="art-nouveau-en-deco"] .tussenstand > p:first-of-type {
+  column-count: 1;
+}
+
+@container tussenstand (min-width: 34rem) {
+  /* In Inter op step-0, zodat 68ch even breed is als de alinea eronder. */
+  html[data-theme="art-nouveau-en-deco"] .tussenstand__heads {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-lg);
+    align-items: baseline;
+    max-width: 68ch;
+    padding-bottom: var(--space-sm);
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    background: linear-gradient(var(--color-junction), var(--color-junction))
+      center top / 1px 100% no-repeat;
+  }
+
+  html[data-theme="art-nouveau-en-deco"] .tussenstand > p:first-of-type {
+    column-count: 2;
+    column-gap: var(--space-lg);
+    column-rule: 1px solid var(--color-junction);
+  }
+}
+
+html[data-theme="art-nouveau-en-deco"] .tussenstand__head {
+  line-height: 1;
+}
+
+html[data-theme="art-nouveau-en-deco"] .tussenstand__head--nouveau {
+  font-family: var(--font-nouveau);
+  font-style: italic;
+  font-size: calc(var(--step-2) * 1.3);
+  color: var(--color-nouveau);
+}
+
+html[data-theme="art-nouveau-en-deco"] .tussenstand__head--deco {
+  font-family: var(--font-deco);
+  font-size: var(--step-1);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ---- Afdruk ----
+   print.css begint elke h2 op een nieuwe pagina, behalve
+   `.theme-body h2:first-of-type`. Door de helften is de eerste h2 van elke
+   wrapper ook first-of-type, en Bronnen is de enige directe h2. Alleen De
+   afdaling, de eerste h2 van het hoofdstuk, hoort zonder paginasprong. */
+
+@media print {
+  html[data-theme="art-nouveau-en-deco"] .style-half--deco > h2:first-of-type,
+  html[data-theme="art-nouveau-en-deco"] .theme-body > h2:first-of-type {
+    break-before: page;
+    page-break-before: always;
+  }
+}
