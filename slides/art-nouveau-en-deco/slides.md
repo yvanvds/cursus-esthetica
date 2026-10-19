@@ -819,7 +819,7 @@ number: 6
 
 # 6 — De toekomst van gisteren
 
-Steampunk · Babbage · Metropolis · Brüsel
+Steampunk · Babbage · Metropolis
 
 <!--
 Zesde beweging, en een derde register: koper en messing, klinknagels,
@@ -828,8 +828,7 @@ stijlen.
 
 Doel: de klas weet na deze beweging wat steampunk is (de meesten weten het
 nu niet), en ziet waarom een genre uit de jaren tachtig terugverlangt naar
-techniek die je kan begrijpen. En het Volkshuis uit beweging 3 krijgt zijn
-einde.
+techniek die je kan begrijpen.
 -->
 
 ---
@@ -1094,7 +1093,7 @@ als de architectuur van een klasse die boven mag wonen omdat een andere
 klasse beneden zwoegt.
 
 [click] Terug naar beide helften. Zeg dan letterlijk, want je hebt het
-straks nodig: boven licht, beneden stoom. Dat beeld komt zo dadelijk terug.
+straks nodig: boven licht, beneden stoom. Dat beeld komt straks terug.
 -->
 
 ---
@@ -1111,6 +1110,25 @@ de machine een gezicht krijgt, en dat gezicht liegt.
 
 Vraag: waar praat vandaag een machine met een gezicht tegen jullie? Laat het
 gesprek kort; de vraag mag blijven hangen.
+-->
+
+---
+layout: section
+class: messing
+number: 7
+---
+
+# 7 — Een onderzeeër onder Parijs
+
+Brüsel · Hallepoort · Arts et Métiers · Pascal
+
+<!--
+Zevende beweging, nog in messing: koper, klinknagels, tandwielen.
+
+Doel: het Volkshuis uit beweging 3 krijgt zijn einde, en de klas ziet daarna
+waar de verloren wereld van Horta toch terugkomt: twee metrostations van
+dezelfde Brusselse tekenaar, het tweede in Parijs, voor iedereen met een
+metroticket. Wie ooit in Parijs komt, kan erheen.
 -->
 
 ---
@@ -1167,16 +1185,216 @@ details:
 
 <!--
 Schuiten tekende er niet alleen een aanklacht tegen. Hij hielp Horta's
-Maison Autrique restaureren, en hij bouwde zijn eigen station in de Brusselse
-metro. In Hallepoort breekt tram 81 dwars door de stationswand, op weg van
-de Duistere Steden naar hier.
+Maison Autrique restaureren, en in 1993 bouwde hij zijn eigen station in de
+Brusselse metro. In Hallepoort breekt tram 81 dwars door de stationswand, op
+weg van de Duistere Steden naar hier.
 
 De steampunk-tekenaar als laatste verdediger van de art nouveau: dat is
 geen toeval. Steampunk rouwt om precies de wereld die Horta bouwde en de
 sloophamer nam: ambachtelijke techniek, met liefde gemaakt, voor mensen
 bedoeld.
+-->
 
-Tip voor wie het wil zien: metrostation Hallepoort.
+---
+layout: triptych
+class: messing
+magnify: true
+images:
+  - /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-1.jpg
+  - /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-2.jpg
+captions:
+  - het perron van lijn 11
+  - de koperen buis over beide perrons
+---
+
+## Arts et Métiers
+
+Parijs · lijn 11 · 1994
+
+<!--
+Toon eerst het overzicht en zeg nog niets. Vraag: waar lijkt dit op? Laat ze
+raden; een duikboot, een machinekamer, een stoomketel, alles is goed.
+
+Een jaar na Hallepoort mocht Schuiten het nog eens doen, in Parijs. Station
+Arts et Métiers ligt in het derde arrondissement, bij het museum waaraan het
+zijn naam ontleent. Het opende in 1904, het perron van lijn 11 kwam er in
+1935 bij, en zoals bijna elk Parijs station was het wit betegeld.
+
+[click] Het perron, wijd. In 1994 bestond het Conservatoire national des arts
+et métiers tweehonderd jaar. Abbé Henri Grégoire had het in 1794, midden in
+de Revolutie, opgericht: een verzameling machines, werktuigen en tekeningen,
+waar ambachtslieden en uitvinders konden komen zien hoe een machine werkt.
+
+[click] De hele buis in één beeld. Voor dat jubileum kregen Schuiten en
+Benoît Peeters het perron van lijn 11 onder handen. Zeg dan: ze maakten er
+een onderzeeër van.
+-->
+
+---
+layout: plaat
+class: messing
+image: /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-10.jpg
+caption: Een metro van lijn 11 rijdt Arts et Métiers binnen
+---
+
+<!--
+Stap je hier uit de metro, dan sta je in de Nautilus: de onderzeeër van
+kapitein Nemo uit Jules Vernes Twintigduizend mijlen onder zee (1870).
+
+Vraag wie het boek of een verfilming kent. Kort houden; het gaat om het
+beeld van een machine waarin je woont.
+-->
+
+---
+layout: triptych
+class: messing
+magnify: true
+images:
+  - /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-3.jpg
+  - /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-4.jpg
+  - /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-5.jpg
+captions:
+  - de wand — tandwiel, wiel, patrijspoorten
+  - platen en klinknagels, van dichtbij
+  - tandwiel in het gewelf
+---
+
+## Koper, klinknagels, tandwielen
+
+<!--
+Haal de lijst van het bord erbij, die met de kenmerken van steampunk. Vink
+samen met de klas af wat je hier terugziet. Bijna alles.
+
+[click] De wand. Ongeveer achthonderd koperen platen, aan elkaar geklonken,
+bekleden wanden en gewelf.
+
+[click] Van dichtbij: de klinknagels, en hoe de platen de bocht van een romp
+volgen.
+
+[click] In het gewelf hangen reusachtige tandwielen, alsof het raderwerk van
+het museum door de grond is gezakt.
+
+[click] Terug naar het overzicht.
+-->
+
+---
+layout: vitrine
+class: messing
+magnify: true
+items:
+  - src: /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-6.jpg
+    title: Aérostat L'Avisol
+    meta: patrijspoort · Arts et Métiers
+  - src: /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-7.jpg
+    title: Telstar
+    meta: patrijspoort · satelliet, 1962
+  - src: /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-8.jpg
+    title: Armillairsfeer
+    meta: patrijspoort · Arts et Métiers
+  - src: /cursus-esthetica/images/art-nouveau-en-deco/arts-et-metiers-9.jpg
+    title: Waterrad
+    meta: patrijspoort · Arts et Métiers
+---
+
+## Patrijspoorten
+
+<!--
+In de wand zitten patrijspoorten. Waar Nemo door zijn ramen naar de diepzee
+keek, kijk jij in kleine kijkdozen met stukken uit de collectie van het
+museum.
+
+[click] Een luchtschip, het Aérostat L'Avisol.
+
+[click] De Telstar-satelliet, 1962. Vraag of iemand weet wat die deed: de
+eerste satelliet die live televisie over de oceaan doorgaf.
+
+[click] Een armillairsfeer: een model van de hemel in ringen.
+
+[click] Een waterrad.
+
+[click] Terug naar de vier. Vraag: welk van deze voorwerpen zou je willen
+openschroeven?
+-->
+
+---
+layout: center
+class: messing
+---
+
+## Een rondgang
+
+<div class="video-cta">
+<CourseVideo id="art-nouveau-en-deco/arts-et-metiers" label="Het perron van Arts et Métiers" />
+</div>
+
+1001 Escapades · 1 minuut
+
+<!--
+Laat het fragment lopen: één minuut langs het perron, de tandwielen en de
+patrijspoorten. Zeg vooraf: kijk of je ergens een gewone tegel ziet.
+-->
+
+---
+layout: detail
+class: messing
+magnify: true
+image: /cursus-esthetica/images/art-nouveau-en-deco/pascaline-1.jpg
+caption: Blaise Pascal, rekenmachine (Pascaline), ontworpen in 1642 — Musée des Arts et Métiers, Parijs
+details:
+  - src: /cursus-esthetica/images/art-nouveau-en-deco/pascaline-2.jpg
+    caption: de binnenkant — cijfertrommels en de overdracht
+---
+
+## Pascal, 1642
+
+<!--
+Een paar trappen hoger bewaart het museum Pascals rekenmachine. Blaise Pascal
+bedacht haar in 1642, op zijn achttiende, om zijn vader het rekenwerk te
+besparen: die controleerde de belastingen in Rouen.
+
+[click] De machine. Per cijfer draai je met een stift aan een wieltje.
+
+[click] De binnenkant. Laat de klas eerst voorspellen: wat moet er gebeuren
+als je bij 9 er 1 bijtelt? Dan het antwoord: wanneer een wieltje van 9 naar 0
+springt, schuift de machine zelf één eenheid door naar het volgende.
+
+[click] Terug naar het geheel. Herinner aan "Ze werkt": ruim twee eeuwen
+later tekent Babbage zijn Difference Engine, die met datzelfde principe,
+optellen en doorschuiven, hele tabellen uitrekent.
+
+Het station is dus geen gril van een striptekenaar. Het is de toegangshal tot
+een verzameling machines die je nog kan begrijpen, precies de techniek waar
+steampunk heimwee naar heeft.
+-->
+
+---
+layout: center
+class: messing
+---
+
+## Voor wie toevallig instapt
+
+1900 · 1994
+
+<!--
+Denk terug aan Guimard, beweging 2. In 1900 zette hij zijn gietijzeren
+ingangen in ditzelfde metronet, midden op straat, voor iedereen die toevallig
+passeerde. Dichter bij haar belofte, kunst voor iedereen zonder dat je er
+iets voor hoeft te kopen, is art nouveau nooit gekomen.
+
+Bijna een eeuw later doet Schuiten hetzelfde gebaar, een verdieping lager,
+en ook hier betaal je niet meer dan een metroticket. Zeg het zo: in Brussel
+rouwt steampunk om de wereld die Horta bouwde. In Parijs rouwt niemand: daar
+heeft die wereld een perron gekregen, voor iedereen die toevallig instapt.
+
+Vraag: waar in jullie stad staat kunst die je niet hoeft te kopen?
+
+Tip voor wie het zelf wil zien: in Brussel metrostation Hallepoort. In
+Parijs lijn 11 tot Arts et Métiers; alleen het perron van lijn 11 is van
+koper, dat van lijn 3 in hetzelfde station is een gewoon perron.
+
+Over de beelden van deze beweging, als iemand het vraagt: allemaal van
+Wikimedia Commons, de bronnen staan in de cursustekst.
 -->
 
 ---
@@ -1184,12 +1402,12 @@ layout: section
 class: deco
 ---
 
-# 7 — Twee steden, twee stijlen
+# 8 — Twee steden, twee stijlen
 
 Arcane · Fortiche voor Riot Games · 2021
 
 <!--
-Terug naar Arcane, en terug naar goud: Piltover is deco. Zevende beweging.
+Terug naar Arcane, en terug naar goud: Piltover is deco. Achtste beweging.
 Doel: de klas leest de stad zoals de makers haar schreven, en ziet dat de
 serie de kunstgeschiedenis van vandaag niet kopieert maar afmaakt.
 -->
@@ -1434,7 +1652,7 @@ dat gebleven: de huisstijl van een bestuurlijke elite die de toekomst bezit.
 
 De serie heeft de kunstgeschiedenis niet gekopieerd; ze heeft haar voltooid.
 De machine-orde won boven, en de verslagen droom van Horta zonk naar
-beneden. Dat Metropolis-beeld van daarnet, licht boven en stoom beneden, is
+beneden. Dat Metropolis-beeld van eerder, licht boven en stoom beneden, is
 hier een volledige stadsplattegrond geworden.
 -->
 

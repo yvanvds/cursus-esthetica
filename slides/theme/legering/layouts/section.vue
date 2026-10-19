@@ -25,7 +25,10 @@
 
     # 6 — De toekomst van gisteren
 
-    Steampunk, Babbage, Metropolis, Brüsel
+    Steampunk, Babbage, Metropolis
+
+  De wijzerplaat telt standaard acht bewegingen, zoveel als het hoofdstuk
+  sinds #171 heeft; `of: N` in de frontmatter overschrijft dat.
 
   De animaties lopen bij elke binnenkomst opnieuw: Slidev verbergt
   inactieve slides met `display: none`, en een CSS-animatie start opnieuw
@@ -43,7 +46,7 @@ const props = withDefaults(
     /** Het aantal bewegingen op de wijzerplaat. */
     of?: number
   }>(),
-  { number: '', of: 7 },
+  { number: '', of: 8 },
 )
 
 /* De zonnestraal: zeventien stralen om de tien graden, van −80° tot 80°,
