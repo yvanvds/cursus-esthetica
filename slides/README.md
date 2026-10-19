@@ -90,6 +90,12 @@ npx slidev slides/licht-en-schaduw/slides.md
 Opent de dev-server op http://localhost:3030. Presenter-modus zit op
 `/presenter`. Sprekersnotities in HTML-comments na elk slide.
 
+De `siteAssetsPlugin` uit `vite.config.ts` laat Vite in dev ook
+`@fix-webm-duration/fix` voorbundelen (CommonJS, uit Slidevs opnamefunctie).
+Zonder dat logt Slidev 52.15 bij elke paginalading `does not provide an export
+named 'fixWebmDuration'` (#105). Vanaf Slidev 52.17.0 is dat niet meer nodig; de
+upgrade staat in #161.
+
 ## Bouwen
 
 `npm run build` bouwt eerst de Astro-site, dan alle decks. Slidev-output
