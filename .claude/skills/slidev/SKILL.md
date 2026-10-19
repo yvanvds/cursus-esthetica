@@ -213,6 +213,7 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 | `breathe` | full-bleed beeld op een grond die traag van kleur verschuift, één beeld per klik; leest `--breathe-from` / `--breathe-to` uit het thema |
 | `scale` | beelden op één rij als *schaal*: `images:` op vaste plekken (de lege plekken staan er al), één per klik, `labels:`/`captions:` per beeld, `axis:`/`axis2:` als `{ from, to }` eronder; `stage: true` zet het laatst onthulde beeld groot boven de rij — voor een gradatie (tag → throw-up → piece → wildstyle), niet voor drie losse werken |
 | `spotlight` | één beeld (`image:`) met `regions:` (elk `{ x, y, w, h, label }` in procenten van het beeld); per klik licht één zone op en dimt de rest, label ernaast; `finale: true` geeft een laatste klik met alle zones omlijnd — de docent leest het werk voor, zone na zone, zonder dat het beeld verspringt |
+| `magnify: true` *(sleutel, geen layout)* | op `triptych`, `compare`, `detail` en thema-layouts die `parts/MagnifyLayer.vue` gebruiken (legering: `vitrine`, `tussenstand`, `boven-beneden`): klik 1 … n zet beeld k zo groot als de slide toelaat, zonder bijschrift, de rest als strook aan de rand; klik n + 1 terug naar het overzicht. Vervangt `reveal`. Niet `zoom:` — die sleutel is van Slidev zelf. Beweging uit `--magnify-*`-tokens van het thema; zie `slides/README.md` (#170) |
 
 Vraagt een beweging om iets anders — een tijdlijn, een detail dat in het geheel
 schuift, een overlay, een partituurstrook onder een fragment, drie beelden in
@@ -277,6 +278,9 @@ Vier dingen om niet mis te doen in een eigen layout:
    `layouts-base/utils` aan, met `n` het aantal klikken dat de layout zelf
    afhandelt — `dimmer` en `breathe` doen dat. Een `clicks:`-regel in de
    frontmatter is géén alternatief: die verplaatst de val naar de auteur.
+   Horen de `v-click`s in de slot-inhoud ná de klikken van de layout te
+   komen, geef dan `{ leading: true }` mee: `useMagnify` doet dat, zodat de
+   vraag op de tussenstand pas na het inzoomen verschijnt (#170).
 
 ## 6 — Video's
 

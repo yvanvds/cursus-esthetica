@@ -55,7 +55,7 @@ de verschillen zelf gezien heeft.
 ---
 layout: triptych
 class: nouveau
-reveal: true
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-piltover-uitzicht.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-piltover-luchtschip.jpg
@@ -86,6 +86,7 @@ brug, naar de stad ónder de stad.
 ---
 layout: compare
 class: nouveau
+magnify: true
 left: /cursus-esthetica/images/art-nouveau-en-deco/arcane-jayce-hek.png
 right: /cursus-esthetica/images/art-nouveau-en-deco/arcane-zaun-trap.jpg
 ---
@@ -204,7 +205,7 @@ en temmen. En kunst hoort niet in het museum maar in je deurklink.
 ---
 layout: triptych
 class: nouveau
-reveal: true
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/tassel-2.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/tassel-1.jpg
@@ -305,6 +306,7 @@ belangrijk.
 ---
 layout: triptych
 class: nouveau
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/old-england-1.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/saint-cyr-1.jpg
@@ -570,6 +572,7 @@ het gesprek kort; het punt is dat de hele wereld grondstof werd.
 ---
 layout: triptych
 class: deco
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/deco-affiche.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/deco-lamp.jpg
@@ -602,7 +605,7 @@ beide foto's kennen we de herkomst.
 ---
 layout: triptych
 class: deco
-reveal: true
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/chrysler-1.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/chrysler-2.jpg
@@ -675,7 +678,7 @@ bioscooppaleizen en op oceaanstomers.
 ---
 layout: triptych
 class: deco
-reveal: true
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/koekelberg-1.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/koekelberg-2.jpg
@@ -706,6 +709,7 @@ verraadt iets wezenlijks.
 ---
 layout: triptych
 class: deco
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/chrysler-4.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/ekco-1.jpg
@@ -763,6 +767,7 @@ wat doen we met de machine?
 ---
 layout: tussenstand
 class: deco
+magnify: true
 left:
   image: /cursus-esthetica/images/art-nouveau-en-deco/tassel-1.jpg
   caption: Horta, Hôtel Tassel, traphal, 1893
@@ -796,6 +801,9 @@ van art deco: zet haar op een sokkel en poets haar op.
 
 De eerste droom stierf aan haar eigen prijskaartje. De tweede won, en werd
 de huisstijl van iedereen die macht had: concerns, staten, elites.
+
+[click] De traphal van Horta groot. [click] De kroon van het Chrysler
+Building groot. [click] Terug naar beide helften.
 
 [click] Maar één vraag bleef liggen. De machine won, goed. Wie won er mét de
 machine, en wie verloor? Laat de klas antwoorden voor je verdergaat: wie de
@@ -855,7 +863,7 @@ en steenkool.
 ---
 layout: vitrine
 class: messing
-reveal: true
+magnify: true
 items:
   - src: /cursus-esthetica/images/art-nouveau-en-deco/steamboy-1.jpg
     title: Steamboy
@@ -900,7 +908,7 @@ we niet. Van de rolstoelfoto zijn de zwarte randen weggesneden.
 ---
 layout: vitrine
 class: messing
-reveal: true
+magnify: true
 items:
   - src: /cursus-esthetica/images/art-nouveau-en-deco/steampunk-bril.jpg
     title: Steampunkbril
@@ -943,6 +951,7 @@ pistool zijn productfoto's.
 ---
 layout: triptych
 class: messing
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/difference-engine-1.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/difference-engine-2.jpg
@@ -1059,7 +1068,7 @@ Laat de vraag staan.
 ---
 layout: boven-beneden
 class: messing
-reveal: true
+magnify: true
 top:
   image: /cursus-esthetica/images/art-nouveau-en-deco/metropolis-2.jpg
   label: boven
@@ -1077,15 +1086,15 @@ Het genre had een profeet avant la lettre: Metropolis van Fritz Lang (1927).
 Lang draaide zijn film op het moment dat deco haar triomf vierde, en hij las
 de stijl meteen correct.
 
-Eerst alleen boven: de denkers wonen in deco-torens. Vraag: wie woont hier,
-denk je?
+[click] Eerst alleen boven, groot: de denkers wonen in deco-torens. Vraag:
+wie woont hier, denk je?
 
 [click] Beneden: de arbeiders, ondergronds bij de machines. Lang las deco
 als de architectuur van een klasse die boven mag wonen omdat een andere
 klasse beneden zwoegt.
 
-Zeg dan letterlijk, want je hebt het straks nodig: boven licht, beneden
-stoom. Dat beeld komt zo dadelijk terug.
+[click] Terug naar beide helften. Zeg dan letterlijk, want je hebt het
+straks nodig: boven licht, beneden stoom. Dat beeld komt zo dadelijk terug.
 -->
 
 ---
@@ -1146,6 +1155,7 @@ Laat het even stil zijn voor je verdergaat.
 ---
 layout: detail
 class: messing
+magnify: true
 image: /cursus-esthetica/images/art-nouveau-en-deco/schuiten-2.jpg
 caption: François Schuiten, Le Passage inconnu, metrostation Hallepoort, Brussel, 1993
 details:
@@ -1187,6 +1197,7 @@ serie de kunstgeschiedenis van vandaag niet kopieert maar afmaakt.
 ---
 layout: boven-beneden
 class: deco
+magnify: true
 top:
   image: /cursus-esthetica/images/art-nouveau-en-deco/arcane-jayce-hek.png
   label: Piltover
@@ -1213,7 +1224,7 @@ licht, beneden stoom.
 ---
 layout: triptych
 class: deco
-reveal: true
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-piltover-glasraam.png
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-piltover-raadzaal.jpg
@@ -1242,6 +1253,7 @@ donker? Laat de klas het zelf aanwijzen; ze kennen de woorden nu.
 ---
 layout: triptych
 class: deco
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-piltover-glasraam.png
   - /cursus-esthetica/images/art-nouveau-en-deco/koekelberg-2.jpg
@@ -1293,6 +1305,7 @@ spiegelbeeld. Zoek de tandwielen achter de goudlijnen van de deur.
 ---
 layout: triptych
 class: deco
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-zaun-gevel.png
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-zaun-stad.jpg
@@ -1315,6 +1328,7 @@ Het rechterbeeld is de onderstad uit de titelslide, nu volledig.
 ---
 layout: triptych
 class: deco
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-last-drop-interieur.png
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-zaun-muurschildering.jpg
@@ -1336,6 +1350,7 @@ Mucha, Horta's gebogen lijn. Boven deco, beneden nouveau.
 ---
 layout: vitrine
 class: deco
+magnify: true
 items:
   - src: /cursus-esthetica/images/art-nouveau-en-deco/arcane-zaun-interieur.png
     title: Zaun
@@ -1426,6 +1441,7 @@ hier een volledige stadsplattegrond geworden.
 ---
 layout: triptych
 class: deco
+magnify: true
 images:
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-caitlyn-concept.jpg
   - /cursus-esthetica/images/art-nouveau-en-deco/arcane-powder-atelier.jpg

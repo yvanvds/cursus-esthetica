@@ -167,21 +167,117 @@ let ownClicksSeq = 0;
  * `count` mag reactief zijn (HMR op de frontmatter). Bij 0 wordt niets
  * geregistreerd — een dimmer met één stap is dan gewoon een stilstaand beeld.
  *
+ * `leading: true` zet de klikken van de layout vóór die van de slot-inhoud:
+ * de registratie krijgt dan `delta: n`, zodat een relatieve `v-click` in de
+ * slot (`<v-click>`, `v-click="+1"`) pas op klik n + 1 valt. Relatieve clicks
+ * rekenen vanaf de som van alle geregistreerde delta's, en de layout
+ * registreert in zijn setup, vóór de directives in zijn slot. Zo komt de vraag
+ * op de tussenstand pas ná het inzoomen (#170). Zonder `leading` blijft het
+ * zoals het was: de slot-clicks tellen vanaf 1, gelijk met die van de layout.
+ *
  * Gebruik, in een layout die `useSlideContext()` al aanroept:
  *   useOwnClicks(() => Math.max(props.steps.length - 1, 0))
  */
-export function useOwnClicks(count: () => number): void {
+export function useOwnClicks(count: () => number, options: { leading?: boolean } = {}): void {
   const { $clicksContext } = useSlideContext();
   const key = `own-clicks-${++ownClicksSeq}`;
 
   watch(
     count,
     (n) => {
-      if (n > 0) $clicksContext.register(key, $clicksContext.calculateSince(1, n));
-      else $clicksContext.unregister(key);
+      if (n <= 0) $clicksContext.unregister(key);
+      else if (options.leading) $clicksContext.register(key, { delta: n, max: n });
+      else $clicksContext.register(key, $clicksContext.calculateSince(1, n));
     },
     { immediate: true },
   );
 
   onBeforeUnmount(() => $clicksContext.unregister(key));
+}
+
+/** Bijsnede van een beeld, in procent van het beeld (zoals `crop` in legering). */
+export interface MagnifyCrop {
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
+}
+
+/**
+ * Eén beeld voor het inzoomen (`magnify`), zoals een layout het aan
+ * `MagnifyLayer` doorgeeft. `register` is een klasse op het vergrote kader:
+ * een layout die twee registers op één slide zet (legering: tussenstand,
+ * boven-beneden) laat zo elk beeld bewegen zoals zijn eigen helft. Zonder
+ * `register` erft het kader de tokens van de slide.
+ */
+export interface MagnifyItem {
+  src: string;
+  alt?: string;
+  crop?: MagnifyCrop;
+  register?: string;
+}
+
+export interface Rect {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+/** Past een beeld met verhouding `aspect` (b/h) in een doos, zoals `contain`. */
+export function fitContain(box: Rect, aspect: number): Rect {
+  if (!box.width || !box.height || !aspect) return { ...box };
+  const width = Math.min(box.width, box.height * aspect);
+  const height = width / aspect;
+  return {
+    left: box.left + (box.width - width) / 2,
+    top: box.top + (box.height - height) / 2,
+    width,
+    height,
+  };
+}
+
+/**
+ * Per klik inzoomen op één beeld van een slide met meerdere beelden (#170):
+ * de klikstappen en de staat. De vorm — het vergrote beeld, de strook — zit in
+ * `parts/MagnifyLayer.vue`; de beweging in de tokens van het thema.
+ *
+ *   klik 0        het overzicht, zoals zonder `magnify`
+ *   klik 1 … n    beeld k groot, zonder bijschrift, de andere als strook
+ *   klik n + 1    terug naar het overzicht
+ *
+ * De layout handelt die n + 1 klikken zelf af, dus registreert ze met
+ * `useOwnClicks` (#93), en wel `leading`: een `v-click` in de slot-inhoud
+ * komt ná de terugkeer naar het overzicht.
+ *
+ * `step` is de klikstand binnen het inzoomen (0 … n + 1), `active` het
+ * vergrote beeld (1 … n, 0 = overzicht). `rootAttrs` hoort met `v-bind` op de
+ * root van de layout: `data-magnify="k"` (k = `active`) en `--magnify-step`.
+ * Daarop stylen layouts-base (het overzicht wijkt) en het thema (een tandwiel
+ * dat per klik een tand draait). Staat `magnify` uit, dan is `rootAttrs` leeg,
+ * registreert de layout niets en verandert er niets aan de slide.
+ *
+ * Gebruik:
+ *   const { active, rootAttrs } = useMagnify(() => props.magnify, () => items.value.length)
+ *   <div class="slidev-layout triptych" v-bind="rootAttrs">
+ *     …
+ *     <MagnifyLayer v-if="magnify" :items="items" :active="active" />
+ *   </div>
+ */
+export function useMagnify(enabled: () => boolean, count: () => number) {
+  const { $clicks } = useSlideContext();
+  const n = computed(() => (enabled() && count() > 1 ? count() : 0));
+
+  useOwnClicks(() => (n.value ? n.value + 1 : 0), { leading: true });
+
+  const step = computed(() => (n.value ? Math.min(Math.max($clicks.value, 0), n.value + 1) : 0));
+  const active = computed(() => (step.value >= 1 && step.value <= n.value ? step.value : 0));
+
+  const rootAttrs = computed<Record<string, unknown>>(() =>
+    n.value
+      ? { 'data-magnify': String(active.value), style: { '--magnify-step': String(step.value) } }
+      : {},
+  );
+
+  return { step, active, rootAttrs };
 }

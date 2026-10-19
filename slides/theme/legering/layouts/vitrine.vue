@@ -41,11 +41,19 @@
   kasten een `v-click`, dus Slidev telt de klikken zelf; twee takken in de
   template omdat `v-click` geen waarde kent die hem uitschakelt (zoals in
   triptych.vue). Beeldpaden door `resolveAsset` (in CropFigure).
+
+  `magnify: true` (#170): klik 1 … n zet het object van kast k zo groot als de
+  slide toelaat, zonder naamplaatje, met de andere als strook aan de rand
+  (met dezelfde `crop`); klik n + 1 keert terug naar de vitrine. Gedeeld met
+  triptych: `useMagnify` en MagnifyLayer uit layouts-base. `magnify`
+  vervangt `reveal`.
 -->
 <script setup lang="ts">
 import { computed, useSlots } from 'vue'
 import CropFigure from '../parts/CropFigure.vue'
 import type { Crop } from '../parts/CropFigure.vue'
+import MagnifyLayer from '../../layouts-base/parts/MagnifyLayer.vue'
+import { useMagnify } from '../../layouts-base/utils'
 
 interface Item {
   src: string
@@ -59,8 +67,9 @@ const props = withDefaults(
   defineProps<{
     items?: Item[]
     reveal?: boolean
+    magnify?: boolean
   }>(),
-  { items: () => [], reveal: false },
+  { items: () => [], reveal: false, magnify: false },
 )
 
 const slots = useSlots()
@@ -74,15 +83,20 @@ const cases = computed(() =>
     crop: item.crop ?? {},
   })),
 )
+
+const magnifyItems = computed(() =>
+  cases.value.map(item => ({ src: item.src, alt: item.title, crop: item.crop })),
+)
+const { active, rootAttrs } = useMagnify(() => props.magnify, () => cases.value.length)
 </script>
 
 <template>
-  <div class="slidev-layout vitrine" :class="{ 'vitrine--headed': hasHeader }">
+  <div class="slidev-layout vitrine" :class="{ 'vitrine--headed': hasHeader }" v-bind="rootAttrs">
     <header v-if="hasHeader" class="vitrine-header">
       <slot />
     </header>
     <div class="vitrine-row" :style="{ '--vitrine-count': cases.length }">
-      <template v-if="reveal">
+      <template v-if="reveal && !magnify">
         <figure v-for="(item, i) in cases" :key="i" v-click class="vitrine-case">
           <div class="vitrine-stage">
             <CropFigure :src="item.src" :alt="item.title" :crop="item.crop" />
@@ -96,7 +110,7 @@ const cases = computed(() =>
       </template>
       <template v-else>
         <figure v-for="(item, i) in cases" :key="i" class="vitrine-case">
-          <div class="vitrine-stage">
+          <div class="vitrine-stage" :data-magnify-source="magnify ? i : undefined">
             <CropFigure :src="item.src" :alt="item.title" :crop="item.crop" />
           </div>
           <figcaption class="vitrine-plate">
@@ -107,6 +121,7 @@ const cases = computed(() =>
         </figure>
       </template>
     </div>
+    <MagnifyLayer v-if="magnify" :items="magnifyItems" :active="active" />
   </div>
 </template>
 
