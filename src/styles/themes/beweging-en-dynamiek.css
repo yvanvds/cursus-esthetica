@@ -1,0 +1,238 @@
+/* src/styles/themes/beweging-en-dynamiek.css
+
+   De pagina doet zelf wat Duchamp deed (#130). Het hoofdstuk opent met
+   *Nu descendant un escalier*: één figuur als twintig posities tegelijk. Daarna
+   Muybridge, die de galop in twaalf platen sneed, de futuristen, en het slot:
+   de beweging zit in de lezer. Vijf elementen, allemaal in het rood van de
+   accent of in het grijs van de grond:
+
+     belichting    de h1 als meervoudige belichting: vier kopieën langs een
+                   diagonaal, van rood naar transparant
+     filmstrook    een geperforeerde strook in de goot links van de kolom,
+                   over de hele hoogte van de tekst (alleen desktop)
+     framenummers  `frame 01` tot `frame 07` boven elke beweging
+     futuristen    De religie van de snelheid: kop en haarlijn hellen voorover,
+                   snelheidsstrepen erachter (Section kind="futurisme")
+     de motor      Jij bent de motor: de kop schuift mee met de scroll
+                   (Section kind="motor", het enige element met JS)
+
+   Geen eigen fonts: Fraunces cursief uit de basis draagt de belichting,
+   JetBrains Mono de framenummers. Het rood (#e23b2e) staat in `accentColor:`
+   in de frontmatter en wordt door ThemeLayout op `html[data-theme]` gezet
+   (#120).
+
+   Elke regel staat onder `html[data-theme="beweging-en-dynamiek"]`: dit
+   bestand zit in de CSS-bundel van élke hoofdstukpagina (ThemeLayout, #120)
+   en mag alleen hier gelden. Een `:root`-blok is verboden — `npm run
+   check:chapters` meldt het. */
+
+/* ---- De meervoudige belichting ----
+   Vier `text-shadow`-lagen, elk 0.06em verder naar rechtsonder — de richting
+   waarin Duchamps naakt de trap afdaalt — en elk zwakker: 85, 55, 30 en 12 %
+   van de accent. De eerste schaduw ligt bovenop, de tekst zelf boven alle
+   vier, in de gewone tekstkleur: de titel blijft leesbaar. Een stilstaand beeld
+   van beweging; er animeert niets, dus ook niets uit te zetten bij
+   prefers-reduced-motion.
+
+   In em, zodat de stapel meeschaalt met de kop (step-5 op desktop, step-4 op
+   mobiel): de verste kopie ligt 0.24em lager, 14px op desktop. De ruimte
+   eronder is de marge naar de eerste h2 (4rem); de broodkruimel staat erboven
+   en krijgt niets. Een schaduw telt niet mee voor de scrollbreedte. */
+
+html[data-theme="beweging-en-dynamiek"] .theme-body > h1 {
+  text-shadow:
+    0.06em 0.06em 0 color-mix(in srgb, var(--color-accent) 85%, transparent),
+    0.12em 0.12em 0 color-mix(in srgb, var(--color-accent) 55%, transparent),
+    0.18em 0.18em 0 color-mix(in srgb, var(--color-accent) 30%, transparent),
+    0.24em 0.24em 0 color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+/* ---- De framenummers ----
+   Elke beweging krijgt boven haar kop een label in mono, `frame 01` tot
+   `frame 07`, in het rood van de accent: de nummering langs de rand van een
+   filmstrook. Geteld worden de h2's die direct in `.theme-body` staan én de
+   twee in een Section-wrapper (futurisme, motor); de wrappers beginnen bij hun
+   kop. Bronnen is de laatste directe h2 (`:last-of-type` onder `.theme-body`):
+   geen label en telt niet mee. In de wrappers is de kop zowel eerste als
+   laatste h2, daarom staat die uitzondering alleen op de directe kinderen. */
+
+html[data-theme="beweging-en-dynamiek"] .theme-body {
+  counter-reset: frame;
+}
+
+html[data-theme="beweging-en-dynamiek"] .theme-body > h2,
+html[data-theme="beweging-en-dynamiek"] .theme-body > .motion-section > h2 {
+  counter-increment: frame;
+}
+
+html[data-theme="beweging-en-dynamiek"] .theme-body > h2::before,
+html[data-theme="beweging-en-dynamiek"] .theme-body > .motion-section > h2::before {
+  content: 'frame ' counter(frame, decimal-leading-zero);
+  display: block;
+  width: max-content;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+html[data-theme="beweging-en-dynamiek"] .theme-body > h2:last-of-type {
+  counter-increment: none;
+}
+
+html[data-theme="beweging-en-dynamiek"] .theme-body > h2:last-of-type::before {
+  content: none;
+}
+
+/* ---- De futuristen ----
+   De religie van de snelheid is het enige regime in dit hoofdstuk dat van de
+   rechte lijn afwijkt. De kop helt voorover, `skewX(-12deg)` om de
+   linkeronderhoek: de voet van de kop blijft op zijn plek, de bovenkant
+   schuift naar rechts, framelabel inbegrepen. De lopende tekst eronder blijft
+   recht.
+
+   De haarlijn onder de kop (::after) helt mee. Een horizontale lijn blijft
+   onder `skewX` horizontaal — alleen haar uiteinden zouden schuin worden, en
+   bij 1px ziet niemand dat — dus de lijn zelf stijgt: −0.8° om haar
+   linkeruiteinde, ongeveer 9px over de kolombreedte op desktop.
+
+   Drie snelheidsstrepen trekken achter de kop aan: horizontale strepen van
+   verschillende lengte die van transparant naar 40 % van de accent lopen en
+   net vóór de eerste letter eindigen. Ze staan in een inspringing van de kop
+   (`padding-left`); het framelabel springt niet mee in (negatieve marge) en
+   staat boven de rand van de kolom — alleen de schuinte duwt het, als
+   bovenste deel van de kop, een kleine 12px naar rechts.
+
+   `margin-right: 1em`: de schuinte duwt de rechterbovenhoek van de kop naar
+   rechts, hoogstens een vijfde van de hoogte van de kop (label en tekst
+   samen, op mobiel twee regels: ±20px). Zonder die ruimte telde de hoek mee
+   voor de scrollbreedte van de kolom en kwam er een horizontale scrollbalk. */
+
+html[data-theme="beweging-en-dynamiek"] .motion-section--futurisme > h2 {
+  /* In rem (1.75 × de grootte van de kop), niet in em: het framelabel heeft
+     een eigen, kleinere letter en moet met dezelfde lengte terugspringen. */
+  --streak-room: calc(1.75 * var(--step-3));
+  --streak: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  position: relative;
+  margin-right: 1em;
+  padding-left: var(--streak-room);
+  padding-bottom: var(--space-xs);
+  transform: skewX(-12deg);
+  transform-origin: 0 100%;
+  background:
+    linear-gradient(to right, transparent, var(--streak))
+      calc(var(--streak-room) * 0.05 - 0.15em) calc(100% - var(--space-xs) - 0.62em)
+      / calc(var(--streak-room) * 0.95) 0.08em no-repeat,
+    linear-gradient(to right, transparent, var(--streak))
+      calc(var(--streak-room) * 0.35 - 0.15em) calc(100% - var(--space-xs) - 0.42em)
+      / calc(var(--streak-room) * 0.65) 0.08em no-repeat,
+    linear-gradient(to right, transparent, var(--streak))
+      calc(var(--streak-room) * 0.2 - 0.15em) calc(100% - var(--space-xs) - 0.22em)
+      / calc(var(--streak-room) * 0.8) 0.08em no-repeat;
+}
+
+html[data-theme="beweging-en-dynamiek"] .motion-section--futurisme > h2::before {
+  margin-left: calc(-1 * var(--streak-room));
+}
+
+html[data-theme="beweging-en-dynamiek"] .motion-section--futurisme > h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transform: rotate(-0.8deg);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  html[data-theme="beweging-en-dynamiek"] .motion-section--futurisme > h2 {
+    --streak-room: calc(1.25 * var(--step-3));
+  }
+}
+
+/* ---- De motor ----
+   Jij bent de motor: de kop van de laatste beweging schuift naar rechts terwijl
+   de lezer langs hem scrolt. Section.astro rekent de verschuiving uit en zet
+   ze als `--motor-x` (in px) op de kop: 0 als de kop net helemaal onderaan in
+   beeld is, het maximum als zijn bovenkant de bovenrand haalt. Het maximum is
+   2.5em, of minder als er naast de kop minder ruimte is.
+
+   `width: fit-content`: de kop is zo breed als zijn tekst, zodat de
+   verschuiving binnen de kolom blijft en geen horizontale scroll maakt.
+   Bij prefers-reduced-motion staat de kop stil, ook als het script nog niet
+   gelopen heeft. */
+
+html[data-theme="beweging-en-dynamiek"] .motion-section--motor > h2 {
+  width: fit-content;
+  max-width: 100%;
+  transform: translateX(var(--motor-x, 0px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="beweging-en-dynamiek"] .motion-section--motor > h2 {
+    transform: none;
+  }
+}
+
+/* ---- De filmstrook ----
+   Desktop: in de goot tussen de lijn van de sidebar en de tekst een
+   verticale filmstrook over de hele hoogte van `.theme-body`, van de titel tot
+   het eind van Bronnen. Muybridges platen en de film die eruit volgde. Geen
+   beeld: drie `repeating-linear-gradient`-lagen op de ::before van
+   `.theme-body`.
+
+     strook       --color-border-subtle, de helft van de goot breed (20px),
+                  midden in de goot: een kwart goot lucht aan elke kant
+     perforatie   twee kolommen gaatjes in de kleur van de grond, 4px breed,
+                  6px hoog, om de 14px, 3px van de rand
+     beeldlijnen  tussen de twee kolommen, om de drie gaatjes (42px) en
+                  midden tussen twee gaatjes, een lijn van 1px in de kleur
+                  van de grond: de grens tussen twee frames
+
+   De strook scrolt mee met de tekst; ze ligt achter niets en vangt geen
+   klikken (`pointer-events: none`).
+
+   `.theme-grid__content` is op desktop een scrollcontainer (overflow-y: auto
+   in ThemeLayout) en knipt alles af wat links buiten zijn rand valt. Zoals in
+   inleiding.css (#128) en instrumentontwikkeling.css (#129) schuift de
+   container één goot naar links, met evenveel padding: tekst en scrollbalk
+   blijven waar ze waren, en de goot hoort nu bij de container, waar de strook
+   staat. Niet op tablet en mobiel: daar is er geen goot naast de kolom. */
+
+@media (min-width: 1024px) {
+  html[data-theme="beweging-en-dynamiek"] .theme-grid__content {
+    width: calc(100% + var(--space-lg));
+    max-width: calc(68ch + var(--space-lg));
+    margin-left: calc(-1 * var(--space-lg));
+    padding-left: var(--space-lg);
+  }
+
+  html[data-theme="beweging-en-dynamiek"] .theme-body {
+    position: relative;
+  }
+
+  html[data-theme="beweging-en-dynamiek"] .theme-body::before {
+    --perf: repeating-linear-gradient(to bottom, var(--color-bg) 0 6px, transparent 6px 14px);
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(100% + var(--space-lg) / 4);
+    width: calc(var(--space-lg) / 2);
+    background:
+      var(--perf) left 3px top 0 / 4px 100% no-repeat,
+      var(--perf) right 3px top 0 / 4px 100% no-repeat,
+      repeating-linear-gradient(to bottom, transparent 0 10px, var(--color-bg) 10px 11px, transparent 11px 42px)
+        center top / 6px 100% no-repeat,
+      var(--color-border-subtle);
+    pointer-events: none;
+  }
+}
