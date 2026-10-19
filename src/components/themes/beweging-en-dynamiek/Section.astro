@@ -1,0 +1,90 @@
+---
+/*
+  Section — one movement of beweging-en-dynamiek that breaks the chapter's
+  straight line (#130). A plain wrapper from the movement's h2 to just before
+  the next h2, like LightSection and RegimeSection; the h2 sits inside it.
+  beweging-en-dynamiek.css does the drawing and counts the frame labels on
+  `.theme-body > h2` and `.motion-section > h2` alike.
+
+    futurisme  De religie van de snelheid: the heading and its hairline lean
+               forward, speed streaks trail behind it. CSS only.
+    motor      Jij bent de motor: the heading slides right as the reader
+               scrolls past it. The script below is the only JS in the
+               chapter's style; it writes the shift as `--motor-x` on the h2.
+*/
+interface Props {
+  kind: 'futurisme' | 'motor';
+}
+const { kind } = Astro.props;
+---
+<div class={`motion-section motion-section--${kind}`} data-motion={kind}>
+  <slot />
+</div>
+
+<script>
+  // "Jij bent de motor": the h2 of the last movement moves with the scroll.
+  // Progress 0 when the heading has just fully entered at the bottom of the
+  // scroll root, 1 when its top reaches the top of the root; the shift is
+  // progress × (2.5em, or the room left beside the heading if that is less),
+  // so the heading never leaves its column and never causes sideways scroll.
+  //
+  // Scroll root: on desktop the text column (`.theme-grid__content`,
+  // overflow-y: auto), on mobile the window. Both are listened to, passively,
+  // and the root is decided per frame from the computed style, so crossing
+  // the 1024px breakpoint needs no rebinding. One rect read per animation
+  // frame at most (requestAnimationFrame throttling).
+  //
+  // Not a CSS scroll-driven animation (`animation-timeline: view()`): Firefox
+  // does not ship it without a flag, and the room-left cap needs the width of
+  // the heading's text, which CSS cannot read without container queries —
+  // and a container on the wrapper would scope the frame counter (style
+  // containment) and turn `frame 07` into `frame 01`.
+  //
+  // prefers-reduced-motion: reduce → no shift, the heading stays put; the CSS
+  // says the same, so it also holds before this script runs.
+  const heading = document.querySelector<HTMLElement>('.motion-section--motor > h2');
+  const container = document.querySelector<HTMLElement>('.theme-grid__content');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (heading) {
+    const section = heading.parentElement as HTMLElement;
+    let pending = false;
+
+    const update = () => {
+      pending = false;
+      if (reduce.matches) {
+        heading.style.removeProperty('--motor-x');
+        return;
+      }
+      const columnScrolls =
+        container !== null && getComputedStyle(container).overflowY === 'auto';
+      const rootTop = columnScrolls ? container.getBoundingClientRect().top : 0;
+      const rootHeight = columnScrolls ? container.clientHeight : window.innerHeight;
+
+      const rect = heading.getBoundingClientRect();
+      // Untransformed position: the shift is horizontal only, so top and
+      // height are unaffected; the width comes from offsetWidth.
+      const travel = rootHeight - rect.height;
+      const raw = travel > 0 ? (rootTop + rootHeight - rect.bottom) / travel : 0;
+      const progress = Math.min(1, Math.max(0, raw));
+
+      const em = parseFloat(getComputedStyle(heading).fontSize);
+      const room = Math.max(0, section.clientWidth - heading.offsetWidth);
+      const max = Math.min(2.5 * em, room);
+      heading.style.setProperty('--motor-x', `${(progress * max).toFixed(1)}px`);
+    };
+
+    const schedule = () => {
+      if (!pending) {
+        pending = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    container?.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    reduce.addEventListener('change', schedule);
+    schedule();
+  }
+</script>
