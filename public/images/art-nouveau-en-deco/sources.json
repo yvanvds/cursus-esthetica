@@ -1,6 +1,150 @@
 {
   "version": 1,
   "images": {
+    "arcane-caitlyn-concept.jpg": {
+      "description": "Arcane — Caitlyn Kiramman, personagemodel in twee aanzichten (herkomst onbekend)",
+      "source": "",
+      "license": "In Copyright",
+      "page_url": "",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-jayce-hek.png": {
+      "description": "Fortiche / Riot Games — Arcane, Jayce achter een hek van rechte staven en diagonalen (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-jayce-poster.png": {
+      "description": "Fortiche / Riot Games — Arcane, Jayce op bed onder een affiche in Mucha-stijl (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-last-drop-exterieur.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, gevel van The Last Drop in Zaun (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-last-drop-interieur.png": {
+      "description": "Fortiche / Riot Games — Arcane, interieur in Zaun met een houten boog, bollampen en een Tiffany-lamp (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-piltover-dak.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, vanaf een dak neerkijken op een plein in Piltover (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-piltover-glasraam.png": {
+      "description": "Fortiche / Riot Games — Arcane, glas-in-loodramen in Piltover (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-piltover-luchtschip.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, luchtschip boven de torens van Piltover (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-piltover-portaal.jpg": {
+      "description": "Joon Ahn — conceptart, portaal in Piltover (gesigneerd 2013; herkomst onbekend)",
+      "source": "",
+      "license": "In Copyright",
+      "page_url": "",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-piltover-raadzaal.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, de raadzaal van Piltover (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-piltover-uitzicht.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, Vi en Powder kijken vanaf een dak uit over Piltover (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-powder-atelier.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, Powder in het atelier (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-titelkaart.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, titelkaart: twee portretten in affichestijl in een patrijspoort (2021)",
+      "source": "Reddit",
+      "license": "In Copyright",
+      "page_url": "https://www.reddit.com/r/PlexPrerolls/comments/rf0x2j/arcane_intro_with_plex_instead_of_netflix/",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-viktor-concept.jpg": {
+      "description": "Arcane — Viktor in twee kostuums, tegen een nouveau- en een deco-paneel (herkomst onbekend)",
+      "source": "",
+      "license": "In Copyright",
+      "page_url": "",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-zaun-gevel.png": {
+      "description": "Fortiche / Riot Games — Arcane, gevel in Zaun met gebroken waaiervenster (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-zaun-muurschildering.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, conceptart: muurschildering in Mucha-stijl in Zaun (watermerk Riot Games; herkomst onbekend)",
+      "source": "",
+      "license": "In Copyright",
+      "page_url": "",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-zaun-stad.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, conceptart: de onderstad (watermerk Riot Games; herkomst onbekend)",
+      "source": "",
+      "license": "In Copyright",
+      "page_url": "",
+      "file_url": "",
+      "downloaded": ""
+    },
+    "arcane-zaun-trap.jpg": {
+      "description": "Fortiche / Riot Games — Arcane, Caitlyn en Vi op een trap in Zaun (2021)",
+      "source": "screenshot (eigenaar)",
+      "license": "In Copyright",
+      "page_url": "https://www.netflix.com/title/81435684",
+      "file_url": "",
+      "downloaded": ""
+    },
     "brusel-1.jpg": {
       "description": "Schuiten & Peeters — Brüsel, binnenpagina (Casterman, 1992)",
       "source": "directe URL",
