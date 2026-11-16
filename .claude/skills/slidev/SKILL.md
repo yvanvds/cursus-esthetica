@@ -157,6 +157,7 @@ hoofdstuk, niet die van de vorige les.
 | `oculus` | perspectief-en-ruimte |
 | `penumbra` | licht-en-schaduw |
 | `pagina37` | graffiti-en-street-art |
+| `chronofoto` | beweging-en-dynamiek |
 
 Een nieuw deck betekent normaal een nieuw thema onder `slides/theme/<naam>/`:
 
@@ -213,6 +214,7 @@ Wat er nu is in `slides/theme/layouts-base/layouts/`:
 | `breathe` | full-bleed beeld op een grond die traag van kleur verschuift, één beeld per klik; leest `--breathe-from` / `--breathe-to` uit het thema |
 | `scale` | beelden op één rij als *schaal*: `images:` op vaste plekken (de lege plekken staan er al), één per klik, `labels:`/`captions:` per beeld, `axis:`/`axis2:` als `{ from, to }` eronder; `stage: true` zet het laatst onthulde beeld groot boven de rij — voor een gradatie (tag → throw-up → piece → wildstyle), niet voor drie losse werken |
 | `spotlight` | één beeld (`image:`) met `regions:` (elk `{ x, y, w, h, label }` in procenten van het beeld); per klik licht één zone op en dimt de rest, label ernaast; `finale: true` geeft een laatste klik met alle zones omlijnd — de docent leest het werk voor, zone na zone, zonder dat het beeld verspringt |
+| `rol` | één heel breed beeld (`image:`) — een handrol, een fries, een panorama — op volle hoogte, dat per klik een halte opschuift; `stops:` haltes, `from: right` (standaard, begint rechts) of `left`, `caption:`; heeft een slot voor een kop. Traag (`--rol-duration`, 5s): het beeld rolt voorbij in plaats van te verspringen. Voor Huaisu's handrol van 23427 × 480 px, die met `image` een streep wordt |
 | `magnify: true` *(sleutel, geen layout)* | op `triptych`, `compare`, `detail` en thema-layouts die `parts/MagnifyLayer.vue` gebruiken (legering: `vitrine`, `tussenstand`, `boven-beneden`): klik 1 … n zet beeld k zo groot als de slide toelaat, zonder bijschrift, de rest als strook aan de rand; klik n + 1 terug naar het overzicht. Vervangt `reveal`. Niet `zoom:` — die sleutel is van Slidev zelf. Beweging uit `--magnify-*`-tokens van het thema; zie `slides/README.md` (#170) |
 
 Vraagt een beweging om iets anders — een tijdlijn, een detail dat in het geheel

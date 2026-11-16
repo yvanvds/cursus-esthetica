@@ -1,0 +1,322 @@
+/* ────────────────────────────────────────────────────────────────────
+   Chronofoto — Cursus Esthetica, hoofdstuk 06 "Waar zit de beweging?"
+
+   Chronofotografie is beweging op één plaat: Muybridge sneed de galop in
+   twaalf opnamen, Marey belichtte één plaat meermaals, en Duchamp vouwde
+   dat terug tot een doek. Dat is het scharnier van het hoofdstuk, en de
+   grond van dit thema is die plaat zelf.
+
+   Sfeer: de donkere rand van Muybridges kaart, met erop wat er op zijn
+   opnamen achter het paard staat — verticale meetlijnen om de 27 duim,
+   vier horizontale hoogtelijnen onderaan — en langs de onderrand een
+   geperforeerde filmstrook. Het rood (#e23b2e) is de accentColor van het
+   hoofdstuk. Familie met de hoofdstukpagina (meervoudige belichting op de
+   titel, filmstrook in de goot, `frame 01` boven elke beweging), zonder
+   CSS te delen.
+
+   Motief: de beweging verhuist, en het thema verhuist mee. Elke beweging
+   heeft een register op haar sectieslide (layouts/section.vue), en wat er
+   op die slide beweegt verschuift van afgebeeld naar echt naar jou:
+
+     class: belicht    meervoudige belichting, stilstaand        (1)
+     class: stil       niets, het evenwicht                      (2)
+     class: plakjes    de kop in opeenvolgende opnamen           (3)
+     class: snelheid   voorover hellend, snelheidsstrepen        (4)
+     class: gebaar     een lijn die zich in één haal tekent      (5)
+     class: mobile     de kop hangt en wiegt, zonder ophouden    (6)
+     class: motor      staat stil tot de docent klikt            (7)
+
+   Tot en met 4 beweegt er niets: het is suggestie. Bij 5 beweegt de slide
+   één keer (het spoor van een hand), bij 6 voortdurend (het werk doet het
+   zelf), bij 7 alleen als iemand in het lokaal iets doet.
+   ──────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Palet — de plaat ──────────────────────────────────────────── */
+  --color-bg:            #121211;   /* de zwarte rand van de kaart */
+  --color-bg-deep:       #0a0a09;
+  --color-bg-elevated:   #1c1b19;
+  --color-surface:       #262421;
+  --color-text:          #efe9dc;   /* albuminepapier */
+  --color-text-muted:    #cfc8b9;
+  --color-text-dim:      #9d978a;
+  --color-text-quiet:    #7d776c;
+  --color-border-subtle: #2c2a26;
+  --color-rule:          #2c2a26;   /* donker thema: verplicht, de fallback
+                                       is --color-text */
+
+  /* ── Het rood ──────────────────────────────────────────────────── */
+  --color-accent:      #e23b2e;                 /* accentColor hoofdstuk */
+  --color-accent-text: #f0584b;                 /* voor kleine tekst: 5,6:1
+                                                   op de grond (zie #152) */
+  --color-accent-soft: rgba(226, 59, 46, 0.16);
+  --color-accent-line: rgba(226, 59, 46, 0.4);
+
+  /* De meetlijnen achter het paard. */
+  --plate-line:      rgba(239, 233, 220, 0.055);
+  --plate-line-firm: rgba(239, 233, 220, 0.11);
+  --plate-pitch:     7.6rem;         /* afstand tussen twee verticale lijnen */
+
+  /* De filmstrook langs de onderrand. */
+  --strip-height: 1.15rem;
+  --strip-color:  #201f1c;
+
+  /* ── Typografie ────────────────────────────────────────────────── */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-serif:   'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans:    'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, ui-monospace, monospace;
+
+  /* Modulaire schaal (1.2) */
+  --step--1: 0.833rem;
+  --step-0:  1rem;
+  --step-1:  1.2rem;
+  --step-2:  1.44rem;
+  --step-3:  1.728rem;
+  --step-4:  2.488rem;
+  --step-5:  3.583rem;
+  --step-6:  4.8rem;
+
+  /* Spacing */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2.5rem;
+  --space-xl:  4rem;
+  --space-2xl: 6rem;
+
+  --radius: 0;
+
+  /* De meervoudige belichting: vier kopieën, elk 0.06em verder naar
+     rechtsonder en zwakker — dezelfde stapel als de h1 van de pagina. */
+  --exposure:
+    0.06em 0.06em 0 color-mix(in srgb, var(--color-accent) 85%, transparent),
+    0.12em 0.12em 0 color-mix(in srgb, var(--color-accent) 55%, transparent),
+    0.18em 0.18em 0 color-mix(in srgb, var(--color-accent) 30%, transparent),
+    0.24em 0.24em 0 color-mix(in srgb, var(--color-accent) 12%, transparent);
+
+  /* Inzoomen (`magnify: true`): het beeld schiet in als een sluiter, kort
+     en zonder nazwaai. */
+  --magnify-duration: 320ms;
+  --magnify-easing: cubic-bezier(0.2, 0.9, 0.2, 1);
+
+  /* Slidev hooks */
+  --slidev-theme-primary: var(--color-accent);
+  --slidev-font-sans:  var(--font-sans);
+  --slidev-font-serif: var(--font-serif);
+  --slidev-font-mono:  var(--font-mono);
+}
+
+/* ── Basis ───────────────────────────────────────────────────────── */
+.slidev-layout {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  padding: var(--space-xl);
+  padding-bottom: calc(var(--space-xl) + var(--strip-height));
+  position: relative;
+  overflow: hidden;
+  font-feature-settings: "kern", "liga";
+}
+
+/* De plaat: verticale meetlijnen over de hele slide, en vier horizontale
+   hoogtelijnen net boven de filmstrook — de vloer waarover Sallie Gardner
+   galoppeert. */
+.slidev-layout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(to bottom,
+      var(--plate-line-firm) 0 1px, transparent 1px 0.5rem)
+      left 0 bottom calc(var(--strip-height) + 1.4rem) / 100% calc(1.5rem + 1px) no-repeat,
+    repeating-linear-gradient(to right,
+      var(--plate-line) 0 1px, transparent 1px var(--plate-pitch))
+      calc(var(--plate-pitch) / 2) 0 / 100% 100%;
+}
+
+/* De filmstrook: één rij perforaties in de kleur van de grond. */
+.slidev-layout::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: var(--strip-height);
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(to right,
+      transparent 0 0.5rem, var(--color-bg) 0.5rem 1.05rem, transparent 1.05rem 1.55rem)
+      0 50% / 100% 0.42rem no-repeat,
+    var(--strip-color);
+}
+
+.slidev-layout > * { position: relative; z-index: 1; }
+
+/* ── Koppen ──────────────────────────────────────────────────────── */
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.slidev-layout h1 { font-size: var(--step-6); margin-bottom: var(--space-md); }
+.slidev-layout h2 { font-size: var(--step-4); margin-bottom: var(--space-md); }
+.slidev-layout h3 {
+  font-size: var(--step-2);
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+.slidev-layout h4 { font-size: var(--step-1); font-style: normal; font-weight: 600; }
+
+/* ── Lopende tekst ───────────────────────────────────────────────── */
+.slidev-layout p,
+.slidev-layout li {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+.slidev-layout li + li { margin-top: 0.35em; }
+
+.slidev-layout strong { color: var(--color-text); font-weight: 500; }
+.slidev-layout em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1em;
+  color: var(--color-accent-text);
+}
+
+.slidev-layout a {
+  color: var(--color-accent-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent-line);
+}
+
+/* ── Citaat — een opname met een rode beeldlijn ──────────────────── */
+.slidev-layout blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--step-4);
+  line-height: 1.25;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-left: 2px solid var(--color-accent);
+  padding: 0 0 0 var(--space-md);
+  margin: var(--space-lg) 0;
+}
+.slidev-layout blockquote p {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── Lijsten — het opsommingsteken is een perforatie ─────────────── */
+.slidev-layout ul { list-style: none; padding-left: 0; }
+.slidev-layout ul > li { position: relative; padding-left: 1.5em; }
+.slidev-layout ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0.2em;
+  top: 0.62em;
+  width: 0.5em;
+  height: 0.34em;
+  background: var(--color-accent);
+}
+.slidev-layout ol { padding-left: 1.8em; }
+.slidev-layout ol > li::marker {
+  color: var(--color-accent-text);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+/* ── COVER ───────────────────────────────────────────────────────── */
+.slidev-layout.cover {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--space-xl) var(--space-2xl);
+}
+.slidev-layout.cover h1 {
+  font-size: clamp(3rem, 9vw, 7.6rem);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-lg);
+  max-width: 12em;
+  text-shadow: var(--exposure);
+}
+.slidev-layout.cover h1 + p {
+  font-weight: 300;
+  font-size: var(--step-2);
+  color: var(--color-text-muted);
+  max-width: 34em;
+}
+
+/* ── EINDE ───────────────────────────────────────────────────────── */
+.slidev-layout.end {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: var(--space-2xl);
+}
+.slidev-layout.end h1 { font-size: var(--step-5); text-shadow: var(--exposure); }
+.slidev-layout.end p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-3);
+  color: var(--color-text-muted);
+}
+
+/* ── Meta-regels — framenummers, jaartallen, plaatsen ────────────── */
+.slidev-layout .meta {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+.slidev-layout .meta-quiet {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+
+/* Een woord in meervoudige belichting, midden in een kop of een zin. */
+.slidev-layout .belicht { text-shadow: var(--exposure); }
+
+/* ── Gecentreerde layout (Slidev ingebouwd) ──────────────────────── */
+.slidev-layout.center { text-align: center; }
+
+/* ── Beeldlayouts — de plaat wijkt voor het werk ─────────────────────
+   Meetlijnen en perforaties over een kunstwerk lezen als krassen. Waar het
+   beeld het onderwerp is, blijft alleen de zwarte grond. `image-left` en
+   `image-right` zetten hun klasse op de teksthelft; die houdt de plaat. */
+.slidev-layout.image::before,
+.slidev-layout.image::after,
+.slidev-layout.triptych::before,
+.slidev-layout.triptych::after,
+.slidev-layout.compare::before,
+.slidev-layout.compare::after,
+.slidev-layout.detail::before,
+.slidev-layout.breathe::before,
+.slidev-layout.breathe::after,
+.slidev-layout.spotlight::before,
+.slidev-layout.spotlight::after,
+.slidev-layout.rol::before,
+.slidev-layout.paired-reveal::before { display: none; }
+
+.slidev-layout.quadrants .quadrant { background: var(--color-bg-elevated); }
+.slidev-layout.quadrants .quadrant h3 { color: var(--color-accent-text); }
+.slidev-layout.paired-reveal .paired-reveal-image img {
+  background: var(--color-bg-elevated);
+}
