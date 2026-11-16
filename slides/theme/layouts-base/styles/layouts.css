@@ -266,6 +266,62 @@
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
 
+/* ── ROL — één heel breed beeld dat per klik een halte opschuift.
+     Zie rol.vue. ──────────────────────────────────────────────────── */
+.slidev-layout.rol {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--space-sm);
+  padding: var(--space-lg) 0 var(--space-lg);
+}
+.slidev-layout.rol.rol--headed {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.slidev-layout.rol .rol-header,
+.slidev-layout.rol .rol-foot {
+  padding: 0 var(--space-lg);
+}
+.slidev-layout.rol .rol-header h2 {
+  margin-bottom: 0;
+}
+/* Het podium is een size-container: 100cqw is zijn breedte, en daarmee
+   rekent de verschuiving van het beeld. */
+.slidev-layout.rol .rol-stage {
+  container-type: size;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.slidev-layout.rol .rol-image {
+  display: block;
+  flex: 0 0 auto;
+  height: var(--rol-height, 100%);
+  width: auto;
+  max-width: none;
+  transform: translateX(calc((100cqw - 100%) * var(--rol-t, 0)));
+  transition: transform var(--rol-duration, 5s) var(--rol-easing, ease-in-out);
+}
+.slidev-layout.rol .rol-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+}
+.slidev-layout.rol .rol-stop {
+  margin-left: auto;
+  white-space: nowrap;
+  color: var(--color-accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .slidev-layout.rol .rol-image { transition: none; }
+}
+
 /* ── COMPARE — twee afbeeldingen naast elkaar, zonder titel ───────── */
 .slidev-layout.compare {
   display: grid;

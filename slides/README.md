@@ -11,6 +11,7 @@ slides/
   theme/
     manifest/  contrapunctus/  aigles/           # één Slidev-thema per hoofdstuk
     oculus/    penumbra/       pagina37/
+    legering/  chronofoto/
     layouts-base/                        # gedeeld addon met extra layouts
   <theme-id>/slides.md            # één map per deck
   build-all.mjs                   # bouwt alle decks naar dist/slides/<id>/
@@ -24,7 +25,7 @@ Elk hoofdstuk krijgt zijn **eigen visuele thema** onder `theme/` — het draagt 
 sfeer van dat hoofdstuk, niet die van de vorige les. Daarnaast trekt een deck het
 **`layouts-base`-addon** binnen voor de gedeelde extra layouts (`compare`,
 `duet`, `triptych`, `detail`, `paired-reveal`, `quadrants`, `breathe`, `scale`,
-`spotlight`) en de videocomponenten:
+`spotlight`, `rol`) en de videocomponenten:
 
 ```yaml
 ---
@@ -72,6 +73,7 @@ custom properties op `:root` definiëren wil het addon correct renderen:
 | `--space-sm`, `--space-md`, `--space-lg`, `--space-xl` | gaps en padding |
 | `--font-mono`, `--step--1` | meta-regel in quadrant, bijschriften in triptych en detail, labels in duet |
 | `--breathe-from`, `--breathe-to` *(optioneel)* | begin- en eindkleur van de grond onder `layout: breathe`; optioneel `--breathe-via-1` / `--breathe-via-2` voor de tussenstanden en `--breathe-duration` (standaard 75s). Zonder deze tokens staat de grond stil op `--color-bg` — geen effect in plaats van een verkeerd effect |
+| `--rol-duration`, `--rol-easing`, `--rol-height` *(optioneel)* | `layout: rol`: hoe lang en hoe het brede beeld naar de volgende halte schuift (standaard 5s, ease-in-out) en hoe hoog het beeld in het podium staat (standaard 100%). De halte rechtsonder staat in `--color-accent` |
 | `--magnify-*` *(optioneel)* | de beweging en maat van het inzoomen (`magnify: true`, zie hieronder); zonder deze tokens een neutrale groei van 450 ms |
 
 ### Inzoomen per klik: `magnify: true`
@@ -239,12 +241,13 @@ mechanismen voorkomen dat:
 
 1. **Override-layouts in `theme/layouts-base/`.** `image.vue`,
    `image-right.vue`, `image-left.vue`, `compare.vue`, `triptych.vue`,
-   `detail.vue`, `breathe.vue`, `scale.vue`, `spotlight.vue` en
+   `detail.vue`, `breathe.vue`, `scale.vue`, `spotlight.vue`, `rol.vue` en
    `paired-reveal.vue` gebruiken een lokale
    `resolveAsset` die paden onder `/cursus-esthetica/` ongewijzigd doorlaat.
    Slidev's eigen `image`/`image-right`-layouts worden zo automatisch
    overschreven door het addon. Elke eigen layout die een beeldpad verwerkt —
-   ook een thema-eigen zoals `raking` of `dimmer` in `penumbra` — moet
+   ook een thema-eigen zoals `raking` of `dimmer` in `penumbra`, of `frames` en
+   `stapel` in `chronofoto` — moet
    diezelfde `resolveAsset` gebruiken.
 2. **Post-build rewrite in `build-postprocess.mjs`.** Slidev genereert ook
    `<link rel="preload">`-tags in `index.html` via z'n interne resolver,
